@@ -1,0 +1,182 @@
+﻿@{
+    ViewBag.Title = "Customer";
+}
+
+<link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+<link rel="stylesheet" href="~/Content/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="~/Content/matrix-style.css" />
+<link rel="stylesheet" href="~/Content/matrix-media.css" />
+<link rel="stylesheet" href="~/Content/uniform.css" />
+<link rel="stylesheet" href="~/Content/select2.css" />
+<link href="~/fonts/gst_font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+
+<div id="content-header">
+    <div id="breadcrumb"> <a href='@Url.Action("Dashboard", "Home")' title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href='@Url.Action("Customer", "Home")'>Add Applicant</a></div>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget-box">
+                <div class="widget-title">
+                    <span class="icon"> <i class="icon-info-sign"></i> </span>
+                    <h5>Add Applicant Details</h5>
+                </div>
+                <div class="widget-content nopadding">
+                    <form method="post" action="#" name="basic_validate" id="basic_validate" novalidate="novalidate">
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr class="odd gradeX">
+                                    <td><label class="control-label">Applicant Name</label></td>
+                                    <td><input type="text" name="pcode" id="required"></td>
+                                    <td><label class="control-label">Email ID</label></td>
+                                    <td><input type="text" name="pname" id="required"></td>
+                                    <td><label class="control-label">Phone</label></td>
+                                    <td><input type="text" name="phsn" id="required"></td>
+                                </tr>
+                                <tr class="odd gradeX">
+                                    <td><label class="control-label">Address</label></td>
+                                    <td><input type="text" name="pcgst" id="required"></td>
+                                    <td><label class="control-label">PAN NO</label></td>
+                                    <td><input type="text" name="psgst" id="required"></td>
+                                    <td><label class="control-label">AADHAR NO</label></td>
+                                    <td><input type="text" name="pigst" id="required"></td>
+                                </tr>
+                                <tr class="odd gradeX">
+                                    <td><label class="control-label">Occupation</label></td>
+                                    <td><input type="text" name="pcgst" id="required"></td>
+                                    <td><label class="control-label">Birth Date</label></td>
+                                    <td><input type="text" name="psgst" id="required"></td>
+                                    <td><label class="control-label">Age</label></td>
+                                    <td><input type="text" name="pigst" id="required"></td>
+                                </tr>
+                                <tr class="odd gradeX">
+                                    <td><label class="control-label">Co-Applicant Name</label></td>
+                                    <td><input type="text" name="pcgst" id="required"></td>
+                                    <td><label class="control-label">Co - PAN  NO</label></td>
+                                    <td><input type="text" name="psgst" id="required"></td>
+                                    <td><label class="control-label">Co - AADHAR NO</label></td>
+                                    <td><input type="text" name="pigst" id="required"></td>
+                                </tr>
+                                <tr class="odd gradeX">
+                                    <td><label class="control-label">Co - Occupation</label></td>
+                                    <td><input type="text" name="prate" id="required"></td>
+                                    <td><label class="control-label">Co - Birth Date</label></td>
+                                    <td><input type="submit" value="Save" class="btn btn-success" /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </div>
+            <div class="widget-box">
+                <div class="widget-title">
+                    <span class="icon"><i class="icon-th"></i></span>
+                    <h5>All Applicants</h5> <span style="float:right"><button class="btn btn-danger">Multiple Delete</button></span>
+                </div>
+                <div class="widget-content nopadding">
+                    <table class="table table-bordered data-table with-check">
+                        <thead>
+                            <tr>
+                                <th>Applicant Name</th>
+                                <th>Address</th>
+                                <th>Email Id</th>
+                                <th>Mobile</th>
+                                <th>PAN NO</th>
+                                <th>AADHAR NO</th>
+                                <th>Occupation</th>
+                                <th>Birth Date</th>
+                                <th>Age</th>
+                                <th>Co Applicant Name</th>
+                                <th>Co - PAN NO</th>
+                                <th>Co - AADHAR NO</th>
+                                <th>Co - Occupation</th>
+                                <th>Co - Birth Date</th>
+                                <th>Status</th>
+                                <th>Modify</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="gradeX">
+                                <td>Trident</td>
+                                <td>Trident</td>
+                                <td>Trident</td>
+                                <td>Trident</td>
+                                <td>Trident</td>
+                                <td>Trident</td>
+                                <td>Trident</td>
+                                <td>Trident</td>
+                                <td>Trident</td>
+                                <td>Trident</td>
+                                <td>Trident</td>
+                                <td>Trident</td>
+                                <td>
+                                    Internet
+                                    Explorer 4.0
+                                </td>
+                                <td>Win 95+</td>
+                                <td class="center">4</td>
+                                <td align="center"><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>
+                            </tr>
+                            <tr class="gradeX">
+                                <td>Trident</td>
+                                <td>Trident</td>
+                                <td>Trident</td>
+                                <td>Trident</td>
+                                <td>Trident</td>
+                                <td>Trident</td>
+                                <td>Trident</td>
+                                <td>Trident</td>
+                                <td>Trident</td>
+                                <td>Trident</td>
+                                <td>Trident</td>
+                                <td>Trident</td>
+                                <td>
+                                    Internet
+                                    Explorer 4.0
+                                </td>
+                                <td>Win 95+</td>
+                                <td class="center">4</td>
+                                <td align="center"><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>
+                            </tr>
+                            <tr class="gradeX">
+                                <td>Trident</td>
+                                <td>Trident</td>
+                                <td>Trident</td>
+                                <td>Trident</td>
+                                <td>Trident</td>
+                                <td>Trident</td>
+                                <td>Trident</td>
+                                <td>Trident</td>
+                                <td>Trident</td>
+                                <td>Trident</td>
+                                <td>Trident</td>
+                                <td>Trident</td>
+                                <td>
+                                    Internet
+                                    Explorer 4.0
+                                </td>
+                                <td>Win 95+</td>
+                                <td class="center">4</td>
+                                <td align="center"><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery.min.js"></script>
+<script src="~/Scripts/jquery.ui.custom.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/matrix.popover.js"></script>
+<script src="~/Scripts/jquery.uniform.js"></script>
+<script src="~/Scripts/select2.min.js"></script>
+<script src="~/Scripts/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/matrix.js"></script>
+<script src="~/Scripts/matrix.tables.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/matrix.form_validation.js"></script>
+

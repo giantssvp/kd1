@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Kolhe Developer</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    @Scripts.Render("~/bundles/jquery")
+    <!--Header-part-->
+    <div id="header">
+        <h1><a href="dashboard.html">Kolhe Developers</a></h1>
+    </div>    
+    <!--close-Header-part-->
+    <!--top-Header-menu-->
+    <div id="user-nav" class="navbar navbar-inverse">
+        <ul class="nav">
+            <li class="dropdown" id="profile-messages">
+                <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle"><i class="icon icon-user"></i>  <span class="text">Welcome User</span><b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href='@Url.Action("Profile", "Home")'><i class="icon-user"></i> My Profile</a></li>
+                    <li class="divider"></li>
+                    <li><a href='@Url.Action("Logout", "Home")'><i class="icon-key"></i>Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <!--close-top-Header-menu-->
+    <!--start-top-serch-->
+    <div id="search">
+        <input type="text" placeholder="Search here..." />
+        <button type="submit" class="tip-bottom" title="Search"><i class="icon-search icon-white"></i></button>
+    </div>
+    <!--close-top-serch-->
+    <!--sidebar-menu-->
+    <div id="sidebar">
+        <a href="#" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
+        <ul>
+            <li><a href='@Url.Action("Index", "Home")'><i class="icon icon-home"></i> <span>Enquiry</span></a> </li>
+            <li><a href='@Url.Action("Sites", "Home")'><i class="icon icon-signal"></i> <span>Sites</span></a> </li>
+            <li><a href='@Url.Action("Executive", "Home")'><i class="icon icon-inbox"></i> <span>Executive</span></a> </li>
+            <li><a href='@Url.Action("Franchies", "Home")'><i class="icon icon-inbox"></i> <span>Franchies</span></a> </li>
+            <li><a href='@Url.Action("Customer", "Home")'><i class="icon icon-th"></i> <span>Customer</span></a></li>
+            <li><a href='@Url.Action("Booking", "Home")'><i class="icon icon-fullscreen"></i> <span>Booking</span></a></li>
+            <li><a href='@Url.Action("PaymentCommit", "Home")'><i class="icon icon-tint"></i> <span>Payment Commitment</span></a></li>
+            <li><a href='@Url.Action("PaymentDetails", "Home")'><i class="icon icon-pencil"></i> <span>Payment Details</span></a></li>
+            <li><a href='@Url.Action("Aggrement", "Home")'><i class="icon icon-pencil"></i> <span>Agreement Details</span></a></li>
+            <li><a href='@Url.Action("Finance", "Home")'><i class="icon icon-pencil"></i> <span>Finance</span></a></li>
+            <li><a href='@Url.Action("FileStatus", "Home")'><i class="icon icon-pencil"></i> <span>FileStatus</span></a></li>
+            <li><a href='@Url.Action("Report", "Home")'><i class="icon icon-pencil"></i> <span>Report</span></a></li>
+            <li><a href='@Url.Action("Dashboard", "Home")'><i class="icon icon-pencil"></i> <span>Backup</span></a></li>
+        </ul>
+    </div>
+    <!--sidebar-menu-->
+    <!--main-container-part-->
+    <div id="content">
+        @RenderBody()
+    </div>
+    <!--end-main-container-part-->
+    <!--Footer-part-->
+
+    <div class="row-fluid">
+        <div id="footer" class="span12"> 2018 &copy; Kolhe Developers</div>
+    </div>
+
+    <!--end-Footer-part-->
+
+    <script type="text/javascript">
+  // This function is called from the pop-up menus to transfer to
+  // a different page. Ignore if the value returned is a null string:
+  function goPage (newURL) {
+
+      // if url is empty, skip the menu dividers and reset the menu selection to default
+      if (newURL != "") {
+
+          // if url is "-", it is this page -- reset the menu:
+          if (newURL == "-" ) {
+              resetMenu();
+          }
+          // else, send page to designated URL
+          else {
+            document.location.href = newURL;
+          }
+      }
+  }
+
+// resets the menu selection upon entry to this page:
+function resetMenu() {
+   document.gomenu.selector.selectedIndex = 2;
+}
+    </script>
+</body>
+</html>

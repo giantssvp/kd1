@@ -1,0 +1,131 @@
+﻿
+@{
+    ViewBag.Title = "Executive";
+}
+
+<link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+<link rel="stylesheet" href="~/Content/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="~/Content/matrix-style.css" />
+<link rel="stylesheet" href="~/Content/matrix-media.css" />
+<link rel="stylesheet" href="~/Content/uniform.css" />
+<link rel="stylesheet" href="~/Content/select2.css" />
+<link href="~/fonts/gst_font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+
+<div id="content-header">
+    <div id="breadcrumb"> <a href='@Url.Action("Dashboard", "Home")' title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href='@Url.Action("Franchies", "Home")'>Franchies</a></div>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget-box">
+                <div class="widget-title">
+                    <span class="icon"> <i class="icon-info-sign"></i> </span>
+                    <h5>Add Franchies Details</h5>
+                </div>
+                <div class="widget-content nopadding">
+                    <form method="post" action="#" name="basic_validate" id="basic_validate" novalidate="novalidate">
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr class="odd gradeX">
+                                    <td><label class="control-label">Franchies Name</label></td>
+                                    <td><input type="text" name="francname" id="required"></td>
+                                    <td><label class="control-label">Franchies Code</label></td>
+                                    <td> <input type="text" name="franccode" id="required"></td>
+                                    <td><label class="control-label">Email ID</label></td>
+                                    <td><input type="text" name="francemail" id="required"></td>
+                                </tr>
+                                <tr class="odd gradeX">
+                                    <td><label class="control-label">Mobile No</label></td>
+                                    <td><input type="text" name="francmob" id="required"></td>
+                                    <td><label class="control-label">Address</label></td>
+                                    <td> <input type="text" name="francadd" id="required"></td>
+                                    <td><label class="control-label">Joining Date</label></td>
+                                    <td><input type="text" name="francjoin" id="required"></td>
+                                </tr>
+                                <tr class="odd gradeX">
+                                    <td><label class="control-label">Status</label></td>
+                                    <td> <textarea class="francstatus"></textarea></td>
+                                    <td></td>
+                                    <td><input type="submit" value="Save" class="btn btn-success" /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </div>
+            <div class="widget-box">
+                <div class="widget-title">
+                    <span class="icon"><i class="icon-th"></i></span>
+                    <h5>All Franchies</h5> <span style="float:right"><button class="btn btn-danger">Multiple Delete</button></span>
+                </div>
+                <div class="widget-content nopadding">
+                    <table class="table table-bordered data-table with-check">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Code</th>
+                                <th>Mobile</th>
+                                <th>Email</th>
+                                <th>Address</th>
+                                <th>Joining Date</th>
+                                <th>Modify</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="gradeX">
+                                <td>Trident</td>
+                                <td>
+                                    Internet
+                                    Explorer 4.0
+                                </td>
+                                <td>Win 95+</td>
+                                <td>Win 95+</td>
+                                <td>Win 95+</td>
+                                <td class="center">4</td>
+                                <td align="center"><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>
+                            </tr>
+                            <tr class="gradeC">
+                                <td>Trident</td>
+                                <td>
+                                    Internet
+                                    Explorer 5.0
+                                </td>
+                                <td>Win 95+</td>
+                                <td>Win 95+</td>
+                                <td>Win 95+</td>
+                                <td class="center">5</td>
+                                <td align="center"><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>
+                            </tr>
+                            <tr class="gradeA">
+                                <td>Trident</td>
+                                <td>
+                                    Internet
+                                    Explorer 5.5
+                                </td>
+                                <td>Win 95+</td>
+                                <td class="center">5.5</td>
+                                <td>Win 95+</td>
+                                <td>Win 95+</td>
+                                <td align="center"><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery.min.js"></script>
+<script src="~/Scripts/jquery.ui.custom.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/matrix.popover.js"></script>
+<script src="~/Scripts/jquery.uniform.js"></script>
+<script src="~/Scripts/select2.min.js"></script>
+<script src="~/Scripts/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/matrix.js"></script>
+<script src="~/Scripts/matrix.tables.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/matrix.form_validation.js"></script>
+
