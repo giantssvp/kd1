@@ -124,5 +124,48 @@ namespace kd.Controllers
             }
         }
 
+        public ActionResult add_executive(string exename, string execode, string exeemail, string exemob, string exeadd, string exejoin, string exebirth, string exestatus)
+        {
+            try
+            {
+                obj.insert_executive(exename, execode, exeemail, exemob, exeadd, exejoin, exebirth, exestatus);
+                return RedirectToAction("Executive", "Home");
+            }
+            catch (Exception ex)
+            {
+                System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
+                return RedirectToAction("Executive", "Home");
+            }
+        }
+
+        public ActionResult add_franchies(string francname, string franccode, string francemail, string francmob, string francadd, string francjoin, string francstatus)
+        {
+            try
+            {
+                obj.insert_franchies(francname, franccode, francemail, francmob, francadd, francjoin, francstatus);
+                return RedirectToAction("Franchies", "Home");
+            }
+            catch (Exception ex)
+            {
+                System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
+                return RedirectToAction("Franchies", "Home");
+            }
+        }
+
+        public ActionResult add_applicant(string applname, string applemail, string applmob, string appladdr, string applpan, string applaadhar,
+            string apploccu, string applbirth, string applage, string coapplname, string coapplpan, string coapplaadhar, string coapploccu, string coapplbirth)
+        {
+            try
+            {
+                obj.insert_applicant(applname, applemail, applmob, appladdr, applpan, applaadhar,
+             apploccu, applbirth, applage, coapplname, coapplpan, coapplaadhar, coapploccu, coapplbirth);
+                return RedirectToAction("Customer", "Home");
+            }
+            catch (Exception ex)
+            {
+                System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
+                return RedirectToAction("Customer", "Home");
+            }
+        }
     }
 }

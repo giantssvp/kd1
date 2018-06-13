@@ -143,6 +143,106 @@ namespace kd.Models
             {
                 return -1;
             }
+        }        
+
+        public int insert_executive(string exename, string execode, string exeemail, string exemob, string exeadd, string exejoin, string exebirth, string exestatus)
+        {
+            try
+            {
+                string query = "INSERT INTO executive (Executive_Name, Executive_Code, Email_Id, Phone, Address, Birth_Date, Joining_Date, Date, Status) " +
+                    "VALUES(@name, @code, @email, @phone, @addr, @birth, @join, NOW(), @status)";
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@name", exename);
+                    cmd.Parameters.AddWithValue("@code", execode);
+                    cmd.Parameters.AddWithValue("@email", exeemail);
+                    cmd.Parameters.AddWithValue("@phone", exemob);
+                    cmd.Parameters.AddWithValue("@addr", exeadd);
+                    cmd.Parameters.AddWithValue("@birth", exebirth);
+                    cmd.Parameters.AddWithValue("@join", exejoin);
+                    cmd.Parameters.AddWithValue("@status", 1); //To be changed
+
+                    cmd.ExecuteNonQuery();
+                    this.CloseConnection();
+                }
+                return 0;
+            }
+            catch (MySqlException ex)
+            {
+                return -1;
+            }
+        }
+                
+        public int insert_franchies(string francname, string franccode, string francemail, string francmob, string francadd, string francjoin, string francstatus)
+        {
+            try
+            {
+                string query = "INSERT INTO franchies (Francies_Name, Email_Id, Phone, Address, Date, Status) " +
+                    "VALUES(@name, @email, @phone, @addr, NOW(), @status)";
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@name", francname);
+                    //cmd.Parameters.AddWithValue("@code", franccode);
+                    cmd.Parameters.AddWithValue("@email", francemail);
+                    cmd.Parameters.AddWithValue("@phone", francmob);
+                    cmd.Parameters.AddWithValue("@addr", francadd);
+                    cmd.Parameters.AddWithValue("@join", francjoin);
+                    cmd.Parameters.AddWithValue("@status", 1); //To be changed
+
+                    cmd.ExecuteNonQuery();
+                    this.CloseConnection();
+                }
+                return 0;
+            }
+            catch (MySqlException ex)
+            {
+                return -1;
+            }
+        }        
+
+        public int insert_applicant(string applname, string applemail, string applmob, string appladdr, string applpan, string applaadhar,
+            string apploccu, string applbirth, string applage, string coapplname, string coapplpan, string coapplaadhar, string coapploccu, string coapplbirth)
+        {
+            try
+            {
+                string query = "INSERT INTO applicant (Applicant_Name, Applicant_Email_Id, Applicant_Phone, Applicant_Address, Applicant_Pan_No, " +
+                    "Applicant_Adhar_No, Applicant_Occupation, Applicant_DOB, Applicant_Age, Co_Applicant_Name, Co_Applicant_Pan_No, " +
+                    "Co_Applicant_Adhar_No, Co_Applicant_Occupation, Co_Applicant_DOB, Date, Status) " +
+                    "VALUES(@name, @email, @phone, @addr, @pan, @aadhar, @occu, @birth, @age, @cname, @cpan, @caadhar, @coccu, @cbirth, NOW(), @status)";
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@name", applname);
+                    cmd.Parameters.AddWithValue("@email", applemail);
+                    cmd.Parameters.AddWithValue("@phone", applmob);
+                    cmd.Parameters.AddWithValue("@addr", appladdr);
+                    cmd.Parameters.AddWithValue("@pan", applpan);
+                    cmd.Parameters.AddWithValue("@aadhar", applaadhar);
+                    cmd.Parameters.AddWithValue("@occu", apploccu);
+                    cmd.Parameters.AddWithValue("@birth", applbirth);
+                    cmd.Parameters.AddWithValue("@age", applage);
+
+                    cmd.Parameters.AddWithValue("@cname", coapplname);
+                    cmd.Parameters.AddWithValue("@cpan", coapplpan);
+                    cmd.Parameters.AddWithValue("@caadhar", coapplaadhar);
+                    cmd.Parameters.AddWithValue("@coccu", coapploccu);
+                    cmd.Parameters.AddWithValue("@cbirth", coapplbirth);
+                    cmd.Parameters.AddWithValue("@status", 1); //To be changed
+
+                    cmd.ExecuteNonQuery();
+                    this.CloseConnection();
+                }
+                return 0;
+            }
+            catch (MySqlException ex)
+            {
+                return -1;
+            }
         }
 
         public int Insert_Booking(string transaction_id, string transaction_status, string transaction_date, string product_info,
