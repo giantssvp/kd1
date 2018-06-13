@@ -23,60 +23,60 @@
                     <h5>Add Finance Details</h5>
                 </div>
                 <div class="widget-content nopadding">
-                    <form method="post" action="#" name="basic_validate" id="basic_validate" novalidate="novalidate">
+                    <form method="post" action="@Url.Action("add_finance","Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
                         <table class="table table-striped">
                             <tbody>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Finance Type</label></td>
-                                    <td><input type="text" name="pcode" id="required"></td>
+                                    <td><input type="text" name="fintype" id="required"></td>
                                     <td><label class="control-label">Finance Name</label></td>
-                                    <td> <input type="text" name="pname" id="required"></td>
+                                    <td> <input type="text" name="finname" id="required"></td>
                                     <td><label class="control-label">Finance Executive</label></td>
-                                    <td><input type="text" name="phsn" id="required"></td>
+                                    <td><input type="text" name="finexe" id="required"></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Finance Executive Mobile No</label></td>
-                                    <td><input type="text" name="pcgst" id="required"></td>
+                                    <td><input type="text" name="finexemob" id="required"></td>
                                     <td><label class="control-label">Finance Executive Email Id</label></td>
-                                    <td> <input type="text" name="psgst" id="required"></td>
+                                    <td> <input type="text" name="finexeemail" id="required"></td>
                                     <td><label class="control-label">File Handover Date</label></td>
-                                    <td><input type="text" name="pigst" id="required"></td>
+                                    <td><input type="text" name="filehanddate" id="required"></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">File Status</label></td>
-                                    <td><input type="text" name="pcgst" id="required"></td>
+                                    <td><input type="text" name="filesta" id="required"></td>
                                     <td><label class="control-label">File Sanction Date</label></td>
-                                    <td> <input type="text" name="psgst" id="required"></td>
+                                    <td> <input type="text" name="filesanctdate" id="required"></td>
                                     <td><label class="control-label">Required Loan Amount</label></td>
-                                    <td><input type="text" name="pigst" id="required"></td>
+                                    <td><input type="text" name="reqloanamt" id="required"></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Sanction Loan Amount</label></td>
-                                    <td><input type="text" name="pcgst" id="required"></td>
+                                    <td><input type="text" name="sanctloanamt" id="required"></td>
                                     <td><label class="control-label">Total Disbursement Amount</label></td>
-                                    <td> <input type="text" name="psgst" id="required"></td>
+                                    <td> <input type="text" name="disburseamt" id="required"></td>
                                     <td><label class="control-label">Actual Loan Amount</label></td>
-                                    <td><input type="text" name="pigst" id="required"></td>
+                                    <td><input type="text" name="actloanamt" id="required"></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Receiving DD Amount</label></td>
-                                    <td><input type="text" name="pcgst" id="required"></td>
+                                    <td><input type="text" name="recddamt" id="required"></td>
                                     <td><label class="control-label">Remaining DD Amount</label></td>
-                                    <td> <input type="text" name="psgst" id="required"></td>
+                                    <td> <input type="text" name="remddamt" id="required"></td>
                                     <td><label class="control-label">Rate Of Interest</label></td>
-                                    <td><input type="text" name="pigst" id="required"></td>
+                                    <td><input type="text" name="rateofinter" id="required"></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">EMI Amount</label></td>
-                                    <td><input type="text" name="pcgst" id="required"></td>
+                                    <td><input type="text" name="emiamt" id="required"></td>
                                     <td><label class="control-label">EMI Total Months</label></td>
-                                    <td> <input type="text" name="psgst" id="required"></td>
+                                    <td> <input type="text" name="emimonths" id="required"></td>
                                     <td><label class="control-label">Booking ID</label></td>
-                                    <td><input type="text" name="pigst" id="required"></td>
+                                    <td><input type="text" name="bookid" id="required"></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Status</label></td>
-                                    <td> <textarea class="span11"></textarea></td>
+                                    <td> <textarea class="span11" name="finstat"></textarea></td>
                                     <td></td>
                                     <td><input type="submit" value="Save" class="btn btn-success" /></td>
                                 </tr>

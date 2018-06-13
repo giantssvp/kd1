@@ -59,7 +59,7 @@ namespace kd.Controllers
 
             return View();
         }
-        public ActionResult Aggrement()
+        public ActionResult Agreement()
         {
 
             return View();
@@ -165,6 +165,81 @@ namespace kd.Controllers
             {
                 System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
                 return RedirectToAction("Customer", "Home");
+            }
+        }
+
+        public ActionResult add_booking(string bno, string breferred, string bincentive, string bincome, string bcancel, string btamount,
+            string bramount, string bblder, string bparking, string bcharges, string bfollowup, string bstatus, string bremark, string psgst, string bflats, string bapplicant, string bexecutive, string bfranchies)
+        {
+            try
+            {
+                obj.insert_booking(bno, breferred, bincentive, bincome, bcancel, btamount,
+             bramount, bblder, bparking, bcharges, bfollowup, bstatus, bremark, psgst, bflats, bapplicant, bexecutive, bfranchies);
+                return RedirectToAction("Booking", "Home");
+            }
+            catch (Exception ex)
+            {
+                System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
+                return RedirectToAction("Booking", "Home");
+            }
+        }
+
+        public ActionResult add_paymentcommit(string ctype, string camount, string cstatus, string cremark)
+        {
+            try
+            {
+                obj.insert_paymentcommit(ctype, camount, cstatus, cremark);
+                return RedirectToAction("PaymentCommit", "Home");
+            }
+            catch (Exception ex)
+            {
+                System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
+                return RedirectToAction("PaymentCommit", "Home");
+            }
+        }
+
+        public ActionResult add_paymentdetails(string pamt, string pdate, string pmode, string chkid, string chkdate, string bname,
+            string ptype, string bldpay, string bnkpay, string sts)
+        {
+            try
+            {
+                obj.insert_paymentdetails(pamt, pdate, pmode, chkid, chkdate, bname, ptype, bldpay, bnkpay, sts);
+                return RedirectToAction("PaymentDetails", "Home");
+            }
+            catch (Exception ex)
+            {
+                System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
+                return RedirectToAction("PaymentDetails", "Home");
+            }
+        }
+
+        /*public ActionResult add_agreement(string pcode, string pname, string phsn, string pcgst, string psgst, string pigst, string prate)
+        {
+            try
+            {
+                obj.insert_agreement(pcode, pname, phsn, pcgst, psgst, pigst, prate);
+                return RedirectToAction("Agreement", "Home");
+            }
+            catch (Exception ex)
+            {
+                System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
+                return RedirectToAction("Agreement", "Home");
+            }
+        }*/
+
+        public ActionResult add_finance(string fintype, string finname, string finexe, string finexemob, string finexeemail, string filehanddate,
+            string filesta, string filesanctdate, string reqloanamt, string sanctloanamt, string disburseamt, string actloanamt, string recddamt, string remddamt, string rateofinter, string emiamt, string emimonths, string bookid, string finstat)
+        {
+            try
+            {
+                obj.insert_finance(fintype, finname, finexe, finexemob, finexeemail, filehanddate,
+             filesta, filesanctdate, reqloanamt, sanctloanamt, disburseamt, actloanamt, recddamt, remddamt, rateofinter, emiamt, emimonths, bookid, finstat);
+                return RedirectToAction("Finance", "Home");
+            }
+            catch (Exception ex)
+            {
+                System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
+                return RedirectToAction("Finance", "Home");
             }
         }
     }

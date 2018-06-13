@@ -23,7 +23,7 @@
                     <h5>Add Payment commit Details</h5>
                 </div>
                 <div class="widget-content nopadding">
-                    <form method="post" action="#" name="basic_validate" id="basic_validate" novalidate="novalidate">
+                    <form method="post" action="@Url.Action("add_paymentcommit","Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
                         <table class="table table-striped">
                             <tbody>
                                 <tr class="odd gradeX">
@@ -36,7 +36,7 @@
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Remark</label></td>
-                                    <td> <textarea class="cremark"></textarea></td>
+                                    <td> <textarea class="cremark" name="cremark"></textarea></td>
                                     <td></td>
                                     <td><input type="submit" value="Save" class="btn btn-success" /></td>
                                 </tr>

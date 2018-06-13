@@ -245,30 +245,193 @@ namespace kd.Models
             }
         }
 
-        public int Insert_Booking(string transaction_id, string transaction_status, string transaction_date, string product_info,
-                                  string name, string email, string phone, string booking_date, int adult, int children,
-                                  int part_payment, int paid_amount, string package)
+        public int insert_booking(string bno, string breferred, string bincentive, string bincome, string bcancel, string btamount,
+            string bramount, string bblder, string bparking, string bcharges, string bfollowup, string bstatus, string bremark, string psgst, string bflats, string bapplicant, string bexecutive, string bfranchies)
         {
             try
             {
-                int total_amount = ((adult * get_rates("adult", package)) + (children * get_rates("child", package)));
-                string query = "INSERT INTO booking_details (transaction_id, transaction_status, transaction_date, product_info," +
-                                  "name, email, phone, booking_date, adults, children, total_amount, part_payment, paid_amount)VALUES(\"" +
-                                  transaction_id + "\",\"" + transaction_status + "\",\"" + transaction_date + "\",\"" + product_info + "\",\"" + name + "\",\"" + email + "\",\"" + phone + "\",\"" +
-                                  booking_date + "\"," + adult + "," + children + "," + total_amount + "," + part_payment + "," + paid_amount + ")";
+                string query = "INSERT INTO bookings (Booking_No, Referenceby, Incentive_Paid, Total_Incentive, Flat_Cancled_By, Total_Flat_Amount, " +
+                    "Received_Amount, Total_Builder_Received, Reserved_Parking, Internal_Charges, Follow_Up_Date, Date, Status, Remark, Site_Id," +
+                    " Applicant_Id, Executive_Id, Franchies_Id, Flat_Id) " +
+                    "VALUES(@bno, @bref, @bince, @bin, @bcan, @btamt, @bramt, @bbldr, @bpark, @bchrg, @bflp, NOW(), @bsts, @bremark, @bsgst, @bflts, @bappl, @bexe, @bfrn)";
 
                 if (this.OpenConnection() == true)
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
-                    cmd.ExecuteNonQuery();
+                    cmd.Parameters.AddWithValue("@bno", bno);
+                    cmd.Parameters.AddWithValue("@bref", breferred);
+                    cmd.Parameters.AddWithValue("@bince", bincentive);
+                    cmd.Parameters.AddWithValue("@bin", bincome);
+                    cmd.Parameters.AddWithValue("@bcan", bcancel);
+                    cmd.Parameters.AddWithValue("@btamt", btamount);
+                    cmd.Parameters.AddWithValue("@bramt", bramount);
+                    cmd.Parameters.AddWithValue("@bbldr", bblder);
+                    cmd.Parameters.AddWithValue("@bpark", bparking);
+                    cmd.Parameters.AddWithValue("@bchrg", bcharges);
+                    cmd.Parameters.AddWithValue("@bflp", bfollowup);
+                    cmd.Parameters.AddWithValue("@bsts", 1);//To be changed
+                    cmd.Parameters.AddWithValue("@bremark", bremark);
+                    cmd.Parameters.AddWithValue("@bsgst", 1);//To be changed
+                    cmd.Parameters.AddWithValue("@bflts", 1);//To be changed
+                    cmd.Parameters.AddWithValue("@bappl", 1);//To be changed
+                    cmd.Parameters.AddWithValue("@bexe", 1);//To be changed
+                    cmd.Parameters.AddWithValue("@bfrn", 1);//To be changed
+                   
 
+                    cmd.ExecuteNonQuery();
                     this.CloseConnection();
                 }
                 return 0;
             }
             catch (MySqlException ex)
             {
-                return ex.Number;
+                return -1;
+            }
+        }
+
+        public int insert_paymentcommit(string ctype, string camount, string cstatus, string cremark)
+        {
+            try
+            {
+                string query = "INSERT INTO payment_commitment (Commitment_Type, Amount, Date, Status, Remark, Booking_Id) " +
+                    "VALUES(@ctype, @camt, NOW(), @csts, @crmrk, @bid)";
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@ctype", ctype);
+                    cmd.Parameters.AddWithValue("@camt", camount);
+                    cmd.Parameters.AddWithValue("@csts", 1); //to be changed
+                    cmd.Parameters.AddWithValue("@crmrk", cremark);
+                    cmd.Parameters.AddWithValue("@bid", 1); //to be changed
+                    cmd.ExecuteNonQuery();
+                    this.CloseConnection();
+                }
+                return 0;
+            }
+            catch (MySqlException ex)
+            {
+                return -1;
+            }
+        }
+
+        public int insert_paymentdetails(string pamt, string pdate, string pmode, string chkid, string chkdate, string bname,
+            string ptype, string bldpay, string bnkpay, string sts)
+        {
+            try
+            {
+                string query = "INSERT INTO payment_details (Amount, Date, Payment_Mode, Cheque_Id, Cheque_Date, Bank_Name, " +
+                    "Payment_Type, Builder_Pay, Bank_Pay, Status, Booking_Id) " +
+                    "VALUES(@pamt, NOW(), @pmode, @chkid, @chkdate, @bname, @ptype, @bldpay, @bnkpay, @sts, @bid)";
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@pamt", pamt);
+                    cmd.Parameters.AddWithValue("@pdate", pdate);
+                    cmd.Parameters.AddWithValue("@pmode", pmode);
+                    cmd.Parameters.AddWithValue("@chkid", chkid);
+                    cmd.Parameters.AddWithValue("@chkdate", chkdate);
+                    cmd.Parameters.AddWithValue("@bname", bname);
+                    cmd.Parameters.AddWithValue("@ptype", ptype);
+                    cmd.Parameters.AddWithValue("@bldpay", bldpay);
+                    cmd.Parameters.AddWithValue("@bnkpay", bnkpay);
+                    cmd.Parameters.AddWithValue("@sts", 1);
+                    cmd.Parameters.AddWithValue("@bid", 1);
+                    cmd.ExecuteNonQuery();
+                    this.CloseConnection();
+                }
+                return 0;
+            }
+            catch (MySqlException ex)
+            {
+                return -1;
+            }
+        }
+
+        /*public int insert_agreement(string pcode, string pname, string phsn, string pcgst, string psgst, string pigst, string prate)
+        {
+            try
+            {
+                string query = "INSERT INTO aggrement (Applicant_Name, Applicant_Email_Id, Applicant_Phone, Applicant_Address, Applicant_Pan_No, " +
+                    "Applicant_Adhar_No, Applicant_Occupation, Applicant_DOB, Applicant_Age, Co_Applicant_Name, Co_Applicant_Pan_No, " +
+                    "Co_Applicant_Adhar_No, Co_Applicant_Occupation, Co_Applicant_DOB, Date, Status) " +
+                    "VALUES(@name, @email, @phone, @addr, @pan, @aadhar, @occu, @birth, @age, @cname, @cpan, @caadhar, @coccu, @cbirth, NOW(), @status)";
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@name", applname);
+                    cmd.Parameters.AddWithValue("@email", applemail);
+                    cmd.Parameters.AddWithValue("@phone", applmob);
+                    cmd.Parameters.AddWithValue("@addr", appladdr);
+                    cmd.Parameters.AddWithValue("@pan", applpan);
+                    cmd.Parameters.AddWithValue("@aadhar", applaadhar);
+                    cmd.Parameters.AddWithValue("@occu", apploccu);
+                    cmd.Parameters.AddWithValue("@birth", applbirth);
+                    cmd.Parameters.AddWithValue("@age", applage);
+
+                    cmd.Parameters.AddWithValue("@cname", coapplname);
+                    cmd.Parameters.AddWithValue("@cpan", coapplpan);
+                    cmd.Parameters.AddWithValue("@caadhar", coapplaadhar);
+                    cmd.Parameters.AddWithValue("@coccu", coapploccu);
+                    cmd.Parameters.AddWithValue("@cbirth", coapplbirth);
+                    cmd.Parameters.AddWithValue("@status", 1); //To be changed
+
+                    cmd.ExecuteNonQuery();
+                    this.CloseConnection();
+                }
+                return 0;
+            }
+            catch (MySqlException ex)
+            {
+                return -1;
+            }
+        }*/
+
+        public int insert_finance(string fintype, string finname, string finexe, string finexemob, string finexeemail, string filehanddate,
+            string filesta, string filesanctdate, string reqloanamt, string sanctloanamt, string disburseamt, string actloanamt, string recddamt, string remddamt, string rateofinter, string emiamt, string emimonths, string bookid, string finstat)
+        {
+            try
+            {
+                string query = "INSERT INTO finance_details (Finance_Type, Finance_Name, Finance_Executive_Name, " +
+                    "Finance_Executive_Mobile, Finance_Executive_Email, File_Handover_Date, File_Status, File_Sanction_Date, " +
+                    "Required_Loan_Amount, Sanctioned_Loan_Amount, Total_Disbursed_Amount, Actual_Loan_Amount, Received_DD_Amount, " +
+                    "Remaining_DD_Amount, Rate_Of_Interest, EMI_Amount, EMI_Total_Months, Status, Booking_Id) " +
+                    "VALUES(@ftype, @fname, @fexename, @fexemob, @fexemail, @fhdate, @fsts, @fdate, @rlamt, @slamt, @dbrmnt," +
+                    " @alamt, @ramt, @remamt, @rointr, @emiamt, @emimonths, @finstat, @bookid)";
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@ftype", fintype);
+                    cmd.Parameters.AddWithValue("@fname", finname);
+                    cmd.Parameters.AddWithValue("@fexename", finexe);
+                    cmd.Parameters.AddWithValue("@fexemob", finexemob);
+                    cmd.Parameters.AddWithValue("@fexemail", finexeemail);
+                    cmd.Parameters.AddWithValue("@fhdate", filehanddate);
+                    cmd.Parameters.AddWithValue("@fsts", filesta);
+                    cmd.Parameters.AddWithValue("@fdate", filesanctdate);
+                    cmd.Parameters.AddWithValue("@rlamt", reqloanamt);
+                    cmd.Parameters.AddWithValue("@slamt", sanctloanamt);
+                    cmd.Parameters.AddWithValue("@dbrmnt", disburseamt);
+                    cmd.Parameters.AddWithValue("@alamt", actloanamt);
+                    cmd.Parameters.AddWithValue("@ramt", recddamt);
+                    cmd.Parameters.AddWithValue("@remamt", remddamt);
+                    cmd.Parameters.AddWithValue("@rointr", rateofinter);
+                    cmd.Parameters.AddWithValue("@emiamt", emiamt);
+                    cmd.Parameters.AddWithValue("@emimonths", emimonths);
+                    cmd.Parameters.AddWithValue("@bookid", bookid);
+                    cmd.Parameters.AddWithValue("@finstat", 1);//To be changed
+
+                    cmd.ExecuteNonQuery();
+                    this.CloseConnection();
+                }
+                return 0;
+            }
+            catch (MySqlException ex)
+            {
+                return -1;
             }
         }
 
