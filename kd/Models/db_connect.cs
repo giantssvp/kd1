@@ -17,6 +17,13 @@ namespace kd.Models
         public List<string>[] list_gallery_show = new List<string>[2];
         public List<string>[] list_events_show = new List<string>[4];
         public List<string>[] list_bookings_show = new List<string>[14];
+        public List<string>[] list_enquiry_show = new List<string>[14];
+        public List<string>[] list_sites_show = new List<string>[11];
+        public List<string>[] list_executive_show = new List<string>[10];
+        public List<string>[] list_franchies_show = new List<string>[7];
+        public List<string>[] list_customer_show = new List<string>[17];
+        public List<string>[] list_paycommit_show = new List<string>[7];
+        public List<string>[] list_paydetails_show = new List<string>[12];
 
         private bool OpenConnection()
         {
@@ -435,6 +442,38 @@ namespace kd.Models
             }
         }
 
+        public int insert_filestatus(string chrg, string lfee, string chid, string chdate, string bnknm, string figst,
+            string lfamt, string fid, string fstatus)
+        {
+            try
+            {
+                string query = "INSERT INTO file_details (Service_Charge, Loan_Fees_Amount," +
+                    " Cheque_Id, Cheque_Date, Bank_Name, Loan_fees, status, Finance_Id) " +
+                    "VALUES(@chrg, @lfamt, @chid, @chdate, @bnknm, @lfee, @fstatus, @fid)";
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@chrg", chrg);
+                    cmd.Parameters.AddWithValue("@lfee", lfee);
+                    cmd.Parameters.AddWithValue("@chid", chid);
+                    cmd.Parameters.AddWithValue("@chdate", chdate);
+                    cmd.Parameters.AddWithValue("@bnknm", bnknm);
+                    cmd.Parameters.AddWithValue("@figst", figst);
+                    cmd.Parameters.AddWithValue("@lfamt", lfamt);
+                    cmd.Parameters.AddWithValue("@fid", fid); 
+                    cmd.Parameters.AddWithValue("@fstatus", fstatus);
+                    cmd.ExecuteNonQuery();
+                    this.CloseConnection();
+                }
+                return 0;
+            }
+            catch (MySqlException ex)
+            {
+                return -1;
+            }
+        }
+
         public List<string>[] feedback_show(int offset, int limit)
         {
             try
@@ -611,6 +650,405 @@ namespace kd.Models
             catch (MySqlException ex)
             {
                 return list_bookings_show;
+            }
+        }
+
+        public List<string>[] enquiry_show(int offset, int limit)
+        {
+            try
+            {
+                string query = "SELECT * FROM daily_enquiry ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+
+                list_enquiry_show[0] = new List<string>();
+                list_enquiry_show[1] = new List<string>();
+                list_enquiry_show[2] = new List<string>();
+                list_enquiry_show[3] = new List<string>();
+                list_enquiry_show[4] = new List<string>();
+                list_enquiry_show[5] = new List<string>();
+                list_enquiry_show[6] = new List<string>();
+                list_enquiry_show[7] = new List<string>();
+                list_enquiry_show[8] = new List<string>();
+                list_enquiry_show[9] = new List<string>();
+                list_enquiry_show[10] = new List<string>();
+                list_enquiry_show[11] = new List<string>();
+                list_enquiry_show[12] = new List<string>();
+                list_enquiry_show[13] = new List<string>();
+
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@offset", offset);
+                    cmd.Parameters.AddWithValue("@limit", limit);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    while (dataReader.Read())
+                    {
+                        list_enquiry_show[0].Add(dataReader["ID"] + "");
+                        list_enquiry_show[1].Add(dataReader["Enquiry_date"] + "");
+                        list_enquiry_show[2].Add(dataReader["Customer_Name"] + "");
+                        list_enquiry_show[3].Add(dataReader["Mobile_No"] + "");
+                        list_enquiry_show[4].Add(dataReader["Requirement"] + "");
+                        list_enquiry_show[5].Add(dataReader["Down_Payment"] + "");
+                        list_enquiry_show[6].Add(dataReader["Budget"] + "");
+                        list_enquiry_show[7].Add(dataReader["Address"] + "");
+                        list_enquiry_show[8].Add(dataReader["Occupation"] + "");
+                        list_enquiry_show[9].Add(dataReader["Visit"] + "");
+                        list_enquiry_show[10].Add(dataReader["Interested"] + "");
+                        list_enquiry_show[11].Add(dataReader["Booking_no"] + "");
+                        list_enquiry_show[12].Add(dataReader["Remarks"] + "");
+                        list_enquiry_show[13].Add(dataReader["Site_Id"] + "");
+                    }
+
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return list_enquiry_show;
+                }
+                else
+                {
+                    return list_enquiry_show;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return list_enquiry_show;
+            }
+        }
+
+        public List<string>[] customer_show(int offset, int limit)
+        {
+            try
+            {
+                string query = "SELECT * FROM applicant ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+
+                list_customer_show[0] = new List<string>();
+                list_customer_show[1] = new List<string>();
+                list_customer_show[2] = new List<string>();
+                list_customer_show[3] = new List<string>();
+                list_customer_show[4] = new List<string>();
+                list_customer_show[5] = new List<string>();
+                list_customer_show[6] = new List<string>();
+                list_customer_show[7] = new List<string>();
+                list_customer_show[8] = new List<string>();
+                list_customer_show[9] = new List<string>();
+                list_customer_show[10] = new List<string>();
+                list_customer_show[11] = new List<string>();
+                list_customer_show[12] = new List<string>();
+                list_customer_show[13] = new List<string>();
+                list_customer_show[14] = new List<string>();
+                list_customer_show[15] = new List<string>();
+                list_customer_show[16] = new List<string>();
+
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@offset", offset);
+                    cmd.Parameters.AddWithValue("@limit", limit);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    while (dataReader.Read())
+                    {
+                        list_customer_show[0].Add(dataReader["ID"] + "");
+                        list_customer_show[1].Add(dataReader["Applicant_Name"] + "");
+                        list_customer_show[2].Add(dataReader["Applicant_Email_Id"] + "");
+                        list_customer_show[3].Add(dataReader["Applicant_Phone"] + "");
+                        list_customer_show[4].Add(dataReader["Applicant_Address"] + "");
+                        list_customer_show[5].Add(dataReader["Applicant_Pan_No"] + "");
+                        list_customer_show[6].Add(dataReader["Applicant_Adhar_No"] + "");
+                        list_customer_show[7].Add(dataReader["Applicant_Occupation"] + "");
+                        list_customer_show[8].Add(dataReader["Applicant_DOB"] + "");
+                        list_customer_show[9].Add(dataReader["Applicant_Age"] + "");
+                        list_customer_show[10].Add(dataReader["Co_Applicant_Name"] + "");
+                        list_customer_show[11].Add(dataReader["Co_Applicant_Pan_No"] + "");
+                        list_customer_show[12].Add(dataReader["Co_Applicant_Adhar_No"] + "");
+                        list_customer_show[13].Add(dataReader["Co_Applicant_Occupation"] + "");
+                        list_customer_show[14].Add(dataReader["Co_Applicant_DOB"] + "");
+                        list_customer_show[15].Add(dataReader["Date"] + "");
+                        list_customer_show[16].Add(dataReader["Status"] + "");
+                    }
+
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return list_customer_show;
+                }
+                else
+                {
+                    return list_customer_show;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return list_customer_show;
+            }
+        }
+
+        public List<string>[] executive_show(int offset, int limit)
+        {
+            try
+            {
+                string query = "SELECT * FROM executive ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+
+                list_executive_show[0] = new List<string>();
+                list_executive_show[1] = new List<string>();
+                list_executive_show[2] = new List<string>();
+                list_executive_show[3] = new List<string>();
+                list_executive_show[4] = new List<string>();
+                list_executive_show[5] = new List<string>();
+                list_executive_show[6] = new List<string>();
+                list_executive_show[7] = new List<string>();
+                list_executive_show[8] = new List<string>();
+                list_executive_show[9] = new List<string>();
+
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@offset", offset);
+                    cmd.Parameters.AddWithValue("@limit", limit);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    while (dataReader.Read())
+                    {
+                        list_executive_show[0].Add(dataReader["ID"] + "");
+                        list_executive_show[1].Add(dataReader["Executive_Name"] + "");
+                        list_executive_show[2].Add(dataReader["Executive_Code"] + "");
+                        list_executive_show[3].Add(dataReader["Email_Id"] + "");
+                        list_executive_show[4].Add(dataReader["Phone"] + "");
+                        list_executive_show[5].Add(dataReader["Address"] + "");
+                        list_executive_show[6].Add(dataReader["Birth_Date"] + "");
+                        list_executive_show[7].Add(dataReader["Joining_Date"] + "");
+                        list_executive_show[8].Add(dataReader["Date"] + "");
+                        list_executive_show[9].Add(dataReader["Status"] + "");
+                    }
+
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return list_executive_show;
+                }
+                else
+                {
+                    return list_executive_show;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return list_executive_show;
+            }
+        }
+
+        public List<string>[] paycommit_show(int offset, int limit)
+        {
+            try
+            {
+                string query = "SELECT * FROM payment_commitment ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+
+                list_paycommit_show[0] = new List<string>();
+                list_paycommit_show[1] = new List<string>();
+                list_paycommit_show[2] = new List<string>();
+                list_paycommit_show[3] = new List<string>();
+                list_paycommit_show[4] = new List<string>();
+                list_paycommit_show[5] = new List<string>();
+                list_paycommit_show[6] = new List<string>();
+
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@offset", offset);
+                    cmd.Parameters.AddWithValue("@limit", limit);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    while (dataReader.Read())
+                    {
+                        list_paycommit_show[0].Add(dataReader["ID"] + "");
+                        list_paycommit_show[1].Add(dataReader["Commitment_Type"] + "");
+                        list_paycommit_show[2].Add(dataReader["Amount"] + "");
+                        list_paycommit_show[3].Add(dataReader["Date"] + "");
+                        list_paycommit_show[4].Add(dataReader["Status"] + "");
+                        list_paycommit_show[5].Add(dataReader["Remark"] + "");
+                        list_paycommit_show[6].Add(dataReader["Booking_Id"] + "");
+                    }
+
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return list_paycommit_show;
+                }
+                else
+                {
+                    return list_paycommit_show;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return list_paycommit_show;
+            }
+        }
+
+        public List<string>[] paydetails_show(int offset, int limit)
+        {
+            try
+            {
+                string query = "SELECT * FROM payment_details ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+
+                list_paydetails_show[0] = new List<string>();
+                list_paydetails_show[1] = new List<string>();
+                list_paydetails_show[2] = new List<string>();
+                list_paydetails_show[3] = new List<string>();
+                list_paydetails_show[4] = new List<string>();
+                list_paydetails_show[5] = new List<string>();
+                list_paydetails_show[6] = new List<string>();
+                list_paydetails_show[7] = new List<string>();
+                list_paydetails_show[8] = new List<string>();
+                list_paydetails_show[9] = new List<string>();
+                list_paydetails_show[10] = new List<string>();
+                list_paydetails_show[11] = new List<string>();
+
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@offset", offset);
+                    cmd.Parameters.AddWithValue("@limit", limit);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    while (dataReader.Read())
+                    {
+                        list_paydetails_show[0].Add(dataReader["ID"] + "");
+                        list_paydetails_show[1].Add(dataReader["Amount"] + "");
+                        list_paydetails_show[2].Add(dataReader["Date"] + "");
+                        list_paydetails_show[3].Add(dataReader["Payment_Mode"] + "");
+                        list_paydetails_show[4].Add(dataReader["Cheque_Id"] + "");
+                        list_paydetails_show[5].Add(dataReader["Cheque_Date"] + "");
+                        list_paydetails_show[6].Add(dataReader["Bank_Name"] + "");
+                        list_paydetails_show[7].Add(dataReader["Payment_Type"] + "");
+                        list_paydetails_show[8].Add(dataReader["Builder_Pay"] + "");
+                        list_paydetails_show[9].Add(dataReader["Bank_Pay"] + "");
+                        list_paydetails_show[10].Add(dataReader["Status"] + "");
+                        list_paydetails_show[11].Add(dataReader["Booking_Id"] + "");
+                    }
+
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return list_paydetails_show;
+                }
+                else
+                {
+                    return list_paydetails_show;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return list_paydetails_show;
+            }
+        }
+
+        public List<string>[] franchies_show(int offset, int limit)
+        {
+            try
+            {
+                string query = "SELECT * FROM franchies ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+
+                list_franchies_show[0] = new List<string>();
+                list_franchies_show[1] = new List<string>();
+                list_franchies_show[2] = new List<string>();
+                list_franchies_show[3] = new List<string>();
+                list_franchies_show[4] = new List<string>();
+                list_franchies_show[5] = new List<string>();
+                list_franchies_show[6] = new List<string>();
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@offset", offset);
+                    cmd.Parameters.AddWithValue("@limit", limit);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    while (dataReader.Read())
+                    {
+                        list_franchies_show[0].Add(dataReader["ID"] + "");
+                        list_franchies_show[1].Add(dataReader["Francies_Name"] + "");
+                        list_franchies_show[2].Add(dataReader["Email_Id"] + "");
+                        list_franchies_show[3].Add(dataReader["Phone"] + "");
+                        list_franchies_show[4].Add(dataReader["Address"] + "");
+                        list_franchies_show[5].Add(dataReader["Date"] + "");
+                        list_franchies_show[6].Add(dataReader["Status"] + "");
+                    }
+
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return list_franchies_show;
+                }
+                else
+                {
+                    return list_franchies_show;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return list_franchies_show;
+            }
+        }
+
+        public List<string>[] sites_show(int offset, int limit)
+        {
+            try
+            {
+                string query = "SELECT * FROM sites a, flats b WHERE a.id = b.Site_Id ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+
+                list_enquiry_show[0] = new List<string>();
+                list_enquiry_show[1] = new List<string>();
+                list_enquiry_show[2] = new List<string>();
+                list_enquiry_show[3] = new List<string>();
+                list_enquiry_show[4] = new List<string>();
+                list_enquiry_show[5] = new List<string>();
+                list_enquiry_show[6] = new List<string>();
+                list_enquiry_show[7] = new List<string>();
+                list_enquiry_show[8] = new List<string>();
+                list_enquiry_show[9] = new List<string>();
+                list_enquiry_show[10] = new List<string>();
+
+
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@offset", offset);
+                    cmd.Parameters.AddWithValue("@limit", limit);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    MessageBox.Show("tesitng");
+                    while (dataReader.Read())
+                    {
+                        MessageBox.Show(dataReader["Site_Name"].ToString().Trim());
+                        list_sites_show[0].Add(dataReader["ID"] + "");
+                        list_sites_show[1].Add(dataReader["Site_Name"] + "");
+                        list_sites_show[2].Add(dataReader["Email_Id"] + "");
+                        list_sites_show[3].Add(dataReader["Phone"] + "");
+                        list_sites_show[4].Add(dataReader["Address"] + "");
+                        list_sites_show[5].Add(dataReader["Date"] + "");
+                        list_sites_show[6].Add(dataReader["Status"] + "");
+                       /* list_enquiry_show[7].Add(dataReader["Address"] + "");
+                        list_enquiry_show[8].Add(dataReader["Occupation"] + "");
+                        list_enquiry_show[9].Add(dataReader["Visit"] + "");
+                        list_enquiry_show[10].Add(dataReader["Interested"] + "");
+                        list_enquiry_show[11].Add(dataReader["Booking_no"] + "");
+                        list_enquiry_show[12].Add(dataReader["Remarks"] + "");
+                        list_enquiry_show[13].Add(dataReader["Site_Id"] + "");*/
+                    }
+                    
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return list_sites_show;
+                }
+                else
+                {
+                    return list_sites_show;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return list_sites_show;
             }
         }
 

@@ -11,6 +11,14 @@ namespace kd.Controllers
     {
         public static db_connect obj = new db_connect();
 
+        public int enquiry_page_size = 10;
+        public int sites_page_size = 10;
+        public int executive_page_size = 10;
+        public int franchies_page_size = 10;
+        public int customer_page_size = 10;
+        public int paycommit_page_size = 10;
+        public int paydetails_page_size = 10;
+
         public ActionResult Dashboard()
         {
             return View();
@@ -18,29 +26,61 @@ namespace kd.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.total = 0;
+            HttpContext.Session.Add("offset_enquiry", 0);
+            List<string>[] list = new List<string>[14];
+            list = obj.enquiry_show(Int32.Parse(HttpContext.Session["offset_enquiry"].ToString()), enquiry_page_size);
+            ViewBag.list = list;
+            ViewBag.total = list[0].Count();
+
             return View();
         }
 
         public ActionResult Sites()
         {
-           
+            
+            ViewBag.total = 0;
+            HttpContext.Session.Add("offset_sites", 0);
+            List<string>[] list = new List<string>[11];
+            list = obj.sites_show(Int32.Parse(HttpContext.Session["offset_sites"].ToString()), sites_page_size);
+            ViewBag.list = list;
+            //ViewBag.total = list[0].Count();
+            
             return View();
         }
 
         public ActionResult Executive()
         {
+            ViewBag.total = 0;
+            HttpContext.Session.Add("offset_executive", 0);
+            List<string>[] list = new List<string>[14];
+            list = obj.executive_show(Int32.Parse(HttpContext.Session["offset_executive"].ToString()), executive_page_size);
+            ViewBag.list = list;
+            ViewBag.total = list[0].Count();
 
             return View();
         }
 
         public ActionResult Franchies()
         {
+            ViewBag.total = 0;
+            HttpContext.Session.Add("offset_franchies", 0);
+            List<string>[] list = new List<string>[14];
+            list = obj.franchies_show(Int32.Parse(HttpContext.Session["offset_franchies"].ToString()), franchies_page_size);
+            ViewBag.list = list;
+            ViewBag.total = list[0].Count();
 
             return View();
         }
 
         public ActionResult Customer()
         {
+            ViewBag.total = 0;
+            HttpContext.Session.Add("offset_customer", 0);
+            List<string>[] list = new List<string>[14];
+            list = obj.customer_show(Int32.Parse(HttpContext.Session["offset_customer"].ToString()), customer_page_size);
+            ViewBag.list = list;
+            ViewBag.total = list[0].Count();
 
             return View();
         }
@@ -51,11 +91,23 @@ namespace kd.Controllers
         }
         public ActionResult PaymentCommit()
         {
+            ViewBag.total = 0;
+            HttpContext.Session.Add("offset_paycommit", 0);
+            List<string>[] list = new List<string>[14];
+            list = obj.paycommit_show(Int32.Parse(HttpContext.Session["offset_paycommit"].ToString()), paycommit_page_size);
+            ViewBag.list = list;
+            ViewBag.total = list[0].Count();
 
             return View();
         }
         public ActionResult PaymentDetails()
         {
+            ViewBag.total = 0;
+            HttpContext.Session.Add("offset_paydetails", 0);
+            List<string>[] list = new List<string>[14];
+            list = obj.paydetails_show(Int32.Parse(HttpContext.Session["offset_paydetails"].ToString()), paydetails_page_size);
+            ViewBag.list = list;
+            ViewBag.total = list[0].Count();
 
             return View();
         }
@@ -240,6 +292,21 @@ namespace kd.Controllers
             {
                 System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
                 return RedirectToAction("Finance", "Home");
+            }
+        }
+
+        public ActionResult add_filestatus(string chrg, string lfee, string chid, string chdate, string bnknm, string figst,
+            string lfamt, string fid, string fstatus)
+        {
+            try
+            {
+                obj.insert_filestatus(chrg, lfee, chid, chdate, bnknm, figst, lfamt, fid, fstatus);
+                return RedirectToAction("FileStatus", "Home");
+            }
+            catch (Exception ex)
+            {
+                System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
+                return RedirectToAction("FileStatus", "Home");
             }
         }
     }
