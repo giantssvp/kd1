@@ -205,12 +205,12 @@ namespace kd.Controllers
         }
 
         public ActionResult add_applicant(string applname, string applemail, string applmob, string appladdr, string applpan, string applaadhar,
-            string apploccu, string applbirth, string applage, string coapplname, string coapplpan, string coapplaadhar, string coapploccu, string coapplbirth)
+            string apploccu, string applbirth, string applage, string coapplname, string coapplpan, string coapplaadhar, string coapploccu, string coapplbirth, string applstatus)
         {
             try
             {
                 obj.insert_applicant(applname, applemail, applmob, appladdr, applpan, applaadhar,
-             apploccu, applbirth, applage, coapplname, coapplpan, coapplaadhar, coapploccu, coapplbirth);
+             apploccu, applbirth, applage, coapplname, coapplpan, coapplaadhar, coapploccu, coapplbirth, applstatus);
                 return RedirectToAction("Customer", "Home");
             }
             catch (Exception ex)

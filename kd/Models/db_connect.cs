@@ -169,7 +169,7 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@addr", exeadd);
                     cmd.Parameters.AddWithValue("@birth", exebirth);
                     cmd.Parameters.AddWithValue("@join", exejoin);
-                    cmd.Parameters.AddWithValue("@status", 1); //To be changed
+                    cmd.Parameters.AddWithValue("@status", exestatus); 
 
                     cmd.ExecuteNonQuery();
                     this.CloseConnection();
@@ -198,7 +198,7 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@phone", francmob);
                     cmd.Parameters.AddWithValue("@addr", francadd);
                     cmd.Parameters.AddWithValue("@join", francjoin);
-                    cmd.Parameters.AddWithValue("@status", 1); //To be changed
+                    cmd.Parameters.AddWithValue("@status", francstatus); 
 
                     cmd.ExecuteNonQuery();
                     this.CloseConnection();
@@ -212,7 +212,8 @@ namespace kd.Models
         }        
 
         public int insert_applicant(string applname, string applemail, string applmob, string appladdr, string applpan, string applaadhar,
-            string apploccu, string applbirth, string applage, string coapplname, string coapplpan, string coapplaadhar, string coapploccu, string coapplbirth)
+            string apploccu, string applbirth, string applage, string coapplname, string coapplpan, string coapplaadhar, string coapploccu, 
+            string coapplbirth, string applstatus)
         {
             try
             {
@@ -239,7 +240,7 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@caadhar", coapplaadhar);
                     cmd.Parameters.AddWithValue("@coccu", coapploccu);
                     cmd.Parameters.AddWithValue("@cbirth", coapplbirth);
-                    cmd.Parameters.AddWithValue("@status", 1); //To be changed
+                    cmd.Parameters.AddWithValue("@status", applstatus); //To be changed
 
                     cmd.ExecuteNonQuery();
                     this.CloseConnection();
@@ -308,7 +309,7 @@ namespace kd.Models
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@ctype", ctype);
                     cmd.Parameters.AddWithValue("@camt", camount);
-                    cmd.Parameters.AddWithValue("@csts", 1); //to be changed
+                    cmd.Parameters.AddWithValue("@csts", cstatus); //to be changed
                     cmd.Parameters.AddWithValue("@crmrk", cremark);
                     cmd.Parameters.AddWithValue("@bid", 1); //to be changed
                     cmd.ExecuteNonQuery();
@@ -343,7 +344,7 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@ptype", ptype);
                     cmd.Parameters.AddWithValue("@bldpay", bldpay);
                     cmd.Parameters.AddWithValue("@bnkpay", bnkpay);
-                    cmd.Parameters.AddWithValue("@sts", 1);
+                    cmd.Parameters.AddWithValue("@sts", sts);
                     cmd.Parameters.AddWithValue("@bid", 1);
                     cmd.ExecuteNonQuery();
                     this.CloseConnection();
@@ -429,7 +430,7 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@emiamt", emiamt);
                     cmd.Parameters.AddWithValue("@emimonths", emimonths);
                     cmd.Parameters.AddWithValue("@bookid", bookid);
-                    cmd.Parameters.AddWithValue("@finstat", 1);//To be changed
+                    cmd.Parameters.AddWithValue("@finstat", finstat);//To be changed
 
                     cmd.ExecuteNonQuery();
                     this.CloseConnection();
