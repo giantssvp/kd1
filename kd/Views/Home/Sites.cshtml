@@ -1,5 +1,16 @@
 ﻿@{
     ViewBag.Title = "Sites";
+
+}
+
+@{
+    var results = ViewBag.list;
+    int? cnt = new int?();
+    cnt = ViewBag.total;
+    if (cnt == null)
+    {
+        cnt = 0;
+    }
 }
 
 <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
@@ -23,7 +34,7 @@
                     <h5>Add Sites Details</h5>
                 </div>
                 <div class="widget-content nopadding">
-                    <form method="post" action="#" name="basic_validate" id="basic_validate" novalidate="novalidate">
+                    <form method="post" action="@Url.Action("add_sites","Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
                         <table class="table table-striped">
                             <tbody>
                                 <tr class="odd gradeX">
@@ -54,7 +65,7 @@
                     <h5>Add Flats Details</h5>
                 </div>
                 <div class="widget-content nopadding">
-                    <form method="post" action="#" name="basic_validate" id="basic_validate" novalidate="novalidate">
+                    <form method="post" action="@Url.Action("add_flats","Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
                         <table class="table table-striped">
                             <tbody>
                                 <tr class="odd gradeX">
@@ -107,57 +118,25 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="gradeX">
-                                <td><input type="checkbox" /></td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>
-                                    Internet
-                                    Explorer 4.0
-                                </td>
-                                <td>Win 95+</td>
-                                <td class="center">4</td>
-                                <td align="center"><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>
-                            </tr>
-                            <tr class="gradeC">
-                                <td><input type="checkbox" /></td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>
-                                    Internet
-                                    Explorer 5.0
-                                </td>
-                                <td>Win 95+</td>
-                                <td class="center">5</td>
-                                <td align="center"><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>
-                            </tr>
-                            <tr class="gradeA">
-                                <td><input type="checkbox" /></td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>
-                                    Internet
-                                    Explorer 5.5
-                                </td>
-                                <td>Win 95+</td>
-                                <td class="center">5.5</td>
-                                <td align="center"><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>
-                            </tr>
+                            @for (var i = 0; i < cnt; i++)
+                            {
+                                <tr class="gradeX">
+                                    <td><input type="checkbox" /></td>
+                                    <td>@results[0][i]</td>
+                                    <td>@results[1][i]</td>
+                                    <td>@results[2][i]</td>
+                                    <td>@results[3][i]</td>
+                                    <td>@results[4][i]</td>
+                                    <td>@results[5][i]</td>
+                                    <td>@results[6][i]</td>
+                                    <td>@results[7][i]</td>
+                                    <td>@results[8][i]</td>
+                                    <td>@results[9][i]</td>
+                                    <td>@results[10][i]</td>
+                                    
+                                    <td align="center"><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>

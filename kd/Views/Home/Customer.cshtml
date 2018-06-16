@@ -2,6 +2,16 @@
     ViewBag.Title = "Customer";
 }
 
+@{
+    var results = ViewBag.list;
+    int? cnt = new int?();
+    cnt = ViewBag.total;
+    if (cnt == null)
+    {
+        cnt = 0;
+    }
+}
+
 <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
 <link rel="stylesheet" href="~/Content/bootstrap-responsive.min.css" />
 <link rel="stylesheet" href="~/Content/matrix-style.css" />
@@ -23,45 +33,46 @@
                     <h5>Add Applicant Details</h5>
                 </div>
                 <div class="widget-content nopadding">
-                    <form method="post" action="#" name="basic_validate" id="basic_validate" novalidate="novalidate">
+                    <form method="post" action="@Url.Action("add_applicant","Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
                         <table class="table table-striped">
                             <tbody>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Applicant Name</label></td>
-                                    <td><input type="text" name="pcode" id="required"></td>
+                                    <td><input type="text" name="applname" id="required"></td>
                                     <td><label class="control-label">Email ID</label></td>
-                                    <td><input type="text" name="pname" id="required"></td>
+                                    <td><input type="text" name="applemail" id="required"></td>
                                     <td><label class="control-label">Phone</label></td>
-                                    <td><input type="text" name="phsn" id="required"></td>
+                                    <td><input type="text" name="applmob" id="required"></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Address</label></td>
-                                    <td><input type="text" name="pcgst" id="required"></td>
+                                    <td><input type="text" name="appladdr" id="required"></td>
                                     <td><label class="control-label">PAN NO</label></td>
-                                    <td><input type="text" name="psgst" id="required"></td>
+                                    <td><input type="text" name="applpan" id="required"></td>
                                     <td><label class="control-label">AADHAR NO</label></td>
-                                    <td><input type="text" name="pigst" id="required"></td>
+                                    <td><input type="text" name="applaadhar" id="required"></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Occupation</label></td>
-                                    <td><input type="text" name="pcgst" id="required"></td>
+                                    <td><input type="text" name="apploccu" id="required"></td>
                                     <td><label class="control-label">Birth Date</label></td>
-                                    <td><input type="text" name="psgst" id="required"></td>
+                                    <td><input type="text" name="applbirth" id="required"></td>
                                     <td><label class="control-label">Age</label></td>
-                                    <td><input type="text" name="pigst" id="required"></td>
+                                    <td><input type="text" name="applage" id="required"></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Co-Applicant Name</label></td>
-                                    <td><input type="text" name="pcgst" id="required"></td>
+                                    <td><input type="text" name="coapplname" id="required"></td>
                                     <td><label class="control-label">Co - PAN  NO</label></td>
-                                    <td><input type="text" name="psgst" id="required"></td>
+                                    <td><input type="text" name="coapplpan" id="required"></td>
                                     <td><label class="control-label">Co - AADHAR NO</label></td>
-                                    <td><input type="text" name="pigst" id="required"></td>
+                                    <td><input type="text" name="coapplaadhar" id="required"></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Co - Occupation</label></td>
-                                    <td><input type="text" name="prate" id="required"></td>
+                                    <td><input type="text" name="coapploccu" id="required"></td>
                                     <td><label class="control-label">Co - Birth Date</label></td>
+                                    <td><input type="text" name="coapplbirth" id="required"></td>
                                     <td><input type="submit" value="Save" class="btn btn-success" /></td>
                                 </tr>
                             </tbody>
@@ -78,6 +89,8 @@
                     <table class="table table-bordered data-table with-check">
                         <thead>
                             <tr>
+                                <th><input type="checkbox" id="title-table-checkbox" name="title-table-checkbox" /></th>
+                                <th>ID</th>
                                 <th>Applicant Name</th>
                                 <th>Address</th>
                                 <th>Email Id</th>
@@ -97,69 +110,30 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="gradeX">
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>
-                                    Internet
-                                    Explorer 4.0
-                                </td>
-                                <td>Win 95+</td>
-                                <td class="center">4</td>
-                                <td align="center"><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>
-                            </tr>
-                            <tr class="gradeX">
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>
-                                    Internet
-                                    Explorer 4.0
-                                </td>
-                                <td>Win 95+</td>
-                                <td class="center">4</td>
-                                <td align="center"><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>
-                            </tr>
-                            <tr class="gradeX">
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>
-                                    Internet
-                                    Explorer 4.0
-                                </td>
-                                <td>Win 95+</td>
-                                <td class="center">4</td>
-                                <td align="center"><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>
-                            </tr>
+                            @for (var i = 0; i < cnt; i++)
+                            {
+                                <tr class="gradeX">
+                                    <td><input type="checkbox" /></td>
+                                    <td>@results[0][i]</td>
+                                    <td>@results[1][i]</td>
+                                    <td>@results[2][i]</td>
+                                    <td>@results[3][i]</td>
+                                    <td>@results[4][i]</td>
+                                    <td>@results[5][i]</td>
+                                    <td>@results[6][i]</td>
+                                    <td>@results[7][i]</td>
+                                    <td>@results[8][i]</td>
+                                    <td>@results[9][i]</td>
+                                    <td>@results[10][i]</td>
+                                    <td>@results[11][i]</td>
+                                    <td>@results[12][i]</td>
+                                    <td>@results[13][i]</td>
+                                    <td>@results[14][i]</td>
+                                    <td>@results[15][i]</td>
+                                    <td>@results[16][i]</td>
+                                    <td align="center"><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>

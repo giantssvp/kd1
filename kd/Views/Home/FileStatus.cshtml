@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Aggrement";
+    ViewBag.Title = "FileStatus";
 }
 
 <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
@@ -12,7 +12,7 @@
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
 
 <div id="content-header">
-    <div id="breadcrumb"> <a href='@Url.Action("Dashboard", "Home")' title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href='@Url.Action("Aggrement", "Home")'>Add Aggrement</a></div>
+    <div id="breadcrumb"> <a href='@Url.Action("Dashboard", "Home")' title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href='@Url.Action("FileSatus", "Home")'>Add File Status</a></div>
 </div>
 <div class="container-fluid">
     <div class="row-fluid">
@@ -20,25 +20,35 @@
             <div class="widget-box">
                 <div class="widget-title">
                     <span class="icon"> <i class="icon-info-sign"></i> </span>
-                    <h5>Add Aggrement Details</h5>
+                    <h5>Add File Status</h5>
                 </div>
                 <div class="widget-content nopadding">
-                    <form method="post" action="#" name="basic_validate" id="basic_validate" novalidate="novalidate">
+                    <form method="post" action="@Url.Action("add_filestatus","Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
                         <table class="table table-striped">
                             <tbody>
                                 <tr class="odd gradeX">
-                                    <td><label class="control-label">Aggrement No</label></td>
-                                    <td><input type="text" name="pcode" id="required"></td>
-                                    <td><label class="control-label">Aggrement Date</label></td>
-                                    <td> <input type="text" name="pname" id="required"></td>
-                                    <td><label class="control-label">Aggrement Amount</label></td>
-                                    <td><input type="text" name="phsn" id="required"></td>
+                                    <td><label class="control-label">Service Charge</label></td>
+                                    <td><input type="text" name="chrg" id="required"></td>
+                                    <td><label class="control-label">Loan Fees</label></td>
+                                    <td> <input type="text" name="lfee" id="required"></td>
+                                    <td><label class="control-label">Cheque ID</label></td>
+                                    <td><input type="text" name="chid" id="required"></td>
                                 </tr>
                                 <tr class="odd gradeX">
-                                    <td><label class="control-label">Aggrement Status</label></td>
-                                    <td><input type="text" name="prate" id="required"></td>
-                                    <td><label class="control-label">Booking ID</label></td>
-                                    <td><input type="text" name="prate" id="required"></td>
+                                    <td><label class="control-label">Cheque Date</label></td>
+                                    <td><input type="text" name="chdate" id="required"></td>
+                                    <td><label class="control-label">Bank Name</label></td>
+                                    <td> <input type="text" name="bnknm" id="required"></td>
+                                    <td><label class="control-label">IGST</label></td>
+                                    <td><input type="text" name="figst" id="required"></td>
+                                </tr>
+                                <tr class="odd gradeX">
+                                    <td><label class="control-label">Laon Fees Amount</label></td>
+                                    <td><input type="text" name="lfamt" id="required"></td>
+                                    <td><label class="control-label">Finance ID</label></td>
+                                    <td><input type="text" name="fid" id="required"></td>
+                                    <td><label class="control-label">Status</label></td>
+                                    <td> <textarea class="span11" name="fstatus"></textarea></td>
                                     <td></td>
                                     <td><input type="submit" value="Save" class="btn btn-success" /></td>
                                 </tr>
@@ -57,11 +67,11 @@
                         <thead>
                             <tr>
                                 <th><input type="checkbox" id="title-table-checkbox" name="title-table-checkbox" /></th>
-                                <th>Aggrement No</th>
-                                <th>Aggrement Amount</th>
-                                <th>Aggrement Date</th>
-                                <th>Aggrement Status</th>
-                                <th>Booking Id</th>
+                                <th>Sr. No</th>
+                                <th>Product Name</th>
+                                <th>Description</th>
+                                <th>HSN</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>

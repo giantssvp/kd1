@@ -2,6 +2,16 @@
     ViewBag.Title = "PaymentDetails";
 }
 
+@{
+    var results = ViewBag.list;
+    int? cnt = new int?();
+    cnt = ViewBag.total;
+    if (cnt == null)
+    {
+        cnt = 0;
+    }
+}
+
 <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
 <link rel="stylesheet" href="~/Content/bootstrap-responsive.min.css" />
 <link rel="stylesheet" href="~/Content/matrix-style.css" />
@@ -23,36 +33,36 @@
                     <h5>Add Payment Details</h5>
                 </div>
                 <div class="widget-content nopadding">
-                    <form method="post" action="#" name="basic_validate" id="basic_validate" novalidate="novalidate">
+                    <form method="post" action="@Url.Action("add_paymentdetails","Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
                         <table class="table table-striped">
                             <tbody>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Amount</label></td>
-                                    <td><input type="text" name="pcode" id="required"></td>
+                                    <td><input type="text" name="pamt" id="required"></td>
                                     <td><label class="control-label">Date</label></td>
-                                    <td> <input type="text" name="pname" id="required"></td>
+                                    <td> <input type="text" name="pdate" id="required"></td>
                                     <td><label class="control-label">Payment Mode</label></td>
-                                    <td><input type="text" name="phsn" id="required"></td>
+                                    <td><input type="text" name="pmode" id="required"></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Cheque ID</label></td>
-                                    <td><input type="text" name="pcgst" id="required"></td>
+                                    <td><input type="text" name="chkid" id="required"></td>
                                     <td><label class="control-label">Cheque Date</label></td>
-                                    <td> <input type="text" name="psgst" id="required"></td>
+                                    <td> <input type="text" name="chkdate" id="required"></td>
                                     <td><label class="control-label">Bank Name</label></td>
-                                    <td><input type="text" name="pigst" id="required"></td>
+                                    <td><input type="text" name="bname" id="required"></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Payment Type</label></td>
-                                    <td><input type="text" name="pcgst" id="required"></td>
+                                    <td><input type="text" name="ptype" id="required"></td>
                                     <td><label class="control-label">Builder Pay</label></td>
-                                    <td> <input type="text" name="psgst" id="required"></td>
+                                    <td> <input type="text" name="bldpay" id="required"></td>
                                     <td><label class="control-label">Bank Pay</label></td>
-                                    <td><input type="text" name="pigst" id="required"></td>
+                                    <td><input type="text" name="bnkpay" id="required"></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Status</label></td>
-                                    <td><input type="text" name="prate" id="required"></td>
+                                    <td><input type="text" name="sts" id="required"></td>
                                     <td><label class="control-label">Booking No</label></td>
                                     <td> <textarea class="span11"></textarea></td>
                                     <td></td>
@@ -72,6 +82,8 @@
                     <table class="table table-bordered data-table with-check">
                         <thead>
                             <tr>
+                                <th><input type="checkbox" id="title-table-checkbox" name="title-table-checkbox" /></th>
+                                <th>ID</th>
                                 <th>Commit Type</th>
                                 <th>Payment Mode</th>
                                 <th>Cheque ID</th>
@@ -81,39 +93,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="gradeX">
-                                <td><input type="checkbox" /></td>
-                                <td>Trident</td>
-                                <td>
-                                    Internet
-                                    Explorer 4.0
-                                </td>
-                                <td>Win 95+</td>
-                                <td class="center">4</td>
-                                <td align="center"><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>
-                            </tr>
-                            <tr class="gradeC">
-                                <td><input type="checkbox" /></td>
-                                <td>Trident</td>
-                                <td>
-                                    Internet
-                                    Explorer 5.0
-                                </td>
-                                <td>Win 95+</td>
-                                <td class="center">5</td>
-                                <td align="center"><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>
-                            </tr>
-                            <tr class="gradeA">
-                                <td><input type="checkbox" /></td>
-                                <td>Trident</td>
-                                <td>
-                                    Internet
-                                    Explorer 5.5
-                                </td>
-                                <td>Win 95+</td>
-                                <td class="center">5.5</td>
-                                <td align="center"><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>
-                            </tr>
+                            @for (var i = 0; i < cnt; i++)
+                            {
+                                <tr class="gradeX">
+                                    <td><input type="checkbox" /></td>
+                                    <td>@results[0][i]</td>
+                                    <td>@results[1][i]</td>
+                                    <td>@results[2][i]</td>
+                                    <td>@results[3][i]</td>
+                                    <td>@results[4][i]</td>
+                                    <td>@results[5][i]</td>
+                                    <td>@results[6][i]</td>
+                                    <td align="center"><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>
