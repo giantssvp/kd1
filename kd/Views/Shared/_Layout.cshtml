@@ -50,7 +50,20 @@
             <li><a href='@Url.Action("Agreement", "Home")'><i class="icon icon-pencil"></i> <span>Agreement Details</span></a></li>
             <li><a href='@Url.Action("Finance", "Home")'><i class="icon icon-pencil"></i> <span>Finance</span></a></li>
             <li><a href='@Url.Action("FileStatus", "Home")'><i class="icon icon-pencil"></i> <span>FileStatus</span></a></li>
-            <li><a href='@Url.Action("Report", "Home")'><i class="icon icon-pencil"></i> <span>Report</span></a></li>
+            <li class="submenu">
+                <a href="#"><i class="icon icon-file"></i> <span>Cost Sheets</span></a>
+                <ul>
+                    <li><a href='@Url.Action("CustomerCostSheet", "Home")'>Customer Cost Sheet</a></li>
+                    <li><a href='@Url.Action("BuilderCostSheet", "Home")'>Builer Cost Sheet</a></li>
+                </ul>
+            </li>
+            <li class="submenu">
+                <a href="#"><i class="icon icon-file"></i> <span>Report</span></a>
+                <ul>
+                    <li><a href='@Url.Action("Report", "Home")'>General Report</a></li>
+                    <li><a href='@Url.Action("BuilderCostSheet", "Home")'>Profit and Loss</a></li>
+                </ul>
+            </li>
             <li><a href='@Url.Action("Dashboard", "Home")'><i class="icon icon-pencil"></i> <span>Backup</span></a></li>
         </ul>
     </div>

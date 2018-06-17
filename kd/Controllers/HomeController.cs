@@ -126,6 +126,17 @@ namespace kd.Controllers
 
             return View();
         }
+
+        public ActionResult CustomerCostSheet()
+        {
+            return View();
+        }
+
+        public ActionResult BuilderCostSheet()
+        {
+            return View();
+        }
+
         public ActionResult Report()
         {
 

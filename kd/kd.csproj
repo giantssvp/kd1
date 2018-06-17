@@ -254,12 +254,14 @@
     <Content Include="Views\Home\Booking.cshtml" />
     <Content Include="Views\Home\PaymentCommit.cshtml" />
     <Content Include="Views\Home\PaymentDetails.cshtml" />
-    <Content Include="Views\Home\Aggrement.cshtml" />
     <Content Include="Views\Home\Finance.cshtml" />
     <Content Include="Views\Home\Report.cshtml" />
     <Content Include="Views\Home\FileStatus.cshtml" />
     <Content Include="Views\Home\Customer.cshtml" />
     <Content Include="Views\Home\Franchies.cshtml" />
+    <Content Include="Views\Home\Agreement.cshtml" />
+    <Content Include="Views\Home\CustomerCostSheet.cshtml" />
+    <Content Include="Views\Home\BuilderCostSheet.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
