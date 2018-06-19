@@ -21,8 +21,9 @@ namespace kd.Controllers
         public int booking_page_size = 10;
         public int finance_page_size = 10;
         public int file_status_page_size = 10;
-
-
+        public int agreement_page_size = 10;
+        public int cost_sheet_page_size = 10;
+        
         public ActionResult Dashboard()
         {
             return View();
@@ -127,6 +128,12 @@ namespace kd.Controllers
         }
         public ActionResult Agreement()
         {
+            ViewBag.total = 0;
+            HttpContext.Session.Add("offset_agreement", 0);
+            List<string>[] list = new List<string>[14];
+            list = obj.agreement_show(Int32.Parse(HttpContext.Session["offset_agreement"].ToString()), agreement_page_size);
+            ViewBag.list = list;
+            ViewBag.total = list[0].Count();
 
             return View();
         }
@@ -155,18 +162,59 @@ namespace kd.Controllers
 
         public ActionResult CustomerCostSheet()
         {
+            ViewBag.total = 0;
+            HttpContext.Session.Add("offset_cost_sheet", 0);
+            List<string>[] list = new List<string>[14];
+            list = obj.cost_sheet_show("customer", Int32.Parse(HttpContext.Session["offset_cost_sheet"].ToString()), cost_sheet_page_size);
+            ViewBag.list = list;
+            ViewBag.total = list[0].Count();
+
             return View();
         }
 
         public ActionResult BuilderCostSheet()
         {
+            ViewBag.total = 0;
+            HttpContext.Session.Add("offset_cost_sheet", 0);
+            List<string>[] list = new List<string>[14];
+            list = obj.cost_sheet_show("builder", Int32.Parse(HttpContext.Session["offset_cost_sheet"].ToString()), cost_sheet_page_size);
+            ViewBag.list = list;
+            ViewBag.total = list[0].Count();
+
             return View();
         }
 
         public ActionResult Report()
         {
-
             return View();
+        }
+        
+        public ActionResult add_customer_cost_sheet(string site, string type, string area, string rr_rate, string basic_rate, string basic_cost, string legal_charge, string devcharge, string mseb, string stampdutyreg, string gst, string otheramt, string grandtotal)
+        {
+            try
+            {
+                obj.insert_cost_sheet("customer", site, type, area, rr_rate, basic_rate, basic_cost, legal_charge, devcharge, mseb, stampdutyreg, gst, otheramt, grandtotal);
+                return RedirectToAction("CustomerCostSheet", "Home");
+            }
+            catch (Exception ex)
+            {
+                System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
+                return RedirectToAction("CustomerCostSheet", "Home");
+            }
+        }
+
+        public ActionResult add_builder_cost_sheet(string site, string type, string area, string rr_rate, string basic_rate, string basic_cost, string legal_charge, string devcharge, string mseb, string stampdutyreg, string gst, string otheramt, string grandtotal)
+        {
+            try
+            {
+                obj.insert_cost_sheet("builder", site, type, area, rr_rate, basic_rate, basic_cost, legal_charge, devcharge, mseb, stampdutyreg, gst, otheramt, grandtotal);
+                return RedirectToAction("BuilderCostSheet", "Home");
+            }
+            catch (Exception ex)
+            {
+                System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
+                return RedirectToAction("BuilderCostSheet", "Home");
+            }
         }
 
         public ActionResult add_enquiry(string enqname, string enqaddress, string enqmob, string enqdate, string enqsite, string enqrequirement, string enqoccu, string enqvisit, string enqinterest,
@@ -301,12 +349,12 @@ namespace kd.Controllers
                 return RedirectToAction("PaymentDetails", "Home");
             }
         }
-
-        /*public ActionResult add_agreement(string pcode, string pname, string phsn, string pcgst, string psgst, string pigst, string prate)
+        
+        public ActionResult add_agreement(string ano, string aamount, string astatus, string bid, string adate)
         {
             try
             {
-                obj.insert_agreement(pcode, pname, phsn, pcgst, psgst, pigst, prate);
+                obj.insert_agreement(ano, aamount, astatus, bid, adate);
                 return RedirectToAction("Agreement", "Home");
             }
             catch (Exception ex)
@@ -314,7 +362,7 @@ namespace kd.Controllers
                 System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
                 return RedirectToAction("Agreement", "Home");
             }
-        }*/
+        }
 
         public ActionResult add_finance(string fintype, string finname, string finexe, string finexemob, string finexeemail, string filehanddate,
             string filesta, string filesanctdate, string reqloanamt, string sanctloanamt, string disburseamt, string actloanamt, string recddamt, string remddamt, string rateofinter, string emiamt, string emimonths, string bookid, string finstat)

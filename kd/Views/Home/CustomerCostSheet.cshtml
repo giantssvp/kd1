@@ -1,10 +1,5 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "CustomerCostSheet";
-}
-
-@{
-    ViewBag.Title = "PaymentCommit";
 }
 
 @{
@@ -35,47 +30,47 @@
             <div class="widget-box">
                 <div class="widget-title">
                     <span class="icon"> <i class="icon-info-sign"></i> </span>
-                    <h5>Add Cost Sheet</h5>
+                    <h5>Add Customer Cost Sheet</h5>
                 </div>
                 <div class="widget-content nopadding">
-                    <form method="post" action="@Url.Action("add_paymentcommit","Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
+                    <form method="post" action="@Url.Action("add_customer_cost_sheet","Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
                         <table class="table table-striped">
                             <tbody>
                                 <tr class="odd gradeX">
-                                    <td><label class="control-label">Site</label></td>
-                                    <td><input type="text" name="ctype" id="required"></td>
+                                    <td><label class="control-label">Site Name</label></td>
+                                    <td><input type="text" name="site" id="required"></td>
                                     <td><label class="control-label">Type</label></td>
-                                    <td> <input type="text" name="camount" id="required"></td>
+                                    <td> <input type="text" name="type" id="required"></td>
                                     <td><label class="control-label">Area</label></td>
-                                    <td><input type="text" name="cstatus" id="required"></td>
+                                    <td><input type="text" name="area" id="required"></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">RR Rate</label></td>
-                                    <td><input type="text" name="ctype" id="required"></td>
+                                    <td><input type="text" name="rr_rate" id="required"></td>
                                     <td><label class="control-label">Basic Rate</label></td>
-                                    <td> <input type="text" name="camount" id="required"></td>
+                                    <td> <input type="text" name="basic_rate" id="required"></td>
                                     <td><label class="control-label">Basic Cost</label></td>
-                                    <td><input type="text" name="cstatus" id="required"></td>
+                                    <td><input type="text" name="basic_cost" id="required"></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Legal Charges</label></td>
-                                    <td><input type="text" name="ctype" id="required"></td>
+                                    <td><input type="text" name="legal_charge" id="required"></td>
                                     <td><label class="control-label">MSEB Charges</label></td>
-                                    <td> <input type="text" name="camount" id="required"></td>
+                                    <td> <input type="text" name="mseb" id="required"></td>
                                     <td><label class="control-label">Development Charges</label></td>
-                                    <td><input type="text" name="cstatus" id="required"></td>
+                                    <td><input type="text" name="devcharge" id="required"></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Stamp Duty Registration</label></td>
-                                    <td><input type="text" name="ctype" id="required"></td>
+                                    <td><input type="text" name="stampdutyreg" id="required"></td>
                                     <td><label class="control-label">GST</label></td>
-                                    <td> <input type="text" name="camount" id="required"></td>
+                                    <td> <input type="text" name="gst" id="required"></td>
                                     <td><label class="control-label">Other Amount</label></td>
-                                    <td><input type="text" name="cstatus" id="required"></td>
+                                    <td><input type="text" name="otheramt" id="required"></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Grand Total</label></td>
-                                    <td><input type="text" name="cstatus" id="required"></td>
+                                    <td><input type="text" name="grandtotal" id="required"></td>
                                     <td><input type="submit" value="Save" class="btn btn-success" /></td>
                                 </tr>
                             </tbody>
@@ -108,11 +103,16 @@
                             <tr>
                                 <th><input type="checkbox" id="title-table-checkbox" name="title-table-checkbox" /></th>
                                 <th>ID</th>
-                                <th>Commit Type</th>
-                                <th>Amount</th>
-                                <th>Status</th>
-                                <th>Remark</th>
-                                <th>Bkno</th>
+                                <th>Type</th>
+                                <th>Basic Rate</th>
+                                <th>Basic Cost</th>
+                                <th>Legal Charges</th>
+                                <th>MSEB Charges</th>
+                                <th>Development Charges</th>
+                                <th>Stamp duty Reg</th>
+                                <th>GST</th>
+                                <th>Other Amount</th>
+                                <th>Grand Total</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -128,6 +128,11 @@
                                     <td>@results[4][i]</td>
                                     <td>@results[5][i]</td>
                                     <td>@results[6][i]</td>
+                                    <td>@results[7][i]</td>
+                                    <td>@results[8][i]</td>
+                                    <td>@results[9][i]</td>
+                                    <td>@results[10][i]</td>
+                                    <td>@results[11][i]</td>
                                     <td align="center"><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>
                                 </tr>
                             }

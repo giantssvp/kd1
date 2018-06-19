@@ -28,6 +28,8 @@ namespace kd.Models
         public List<string>[] list_booking_show = new List<string>[21];
         public List<string>[] list_finance_show = new List<string>[21];
         public List<string>[] list_file_status_show = new List<string>[10];
+        public List<string>[] list_agreement_show = new List<string>[6];
+        public List<string>[] list_cost_sheet_show = new List<string>[14];
 
         private bool OpenConnection()
         {
@@ -56,6 +58,49 @@ namespace kd.Models
             catch (MySqlException ex)
             {
                 return false;
+            }
+        }
+
+        public int insert_cost_sheet(string sheet_type, string site_name, string type, string area, string rr_rate, string basic_rate, string basic_cost, string legal_charge, string devcharge, string mseb, string stampdutyreg, string gst, string otheramt, string grandtotal)
+        {
+            try
+            {
+                string query = "INSERT INTO cost_sheet (RR_Rate, Type, Basic_Rate, Basic_Cost, Legal_Charges, MSEB_Charges, " +
+                    "Development_Charges, Stamp_Duty_Registration, GST, Other_Amount, Grand_Total, Cost_Sheet_Type, Site_Id) " +
+                    "VALUES(@rr_rate, @type, @bas_rate, @bas_cost, @legal_charge, @mseb, @devcharge, @stamp, @gst, @otheramt, @grandtotal, @sheet_type," +
+                    " @site_id)";
+
+                string query1 = "select id from sites where Site_Name = '" + site_name + "'";
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd1 = new MySqlCommand(query1, connection);
+                    int id = Convert.ToInt32(cmd1.ExecuteScalar());
+
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@sheet_type", sheet_type);
+                    cmd.Parameters.AddWithValue("@type", type);
+                    cmd.Parameters.AddWithValue("@area", area);
+                    cmd.Parameters.AddWithValue("@rr_rate", rr_rate);
+                    cmd.Parameters.AddWithValue("@bas_cost", basic_cost);
+                    cmd.Parameters.AddWithValue("@bas_rate", basic_rate);
+                    cmd.Parameters.AddWithValue("@legal_charge", legal_charge);
+                    cmd.Parameters.AddWithValue("@mseb", mseb);
+                    cmd.Parameters.AddWithValue("@gst", gst);
+                    cmd.Parameters.AddWithValue("@devcharge", devcharge);
+                    cmd.Parameters.AddWithValue("@stamp", stampdutyreg);
+                    cmd.Parameters.AddWithValue("@otheramt", otheramt);
+                    cmd.Parameters.AddWithValue("@grandtotal", grandtotal);
+                    cmd.Parameters.AddWithValue("@site_id", id);
+
+                    cmd.ExecuteNonQuery();
+                    this.CloseConnection();
+                }
+                return 0;
+            }
+            catch (MySqlException ex)
+            {
+                return -1;
             }
         }
 
@@ -361,34 +406,21 @@ namespace kd.Models
             }
         }
 
-        /*public int insert_agreement(string pcode, string pname, string phsn, string pcgst, string psgst, string pigst, string prate)
+        public int insert_agreement(string ano, string aamount, string astatus, string bid, string adate)
         {
             try
             {
-                string query = "INSERT INTO aggrement (Applicant_Name, Applicant_Email_Id, Applicant_Phone, Applicant_Address, Applicant_Pan_No, " +
-                    "Applicant_Adhar_No, Applicant_Occupation, Applicant_DOB, Applicant_Age, Co_Applicant_Name, Co_Applicant_Pan_No, " +
-                    "Co_Applicant_Adhar_No, Co_Applicant_Occupation, Co_Applicant_DOB, Date, Status) " +
-                    "VALUES(@name, @email, @phone, @addr, @pan, @aadhar, @occu, @birth, @age, @cname, @cpan, @caadhar, @coccu, @cbirth, NOW(), @status)";
+                string query = "INSERT INTO aggrement (Aggrement_Amount, Aggrement_Date, Aggrement_No, Status, Booking_Id) " +
+                    "VALUES(@aamount, @adate, @ano, @astatus, @bid)";
 
                 if (this.OpenConnection() == true)
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@name", applname);
-                    cmd.Parameters.AddWithValue("@email", applemail);
-                    cmd.Parameters.AddWithValue("@phone", applmob);
-                    cmd.Parameters.AddWithValue("@addr", appladdr);
-                    cmd.Parameters.AddWithValue("@pan", applpan);
-                    cmd.Parameters.AddWithValue("@aadhar", applaadhar);
-                    cmd.Parameters.AddWithValue("@occu", apploccu);
-                    cmd.Parameters.AddWithValue("@birth", applbirth);
-                    cmd.Parameters.AddWithValue("@age", applage);
-
-                    cmd.Parameters.AddWithValue("@cname", coapplname);
-                    cmd.Parameters.AddWithValue("@cpan", coapplpan);
-                    cmd.Parameters.AddWithValue("@caadhar", coapplaadhar);
-                    cmd.Parameters.AddWithValue("@coccu", coapploccu);
-                    cmd.Parameters.AddWithValue("@cbirth", coapplbirth);
-                    cmd.Parameters.AddWithValue("@status", 1); //To be changed
+                    cmd.Parameters.AddWithValue("@ano", ano);
+                    cmd.Parameters.AddWithValue("@aamount", aamount);
+                    cmd.Parameters.AddWithValue("@astatus", astatus);
+                    cmd.Parameters.AddWithValue("@bid", bid);
+                    cmd.Parameters.AddWithValue("@adate", adate);
 
                     cmd.ExecuteNonQuery();
                     this.CloseConnection();
@@ -399,7 +431,7 @@ namespace kd.Models
             {
                 return -1;
             }
-        }*/
+        }
 
         public int insert_finance(string fintype, string finname, string finexe, string finexemob, string finexeemail, string filehanddate,
             string filesta, string filesanctdate, string reqloanamt, string sanctloanamt, string disburseamt, string actloanamt, string recddamt, string remddamt, string rateofinter, string emiamt, string emimonths, string bookid, string finstat)
@@ -720,6 +752,68 @@ namespace kd.Models
             }
         }
 
+        public List<string>[] cost_sheet_show(string sheet_type, int offset, int limit)
+        {
+            try
+            {
+                string query = "SELECT * FROM cost_sheet where Cost_Sheet_Type = @sheet_type ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+
+                list_cost_sheet_show[0] = new List<string>();
+                list_cost_sheet_show[1] = new List<string>();
+                list_cost_sheet_show[2] = new List<string>();
+                list_cost_sheet_show[3] = new List<string>();
+                list_cost_sheet_show[4] = new List<string>();
+                list_cost_sheet_show[5] = new List<string>();
+                list_cost_sheet_show[6] = new List<string>();
+                list_cost_sheet_show[7] = new List<string>();
+                list_cost_sheet_show[8] = new List<string>();
+                list_cost_sheet_show[9] = new List<string>();
+                list_cost_sheet_show[10] = new List<string>();
+                list_cost_sheet_show[11] = new List<string>();
+                list_cost_sheet_show[12] = new List<string>();
+                list_cost_sheet_show[13] = new List<string>();
+                
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@sheet_type", sheet_type);
+                    cmd.Parameters.AddWithValue("@offset", offset);
+                    cmd.Parameters.AddWithValue("@limit", limit);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    while (dataReader.Read())
+                    {
+                        list_cost_sheet_show[0].Add(dataReader["ID"] + "");
+                        list_cost_sheet_show[1].Add(dataReader["RR_Rate"] + "");
+                        list_cost_sheet_show[2].Add(dataReader["Type"] + "");
+                        list_cost_sheet_show[3].Add(dataReader["Basic_Rate"] + "");
+                        list_cost_sheet_show[4].Add(dataReader["Basic_Cost"] + "");
+                        list_cost_sheet_show[5].Add(dataReader["Legal_Charges"] + "");
+                        list_cost_sheet_show[6].Add(dataReader["MSEB_Charges"] + "");
+                        list_cost_sheet_show[7].Add(dataReader["Development_Charges"] + "");
+                        list_cost_sheet_show[8].Add(dataReader["Stamp_Duty_Registration"] + "");
+                        list_cost_sheet_show[9].Add(dataReader["GST"] + "");
+                        list_cost_sheet_show[10].Add(dataReader["Other_Amount"] + "");
+                        list_cost_sheet_show[11].Add(dataReader["Grand_Total"] + "");
+                        list_cost_sheet_show[12].Add(dataReader["Cost_Sheet_Type"] + "");
+                        list_cost_sheet_show[13].Add(dataReader["Site_Id"] + "");
+                    }
+
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return list_cost_sheet_show;
+                }
+                else
+                {
+                    return list_cost_sheet_show;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return list_cost_sheet_show;
+            }
+        }
+
         public List<string>[] customer_show(int offset, int limit)
         {
             try
@@ -865,7 +959,7 @@ namespace kd.Models
         {
             try
             {
-                string query = "SELECT * FROM finance_details ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                string query = "SELECT * FROM bookings ORDER BY ID DESC LIMIT @limit OFFSET @offset";
 
                 list_booking_show[0] = new List<string>();
                 list_booking_show[1] = new List<string>();
@@ -1143,6 +1237,51 @@ namespace kd.Models
             catch (MySqlException ex)
             {
                 return list_paydetails_show;
+            }
+        }
+
+        public List<string>[] agreement_show(int offset, int limit)
+        {
+            try
+            {
+                string query = "SELECT * FROM aggrement ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+
+                list_agreement_show[0] = new List<string>();
+                list_agreement_show[1] = new List<string>();
+                list_agreement_show[2] = new List<string>();
+                list_agreement_show[3] = new List<string>();
+                list_agreement_show[4] = new List<string>();
+                list_agreement_show[5] = new List<string>();
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@offset", offset);
+                    cmd.Parameters.AddWithValue("@limit", limit);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    while (dataReader.Read())
+                    {
+                        list_agreement_show[0].Add(dataReader["ID"] + "");
+                        list_agreement_show[1].Add(dataReader["Aggrement_Amount"] + "");
+                        list_agreement_show[2].Add(dataReader["Aggrement_Date"] + "");
+                        list_agreement_show[3].Add(dataReader["Aggrement_No"] + "");
+                        list_agreement_show[4].Add(dataReader["Status"] + "");
+                        list_agreement_show[5].Add(dataReader["Booking_Id"] + "");
+                    }
+
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return list_agreement_show;
+                }
+                else
+                {
+                    return list_agreement_show;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return list_agreement_show;
             }
         }
 
