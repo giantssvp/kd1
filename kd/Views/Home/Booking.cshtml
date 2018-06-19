@@ -2,6 +2,16 @@
     ViewBag.Title = "Booking";
 }
 
+@{
+    var results = ViewBag.list;
+    int? cnt = new int?();
+    cnt = ViewBag.total;
+    if (cnt == null)
+    {
+        cnt = 0;
+    }
+}
+
 <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
 <link rel="stylesheet" href="~/Content/bootstrap-responsive.min.css" />
 <link rel="stylesheet" href="~/Content/matrix-style.css" />
@@ -92,6 +102,8 @@
                     <table class="table table-bordered data-table with-check">
                         <thead>
                             <tr>
+                                <th><input type="checkbox" id="title-table-checkbox" name="title-table-checkbox" /></th>
+                                <th>ID</th>
                                 <th>Booking No</th>
                                 <th>Applicant Name</th>
                                 <th>Site</th>
@@ -101,39 +113,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="gradeX">
-                                <td>Trident</td>
-                                <td>Trident</td>
-                                <td>
-                                    Internet
-                                    Explorer 4.0
-                                </td>
-                                <td>Win 95+</td>
-                                <td class="center">4</td>
-                                <td align="center"><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>
-                            </tr>
-                            <tr class="gradeC">
-                                <td><input type="checkbox" /></td>
-                                <td>Trident</td>
-                                <td>
-                                    Internet
-                                    Explorer 5.0
-                                </td>
-                                <td>Win 95+</td>
-                                <td class="center">5</td>
-                                <td align="center"><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>
-                            </tr>
-                            <tr class="gradeA">
-                                <td><input type="checkbox" /></td>
-                                <td>Trident</td>
-                                <td>
-                                    Internet
-                                    Explorer 5.5
-                                </td>
-                                <td>Win 95+</td>
-                                <td class="center">5.5</td>
-                                <td align="center"><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>
-                            </tr>
+                            @for (var i = 0; i < cnt; i++)
+                            {
+                                <tr class="gradeX">
+                                    <td><input type="checkbox" /></td>
+                                    <td>@results[0][i]</td>
+                                    <td>@results[1][i]</td>
+                                    <td>@results[2][i]</td>
+                                    <td>@results[3][i]</td>
+                                    <td>@results[4][i]</td>
+                                    <td>@results[5][i]</td>
+                                    <td>@results[6][i]</td>
+                                    <td align="center"><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>

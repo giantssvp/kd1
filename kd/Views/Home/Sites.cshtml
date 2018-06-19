@@ -11,6 +11,13 @@
     {
         cnt = 0;
     }
+    var sites = ViewBag.sites;
+    int? site_cnt = new int?();
+    site_cnt = ViewBag.total_site;
+    if (site_cnt == null)
+    {
+        site_cnt = 0;
+    }
 }
 
 <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
@@ -99,17 +106,14 @@
                     <span class="icon"><i class="icon-th"></i></span>
                     <h5>All Sites and Flats:-</h5>
                     <div class="select-site">
-                        <h5>Select All Flats by sites</h5>
-                        <div class="btn-group">
-                            <button class="btn btn-primary">Action</button>
-                            <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle"><span class="caret"></span></button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Sai sayaji nagar</a></li>
-                                <li><a href="#">shobha puram</a></li>
-                                <li><a href="#">mahalaxmi nagar</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">rahul parkk</a></li>
-                            </ul>
+                        <h5>Select Flats by sites</h5>
+                        <div class="btn-group"> 
+                            <select name="site_name" id="site_name" onchange="$.ajax({url: '/Home/Sites'});" required>
+                                @for (var i = 0; i < site_cnt; i++)
+                                {                                    
+                                    <option value=@sites[1][i]> @sites[1][i]</option>
+                                }
+                            </select>
                         </div>
                     </div>
                  </div>
@@ -118,17 +122,14 @@
                         <thead>
                             <tr>
                                 <th><input type="checkbox" id="title-table-checkbox" name="title-table-checkbox" /></th>
-                                <th>Site Name</th>
-                                <th>Site Address</th>
-                                <th>Phone No</th>
-                                <th>Email Id</th>
-                                <th>Status</th>
+                                <th>ID</th>
                                 <th>Wing Name</th>
                                 <th>Floor</th>
                                 <th>Flat No</th>
                                 <th>Flat Type</th>
                                 <th>Flat Area</th>
                                 <th>Status</th>
+                                <th>modify</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -143,11 +144,7 @@
                                     <td>@results[4][i]</td>
                                     <td>@results[5][i]</td>
                                     <td>@results[6][i]</td>
-                                    <td>@results[7][i]</td>
-                                    <td>@results[8][i]</td>
-                                    <td>@results[9][i]</td>
-                                    <td>@results[10][i]</td>
-                                    
+                                    <td>@results[7][i]</td>                                    
                                     <td align="center"><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>
                                 </tr>
                             }

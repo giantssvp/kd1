@@ -18,6 +18,10 @@ namespace kd.Controllers
         public int customer_page_size = 10;
         public int paycommit_page_size = 10;
         public int paydetails_page_size = 10;
+        public int booking_page_size = 10;
+        public int finance_page_size = 10;
+        public int file_status_page_size = 10;
+
 
         public ActionResult Dashboard()
         {
@@ -38,14 +42,18 @@ namespace kd.Controllers
 
         public ActionResult Sites()
         {
-            
+            //System.Windows.Forms.MessageBox.Show(DataTables_Table_0_length);
             ViewBag.total = 0;
             HttpContext.Session.Add("offset_sites", 0);
-            List<string>[] list = new List<string>[11];
-            list = obj.sites_show(Int32.Parse(HttpContext.Session["offset_sites"].ToString()), sites_page_size);
-            ViewBag.list = list;
-            //ViewBag.total = list[0].Count();
-            
+            List<string>[] sites = new List<string>[7];
+            List<string>[] flats = new List<string>[9];
+            sites = obj.sites_show();
+            flats = obj.flats_show(sites[1][0], Int32.Parse(HttpContext.Session["offset_sites"].ToString()), sites_page_size);
+            ViewBag.sites = sites;
+            ViewBag.list = flats;
+            ViewBag.total = flats[0].Count();
+            ViewBag.total_site = sites[0].Count();
+
             return View();
         }
 
@@ -86,6 +94,12 @@ namespace kd.Controllers
         }
         public ActionResult Booking()
         {
+            ViewBag.total = 0;
+            HttpContext.Session.Add("offset_booking", 0);
+            List<string>[] list = new List<string>[21];
+            list = obj.booking_show(Int32.Parse(HttpContext.Session["offset_booking"].ToString()), booking_page_size);
+            ViewBag.list = list;
+            ViewBag.total = list[0].Count();
 
             return View();
         }
@@ -118,11 +132,23 @@ namespace kd.Controllers
         }
         public ActionResult Finance()
         {
+            ViewBag.total = 0;
+            HttpContext.Session.Add("offset_finance", 0);
+            List<string>[] list = new List<string>[21];
+            list = obj.finance_show(Int32.Parse(HttpContext.Session["offset_finance"].ToString()), finance_page_size);
+            ViewBag.list = list;
+            ViewBag.total = list[0].Count();
 
             return View();
         }
         public ActionResult FileStatus()
         {
+            ViewBag.total = 0;
+            HttpContext.Session.Add("offset_file_status", 0);
+            List<string>[] list = new List<string>[10];
+            list = obj.file_status_show(Int32.Parse(HttpContext.Session["offset_file_status"].ToString()), file_status_page_size);
+            ViewBag.list = list;
+            ViewBag.total = list[0].Count();
 
             return View();
         }
