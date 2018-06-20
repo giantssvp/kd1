@@ -57,8 +57,8 @@
                                     <td><input type="text" name="siteemail" id="required"></td>
                                     <td><label class="control-label">Status</label></td>
                                     <td> <input type="text" name="sitestatus" id="required"></td>
-                                    <td></td>
                                     <td><input type="submit" value="Save" class="btn btn-success" /></td>
+                                    <td><input type="reset" value="Cancel" class="btn btn-danger" /></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -95,6 +95,7 @@
                                     <td><label class="control-label">Flat Status</label></td>
                                     <td><input type="text" name="flatstatus" id="required"></td>
                                     <td><input type="submit" value="Save" class="btn btn-success" /></td>
+                                    <td><input type="reset" value="Cancel" class="btn btn-danger" /></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -108,7 +109,7 @@
                     <div class="select-site">
                         <h5>Select Flats by sites</h5>
                         <div class="btn-group"> 
-                            <select name="site_name" id="site_name" onchange="$.ajax({url: '/Home/Sites'});" required>
+                            <select name="site_name" id="site_name" style="max-width:90%;">
                                 @for (var i = 0; i < site_cnt; i++)
                                 {                                    
                                     <option value=@sites[1][i]> @sites[1][i]</option>
