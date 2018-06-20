@@ -82,55 +82,55 @@
             <div class="widget-box">
                 <div class="widget-title">
                     <span class="icon"><i class="icon-th"></i></span>
-                    <h5>All Products</h5> 
+                    <h5>All Enquiries</h5> 
                 </div>
                 <div class="widget-content nopadding">
-                    <table class="table table-bordered data-table with-check">
-                        <thead>
-                            <tr>
-                                <th><input type="checkbox" id="title-table-checkbox" name="title-table-checkbox" /></th>
-                                <th>ID</th>
-                                <th>Customer Name</th>
-                                <th>Address</th>
-                                <th>Mobile No</th>
-                                <th>Occupation</th>
-                                <th>Date</th>
-                                <th>Site</th>
-                                <th>Requirement</th>
-                                <th>Visit</th>
-                                <th>Interest</th>
-                                <th>Down Payment</th>
-                                <th>Booking No</th>
-                                <th>Remark</th>
-                                <th>Modify</th>
+                    <form method="post" action="@Url.Action("Index","Home")" name="pc" id="pc">
+                        <input type="hidden" id="ps" name="ps" value="10" />
+                    </form>
+                        <table class="table table-bordered data-table with-check">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Customer Name</th>
+                                    <th>Address</th>
+                                    <th>Mobile No</th>
+                                    <th>Occupation</th>
+                                    <th>Date</th>
+                                    <th>Site</th>
+                                    <th>Requirement</th>
+                                    <th>Visit</th>
+                                    <th>Interest</th>
+                                    <th>Down Payment</th>
+                                    <th>Booking No</th>
+                                    <th>Remark</th>
+                                    <th>Modify</th>
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @for (var i = 0; i < cnt; i++)
-                            {
-                                <tr class="gradeX">
-                                    <td><input type="checkbox" /></td>
-                                    <td>@results[0][i]</td>
-                                    <td>@results[1][i]</td>
-                                    <td>@results[2][i]</td>
-                                    <td>@results[3][i]</td>
-                                    <td>@results[4][i]</td>
-                                    <td>@results[5][i]</td>
-                                    <td>@results[6][i]</td>
-                                    <td>@results[7][i]</td>
-                                    <td>@results[8][i]</td>
-                                    <td>@results[9][i]</td>
-                                    <td>@results[10][i]</td>
-                                    <td>@results[11][i]</td>
-                                    <td>@results[12][i]</td>
-                                    <td>@results[13][i]</td>
-                                    <td align="center"><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>
                                 </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
+                            </thead>
+                            <tbody>
+                                @for (var i = 0; i < cnt; i++)
+                                {
+                                    <tr class="gradeX">
+                                        <td>@results[0][i]</td>
+                                        <td>@results[1][i]</td>
+                                        <td>@results[2][i]</td>
+                                        <td>@results[3][i]</td>
+                                        <td>@results[4][i]</td>
+                                        <td>@results[5][i]</td>
+                                        <td>@results[6][i]</td>
+                                        <td>@results[7][i]</td>
+                                        <td>@results[8][i]</td>
+                                        <td>@results[9][i]</td>
+                                        <td>@results[10][i]</td>
+                                        <td>@results[11][i]</td>
+                                        <td>@results[12][i]</td>
+                                        <td align="center"><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+</div>
             </div>
         </div>
     </div>
@@ -148,3 +148,11 @@
 <script src="~/Scripts/jquery.validate.js"></script>
 <script src="~/Scripts/matrix.form_validation.js"></script>
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#DataTables_Table_0_length").change(function () {
+            document.getElementById("ps").value = $("#DataTables_Table_0_length option:selected").text();
+            document.getElementById('pc').submit();
+        });
+    });
+</script>

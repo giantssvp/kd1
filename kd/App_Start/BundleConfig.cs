@@ -9,9 +9,9 @@ namespace kd
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery.js",
-                        "~/Scripts/jquery.wizard.js",
+                        "~/Scripts/jquery.js", 
                         "~/Scripts/jquery.min.js",
+                        "~/Scripts/jquery.wizard.js",                        
                         "~/Scripts/jquery.ui.custom.js",
                         "~/Scripts/jquery.flot.min.js",
                         "~/Scripts/jquery.flot.pie.min.js",

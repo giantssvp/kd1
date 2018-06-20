@@ -11,45 +11,31 @@ namespace kd.Controllers
     {
         public static db_connect obj = new db_connect();
 
-        public int enquiry_page_size = 10;
-        public int sites_page_size = 10;
-        public int executive_page_size = 10;
-        public int franchies_page_size = 10;
-        public int customer_page_size = 10;
-        public int paycommit_page_size = 10;
-        public int paydetails_page_size = 10;
-        public int booking_page_size = 10;
-        public int finance_page_size = 10;
-        public int file_status_page_size = 10;
-        public int agreement_page_size = 10;
-        public int cost_sheet_page_size = 10;
-        
         public ActionResult Dashboard()
         {
             return View();
         }
-
-        public ActionResult Index()
+        
+        public ActionResult Index(string ps="10")
         {
             ViewBag.total = 0;
             HttpContext.Session.Add("offset_enquiry", 0);
             List<string>[] list = new List<string>[14];
-            list = obj.enquiry_show(Int32.Parse(HttpContext.Session["offset_enquiry"].ToString()), enquiry_page_size);
+            list = obj.enquiry_show(Int32.Parse(HttpContext.Session["offset_enquiry"].ToString()), Int32.Parse(ps));
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
 
             return View();
         }
 
-        public ActionResult Sites()
+        public ActionResult Sites(string ps = "10")
         {
-            //System.Windows.Forms.MessageBox.Show(DataTables_Table_0_length);
             ViewBag.total = 0;
             HttpContext.Session.Add("offset_sites", 0);
             List<string>[] sites = new List<string>[7];
             List<string>[] flats = new List<string>[9];
             sites = obj.sites_show();
-            flats = obj.flats_show(sites[1][0], Int32.Parse(HttpContext.Session["offset_sites"].ToString()), sites_page_size);
+            flats = obj.flats_show(sites[1][0], Int32.Parse(HttpContext.Session["offset_sites"].ToString()), Int32.Parse(ps));
             ViewBag.sites = sites;
             ViewBag.list = flats;
             ViewBag.total = flats[0].Count();
@@ -58,126 +44,126 @@ namespace kd.Controllers
             return View();
         }
 
-        public ActionResult Executive()
+        public ActionResult Executive(string ps = "10")
         {
             ViewBag.total = 0;
             HttpContext.Session.Add("offset_executive", 0);
             List<string>[] list = new List<string>[14];
-            list = obj.executive_show(Int32.Parse(HttpContext.Session["offset_executive"].ToString()), executive_page_size);
+            list = obj.executive_show(Int32.Parse(HttpContext.Session["offset_executive"].ToString()), Int32.Parse(ps));
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
 
             return View();
         }
 
-        public ActionResult Franchies()
+        public ActionResult Franchies(string ps = "10")
         {
             ViewBag.total = 0;
             HttpContext.Session.Add("offset_franchies", 0);
             List<string>[] list = new List<string>[14];
-            list = obj.franchies_show(Int32.Parse(HttpContext.Session["offset_franchies"].ToString()), franchies_page_size);
+            list = obj.franchies_show(Int32.Parse(HttpContext.Session["offset_franchies"].ToString()), Int32.Parse(ps));
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
 
             return View();
         }
 
-        public ActionResult Customer()
+        public ActionResult Customer(string ps = "10")
         {
             ViewBag.total = 0;
             HttpContext.Session.Add("offset_customer", 0);
             List<string>[] list = new List<string>[14];
-            list = obj.customer_show(Int32.Parse(HttpContext.Session["offset_customer"].ToString()), customer_page_size);
+            list = obj.customer_show(Int32.Parse(HttpContext.Session["offset_customer"].ToString()), Int32.Parse(ps));
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
 
             return View();
         }
-        public ActionResult Booking()
+        public ActionResult Booking(string ps = "10")
         {
             ViewBag.total = 0;
             HttpContext.Session.Add("offset_booking", 0);
             List<string>[] list = new List<string>[21];
-            list = obj.booking_show(Int32.Parse(HttpContext.Session["offset_booking"].ToString()), booking_page_size);
+            list = obj.booking_show(Int32.Parse(HttpContext.Session["offset_booking"].ToString()), Int32.Parse(ps));
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
 
             return View();
         }
-        public ActionResult PaymentCommit()
+        public ActionResult PaymentCommit(string ps = "10")
         {
             ViewBag.total = 0;
             HttpContext.Session.Add("offset_paycommit", 0);
             List<string>[] list = new List<string>[14];
-            list = obj.paycommit_show(Int32.Parse(HttpContext.Session["offset_paycommit"].ToString()), paycommit_page_size);
+            list = obj.paycommit_show(Int32.Parse(HttpContext.Session["offset_paycommit"].ToString()), Int32.Parse(ps));
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
 
             return View();
         }
-        public ActionResult PaymentDetails()
+        public ActionResult PaymentDetails(string ps = "10")
         {
             ViewBag.total = 0;
             HttpContext.Session.Add("offset_paydetails", 0);
             List<string>[] list = new List<string>[14];
-            list = obj.paydetails_show(Int32.Parse(HttpContext.Session["offset_paydetails"].ToString()), paydetails_page_size);
+            list = obj.paydetails_show(Int32.Parse(HttpContext.Session["offset_paydetails"].ToString()), Int32.Parse(ps));
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
 
             return View();
         }
-        public ActionResult Agreement()
+        public ActionResult Agreement(string ps = "10")
         {
             ViewBag.total = 0;
             HttpContext.Session.Add("offset_agreement", 0);
             List<string>[] list = new List<string>[14];
-            list = obj.agreement_show(Int32.Parse(HttpContext.Session["offset_agreement"].ToString()), agreement_page_size);
+            list = obj.agreement_show(Int32.Parse(HttpContext.Session["offset_agreement"].ToString()), Int32.Parse(ps));
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
 
             return View();
         }
-        public ActionResult Finance()
+        public ActionResult Finance(string ps = "10")
         {
             ViewBag.total = 0;
             HttpContext.Session.Add("offset_finance", 0);
             List<string>[] list = new List<string>[21];
-            list = obj.finance_show(Int32.Parse(HttpContext.Session["offset_finance"].ToString()), finance_page_size);
+            list = obj.finance_show(Int32.Parse(HttpContext.Session["offset_finance"].ToString()), Int32.Parse(ps));
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
 
             return View();
         }
-        public ActionResult FileStatus()
+        public ActionResult FileStatus(string ps = "10")
         {
             ViewBag.total = 0;
             HttpContext.Session.Add("offset_file_status", 0);
             List<string>[] list = new List<string>[10];
-            list = obj.file_status_show(Int32.Parse(HttpContext.Session["offset_file_status"].ToString()), file_status_page_size);
+            list = obj.file_status_show(Int32.Parse(HttpContext.Session["offset_file_status"].ToString()), Int32.Parse(ps));
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
 
             return View();
         }
 
-        public ActionResult CustomerCostSheet()
+        public ActionResult CustomerCostSheet(string ps = "10")
         {
             ViewBag.total = 0;
             HttpContext.Session.Add("offset_cost_sheet", 0);
             List<string>[] list = new List<string>[14];
-            list = obj.cost_sheet_show("customer", Int32.Parse(HttpContext.Session["offset_cost_sheet"].ToString()), cost_sheet_page_size);
+            list = obj.cost_sheet_show("customer", Int32.Parse(HttpContext.Session["offset_cost_sheet"].ToString()), Int32.Parse(ps));
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
 
             return View();
         }
 
-        public ActionResult BuilderCostSheet()
+        public ActionResult BuilderCostSheet(string ps = "10")
         {
             ViewBag.total = 0;
             HttpContext.Session.Add("offset_cost_sheet", 0);
             List<string>[] list = new List<string>[14];
-            list = obj.cost_sheet_show("builder", Int32.Parse(HttpContext.Session["offset_cost_sheet"].ToString()), cost_sheet_page_size);
+            list = obj.cost_sheet_show("builder", Int32.Parse(HttpContext.Session["offset_cost_sheet"].ToString()), Int32.Parse(ps));
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
 

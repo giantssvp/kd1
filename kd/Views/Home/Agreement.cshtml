@@ -77,10 +77,12 @@
                     </div>
                 </div>
                 <div class="widget-content nopadding">
+                    <form method="post" action="@Url.Action("Agreement","Home")" name="pc" id="pc">
+                        <input type="hidden" id="ps" name="ps" value="10" />
+                    </form>
                     <table class="table table-bordered data-table with-check">
                         <thead>
                             <tr>
-                                <th><input type="checkbox" id="title-table-checkbox" name="title-table-checkbox" /></th>
                                 <th>ID</th>
                                 <th>Aggrement No</th>
                                 <th>Aggrement Amount</th>
@@ -94,7 +96,6 @@
                             @for (var i = 0; i < cnt; i++)
                             {
                                 <tr class="gradeX">
-                                    <td><input type="checkbox" /></td>
                                     <td>@results[0][i]</td>
                                     <td>@results[3][i]</td>
                                     <td>@results[1][i]</td>
@@ -124,3 +125,11 @@
 <script src="~/Scripts/jquery.validate.js"></script>
 <script src="~/Scripts/matrix.form_validation.js"></script>
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#DataTables_Table_0_length").change(function () {
+            document.getElementById("ps").value = $("#DataTables_Table_0_length option:selected").text();
+            document.getElementById('pc').submit();
+        });
+    });
+</script>
