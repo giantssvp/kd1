@@ -88,7 +88,7 @@
                     <form method="post" action="@Url.Action("Index","Home")" name="pc" id="pc">
                         <input type="hidden" id="ps" name="ps" value="10" />
                     </form>
-                        <table class="table table-bordered data-table with-check">
+                        <table class="table table-bordered data-table">
                             <thead>
                                 <tr>
                                     <th>ID</th>
@@ -130,6 +130,20 @@
                                 }
                             </tbody>
                         </table>
+                    <div class="dataTables_paginate fg-buttonset ui-buttonset fg-buttonset-multi ui-buttonset-multi paging_full_numbers" id="DataTables_Table_0_paginate">
+                        <a tabindex="0" class="first ui-corner-tl ui-corner-bl fg-button ui-button ui-state-default ui-state-disabled" id="DataTables_Table_0_first">
+                            First
+                        </a>
+                        <a tabindex="0" class="previous fg-button ui-button ui-state-default" href="@Url.Action("Next", "Home", new { page = "Index" })" id="DataTables_Table_0_previous">
+                            Previous
+                        </a>
+                        <a tabindex="0" class="next fg-button ui-button ui-state-default ui-state-disabled" id="DataTables_Table_0_next">
+                            Next
+                        </a>
+                        <a tabindex="0" class="last ui-corner-tr ui-corner-br fg-button ui-button ui-state-default ui-state-disabled" id="DataTables_Table_0_last">
+                            Last
+                        </a>
+                    </div>
 </div>
             </div>
         </div>

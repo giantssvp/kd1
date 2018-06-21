@@ -174,6 +174,33 @@ namespace kd.Controllers
         {
             return View();
         }
+
+        public ActionResult Next(string page, string ps)
+        {
+            string ps1 = Request.Form["ps"];
+            System.Windows.Forms.MessageBox.Show(page + ps1);
+            return View(page);
+            /*
+            try
+            {
+                HttpContext.Session.Add("offset_feedback", (Int32.Parse(HttpContext.Session["offset_feedback"].ToString()) - feedback_page_size));
+                if (Int32.Parse(HttpContext.Session["offset_feedback"].ToString()) <= (feedback_page_size - 1))
+                {
+                    HttpContext.Session.Add("offset_feedback", 0);
+                }
+
+                List<string>[] list = new List<string>[3];
+                list = obj.feedback_show(Int32.Parse(HttpContext.Session["offset_feedback"].ToString()), feedback_page_size);
+                ViewBag.list = list;
+                ViewBag.total = list[0].Count();
+
+                return View("Feedback");
+            }
+            catch (Exception ex)
+            {
+                return View("Feedback");
+            }*/
+        }
         
         public ActionResult add_customer_cost_sheet(string site, string type, string area, string rr_rate, string basic_rate, string basic_cost, string legal_charge, string devcharge, string mseb, string stampdutyreg, string gst, string otheramt, string grandtotal)
         {
