@@ -40,9 +40,9 @@
                                     <td><label class="control-label">Applicant Name</label></td>
                                     <td><input type="text" name="applname" id="required"></td>
                                     <td><label class="control-label">Email ID</label></td>
-                                    <td><input type="text" name="applemail" id="required"></td>
+                                    <td><input type="email" name="applemail" id="required"></td>
                                     <td><label class="control-label">Phone</label></td>
-                                    <td><input type="text" name="applmob" id="required"></td>
+                                    <td><input type="number" name="applmob" id="required"></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Address</label></td>
@@ -56,12 +56,12 @@
                                     <td><label class="control-label">Occupation</label></td>
                                     <td><input type="text" name="apploccu" id="required"></td>
                                     <td><label class="control-label">Birth Date</label></td>
-                                    <td><input type="text" name="applbirth" id="required"></td>
+                                    <td><input type="date" name="applbirth" id="required"></td>
                                     <td><label class="control-label">Age</label></td>
-                                    <td><input type="text" name="applage" id="required"></td>
+                                    <td><input type="number" name="applage" id="required"></td>
                                 </tr>
                                 <tr class="odd gradeX">
-                                    <td><label class="control-label">Co-Applicant Name</label></td>
+                                    <td><label class="control-label">Co - Applicant Name</label></td>
                                     <td><input type="text" name="coapplname" id="required"></td>
                                     <td><label class="control-label">Co - PAN  NO</label></td>
                                     <td><input type="text" name="coapplpan" id="required"></td>
@@ -72,7 +72,7 @@
                                     <td><label class="control-label">Co - Occupation</label></td>
                                     <td><input type="text" name="coapploccu" id="required"></td>
                                     <td><label class="control-label">Co - Birth Date</label></td>
-                                    <td><input type="text" name="coapplbirth" id="required"></td>
+                                    <td><input type="date" name="coapplbirth" id="required"></td>
                                     <td><label class="control-label">Status</label></td>
                                     <td><input type="text" name="applstatus" id="required"></td>
                                 </tr>
@@ -105,14 +105,10 @@
                                 <th>PAN NO</th>
                                 <th>AADHAR NO</th>
                                 <th>Occupation</th>
-                                <th>Birth Date</th>
-                                <th>Age</th>
                                 <th>Co Applicant Name</th>
                                 <th>Co - PAN NO</th>
                                 <th>Co - AADHAR NO</th>
                                 <th>Co - Occupation</th>
-                                <th>Co - Birth Date</th>
-                                <th>Status</th>
                                 <th>Modify</th>
                             </tr>
                         </thead>
@@ -122,20 +118,16 @@
                                 <tr class="gradeX">
                                     <td>@results[0][i]</td>
                                     <td>@results[1][i]</td>
+                                    <td>@results[4][i]</td>
                                     <td>@results[2][i]</td>
                                     <td>@results[3][i]</td>
-                                    <td>@results[4][i]</td>
                                     <td>@results[5][i]</td>
                                     <td>@results[6][i]</td>
                                     <td>@results[7][i]</td>
-                                    <td>@results[8][i]</td>
-                                    <td>@results[9][i]</td>
                                     <td>@results[10][i]</td>
                                     <td>@results[11][i]</td>
                                     <td>@results[12][i]</td>
                                     <td>@results[13][i]</td>
-                                    <td>@results[14][i]</td>
-                                    <td>@results[15][i]</td>
                                     <td align="center"><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>
                                 </tr>
                             }

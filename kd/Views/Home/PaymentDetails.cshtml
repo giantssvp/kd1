@@ -38,9 +38,9 @@
                             <tbody>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Amount</label></td>
-                                    <td><input type="text" name="pamt" id="required"></td>
+                                    <td><input type="number" name="pamt" id="required"></td>
                                     <td><label class="control-label">Date</label></td>
-                                    <td> <input type="text" name="pdate" id="required"></td>
+                                    <td> <input type="date" name="pdate" id="required"></td>
                                     <td><label class="control-label">Payment Mode</label></td>
                                     <td><input type="text" name="pmode" id="required"></td>
                                 </tr>
@@ -48,7 +48,7 @@
                                     <td><label class="control-label">Cheque ID</label></td>
                                     <td><input type="text" name="chkid" id="required"></td>
                                     <td><label class="control-label">Cheque Date</label></td>
-                                    <td> <input type="text" name="chkdate" id="required"></td>
+                                    <td> <input type="date" name="chkdate" id="required"></td>
                                     <td><label class="control-label">Bank Name</label></td>
                                     <td><input type="text" name="bname" id="required"></td>
                                 </tr>
@@ -133,11 +133,11 @@
                             {
                                 <tr class="gradeX">
                                     <td>@results[0][i]</td>
-                                    <td>@results[1][i]</td>
-                                    <td>@results[2][i]</td>
+                                    <td>@results[7][i]</td>
                                     <td>@results[3][i]</td>
                                     <td>@results[4][i]</td>
-                                    <td>@results[5][i]</td>
+                                    <td>@results[6][i]</td>
+                                    <td>@results[8][i]</td>
                                     <td align="center"><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>
                                 </tr>
                             }

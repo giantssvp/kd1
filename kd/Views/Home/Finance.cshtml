@@ -53,11 +53,11 @@
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Finance Executive Mobile No</label></td>
-                                    <td><input type="text" name="finexemob" id="required"></td>
+                                    <td><input type="number" name="finexemob" id="required"></td>
                                     <td><label class="control-label">Finance Executive Email Id</label></td>
-                                    <td> <input type="text" name="finexeemail" id="required"></td>
+                                    <td> <input type="email" name="finexeemail" id="required"></td>
                                     <td><label class="control-label">File Handover Date</label></td>
-                                    <td><input type="text" name="filehanddate" id="required"></td>
+                                    <td><input type="date" name="filehanddate" id="required"></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">File Status</label></td>
@@ -70,29 +70,29 @@
                                             <option value="Other">Other</option>
                                         </select></td>
                                     <td><label class="control-label">File Sanction Date</label></td>
-                                    <td> <input type="text" name="filesanctdate" id="required"></td>
+                                    <td> <input type="date" name="filesanctdate" id="required"></td>
                                     <td><label class="control-label">Required Loan Amount</label></td>
-                                    <td><input type="text" name="reqloanamt" id="required"></td>
+                                    <td><input type="number" name="reqloanamt" id="required"></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Sanction Loan Amount</label></td>
-                                    <td><input type="text" name="sanctloanamt" id="required"></td>
+                                    <td><input type="number" name="sanctloanamt" id="required"></td>
                                     <td><label class="control-label">Actual Loan Amount</label></td>
-                                    <td><input type="text" name="actloanamt" id="required"></td>
+                                    <td><input type="number" name="actloanamt" id="required"></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Receiving DD Amount</label></td>
-                                    <td><input type="text" name="recddamt" id="required"></td>
+                                    <td><input type="number" name="recddamt" id="required"></td>
                                     <td><label class="control-label">Remaining DD Amount</label></td>
-                                    <td> <input type="text" name="remddamt" id="required"></td>
+                                    <td> <input type="number" name="remddamt" id="required"></td>
                                     <td><label class="control-label">Rate Of Interest</label></td>
                                     <td><input type="text" name="rateofinter" id="required"></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">EMI Amount</label></td>
-                                    <td><input type="text" name="emiamt" id="required"></td>
+                                    <td><input type="number" name="emiamt" id="required"></td>
                                     <td><label class="control-label">EMI Total Months</label></td>
-                                    <td> <input type="text" name="emimonths" id="required"></td>
+                                    <td> <input type="number" name="emimonths" id="required"></td>
                                     <td><label class="control-label">Customer Name</label></td>
                                     <td><input type="text" name="bookid" id="required"></td>
                                 </tr>
@@ -115,7 +115,7 @@
             <div class="widget-box">
                 <div class="widget-title">
                     <span class="icon"><i class="icon-th"></i></span>
-                    <h5>All Finace Details</h5>
+                    <h5>All Finance Details</h5>
                 </div>
                 <div class="widget-content nopadding">
                     <form method="post" action="@Url.Action("Finance","Home")" name="pc" id="pc">
@@ -141,8 +141,8 @@
                                     <td>@results[1][i]</td>
                                     <td>@results[2][i]</td>
                                     <td>@results[3][i]</td>
-                                    <td>@results[4][i]</td>
-                                    <td>@results[5][i]</td>
+                                    <td>@results[7][i]</td>
+                                    <td>@results[11][i]</td>
                                     <td align="center"><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>
                                 </tr>
                             }

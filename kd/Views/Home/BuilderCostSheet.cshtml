@@ -48,29 +48,29 @@
                                     <td><label class="control-label">RR Rate</label></td>
                                     <td><input type="text" name="rr_rate" id="required"></td>
                                     <td><label class="control-label">Basic Rate</label></td>
-                                    <td> <input type="text" name="basic_rate" id="required"></td>
+                                    <td> <input type="number" name="basic_rate" id="required"></td>
                                     <td><label class="control-label">Basic Cost</label></td>
-                                    <td><input type="text" name="basic_cost" id="required"></td>
+                                    <td><input type="number" name="basic_cost" id="required"></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Legal Charges</label></td>
-                                    <td><input type="text" name="legal_charge" id="required"></td>
+                                    <td><input type="number" name="legal_charge" id="required"></td>
                                     <td><label class="control-label">MSEB Charges</label></td>
-                                    <td> <input type="text" name="mseb" id="required"></td>
+                                    <td> <input type="number" name="mseb" id="required"></td>
                                     <td><label class="control-label">Development Charges</label></td>
-                                    <td><input type="text" name="devcharge" id="required"></td>
+                                    <td><input type="number" name="devcharge" id="required"></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Stamp Duty Registration</label></td>
-                                    <td><input type="text" name="stampdutyreg" id="required"></td>
+                                    <td><input type="number" name="stampdutyreg" id="required"></td>
                                     <td><label class="control-label">GST</label></td>
-                                    <td> <input type="text" name="gst" id="required"></td>
+                                    <td> <input type="number" name="gst" id="required"></td>
                                     <td><label class="control-label">Other Amount</label></td>
-                                    <td><input type="text" name="otheramt" id="required"></td>
+                                    <td><input type="number" name="otheramt" id="required"></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Grand Total</label></td>
-                                    <td><input type="text" name="grandtotal" id="required"></td>
+                                    <td><input type="number" name="grandtotal" id="required"></td>
                                     <td><input type="submit" value="Save" class="btn btn-success" /></td>
                                     <td><input type="reset" value="Cancel" class="btn btn-danger" /></td>
                                 </tr>
@@ -124,7 +124,6 @@
                             {
                                 <tr class="gradeX">
                                     <td>@results[0][i]</td>
-                                    <td>@results[1][i]</td>
                                     <td>@results[2][i]</td>
                                     <td>@results[3][i]</td>
                                     <td>@results[4][i]</td>
@@ -134,6 +133,7 @@
                                     <td>@results[8][i]</td>
                                     <td>@results[9][i]</td>
                                     <td>@results[10][i]</td>
+                                    <td>@results[11][i]</td>
                                     <td align="center"><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>
                                 </tr>
                             }

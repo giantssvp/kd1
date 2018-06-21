@@ -22,7 +22,7 @@
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
 
 <div id="content-header">
-    <div id="breadcrumb"> <a href='@Url.Action("Dashboard", "Home")' title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href='@Url.Action("Index", "Home")'>Enquiry</a></div>
+    <div id="breadcrumb"> <a href='@Url.Action("Dashboard", "Home")' title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href='@Url.Action("Index", "Home")'>Daily Enquiry</a></div>
 </div>
 <div class="container-fluid">
     <div class="row-fluid">
@@ -42,11 +42,11 @@
                                     <td><label class="control-label">Address</label></td>
                                     <td> <input type="text" name="enqaddress" id="required"></td>
                                     <td><label class="control-label">Mobile No</label></td>
-                                    <td><input type="text" name="enqmob" id="required"></td>
+                                    <td><input type="number" name="enqmob" id="required"></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Date</label></td>
-                                    <td><input type="text" name="enqdate" id="required"></td>
+                                    <td><input type="date" name="enqdate" id="required"></td>
                                     <td><label class="control-label">Site</label></td>
                                     <td> <input type="text" name="enqsite" id="required"></td>
                                     <td><label class="control-label">Requirement</label></td>
@@ -90,9 +90,9 @@
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Budget</label></td>
-                                    <td><input type="text" name="enqbudget" id="required"></td>
+                                    <td><input type="number" name="enqbudget" id="required"></td>
                                     <td><label class="control-label">Down Payment</label></td>
-                                    <td><input type="text" name="enqdown" id="required"></td>
+                                    <td><input type="number" name="enqdown" id="required"></td>
                                     <td><label class="control-label">Booking</label></td>
                                     <td>
                                         <select name="enqbooking" id="required">
@@ -138,7 +138,6 @@
                                     <th>Booking No</th>
                                     <th>Remark</th>
                                     <th>Modify</th>
-
                                 </tr>
                             </thead>
                             <tbody>
@@ -146,16 +145,16 @@
                                 {
                                     <tr class="gradeX">
                                         <td>@results[0][i]</td>
-                                        <td>@results[1][i]</td>
                                         <td>@results[2][i]</td>
-                                        <td>@results[3][i]</td>
-                                        <td>@results[4][i]</td>
-                                        <td>@results[5][i]</td>
-                                        <td>@results[6][i]</td>
                                         <td>@results[7][i]</td>
+                                        <td>@results[3][i]</td>
                                         <td>@results[8][i]</td>
+                                        <td>@results[1][i]</td>
+                                        <td>@results[13][i]</td>
+                                        <td>@results[4][i]</td>
                                         <td>@results[9][i]</td>
                                         <td>@results[10][i]</td>
+                                        <td>@results[5][i]</td>
                                         <td>@results[11][i]</td>
                                         <td>@results[12][i]</td>
                                         <td align="center"><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>

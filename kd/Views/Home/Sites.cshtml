@@ -38,7 +38,7 @@
             <div class="widget-box">
                 <div class="widget-title">
                     <span class="icon"> <i class="icon-info-sign"></i> </span>
-                    <h5>Add Sites Details</h5>
+                    <h5>Add Site Details</h5>
                 </div>
                 <div class="widget-content nopadding">
                     <form method="post" action="@Url.Action("add_sites","Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
@@ -50,11 +50,11 @@
                                     <td><label class="control-label">Site Address</label></td>
                                     <td> <input type="text" name="siteaddress" id="required"></td>
                                     <td><label class="control-label">Phone No</label></td>
-                                    <td><input type="text" name="sitephone" id="required"></td>
+                                    <td><input type="number" name="sitephone" id="required"></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Email ID</label></td>
-                                    <td><input type="text" name="siteemail" id="required"></td>
+                                    <td><input type="email" name="siteemail" id="required"></td>
                                     <td><label class="control-label">Status</label></td>
                                     <td> <input type="text" name="sitestatus" id="required"></td>
                                     <td><input type="submit" value="Save" class="btn btn-success" /></td>
@@ -69,7 +69,7 @@
             <div class="widget-box">
                 <div class="widget-title">
                     <span class="icon"> <i class="icon-info-sign"></i> </span>
-                    <h5>Add Flats Details</h5>
+                    <h5>Add Flat Details</h5>
                 </div>
                 <div class="widget-content nopadding">
                     <form method="post" action="@Url.Action("add_flats","Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
@@ -81,11 +81,11 @@
                                     <td><label class="control-label">Wing Name</label></td>
                                     <td> <input type="text" name="flatwing" id="required"></td>
                                     <td><label class="control-label">Floor</label></td>
-                                    <td><input type="text" name="flatfloor" id="required"></td>
+                                    <td><input type="number" name="flatfloor" id="required"></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Flat No</label></td>
-                                    <td><input type="text" name="flatno" id="required"></td>
+                                    <td><input type="number" name="flatno" id="required"></td>
                                     <td><label class="control-label">Flat Type</label></td>
                                     <td> 
                                         <select multiple name="flattype" id="required">
@@ -97,7 +97,7 @@
                                         </select>
                                     <input type="text" name="flattype" id="required"></td>
                                     <td><label class="control-label">Flat Area</label></td>
-                                    <td><input type="text" name="flatarea" id="required"></td>
+                                    <td><input type="number" name="flatarea" id="required"></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Flat Status</label></td>
@@ -148,12 +148,12 @@
                             {
                                 <tr class="gradeX">
                                     <td>@results[0][i]</td>
-                                    <td>@results[1][i]</td>
-                                    <td>@results[2][i]</td>
-                                    <td>@results[3][i]</td>
-                                    <td>@results[4][i]</td>
                                     <td>@results[5][i]</td>
-                                    <td>@results[6][i]</td>                                    
+                                    <td>@results[2][i]</td>
+                                    <td>@results[1][i]</td>
+                                    <td>@results[4][i]</td>
+                                    <td>@results[3][i]</td>
+                                    <td>@results[7][i]</td>                                    
                                     <td align="center"><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>
                                 </tr>
                             }

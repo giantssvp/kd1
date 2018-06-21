@@ -22,7 +22,7 @@
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
 
 <div id="content-header">
-    <div id="breadcrumb"> <a href='@Url.Action("Dashboard", "Home")' title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href='@Url.Action("Aggrement", "Home")'>Add Aggrement</a></div>
+    <div id="breadcrumb"> <a href='@Url.Action("Dashboard", "Home")' title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href='@Url.Action("Aggrement", "Home")'>Add Agreement</a></div>
 </div>
 <div class="container-fluid">
     <div class="row-fluid">
@@ -37,23 +37,23 @@
                         <table class="table table-striped">
                             <tbody>
                                 <tr class="odd gradeX">
-                                    <td><label class="control-label">Aggrement No</label></td>
-                                    <td><input type="text" name="ano" id="required"></td>
-                                    <td><label class="control-label">Aggrement Date</label></td>
-                                    <td> <input type="text" name="adate" id="required"></td>
-                                    <td><label class="control-label">Aggrement Amount</label></td>
-                                    <td><input type="text" name="aamount" id="required"></td>
+                                    <td><label class="control-label">Agreement No</label></td>
+                                    <td><input type="number" name="ano" id="required"></td>
+                                    <td><label class="control-label">Agreement Date</label></td>
+                                    <td> <input type="date" name="adate" id="required"></td>
+                                    <td><label class="control-label">Agreement Amount</label></td>
+                                    <td><input type="number" name="aamount" id="required"></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Notary Amount</label></td>
-                                    <td><input type="text" name="anotary" id="required"></td>
+                                    <td><input type="number" name="anotary" id="required"></td>
                                     <td><label class="control-label">Adjustment Amount</label></td>
-                                    <td> <input type="text" name="aadjustment" id="required"></td>
+                                    <td> <input type="number" name="aadjustment" id="required"></td>
                                     <td><label class="control-label">Extra Amount</label></td>
-                                    <td><input type="text" name="aextra" id="required"></td>
+                                    <td><input type="number" name="aextra" id="required"></td>
                                 </tr>
                                 <tr class="odd gradeX">
-                                    <td><label class="control-label">Aggrement Status</label></td>
+                                    <td><label class="control-label">Agreement Status</label></td>
                                     <td><input type="text" name="astatus" id="required"></td>
                                     <td><label class="control-label">Customer Name</label></td>
                                     <td><input type="text" name="bid" id="required"></td>
@@ -68,7 +68,7 @@
             <div class="widget-box">
                 <div class="widget-title">
                     <span class="icon"><i class="icon-th"></i></span>
-                    <h5>All Products</h5>
+                    <h5>All Agreement Details</h5>
                     <div class="select-site">
                         <h5>Booking Name</h5>
                         <div class="btn-group">
@@ -92,10 +92,10 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Aggrement No</th>
-                                <th>Aggrement Amount</th>
-                                <th>Aggrement Date</th>
-                                <th>Aggrement Status</th>
+                                <th>Agreement No</th>
+                                <th>Agreement Amount</th>
+                                <th>Agreement Date</th>
+                                <th>Agreement Status</th>
                                 <th>Booking Id</th>
                                 <th>Modify</th>
                             </tr>
