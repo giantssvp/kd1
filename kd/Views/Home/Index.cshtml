@@ -50,23 +50,56 @@
                                     <td><label class="control-label">Site</label></td>
                                     <td> <input type="text" name="enqsite" id="required"></td>
                                     <td><label class="control-label">Requirement</label></td>
-                                    <td><input type="text" name="enqrequirement" id="required"></td>
+                                    <td>
+                                        <select multiple name="enqrequirement" id="required">
+                                            <option value="1RK" selected="selected">1RK</option>
+                                            <option value="1BHK">1BHK</option>
+                                            <option value="2BHK">2BHK</option>
+                                            <option value="3BHK">3BHK</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                        <input type="text" name="enqrequirementother" id="required">
+                                    </td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Occupation</label></td>
-                                    <td><input type="text" name="enqoccu" id="required"></td>
+                                    <td>
+                                        <select name="enqoccu" id="required">
+                                            <option value="Salaried" selected="selected">Salaried</option>
+                                            <option value="Business">Business</option>
+                                            <option value="Pensioner">Pensioner</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </td>
                                     <td><label class="control-label">Visit</label></td>
-                                    <td> <input type="text" name="enqvisit" id="required"></td>
+                                    <td>
+                                        <select name="enqvisit" id="required">
+                                            <option value="Yes" selected="selected">Yes</option>
+                                            <option value="No">No</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </td>
                                     <td><label class="control-label">Interest</label></td>
-                                    <td><input type="text" name="enqinterest" id="required"></td>
+                                    <td>
+                                        <select name="enqinterest" id="required">
+                                            <option value="Yes" selected="selected">Yes</option>
+                                            <option value="No">No</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Budget</label></td>
                                     <td><input type="text" name="enqbudget" id="required"></td>
                                     <td><label class="control-label">Down Payment</label></td>
                                     <td><input type="text" name="enqdown" id="required"></td>
-                                    <td><label class="control-label">Booking No</label></td>
-                                    <td><input type="text" name="enqbooking" id="required"></td>                                  
+                                    <td><label class="control-label">Booking</label></td>
+                                    <td>
+                                        <select name="enqbooking" id="required">
+                                            <option value="Yes" selected="selected">Yes</option>
+                                            <option value="No">No</option>
+                                        </select>
+                                    </td>                                  
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Remark</label></td>
@@ -156,3 +189,4 @@
         });
     });
 </script>
+

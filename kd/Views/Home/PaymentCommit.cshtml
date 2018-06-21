@@ -38,13 +38,33 @@
                             <tbody>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Commitment Type</label></td>
-                                    <td><input type="text" name="ctype" id="required"></td>
+                                    <td>
+                                        <select name="ctype" id="required">
+                                            <option value="token" selected="selected">Token Amount</option>
+                                            <option value="booking">Booking Amount</option>
+                                            <option value="agreement">Agreement Amount</option>
+                                            <option value="commitment">Notary Amount</option>
+                                            <option value="commitment">Extra Amount</option>
+                                            <option value="commitment">Adjustment Amount</option>
+                                            <option value="commitment">Commitment Amount</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </td>
                                     <td><label class="control-label">Amount</label></td>
                                     <td> <input type="text" name="camount" id="required"></td>
-                                    <td><label class="control-label">Status</label></td>
-                                    <td><input type="text" name="cstatus" id="required"></td>
+                                    <td><label class="control-label">Date</label></td>
+                                    <td><input type="date" name="cstatus" id="required"></td>
                                 </tr>
                                 <tr class="odd gradeX">
+                                    <td><label class="control-label">Customer Name</label></td>
+                                    <td>
+                                        <select name="cname" id="required">
+                                            <option value="token" selected="selected">Mangesh</option>
+                                            <option value="booking">Avinash</option>
+                                            <option value="agreement">Komal</option>
+                                            <option value="commitment">Abhi</option>
+                                        </select>
+                                    </td>
                                     <td><label class="control-label">Remark</label></td>
                                     <td> <textarea class="cremark" name="cremark"></textarea></td>
                                     <td><input type="submit" value="Save" class="btn btn-success" /></td>

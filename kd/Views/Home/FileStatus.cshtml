@@ -39,8 +39,8 @@
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Service Charge</label></td>
                                     <td><input type="text" name="chrg" id="required"></td>
-                                    <td><label class="control-label">Loan Fees</label></td>
-                                    <td> <input type="text" name="lfee" id="required"></td>
+                                    <td><label class="control-label">Loan Fees Amount</label></td>
+                                    <td> <input type="text" name="lfamt" id="required"></td>
                                     <td><label class="control-label">Cheque ID</label></td>
                                     <td><input type="text" name="chid" id="required"></td>
                                 </tr>
@@ -53,8 +53,13 @@
                                     <td><input type="text" name="figst" id="required"></td>
                                 </tr>
                                 <tr class="odd gradeX">
-                                    <td><label class="control-label">Laon Fees Amount</label></td>
-                                    <td><input type="text" name="lfamt" id="required"></td>
+                                    <td><label class="control-label">Laon Fees</label></td>
+                                    <td>
+                                        <select name="lfee" id="required">
+                                            <option value="paid" selected="selected">Paid</option>
+                                            <option value="unpaid">Unpaid</option>
+                                        </select>
+                                    </td>
                                     <td><label class="control-label">Finance ID</label></td>
                                     <td><input type="text" name="fid" id="required"></td>
                                     <td><label class="control-label">Status</label></td>
@@ -70,7 +75,7 @@
             <div class="widget-box">
                 <div class="widget-title">
                     <span class="icon"><i class="icon-th"></i></span>
-                    <h5>All File Status</h5> <span style="float:right">
+                    <h5>All File Status</h5> 
                 </div>
                 <div class="widget-content nopadding">
                     <form method="post" action="@Url.Action("FileStatus","Home")" name="pc" id="pc">
