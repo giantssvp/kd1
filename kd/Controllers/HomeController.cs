@@ -10,6 +10,7 @@ namespace kd.Controllers
     public class HomeController : Controller
     {
         public static db_connect obj = new db_connect();
+        private List<string> name;
 
         public ActionResult Dashboard()
         {
@@ -414,10 +415,9 @@ namespace kd.Controllers
         {
             List<string>[] sites = new List<string>[7];
             sites = obj.sites_show();
-            return Json(new
-            {
-                c = sites[1]
-            }, JsonRequestBehavior.AllowGet);
+            var result = new { id = sites[0],
+                name = sites[1]};
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }

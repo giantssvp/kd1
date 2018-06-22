@@ -197,10 +197,12 @@
             data: {},
             dataType: 'json',
             success: function (d) {
-                var list = d.c;
+                var list = d.id;
+                var list1 = d.name;
                 $("#flatsitename").html("");
-                $.each(list, function (index, value) {
-                    $("#flatsitename").append($('<option></option>').val(value).html(value));
+                $.each(list1, function (index, value) {
+                    alert(list[index])
+                    $("#flatsitename").append($('<option></option>').val(list[index]).html(value));
                 });
             },
             error: function (err) {
