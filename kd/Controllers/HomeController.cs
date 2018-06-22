@@ -676,6 +676,7 @@ namespace kd.Controllers
         {
             try
             {
+                System.Windows.Forms.MessageBox.Show(flatsitename);
                 obj.insert_flats(flatsitename, flatwing, flatfloor, flatno, flattype, flatarea, flatstatus);
                 return RedirectToAction("Sites", "Home");
             }
