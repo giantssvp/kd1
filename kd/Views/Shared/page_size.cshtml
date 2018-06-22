@@ -1,0 +1,59 @@
+﻿@{
+    int? sz = new int?();
+    sz = ViewBag.pageSize;
+    if (sz == null)
+    {
+        sz = 10;
+    }
+}
+<div class="dataTables_length">
+    <label>
+        Show
+        <select name="page_size" id="page_size">
+            @if (sz == 5)
+            {
+                <option value="5" selected="selected">5</option>
+            }
+            else
+            {
+                <option value="5">5</option>
+            }
+            @if (sz == 10)
+            {
+                <option value="10" selected="selected">10</option>
+            }
+            else
+            {
+                <option value="10">10</option>
+            }
+            @if (sz == 25)
+            {
+                <option value="25" selected="selected">25</option>
+            }
+            else
+            {
+                <option value="25">25</option>
+            }
+            @if (sz == 50)
+            {
+                <option value="50" selected="selected">50</option>
+            }
+            else
+            {
+                <option value="50">50</option>
+            }
+            @if (sz == 100)
+            {
+                <option value="100" selected="selected">100</option>
+            }
+            else
+            {
+                <option value="100">100</option>
+            }
+        </select>
+        Entries
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        Search: <input type="text" />
+    </label>
+</div>

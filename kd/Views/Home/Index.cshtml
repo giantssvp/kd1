@@ -10,6 +10,12 @@
     {
         cnt = 0;
     }
+    int? sz = new int?();
+    sz = ViewBag.pageSize;
+    if (sz == null)
+    {
+        sz = 10;
+    }
 }
 
 <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
@@ -120,10 +126,12 @@
                     <h5>All Enquiries</h5> 
                 </div>
                 <div class="widget-content nopadding">
+                    @Html.Partial("page_size")
+                    
                     <form method="post" action="@Url.Action("Index","Home")" name="pc" id="pc">
                         <input type="hidden" id="ps" name="ps" value="10" />
                     </form>
-                        <table class="table table-bordered data-table">
+                        <table class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th>ID</th>
@@ -164,22 +172,9 @@
                                 }
                             </tbody>
                         </table>
-                    <div class="dataTables_paginate fg-buttonset ui-buttonset fg-buttonset-multi ui-buttonset-multi paging_full_numbers" id="DataTables_Table_0_paginate">
-                        <a tabindex="0" class="first ui-corner-tl ui-corner-bl fg-button ui-button ui-state-default ui-state-disabled" id="DataTables_Table_0_first">
-                            First
-                        </a>
-                        <a tabindex="0" class="previous fg-button ui-button ui-state-default" href="@Url.Action("Next", "Home", new { page = "Index" })" id="DataTables_Table_0_previous">
-                            Previous
-                        </a>
-                        <a tabindex="0" class="next fg-button ui-button ui-state-default ui-state-disabled" id="DataTables_Table_0_next">
-                            Next
-                        </a>
-                        <a tabindex="0" class="last ui-corner-tr ui-corner-br fg-button ui-button ui-state-default ui-state-disabled" id="DataTables_Table_0_last">
-                            Last
-                        </a>
                     </div>
-</div>
-            </div>
+                    @Html.Partial("pagination")                
+                </div>
         </div>
     </div>
 </div>
@@ -198,8 +193,8 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#DataTables_Table_0_length").change(function () {
-            document.getElementById("ps").value = $("#DataTables_Table_0_length option:selected").text();
+        $("#page_size").change(function () {
+            document.getElementById("ps").value = $("#page_size option:selected").text();
             document.getElementById('pc').submit();
         });
     });
@@ -207,10 +202,9 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-
         $.ajax({
             type: "GET",
-            url: "get_site",
+            url: '@Url.Action("get_site", "Home")',
             data: {},
             dataType: 'json',
             success: function (d) {
@@ -224,6 +218,28 @@
                 alert(err.responseText);
             },
         });
+    });
+</script>
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#pagination_first").click(function () {
+            window.location = '@Html.Raw(@Url.Action("First", "Home", new { page = "Index", ps = "id" }))'.replace("id", $("#page_size option:selected").text());
+        });
+    });
+    $(document).ready(function () {
+        $("#pagination_previous").click(function () {
+            window.location = '@Html.Raw(@Url.Action("Previous", "Home", new { page = "Index", ps = "id" }))'.replace("id", $("#page_size option:selected").text());
+        });
+    });
+    $(document).ready(function () {
+        $("#pagination_next").click(function () {
+            window.location = '@Html.Raw(@Url.Action("Next", "Home", new { page = "Index", ps = "id" }))'.replace("id", $("#page_size option:selected").text());
+        });
+    });
+    $(document).ready(function () {
+        $("#pagination_last").click(function () {
+            window.location = '@Html.Raw(@Url.Action("Last", "Home", new { page = "Index", ps = "id" }))'.replace("id", $("#page_size option:selected").text());
+        });
     });
 </script>

@@ -1437,12 +1437,12 @@ namespace kd.Models
             }
         }
 
-        public int booking_count()
+        public int get_count(string table)
         {
             try
             {
                 int count = 0;
-                string query = "select count(id) from booking_details";
+                string query = "select count(id) from " + table;
                 if (this.OpenConnection() == true)
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
