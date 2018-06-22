@@ -38,7 +38,9 @@
                             <tbody>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Site Name</label></td>
-                                    <td><input type="text" name="site" id="required"></td>
+                                    <td>
+                                        <select name="site" id="site">    </select>
+                                    </td>
                                     <td><label class="control-label">Type</label></td>
                                     <td> <input type="text" name="type" id="required"></td>
                                     <td><label class="control-label">Area</label></td>
@@ -163,5 +165,27 @@
             document.getElementById("ps").value = $("#DataTables_Table_0_length option:selected").text();
             document.getElementById('pc').submit();
         });
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $.ajax({
+            type: "GET",
+            url: "get_site",
+            data: {},
+            dataType: 'json',
+            success: function (d) {
+                var list = d.c;
+                $("#site").html("");
+                $.each(list, function (index, value) {
+                    $("#site").append($('<option></option>').val(value).html(value));
+                });
+            },
+            error: function (err) {
+                alert(err.responseText);
+            },
+        });
+
     });
 </script>

@@ -77,7 +77,9 @@
                             <tbody>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Site Name</label></td>
-                                    <td><input type="text" name="flatsitename" id="required"></td>
+                                    <td>
+                                        <select name="flatsitename" id="flatsitename">    </select>
+                                    </td>
                                     <td><label class="control-label">Wing Name</label></td>
                                     <td> <input type="text" name="flatwing" id="required"></td>
                                     <td><label class="control-label">Floor</label></td>
@@ -140,7 +142,7 @@
                                 <th>Flat Type</th>
                                 <th>Flat Area</th>
                                 <th>Status</th>
-                                <th>modify</th>
+                                <th>Modify</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -183,5 +185,28 @@
             document.getElementById("ps").value = $("#DataTables_Table_0_length option:selected").text();
             document.getElementById('pc').submit();
         });
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        
+        $.ajax({
+            type: "GET",
+            url: "get_site",
+            data: {},
+            dataType: 'json',
+            success: function (d) {
+                var list = d.c;
+                $("#flatsitename").html("");
+                $.each(list, function (index, value) {
+                    $("#flatsitename").append($('<option></option>').val(value).html(value));
+                });
+            },
+            error: function (err) {
+                alert(err.responseText);
+            },
+        });
+        
     });
 </script>
