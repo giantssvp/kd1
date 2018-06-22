@@ -161,3 +161,26 @@
         });
     });
 </script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#pagination_first").click(function () {
+            window.location = '@Html.Raw(@Url.Action("First", "Home", new { page = "Customer", ps = "id" }))'.replace("id", $("#page_size option:selected").text());
+        });
+    });
+    $(document).ready(function () {
+        $("#pagination_previous").click(function () {
+            window.location = '@Html.Raw(@Url.Action("Previous", "Home", new { page = "Customer", ps = "id" }))'.replace("id", $("#page_size option:selected").text());
+        });
+    });
+    $(document).ready(function () {
+        $("#pagination_next").click(function () {
+            window.location = '@Html.Raw(@Url.Action("Next", "Home", new { page = "Customer", ps = "id" }))'.replace("id", $("#page_size option:selected").text());
+        });
+    });
+    $(document).ready(function () {
+        $("#pagination_last").click(function () {
+            window.location = '@Html.Raw(@Url.Action("Last", "Home", new { page = "Customer", ps = "id" }))'.replace("id", $("#page_size option:selected").text());
+        });
+    });
+</script>

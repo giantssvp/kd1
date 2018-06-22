@@ -87,16 +87,12 @@
                     <h5>Cost Details</h5>
                     <div class="select-site">
                         <h5>Site Name</h5>
-                        <div class="btn-group">
-                            <button class="btn btn-primary">Action</button>
-                            <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle"><span class="caret"></span></button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Somnath</a></li>
-                                <li><a href="#">Mangesh</a></li>
-                                <li><a href="#">Govind</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">rahul</a></li>
-                            </ul>
+                        <div class="dataTables_length">
+                            <select name="site_name" id="site_name" style="max-width:90%;">
+                                <option value="GK REM"> GK REM</option>
+                                <option value="GK Rahadaki"> GK Rahadaki</option>
+                                <option value="GK Royal"> GK Royal</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -190,5 +186,28 @@
             },
         });
 
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#pagination_first").click(function () {
+            window.location = '@Html.Raw(@Url.Action("First", "Home", new { page = "CustomerCostSheet", ps = "id" }))'.replace("id", $("#page_size option:selected").text());
+        });
+    });
+    $(document).ready(function () {
+        $("#pagination_previous").click(function () {
+            window.location = '@Html.Raw(@Url.Action("Previous", "Home", new { page = "CustomerCostSheet", ps = "id" }))'.replace("id", $("#page_size option:selected").text());
+        });
+    });
+    $(document).ready(function () {
+        $("#pagination_next").click(function () {
+            window.location = '@Html.Raw(@Url.Action("Next", "Home", new { page = "CustomerCostSheet", ps = "id" }))'.replace("id", $("#page_size option:selected").text());
+        });
+    });
+    $(document).ready(function () {
+        $("#pagination_last").click(function () {
+            window.location = '@Html.Raw(@Url.Action("Last", "Home", new { page = "CustomerCostSheet", ps = "id" }))'.replace("id", $("#page_size option:selected").text());
+        });
     });
 </script>

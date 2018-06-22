@@ -117,8 +117,8 @@
                     <span class="icon"><i class="icon-th"></i></span>
                     <h5>All Sites and Flats:-</h5>
                     <div class="select-site">
-                        <h5>Select Flats by sites</h5>
-                        <div class="btn-group"> 
+                        <h5>Select Flats by Site</h5>
+                        <div class="dataTables_length"> 
                             <select name="site_name" id="site_name" style="max-width:90%;">
                                 @for (var i = 0; i < site_cnt; i++)
                                 {                                    
@@ -192,10 +192,9 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        
         $.ajax({
             type: "GET",
-            url: "get_site",
+            url: '@Url.Action("get_site", "Home")',
             data: {},
             dataType: 'json',
             success: function (d) {
@@ -209,6 +208,28 @@
                 alert(err.responseText);
             },
         });
-        
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#pagination_first").click(function () {
+            window.location = '@Html.Raw(@Url.Action("First", "Home", new { page = "Sites", ps = "id" }))'.replace("id", $("#page_size option:selected").text());
+        });
+    });
+    $(document).ready(function () {
+        $("#pagination_previous").click(function () {
+            window.location = '@Html.Raw(@Url.Action("Previous", "Home", new { page = "Sites", ps = "id" }))'.replace("id", $("#page_size option:selected").text());
+        });
+    });
+    $(document).ready(function () {
+        $("#pagination_next").click(function () {
+            window.location = '@Html.Raw(@Url.Action("Next", "Home", new { page = "Sites", ps = "id" }))'.replace("id", $("#page_size option:selected").text());
+        });
+    });
+    $(document).ready(function () {
+        $("#pagination_last").click(function () {
+            window.location = '@Html.Raw(@Url.Action("Last", "Home", new { page = "Sites", ps = "id" }))'.replace("id", $("#page_size option:selected").text());
+        });
     });
 </script>

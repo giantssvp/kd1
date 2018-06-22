@@ -32,11 +32,11 @@ namespace kd.Controllers
         public ActionResult Sites(string ps = "10")
         {
             ViewBag.total = 0;
-            HttpContext.Session.Add("offset_sites", 0);
+            HttpContext.Session.Add("offset", 0);
             List<string>[] sites = new List<string>[7];
             List<string>[] flats = new List<string>[9];
             sites = obj.sites_show();
-            flats = obj.flats_show(sites[1][0], Int32.Parse(HttpContext.Session["offset_sites"].ToString()), Int32.Parse(ps));
+            flats = obj.flats_show(sites[1][0], Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
             ViewBag.sites = sites;
             ViewBag.list = flats;
             ViewBag.total = flats[0].Count();
@@ -48,9 +48,9 @@ namespace kd.Controllers
         public ActionResult Executive(string ps = "10")
         {
             ViewBag.total = 0;
-            HttpContext.Session.Add("offset_executive", 0);
+            HttpContext.Session.Add("offset", 0);
             List<string>[] list = new List<string>[14];
-            list = obj.executive_show(Int32.Parse(HttpContext.Session["offset_executive"].ToString()), Int32.Parse(ps));
+            list = obj.executive_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
 
@@ -60,9 +60,9 @@ namespace kd.Controllers
         public ActionResult Franchies(string ps = "10")
         {
             ViewBag.total = 0;
-            HttpContext.Session.Add("offset_franchies", 0);
+            HttpContext.Session.Add("offset", 0);
             List<string>[] list = new List<string>[14];
-            list = obj.franchies_show(Int32.Parse(HttpContext.Session["offset_franchies"].ToString()), Int32.Parse(ps));
+            list = obj.franchies_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
 
@@ -72,9 +72,9 @@ namespace kd.Controllers
         public ActionResult Customer(string ps = "10")
         {
             ViewBag.total = 0;
-            HttpContext.Session.Add("offset_customer", 0);
+            HttpContext.Session.Add("offset", 0);
             List<string>[] list = new List<string>[14];
-            list = obj.customer_show(Int32.Parse(HttpContext.Session["offset_customer"].ToString()), Int32.Parse(ps));
+            list = obj.customer_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
 
@@ -83,9 +83,9 @@ namespace kd.Controllers
         public ActionResult Booking(string ps = "10")
         {
             ViewBag.total = 0;
-            HttpContext.Session.Add("offset_booking", 0);
+            HttpContext.Session.Add("offset", 0);
             List<string>[] list = new List<string>[21];
-            list = obj.booking_show(Int32.Parse(HttpContext.Session["offset_booking"].ToString()), Int32.Parse(ps));
+            list = obj.booking_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
 
@@ -94,9 +94,9 @@ namespace kd.Controllers
         public ActionResult PaymentCommit(string ps = "10")
         {
             ViewBag.total = 0;
-            HttpContext.Session.Add("offset_paycommit", 0);
+            HttpContext.Session.Add("offset", 0);
             List<string>[] list = new List<string>[14];
-            list = obj.paycommit_show(Int32.Parse(HttpContext.Session["offset_paycommit"].ToString()), Int32.Parse(ps));
+            list = obj.paycommit_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
 
@@ -105,9 +105,9 @@ namespace kd.Controllers
         public ActionResult PaymentDetails(string ps = "10")
         {
             ViewBag.total = 0;
-            HttpContext.Session.Add("offset_paydetails", 0);
+            HttpContext.Session.Add("offset", 0);
             List<string>[] list = new List<string>[14];
-            list = obj.paydetails_show(Int32.Parse(HttpContext.Session["offset_paydetails"].ToString()), Int32.Parse(ps));
+            list = obj.paydetails_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
 
@@ -116,9 +116,9 @@ namespace kd.Controllers
         public ActionResult Agreement(string ps = "10")
         {
             ViewBag.total = 0;
-            HttpContext.Session.Add("offset_agreement", 0);
+            HttpContext.Session.Add("offset", 0);
             List<string>[] list = new List<string>[14];
-            list = obj.agreement_show(Int32.Parse(HttpContext.Session["offset_agreement"].ToString()), Int32.Parse(ps));
+            list = obj.agreement_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
 
@@ -127,9 +127,9 @@ namespace kd.Controllers
         public ActionResult Finance(string ps = "10")
         {
             ViewBag.total = 0;
-            HttpContext.Session.Add("offset_finance", 0);
+            HttpContext.Session.Add("offset", 0);
             List<string>[] list = new List<string>[21];
-            list = obj.finance_show(Int32.Parse(HttpContext.Session["offset_finance"].ToString()), Int32.Parse(ps));
+            list = obj.finance_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
 
@@ -138,9 +138,9 @@ namespace kd.Controllers
         public ActionResult FileStatus(string ps = "10")
         {
             ViewBag.total = 0;
-            HttpContext.Session.Add("offset_file_status", 0);
+            HttpContext.Session.Add("offset", 0);
             List<string>[] list = new List<string>[10];
-            list = obj.file_status_show(Int32.Parse(HttpContext.Session["offset_file_status"].ToString()), Int32.Parse(ps));
+            list = obj.file_status_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
 
@@ -150,9 +150,9 @@ namespace kd.Controllers
         public ActionResult CustomerCostSheet(string ps = "10")
         {
             ViewBag.total = 0;
-            HttpContext.Session.Add("offset_cost_sheet", 0);
+            HttpContext.Session.Add("offset", 0);
             List<string>[] list = new List<string>[14];
-            list = obj.cost_sheet_show("customer", Int32.Parse(HttpContext.Session["offset_cost_sheet"].ToString()), Int32.Parse(ps));
+            list = obj.cost_sheet_show("customer", Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
 
@@ -162,9 +162,9 @@ namespace kd.Controllers
         public ActionResult BuilderCostSheet(string ps = "10")
         {
             ViewBag.total = 0;
-            HttpContext.Session.Add("offset_cost_sheet", 0);
+            HttpContext.Session.Add("offset", 0);
             List<string>[] list = new List<string>[14];
-            list = obj.cost_sheet_show("builder", Int32.Parse(HttpContext.Session["offset_cost_sheet"].ToString()), Int32.Parse(ps));
+            list = obj.cost_sheet_show("builder", Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
 
@@ -182,8 +182,65 @@ namespace kd.Controllers
             {
                 List<string>[] list = new List<string>[21];
                 int page_size = Int32.Parse(ps);
+                ViewBag.total = 0;
 
-                list = obj.enquiry_show(0, page_size);
+                if (page == "Index")
+                {
+                    list = obj.enquiry_show(0, page_size);
+                }
+                else if (page == "Sites")
+                {
+                    List<string>[] sites = new List<string>[7];
+                    sites = obj.sites_show();
+                    list = obj.flats_show(sites[1][0], 0, page_size);
+                    ViewBag.sites = sites;
+                    ViewBag.total_site = sites[0].Count();
+                }
+                else if(page == "Executive")
+                {                                        
+                    list = obj.executive_show(0, page_size);
+                }
+                else if(page == "Franchies")
+                {
+                    list = obj.franchies_show(0, page_size);
+                }
+                else if(page == "Customer")
+                {
+                    list = obj.customer_show(0, page_size);
+                }
+                else if (page == "Booking")
+                {
+                    list = obj.booking_show(0, page_size);
+                }
+                else if (page == "PaymentCommit")
+                {
+                    list = obj.paycommit_show(0, page_size);
+                }
+                else if (page == "PaymentDetails")
+                {
+                    list = obj.paydetails_show(0, page_size);
+                }
+                else if (page == "Agreement")
+                {
+                    list = obj.agreement_show(0, page_size);
+                }
+                else if (page == "Finance")
+                {
+                    list = obj.finance_show(0, page_size);
+                }
+                else if (page == "FileStatus")
+                {
+                    list = obj.file_status_show(0, page_size);
+                }
+                else if (page == "CustomerCostSheet")
+                {
+                    list = obj.cost_sheet_show("customer", 0, page_size);
+                }
+                else if (page == "BuilderCostSheet")
+                {
+                    list = obj.cost_sheet_show("builder", 0, page_size);
+                }
+
                 ViewBag.list = list;
                 ViewBag.total = list[0].Count();
                 ViewBag.pageSize = page_size;
@@ -207,9 +264,65 @@ namespace kd.Controllers
                 if (Int32.Parse(HttpContext.Session["offset"].ToString()) <= (page_size - 1))
                 {
                     HttpContext.Session.Add("offset", 0);
-                }
+                }                
                 
-                list = obj.enquiry_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                if (page == "Index")
+                {
+                    list = obj.enquiry_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                }
+                else if (page == "Sites")
+                {
+                    List<string>[] sites = new List<string>[7];
+                    sites = obj.sites_show();
+                    list = obj.flats_show(sites[1][0], Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                    ViewBag.sites = sites;
+                    ViewBag.total_site = sites[0].Count();
+                }
+                else if (page == "Executive")
+                {
+                    list = obj.executive_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                }
+                else if (page == "Franchies")
+                {
+                    list = obj.franchies_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                }
+                else if (page == "Customer")
+                {
+                    list = obj.customer_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                }
+                else if (page == "Booking")
+                {
+                    list = obj.booking_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                }
+                else if (page == "PaymentCommit")
+                {
+                    list = obj.paycommit_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                }
+                else if (page == "PaymentDetails")
+                {
+                    list = obj.paydetails_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                }
+                else if (page == "Agreement")
+                {
+                    list = obj.agreement_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                }
+                else if (page == "Finance")
+                {
+                    list = obj.finance_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                }
+                else if (page == "FileStatus")
+                {
+                    list = obj.file_status_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                }
+                else if (page == "CustomerCostSheet")
+                {
+                    list = obj.cost_sheet_show("customer", Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                }
+                else if (page == "BuilderCostSheet")
+                {
+                    list = obj.cost_sheet_show("builder", Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                }
+
                 ViewBag.list = list;
                 ViewBag.total = list[0].Count();
                 ViewBag.pageSize = page_size;
@@ -228,14 +341,123 @@ namespace kd.Controllers
             {
                 List<string>[] list = new List<string>[21];
                 int page_size = Int32.Parse(ps);
-                int cnt = obj.get_count("daily_enquiry");
+                int cnt = 0;
+
+                if (page == "Index")
+                {
+                    cnt = obj.get_count("daily_enquiry");
+                }
+                else if (page == "Sites")
+                {
+                    cnt = obj.get_count("flats where Site_Id = 0");
+                }
+                else if (page == "Executive")
+                {
+                    cnt = obj.get_count("executive");
+                }
+                else if (page == "Franchies")
+                {
+                    cnt = obj.get_count("franchies");
+                }
+                else if (page == "Customer")
+                {
+                    cnt = obj.get_count("applicant");
+                }
+                else if (page == "Booking")
+                {
+                    cnt = obj.get_count("bookings");
+                }
+                else if (page == "PaymentCommit")
+                {
+                    cnt = obj.get_count("payment_commitment");
+                }
+                else if (page == "PaymentDetails")
+                {
+                    cnt = obj.get_count("payment_details");
+                }
+                else if (page == "Agreement")
+                {
+                    cnt = obj.get_count("aggrement");
+                }
+                else if (page == "Finance")
+                {
+                    cnt = obj.get_count("finance_details");
+                }
+                else if (page == "FileStatus")
+                {
+                    cnt = obj.get_count("file_details");
+                }
+                else if (page == "CustomerCostSheet")
+                {
+                    cnt = obj.get_count("cost_sheet where Cost_Sheet_Type = 'customer'");
+                }
+                else if (page == "BuilderCostSheet")
+                {
+                    cnt = obj.get_count("cost_sheet where Cost_Sheet_Type = 'builder'");
+                }
 
                 HttpContext.Session.Add("offset", (Int32.Parse(HttpContext.Session["offset"].ToString()) + page_size));
                 if (Int32.Parse(HttpContext.Session["offset"].ToString()) > cnt)
                 {
                     HttpContext.Session.Add("offset", (cnt - (cnt % page_size)));
                 }
-                list = obj.enquiry_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+
+                if (page == "Index")
+                {
+                    list = obj.enquiry_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                }
+                else if (page == "Sites")
+                {
+                    List<string>[] sites = new List<string>[7];
+                    sites = obj.sites_show();
+                    list = obj.flats_show(sites[1][0], Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                    ViewBag.sites = sites;
+                    ViewBag.total_site = sites[0].Count();
+                }
+                else if (page == "Executive")
+                {
+                    list = obj.executive_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                }
+                else if (page == "Franchies")
+                {
+                    list = obj.franchies_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                }
+                else if (page == "Customer")
+                {
+                    list = obj.customer_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                }
+                else if (page == "Booking")
+                {
+                    list = obj.booking_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                }
+                else if (page == "PaymentCommit")
+                {
+                    list = obj.paycommit_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                }
+                else if (page == "PaymentDetails")
+                {
+                    list = obj.paydetails_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                }
+                else if (page == "Agreement")
+                {
+                    list = obj.agreement_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                }
+                else if (page == "Finance")
+                {
+                    list = obj.finance_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                }
+                else if (page == "FileStatus")
+                {
+                    list = obj.file_status_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                }
+                else if (page == "CustomerCostSheet")
+                {
+                    list = obj.cost_sheet_show("customer", Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                }
+                else if (page == "BuilderCostSheet")
+                {
+                    list = obj.cost_sheet_show("builder", Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                }
 
                 ViewBag.list = list;
                 ViewBag.total = list[0].Count();
@@ -255,7 +477,61 @@ namespace kd.Controllers
             {
                 List<string>[] list = new List<string>[21];
                 int page_size = Int32.Parse(ps);
-                int cnt = obj.get_count("daily_enquiry");
+                int cnt = 0;
+
+                if (page == "Index")
+                {
+                    cnt = obj.get_count("daily_enquiry");
+                }
+                else if (page == "Sites")
+                {
+                    cnt = obj.get_count("flats where Site_Id = 0");
+                }
+                else if (page == "Executive")
+                {
+                    cnt = obj.get_count("executive");
+                }
+                else if (page == "Franchies")
+                {
+                    cnt = obj.get_count("franchies");
+                }
+                else if (page == "Customer")
+                {
+                    cnt = obj.get_count("applicant");
+                }
+                else if (page == "Booking")
+                {
+                    cnt = obj.get_count("bookings");
+                }
+                else if (page == "PaymentCommit")
+                {
+                    cnt = obj.get_count("payment_commitment");
+                }
+                else if (page == "PaymentDetails")
+                {
+                    cnt = obj.get_count("payment_details");
+                }
+                else if (page == "Agreement")
+                {
+                    cnt = obj.get_count("aggrement");
+                }
+                else if (page == "Finance")
+                {
+                    cnt = obj.get_count("finance_details");
+                }
+                else if (page == "FileStatus")
+                {
+                    cnt = obj.get_count("file_details");
+                }
+                else if (page == "CustomerCostSheet")
+                {
+                    cnt = obj.get_count("cost_sheet where Cost_Sheet_Type = 'customer'");
+                }
+                else if (page == "BuilderCostSheet")
+                {
+                    cnt = obj.get_count("cost_sheet where Cost_Sheet_Type = 'builder'");
+                }
+
                 if (cnt > 0)
                 {
                     if (cnt % page_size == 0)
@@ -268,7 +544,63 @@ namespace kd.Controllers
                     }
                 }
 
-                list = obj.enquiry_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                if (page == "Index")
+                {
+                    list = obj.enquiry_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                }
+                else if (page == "Sites")
+                {
+                    List<string>[] sites = new List<string>[7];
+                    sites = obj.sites_show();
+                    list = obj.flats_show(sites[1][0], Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                    ViewBag.sites = sites;
+                    ViewBag.total_site = sites[0].Count();
+                }
+                else if (page == "Executive")
+                {
+                    list = obj.executive_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                }
+                else if (page == "Franchies")
+                {
+                    list = obj.franchies_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                }
+                else if (page == "Customer")
+                {
+                    list = obj.customer_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                }
+                else if (page == "Booking")
+                {
+                    list = obj.booking_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                }
+                else if (page == "PaymentCommit")
+                {
+                    list = obj.paycommit_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                }
+                else if (page == "PaymentDetails")
+                {
+                    list = obj.paydetails_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                }
+                else if (page == "Agreement")
+                {
+                    list = obj.agreement_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                }
+                else if (page == "Finance")
+                {
+                    list = obj.finance_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                }
+                else if (page == "FileStatus")
+                {
+                    list = obj.file_status_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                }
+                else if (page == "CustomerCostSheet")
+                {
+                    list = obj.cost_sheet_show("customer", Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                }
+                else if (page == "BuilderCostSheet")
+                {
+                    list = obj.cost_sheet_show("builder", Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                }
+
                 ViewBag.list = list;
                 ViewBag.total = list[0].Count();
                 ViewBag.pageSize = page_size;

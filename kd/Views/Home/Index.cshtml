@@ -202,6 +202,27 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("get_site", "Home")',
+            data: {},
+            dataType: 'json',
+            success: function (d) {
+                var list = d.c;
+                $("#enqsite").html("");
+                $.each(list, function (index, value) {
+                    $("#enqsite").append($('<option></option>').val(value).html(value));
+                });
+            },
+            error: function (err) {
+                alert(err.responseText);
+            },
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
         $("#pagination_first").click(function () {
             window.location = '@Html.Raw(@Url.Action("First", "Home", new { page = "Index", ps = "id" }))'.replace("id", $("#page_size option:selected").text());
         });
@@ -220,28 +241,5 @@
         $("#pagination_last").click(function () {
             window.location = '@Html.Raw(@Url.Action("Last", "Home", new { page = "Index", ps = "id" }))'.replace("id", $("#page_size option:selected").text());
         });
-    });
-</script>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-
-        $.ajax({
-            type: "GET",
-            url: "get_site",
-            data: {},
-            dataType: 'json',
-            success: function (d) {
-                var list = d.c;
-                $("#enqsite").html("");
-                $.each(list, function (index, value) {
-                    $("#enqsite").append($('<option></option>').val(value).html(value));
-                });
-            },
-            error: function (err) {
-                alert(err.responseText);
-            },
-        });
-
     });
 </script>
