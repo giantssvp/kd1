@@ -85,10 +85,11 @@
                     </div>
                 </div>
                 <div class="widget-content nopadding">
+                    @Html.Partial("page_size")
                     <form method="post" action="@Url.Action("Agreement","Home")" name="pc" id="pc">
                         <input type="hidden" id="ps" name="ps" value="10" />
                     </form>
-                    <table class="table table-bordered data-table with-check">
+                    <table class="table table-bordered">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -116,6 +117,7 @@
                         </tbody>
                     </table>
                 </div>
+                @Html.Partial("pagination")
             </div>
         </div>
     </div>
@@ -138,6 +140,29 @@
         $("#DataTables_Table_0_length").change(function () {
             document.getElementById("ps").value = $("#DataTables_Table_0_length option:selected").text();
             document.getElementById('pc').submit();
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#pagination_first").click(function () {
+            window.location = '@Html.Raw(@Url.Action("First", "Home", new { page = "Agreement", ps = "id" }))'.replace("id", $("#page_size option:selected").text());
+        });
+    });
+    $(document).ready(function () {
+        $("#pagination_previous").click(function () {
+            window.location = '@Html.Raw(@Url.Action("Previous", "Home", new { page = "Agreement", ps = "id" }))'.replace("id", $("#page_size option:selected").text());
+        });
+    });
+    $(document).ready(function () {
+        $("#pagination_next").click(function () {
+            window.location = '@Html.Raw(@Url.Action("Next", "Home", new { page = "Agreement", ps = "id" }))'.replace("id", $("#page_size option:selected").text());
+        });
+    });
+    $(document).ready(function () {
+        $("#pagination_last").click(function () {
+            window.location = '@Html.Raw(@Url.Action("Last", "Home", new { page = "Agreement", ps = "id" }))'.replace("id", $("#page_size option:selected").text());
         });
     });
 </script>

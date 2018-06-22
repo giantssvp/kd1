@@ -262,6 +262,8 @@
     <Content Include="Views\Home\Agreement.cshtml" />
     <Content Include="Views\Home\CustomerCostSheet.cshtml" />
     <Content Include="Views\Home\BuilderCostSheet.cshtml" />
+    <Content Include="Views\Shared\page_size.cshtml" />
+    <Content Include="Views\Shared\pagination.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

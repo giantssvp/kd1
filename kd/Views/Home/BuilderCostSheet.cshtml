@@ -99,10 +99,11 @@
                     </div>
                 </div>
                 <div class="widget-content nopadding">
+                    @Html.Partial("page_size")
                     <form method="post" action="@Url.Action("BuilderCostSheet","Home")" name="pc" id="pc">
                         <input type="hidden" id="ps" name="ps" value="10" />
                     </form>
-                    <table class="table table-bordered data-table with-check">
+                    <table class="table table-bordered">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -140,6 +141,7 @@
                         </tbody>
                     </table>
                 </div>
+                @Html.Partial("pagination")
             </div>
         </div>
     </div>

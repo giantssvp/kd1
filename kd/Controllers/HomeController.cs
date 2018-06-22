@@ -19,11 +19,12 @@ namespace kd.Controllers
         public ActionResult Index(string ps="10")
         {
             ViewBag.total = 0;
-            HttpContext.Session.Add("offset_enquiry", 0);
+            HttpContext.Session.Add("offset", 0);
             List<string>[] list = new List<string>[14];
-            list = obj.enquiry_show(Int32.Parse(HttpContext.Session["offset_enquiry"].ToString()), Int32.Parse(ps));
+            list = obj.enquiry_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
+            ViewBag.pageSize = Int32.Parse(ps);
 
             return View();
         }
@@ -175,33 +176,111 @@ namespace kd.Controllers
             return View();
         }
 
-        public ActionResult Next(string page, string ps)
+        public ActionResult First(string page, string ps)
         {
-            string ps1 = Request.Form["ps"];
-            System.Windows.Forms.MessageBox.Show(page + ps1);
-            return View(page);
-            /*
             try
             {
-                HttpContext.Session.Add("offset_feedback", (Int32.Parse(HttpContext.Session["offset_feedback"].ToString()) - feedback_page_size));
-                if (Int32.Parse(HttpContext.Session["offset_feedback"].ToString()) <= (feedback_page_size - 1))
-                {
-                    HttpContext.Session.Add("offset_feedback", 0);
-                }
+                List<string>[] list = new List<string>[21];
+                int page_size = Int32.Parse(ps);
 
-                List<string>[] list = new List<string>[3];
-                list = obj.feedback_show(Int32.Parse(HttpContext.Session["offset_feedback"].ToString()), feedback_page_size);
+                list = obj.enquiry_show(0, page_size);
                 ViewBag.list = list;
                 ViewBag.total = list[0].Count();
+                ViewBag.pageSize = page_size;
 
-                return View("Feedback");
+                return View(page);
             }
             catch (Exception ex)
             {
-                return View("Feedback");
-            }*/
+                return View(page);
+            }
+        }
+
+        public ActionResult Previous(string page, string ps)
+        {
+            try
+            {
+                List<string>[] list = new List<string>[21];
+                int page_size = Int32.Parse(ps);
+
+                HttpContext.Session.Add("offset", (Int32.Parse(HttpContext.Session["offset"].ToString()) - page_size));
+                if (Int32.Parse(HttpContext.Session["offset"].ToString()) <= (page_size - 1))
+                {
+                    HttpContext.Session.Add("offset", 0);
+                }
+                
+                list = obj.enquiry_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                ViewBag.list = list;
+                ViewBag.total = list[0].Count();
+                ViewBag.pageSize = page_size;
+
+                return View(page);
+            }
+            catch (Exception ex)
+            {
+                return View(page);
+            }
+        }
+
+        public ActionResult Next(string page, string ps)
+        {
+            try
+            {
+                List<string>[] list = new List<string>[21];
+                int page_size = Int32.Parse(ps);
+                int cnt = obj.get_count("daily_enquiry");
+
+                HttpContext.Session.Add("offset", (Int32.Parse(HttpContext.Session["offset"].ToString()) + page_size));
+                if (Int32.Parse(HttpContext.Session["offset"].ToString()) > cnt)
+                {
+                    HttpContext.Session.Add("offset", (cnt - (cnt % page_size)));
+                }
+                list = obj.enquiry_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+
+                ViewBag.list = list;
+                ViewBag.total = list[0].Count();
+                ViewBag.pageSize = page_size;
+
+                return View(page);
+            }
+            catch (Exception ex)
+            {
+                return View(page);
+            }
         }
         
+        public ActionResult Last(string page, string ps)
+        {
+            try
+            {
+                List<string>[] list = new List<string>[21];
+                int page_size = Int32.Parse(ps);
+                int cnt = obj.get_count("daily_enquiry");
+                if (cnt > 0)
+                {
+                    if (cnt % page_size == 0)
+                    {
+                        HttpContext.Session.Add("offset", (cnt - page_size));
+                    }
+                    else
+                    {
+                        HttpContext.Session.Add("offset", (cnt - (cnt % page_size)));
+                    }
+                }
+
+                list = obj.enquiry_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                ViewBag.list = list;
+                ViewBag.total = list[0].Count();
+                ViewBag.pageSize = page_size;
+
+                return View(page);
+            }
+            catch (Exception ex)
+            {
+                return View(page);
+            }
+        }
+
         public ActionResult add_customer_cost_sheet(string site, string type, string area, string rr_rate, string basic_rate, string basic_cost, string legal_charge, string devcharge, string mseb, string stampdutyreg, string gst, string otheramt, string grandtotal)
         {
             try
