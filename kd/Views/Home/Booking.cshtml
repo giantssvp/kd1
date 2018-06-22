@@ -72,7 +72,9 @@
                                     <td><label class="control-label">Remarks</label></td>
                                     <td><input type="text" name="bremark" id="required"></td>
                                     <td><label class="control-label">Site</label></td>
-                                    <td> <input type="text" name="psgst" id="required"></td>
+                                    <td> 
+                                        <select name="bsite" id="bsite">    </select>
+                                    </td>
                                     <td><label class="control-label">Flats</label></td>
                                     <td><input type="text" name="bflats" id="required"></td>
                                 </tr>
@@ -155,5 +157,28 @@
             document.getElementById("ps").value = $("#DataTables_Table_0_length option:selected").text();
             document.getElementById('pc').submit();
         });
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $.ajax({
+            type: "GET",
+            url: "get_site",
+            data: {},
+            dataType: 'json',
+            success: function (d) {
+                var list = d.c;
+                $("#bsite").html("");
+                $.each(list, function (index, value) {
+                    $("#bsite").append($('<option></option>').val(value).html(value));
+                });
+            },
+            error: function (err) {
+                alert(err.responseText);
+            },
+        });
+
     });
 </script>

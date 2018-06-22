@@ -398,12 +398,12 @@ namespace kd.Controllers
         }
 
         public ActionResult add_booking(string bno, string breferred, string bincentive, string bincome, string bcancel, string btamount,
-            string bramount, string bblder, string bparking, string bcharges, string bfollowup, string bstatus, string bremark, string psgst, string bflats, string bapplicant, string bexecutive, string bfranchies)
+            string bramount, string bblder, string bparking, string bcharges, string bfollowup, string bstatus, string bremark, string bsite, string bflats, string bapplicant, string bexecutive, string bfranchies)
         {
             try
             {
                 obj.insert_booking(bno, breferred, bincentive, bincome, bcancel, btamount,
-             bramount, bblder, bparking, bcharges, bfollowup, bstatus, bremark, psgst, bflats, bapplicant, bexecutive, bfranchies);
+             bramount, bblder, bparking, bcharges, bfollowup, bstatus, bremark, bsite, bflats, bapplicant, bexecutive, bfranchies);
                 return RedirectToAction("Booking", "Home");
             }
             catch (Exception ex)
@@ -485,6 +485,18 @@ namespace kd.Controllers
                 System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
                 return RedirectToAction("FileStatus", "Home");
             }
+        }
+
+        /* Drop Down list for site name on page load*/
+        [HttpGet]
+        public ActionResult get_site(string date)
+        {
+            List<string>[] sites = new List<string>[7];
+            sites = obj.sites_show();
+            return Json(new
+            {
+                c = sites[1]
+            }, JsonRequestBehavior.AllowGet);
         }
     }
 }

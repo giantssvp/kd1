@@ -303,14 +303,14 @@ namespace kd.Models
         }
 
         public int insert_booking(string bno, string breferred, string bincentive, string bincome, string bcancel, string btamount,
-            string bramount, string bblder, string bparking, string bcharges, string bfollowup, string bstatus, string bremark, string psgst, string bflats, string bapplicant, string bexecutive, string bfranchies)
+            string bramount, string bblder, string bparking, string bcharges, string bfollowup, string bstatus, string bremark, string bsite, string bflats, string bapplicant, string bexecutive, string bfranchies)
         {
             try
             {
                 string query = "INSERT INTO bookings (Booking_No, Referenceby, Incentive_Paid, Total_Incentive, Flat_Cancled_By, Total_Flat_Amount, " +
                     "Received_Amount, Total_Builder_Received, Reserved_Parking, Internal_Charges, Follow_Up_Date, Date, Status, Remark, Site_Id," +
                     " Applicant_Id, Executive_Id, Franchies_Id, Flat_Id) " +
-                    "VALUES(@bno, @bref, @bince, @bin, @bcan, @btamt, @bramt, @bbldr, @bpark, @bchrg, @bflp, NOW(), @bsts, @bremark, @bsgst, @bflts, @bappl, @bexe, @bfrn)";
+                    "VALUES(@bno, @bref, @bince, @bin, @bcan, @btamt, @bramt, @bbldr, @bpark, @bchrg, @bflp, NOW(), @bsts, @bremark, @bsite, @bflts, @bappl, @bexe, @bfrn)";
 
                 if (this.OpenConnection() == true)
                 {
@@ -328,7 +328,7 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@bflp", bfollowup);
                     cmd.Parameters.AddWithValue("@bsts", 1);//To be changed
                     cmd.Parameters.AddWithValue("@bremark", bremark);
-                    cmd.Parameters.AddWithValue("@bsgst", 1);//To be changed
+                    cmd.Parameters.AddWithValue("@bsite", 1);//To be changed
                     cmd.Parameters.AddWithValue("@bflts", 1);//To be changed
                     cmd.Parameters.AddWithValue("@bappl", 1);//To be changed
                     cmd.Parameters.AddWithValue("@bexe", 1);//To be changed
