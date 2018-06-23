@@ -20,8 +20,11 @@ namespace kd.Models
         public List<string>[] list_enquiry_show = new List<string>[14];
         public List<string>[] list_sites_show = new List<string>[11];
         public List<string>[] list_executive_show = new List<string>[10];
+        public List<string>[] list_executive_show_name = new List<string>[2];
         public List<string>[] list_franchies_show = new List<string>[7];
+        public List<string>[] list_franchies_show_name = new List<string>[2];
         public List<string>[] list_customer_show = new List<string>[17];
+        public List<string>[] list_customer_show_name= new List<string>[2];
         public List<string>[] list_paycommit_show = new List<string>[7];
         public List<string>[] list_paydetails_show = new List<string>[12];
         public List<string>[] list_flats_show = new List<string>[9];
@@ -882,6 +885,44 @@ namespace kd.Models
             }
         }
 
+        /** 
+         * Get the customer name
+         */
+        public List<string>[] customer_show_name()
+        {
+            try
+            {
+                string query = "SELECT ID, Applicant_Name FROM applicant ORDER BY ID DESC";
+
+                list_customer_show_name[0] = new List<string>();
+                list_customer_show_name[1] = new List<string>();
+               
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    while (dataReader.Read())
+                    {
+                        list_customer_show_name[0].Add(dataReader["ID"] + "");
+                        list_customer_show_name[1].Add(dataReader["Applicant_Name"] + "");
+                    }
+
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return list_customer_show_name;
+                }
+                else
+                {
+                    return list_customer_show_name;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return list_customer_show_name;
+            }
+        }
+
         public List<string>[] finance_show(int offset, int limit)
         {
             try
@@ -1079,6 +1120,45 @@ namespace kd.Models
             catch (MySqlException ex)
             {
                 return list_executive_show;
+            }
+        }
+
+        /**
+         * Get the executive name
+         */
+
+        public List<string>[] executive_show_name()
+        {
+            try
+            {
+                string query = "SELECT ID,Executive_Name FROM executive ORDER BY ID DESC";
+
+                list_executive_show_name[0] = new List<string>();
+                list_executive_show_name[1] = new List<string>();
+               
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    while (dataReader.Read())
+                    {
+                        list_executive_show_name[0].Add(dataReader["ID"] + "");
+                        list_executive_show_name[1].Add(dataReader["Executive_Name"] + "");
+                    }
+
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return list_executive_show_name;
+                }
+                else
+                {
+                    return list_executive_show_name;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return list_executive_show_name;
             }
         }
 
@@ -1331,6 +1411,46 @@ namespace kd.Models
                 return list_franchies_show;
             }
         }
+
+        /** 
+         * Get Franchies name
+         */
+
+        public List<string>[] franchies_show_name()
+        {
+            try
+            {
+                string query = "SELECT ID,Francies_Name FROM franchies ORDER BY ID DESC";
+
+                list_franchies_show_name[0] = new List<string>();
+                list_franchies_show_name[1] = new List<string>();
+               
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    while (dataReader.Read())
+                    {
+                        list_franchies_show_name[0].Add(dataReader["ID"] + "");
+                        list_franchies_show_name[1].Add(dataReader["Francies_Name"] + "");
+                    }
+
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return list_franchies_show_name;
+                }
+                else
+                {
+                    return list_franchies_show_name;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return list_franchies_show_name;
+            }
+        }
+
 
         public List<string>[] sites_show()
         {

@@ -860,14 +860,64 @@ namespace kd.Controllers
             }
         }
 
-        /* Drop Down list for site name on page load*/
+        /**
+         * Drop Down list for site name on page load
+         */
         [HttpGet]
-        public ActionResult get_site(string date)
+        public ActionResult get_site(string data)
         {
             List<string>[] sites = new List<string>[7];
             sites = obj.sites_show();
             var result = new { id = sites[0],
                 name = sites[1]};
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        /**
+         * Drop Down list for applicant name on page load
+         */
+        [HttpGet]
+        public ActionResult get_applicant(string data)
+        {
+            List<string>[] sites = new List<string>[7];
+            sites = obj.customer_show_name();
+            var result = new
+            {
+                id = sites[0],
+                name = sites[1]
+            };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        /** 
+         * Drop Down list for executive name on page load
+         */
+        [HttpGet]
+        public ActionResult get_executive(string date)
+        {
+            List<string>[] sites = new List<string>[7];
+            sites = obj.executive_show_name();
+            var result = new
+            {
+                id = sites[0],
+                name = sites[1]
+            };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        /** 
+         * Drop Down list for franchies name on page load
+         */
+        [HttpGet]
+        public ActionResult get_franchies(string date)
+        {
+            List<string>[] sites = new List<string>[7];
+            sites = obj.franchies_show_name();
+            var result = new
+            {
+                id = sites[0],
+                name = sites[1]
+            };
             return Json(result, JsonRequestBehavior.AllowGet);
         }
     }

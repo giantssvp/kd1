@@ -58,7 +58,12 @@
                                     <td><label class="control-label">Total Builder Received</label></td>
                                     <td> <input type="number" name="bblder" id="required"></td>
                                     <td><label class="control-label">Reserved Parking</label></td>
-                                    <td><input type="text" name="bparking" id="required"></td>
+                                    <td>
+                                        <select name="bparking" id="bparking" style="max-width:90%;">
+                                            <option value="covered">Covered</option>
+                                            <option value="open"> Open</option>
+                                            <option value="no"> No</option>
+                                        </select></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Internal Charges</label></td>
@@ -66,7 +71,13 @@
                                     <td><label class="control-label">Follow Up Date</label></td>
                                     <td> <input type="date" name="bfollowup" id="required"></td>
                                     <td><label class="control-label">Status</label></td>
-                                    <td><input type="text" name="bstatus" id="required"></td>
+                                    <td>
+                                        <input type="text" name="bstatus" id="required">
+                                        <select name="bstatus" id="bstatus" style="max-width:90%;">
+                                            <option value="active">Active</option>
+                                            <option value="cancel"> Canceld</option>
+                                        </select>
+                                    </td></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Remarks</label></td>
@@ -80,11 +91,17 @@
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Applicant</label></td>
-                                    <td><input type="text" name="bapplicant" id="required"></td>
+                                    <td>
+                                        <select name="bapplicant" id="bapplicant">    </select>
+                                    </td>
                                     <td><label class="control-label">Executive</label></td>
-                                    <td> <input type="text" name="bexecutive" id="required"></td>
+                                    <td> 
+                                        <select name="bexecutive" id="bexecutive">    </select>
+                                    </td>
                                     <td><label class="control-label">Franchies</label></td>
-                                    <td><input type="text" name="bfranchies" id="required"></td>
+                                    <td>
+                                        <select name="bfranchies" id="bfranchies">    </select>
+                                    </td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><input type="submit" value="Save" class="btn btn-success" /></td>
@@ -158,27 +175,90 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-
         $.ajax({
             type: "GET",
-            url: "get_site",
+            url: '@Url.Action("get_site", "Home")',
             data: {},
             dataType: 'json',
             success: function (d) {
-                var list = d.c;
+                var list1 = d.id;
+                var list = d.name;
                 $("#bsite").html("");
                 $.each(list, function (index, value) {
-                    $("#bsite").append($('<option></option>').val(value).html(value));
+                    $("#bsite").append($('<option></option>').val(list1[index]).html(value));
                 });
             },
             error: function (err) {
                 alert(err.responseText);
             },
         });
-
     });
 </script>
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("get_applicant", "Home")',
+            data: {},
+            dataType: 'json',
+            success: function (d) {
+                var list1 = d.id;
+                var list = d.name;
+                $("#bapplicant").html("");
+                $.each(list, function (index, value) {
+                    $("#bapplicant").append($('<option></option>').val(list1[index]).html(value));
+                });
+            },
+            error: function (err) {
+                alert(err.responseText);
+            },
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("get_executive", "Home")',
+            data: {},
+            dataType: 'json',
+            success: function (d) {
+                var list1 = d.id;
+                var list = d.name;
+                $("#bexecutive").html("");
+                $.each(list, function (index, value) {
+                    $("#bexecutive").append($('<option></option>').val(list1[index]).html(value));
+                });
+            },
+            error: function (err) {
+                alert(err.responseText);
+            },
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("get_franchies", "Home")',
+            data: {},
+            dataType: 'json',
+            success: function (d) {
+                var list1 = d.id;
+                var list = d.name;
+                $("#bfranchies").html("");
+                $.each(list, function (index, value) {
+                    $("#bfranchies").append($('<option></option>').val(list1[index]).html(value));
+                });
+            },
+            error: function (err) {
+                alert(err.responseText);
+            },
+        });
+    });
+</script>
 <script type="text/javascript">
     $(document).ready(function () {
         $("#pagination_first").click(function () {

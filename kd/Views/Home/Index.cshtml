@@ -203,11 +203,11 @@
             data: {},
             dataType: 'json',
             success: function (d) {
-                var list = d.id;
-                var list1 = d.name;
+                var list1 = d.id;
+                var list = d.name;
                 $("#enqsite").html("");
-                $.each(list1, function (index, value) {
-                    $("#enqsite").append($('<option></option>').val(list[index]).html(value));
+                $.each(list, function (index, value) {
+                    $("#enqsite").append($('<option></option>').val(list1[index]).html(value));
                 });
             },
             error: function (err) {
