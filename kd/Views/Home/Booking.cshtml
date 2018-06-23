@@ -102,9 +102,6 @@
                 </div>
                 <div class="widget-content nopadding">
                     @Html.Partial("page_size")
-                    <form method="post" action="@Url.Action("Booking","Home")" name="pc" id="pc">
-                        <input type="hidden" id="ps" name="ps" value="10" />
-                    </form>
                     <table class="table table-bordered">
                         <thead>
                             <tr>
@@ -153,9 +150,8 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#DataTables_Table_0_length").change(function () {
-            document.getElementById("ps").value = $("#DataTables_Table_0_length option:selected").text();
-            document.getElementById('pc').submit();
+        $("#page_size").change(function () {
+            window.location = '@Html.Raw(@Url.Action("Booking", "Home", new { ps = "id" }))'.replace("id", $("#page_size option:selected").text());
         });
     });
 </script>

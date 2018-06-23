@@ -22,7 +22,9 @@ namespace kd.Controllers
             ViewBag.total = 0;
             HttpContext.Session.Add("offset", 0);
             List<string>[] list = new List<string>[14];
+
             list = obj.enquiry_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
+
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
             ViewBag.pageSize = Int32.Parse(ps);
@@ -35,13 +37,17 @@ namespace kd.Controllers
             ViewBag.total = 0;
             HttpContext.Session.Add("offset", 0);
             List<string>[] sites = new List<string>[7];
-            List<string>[] flats = new List<string>[9];
+            List<string>[] list = new List<string>[9];
             sites = obj.sites_show();
-            flats = obj.flats_show(sites[1][0], Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
-            ViewBag.sites = sites;
-            ViewBag.list = flats;
-            ViewBag.total = flats[0].Count();
+
+            list = obj.flats_show(sites[1][0], Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
+
+            ViewBag.sites = sites;            
             ViewBag.total_site = sites[0].Count();
+
+            ViewBag.list = list;
+            ViewBag.total = list[0].Count();
+            ViewBag.pageSize = Int32.Parse(ps);
 
             return View();
         }
@@ -51,9 +57,12 @@ namespace kd.Controllers
             ViewBag.total = 0;
             HttpContext.Session.Add("offset", 0);
             List<string>[] list = new List<string>[14];
+
             list = obj.executive_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
+
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
+            ViewBag.pageSize = Int32.Parse(ps);
 
             return View();
         }
@@ -63,9 +72,12 @@ namespace kd.Controllers
             ViewBag.total = 0;
             HttpContext.Session.Add("offset", 0);
             List<string>[] list = new List<string>[14];
+
             list = obj.franchies_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
+
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
+            ViewBag.pageSize = Int32.Parse(ps);
 
             return View();
         }
@@ -75,9 +87,12 @@ namespace kd.Controllers
             ViewBag.total = 0;
             HttpContext.Session.Add("offset", 0);
             List<string>[] list = new List<string>[14];
+
             list = obj.customer_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
+
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
+            ViewBag.pageSize = Int32.Parse(ps);
 
             return View();
         }
@@ -86,9 +101,12 @@ namespace kd.Controllers
             ViewBag.total = 0;
             HttpContext.Session.Add("offset", 0);
             List<string>[] list = new List<string>[21];
+
             list = obj.booking_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
+
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
+            ViewBag.pageSize = Int32.Parse(ps);
 
             return View();
         }
@@ -97,9 +115,12 @@ namespace kd.Controllers
             ViewBag.total = 0;
             HttpContext.Session.Add("offset", 0);
             List<string>[] list = new List<string>[14];
+
             list = obj.paycommit_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
+
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
+            ViewBag.pageSize = Int32.Parse(ps);
 
             return View();
         }
@@ -108,9 +129,12 @@ namespace kd.Controllers
             ViewBag.total = 0;
             HttpContext.Session.Add("offset", 0);
             List<string>[] list = new List<string>[14];
+
             list = obj.paydetails_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
+
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
+            ViewBag.pageSize = Int32.Parse(ps);
 
             return View();
         }
@@ -119,9 +143,12 @@ namespace kd.Controllers
             ViewBag.total = 0;
             HttpContext.Session.Add("offset", 0);
             List<string>[] list = new List<string>[14];
+
             list = obj.agreement_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
+
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
+            ViewBag.pageSize = Int32.Parse(ps);
 
             return View();
         }
@@ -130,9 +157,12 @@ namespace kd.Controllers
             ViewBag.total = 0;
             HttpContext.Session.Add("offset", 0);
             List<string>[] list = new List<string>[21];
+
             list = obj.finance_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
+
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
+            ViewBag.pageSize = Int32.Parse(ps);
 
             return View();
         }
@@ -141,9 +171,12 @@ namespace kd.Controllers
             ViewBag.total = 0;
             HttpContext.Session.Add("offset", 0);
             List<string>[] list = new List<string>[10];
+
             list = obj.file_status_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
+
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
+            ViewBag.pageSize = Int32.Parse(ps);
 
             return View();
         }
@@ -153,9 +186,12 @@ namespace kd.Controllers
             ViewBag.total = 0;
             HttpContext.Session.Add("offset", 0);
             List<string>[] list = new List<string>[14];
+
             list = obj.cost_sheet_show("customer", Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
+
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
+            ViewBag.pageSize = Int32.Parse(ps);
 
             return View();
         }
@@ -165,9 +201,12 @@ namespace kd.Controllers
             ViewBag.total = 0;
             HttpContext.Session.Add("offset", 0);
             List<string>[] list = new List<string>[14];
+
             list = obj.cost_sheet_show("builder", Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
+
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
+            ViewBag.pageSize = Int32.Parse(ps);
 
             return View();
         }

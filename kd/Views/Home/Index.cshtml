@@ -126,11 +126,7 @@
                     <h5>All Enquiries</h5> 
                 </div>
                 <div class="widget-content nopadding">
-                    @Html.Partial("page_size")
-                    
-                    <form method="post" action="@Url.Action("Index","Home")" name="pc" id="pc">
-                        <input type="hidden" id="ps" name="ps" value="10" />
-                    </form>
+                    @Html.Partial("page_size")                    
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
@@ -194,8 +190,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $("#page_size").change(function () {
-            document.getElementById("ps").value = $("#page_size option:selected").text();
-            document.getElementById('pc').submit();
+            window.location = '@Html.Raw(@Url.Action("Index", "Home", new { ps = "id" }))'.replace("id", $("#page_size option:selected").text());
         });
     });
 </script>
@@ -208,10 +203,11 @@
             data: {},
             dataType: 'json',
             success: function (d) {
-                var list = d.c;
+                var list = d.id;
+                var list1 = d.name;
                 $("#enqsite").html("");
-                $.each(list, function (index, value) {
-                    $("#enqsite").append($('<option></option>').val(value).html(value));
+                $.each(list1, function (index, value) {
+                    $("#enqsite").append($('<option></option>').val(list[index]).html(value));
                 });
             },
             error: function (err) {
