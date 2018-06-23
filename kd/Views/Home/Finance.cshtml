@@ -94,7 +94,9 @@
                                     <td><label class="control-label">EMI Total Months</label></td>
                                     <td> <input type="number" name="emimonths" id="required"></td>
                                     <td><label class="control-label">Customer Name</label></td>
-                                    <td><input type="text" name="bookid" id="required"></td>
+                                    <td>
+                                        <select name="bid" id="bid">    </select>
+                                    </td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Status</label></td>
@@ -169,6 +171,28 @@
     $(document).ready(function () {
         $("#page_size").change(function () {
             window.location = '@Html.Raw(@Url.Action("Finance", "Home", new { ps = "id" }))'.replace("id", $("#page_size option:selected").text());
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("get_customer_booking_name", "Home")',
+            data: {},
+            dataType: 'json',
+            success: function (d) {
+                var list1 = d.id;
+                var list = d.name;
+                $("#bid").html("");
+                $.each(list, function (index, value) {
+                    $("#bid").append($('<option></option>').val(list1[index]).html(value));
+                });
+            },
+            error: function (err) {
+                alert(err.responseText);
+            },
         });
     });
 </script>

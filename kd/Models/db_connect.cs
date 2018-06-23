@@ -33,6 +33,7 @@ namespace kd.Models
         public List<string>[] list_file_status_show = new List<string>[10];
         public List<string>[] list_agreement_show = new List<string>[6];
         public List<string>[] list_cost_sheet_show = new List<string>[14];
+        public List<string>[] list_customer_booking_show = new List<string>[2];
 
         private bool OpenConnection()
         {
@@ -1556,6 +1557,43 @@ namespace kd.Models
                 return list_flats_show;
             }
         }
+
+        public List<string>[] customer_booking_show()
+        {
+            try
+            {
+                string query = "select b.ID as ID,a.Applicant_Name as Applicant_Name from applicant a inner join bookings b on a.Id = b.Applicant_Id ORDER BY b.ID DESC";
+
+                list_customer_booking_show[0] = new List<string>();
+                list_customer_booking_show[1] = new List<string>();
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    while (dataReader.Read())
+                    {
+                        list_customer_booking_show[0].Add(dataReader["ID"] + "");
+                        list_customer_booking_show[1].Add(dataReader["Applicant_Name"] + "");
+                    }
+
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return list_customer_booking_show;
+                }
+                else
+                {
+                    return list_customer_booking_show;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return list_customer_booking_show;
+            }
+        }
+
+
 
         public int get_count(string table)
         {

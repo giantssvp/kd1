@@ -164,24 +164,23 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-
         $.ajax({
             type: "GET",
-            url: "get_site",
+            url: '@Url.Action("get_site", "Home")',
             data: {},
             dataType: 'json',
             success: function (d) {
-                var list = d.c;
+                var list1 = d.id;
+                var list = d.name;
                 $("#site").html("");
                 $.each(list, function (index, value) {
-                    $("#site").append($('<option></option>').val(value).html(value));
+                    $("#site").append($('<option></option>').val(list1[index]).html(value));
                 });
             },
             error: function (err) {
                 alert(err.responseText);
             },
         });
-
     });
 </script>
 

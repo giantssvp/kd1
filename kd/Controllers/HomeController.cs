@@ -893,7 +893,7 @@ namespace kd.Controllers
          * Drop Down list for executive name on page load
          */
         [HttpGet]
-        public ActionResult get_executive(string date)
+        public ActionResult get_executive(string data)
         {
             List<string>[] sites = new List<string>[7];
             sites = obj.executive_show_name();
@@ -909,10 +909,26 @@ namespace kd.Controllers
          * Drop Down list for franchies name on page load
          */
         [HttpGet]
-        public ActionResult get_franchies(string date)
+        public ActionResult get_franchies(string data)
         {
             List<string>[] sites = new List<string>[7];
             sites = obj.franchies_show_name();
+            var result = new
+            {
+                id = sites[0],
+                name = sites[1]
+            };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        /** 
+         * Drop Down list for booking wise customer name on page load
+         */
+        [HttpGet]
+        public ActionResult get_customer_booking_name(string data)
+        {
+            List<string>[] sites = new List<string>[7];
+            sites = obj.customer_booking_show();
             var result = new
             {
                 id = sites[0],
