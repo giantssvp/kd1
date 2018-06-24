@@ -149,9 +149,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\db_connect.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\animate_login.css" />
     <Content Include="Content\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap-wysihtml5.css" />
     <Content Include="Content\bootstrap.css" />
@@ -166,6 +168,7 @@
     <Content Include="Content\matrix-media.css" />
     <Content Include="Content\matrix-style.css" />
     <Content Include="Content\select2.css" />
+    <Content Include="Content\style_login.css" />
     <Content Include="Content\uniform.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -264,6 +267,7 @@
     <Content Include="Views\Home\BuilderCostSheet.cshtml" />
     <Content Include="Views\Shared\page_size.cshtml" />
     <Content Include="Views\Shared\pagination.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

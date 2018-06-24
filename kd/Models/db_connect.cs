@@ -1884,18 +1884,19 @@ namespace kd.Models
                 var pass = password + "4804";
                 var hash = getHash(pass);
                 MySqlDataReader rdr;
-                string query = "select password from login where username = @name and password = @password";
+                string query = "select User_Type from user where User_Name = @name and Password = @password";
 
                 if (this.OpenConnection() == true)
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@name", name);
-                    cmd.Parameters.AddWithValue("@password", hash);
+                    cmd.Parameters.AddWithValue("@password", password);
                     rdr = cmd.ExecuteReader();
 
                     if (rdr.Read())
                     {
                         this.CloseConnection();
+                        //return rdr["User_Type"].ToString();
                         return true;
                     }
                 }
