@@ -28,24 +28,16 @@ namespace kd.Models
         /// <param name="_username">User name</param>
         /// <param name="_password">User password</param>
         /// <returns>True if user exist and password is correct</returns>
-        public bool IsValid(string username, string password)
+        public string IsValid(string username, string password)
         {
             try
             {
                 var obj = new db_connect();
-
-                if (obj.Login(username, password))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return obj.Login(username, password);
             }
             catch (Exception ex)
             {
-                return false;
+                return "false";
             }
         }
     }

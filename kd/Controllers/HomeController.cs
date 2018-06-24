@@ -20,6 +20,7 @@ namespace kd.Controllers
         [HttpGet]
         public ActionResult Login()
         {
+            this.Session["role"] = "";
             return View();
         }
 
@@ -28,9 +29,11 @@ namespace kd.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (user.IsValid(user.UserName, user.Password))
+                string role = user.IsValid(user.UserName, user.Password);
+
+                if (role != "false")
                 {                   
-                    //this.Session["role"] = "admin";
+                    this.Session["role"] = role;
                     FormsAuthentication.SetAuthCookie(user.UserName, user.RememberMe);
                     return RedirectToAction("Index", "Home");
                 }

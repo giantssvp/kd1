@@ -1877,7 +1877,7 @@ namespace kd.Models
             }
         }
         /*Login Section*/
-        public Boolean Login(string name, string password)
+        public string Login(string name, string password)
         {
             try
             {
@@ -1895,17 +1895,18 @@ namespace kd.Models
 
                     if (rdr.Read())
                     {
+                        string role = rdr["User_Type"].ToString();
                         this.CloseConnection();
-                        //return rdr["User_Type"].ToString();
-                        return true;
+                        return role;
                     }
                 }
+
                 this.CloseConnection();
-                return false;
+                return "false";
             }
             catch (MySqlException ex)
             {
-                return false;
+                return "false";
             }
         }
         /*Login Section*/

@@ -112,7 +112,10 @@
                                 <th>GST</th>
                                 <th>Other Amount</th>
                                 <th>Grand Total</th>
-                                <th>Action</th>
+                                @if (this.Session["role"].ToString() == "admin")
+                                {
+                                    <th>Modify</th>
+                                }
                             </tr>
                         </thead>
                         <tbody>
@@ -130,7 +133,10 @@
                                     <td>@results[9][i]</td>
                                     <td>@results[10][i]</td>
                                     <td>@results[11][i]</td>
-                                    <td align="center"><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>
+                                    @if (this.Session["role"].ToString() == "admin")
+                                    {
+                                        <td align="center"><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>
+                                    }
                                 </tr>
                             }
                         </tbody>
