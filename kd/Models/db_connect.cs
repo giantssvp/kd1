@@ -178,13 +178,8 @@ namespace kd.Models
                 string query = "INSERT INTO flats (Flat_No, Floor, Area, Flat_Type, Wing, Date, Status, Site_Id) " +
                     "VALUES(@flatno, @floor, @area, @flat_type, @wing, NOW(), @status, @siteid)";
 
-                string query1 = "select id from sites where Site_Name = '" + flatsitename + "'";
-
                 if (this.OpenConnection() == true)
                 {
-                    MySqlCommand cmd1 = new MySqlCommand(query1, connection);
-                    int id = Convert.ToInt32(cmd1.ExecuteScalar());
-
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@flatno", flatno);
                     cmd.Parameters.AddWithValue("@floor", flatfloor);
@@ -192,7 +187,7 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@flat_type", flattype);
                     cmd.Parameters.AddWithValue("@wing", flatwing);
                     cmd.Parameters.AddWithValue("@status", flatstatus);
-                    cmd.Parameters.AddWithValue("@siteid", id);
+                    cmd.Parameters.AddWithValue("@siteid", Int32.Parse(flatsitename));
 
                     cmd.ExecuteNonQuery();
                     this.CloseConnection();
@@ -293,7 +288,7 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@caadhar", coapplaadhar);
                     cmd.Parameters.AddWithValue("@coccu", coapploccu);
                     cmd.Parameters.AddWithValue("@cbirth", coapplbirth);
-                    cmd.Parameters.AddWithValue("@status", applstatus); //To be changed
+                    cmd.Parameters.AddWithValue("@status", applstatus);
 
                     cmd.ExecuteNonQuery();
                     this.CloseConnection();
@@ -330,14 +325,13 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@bpark", bparking);
                     cmd.Parameters.AddWithValue("@bchrg", bcharges);
                     cmd.Parameters.AddWithValue("@bflp", bfollowup);
-                    cmd.Parameters.AddWithValue("@bsts", 1);//To be changed
+                    cmd.Parameters.AddWithValue("@bsts", bstatus);
                     cmd.Parameters.AddWithValue("@bremark", bremark);
-                    cmd.Parameters.AddWithValue("@bsite", 1);//To be changed
-                    cmd.Parameters.AddWithValue("@bflts", 1);//To be changed
-                    cmd.Parameters.AddWithValue("@bappl", 1);//To be changed
-                    cmd.Parameters.AddWithValue("@bexe", 1);//To be changed
-                    cmd.Parameters.AddWithValue("@bfrn", 1);//To be changed
-                   
+                    cmd.Parameters.AddWithValue("@bsite", bsite);
+                    cmd.Parameters.AddWithValue("@bflts", bflats);
+                    cmd.Parameters.AddWithValue("@bappl", bapplicant);
+                    cmd.Parameters.AddWithValue("@bexe", bexecutive);
+                    cmd.Parameters.AddWithValue("@bfrn", bfranchies);                   
 
                     cmd.ExecuteNonQuery();
                     this.CloseConnection();
@@ -350,7 +344,7 @@ namespace kd.Models
             }
         }
 
-        public int insert_paymentcommit(string ctype, string camount, string cstatus, string cremark)
+        public int insert_paymentcommit(string ctype, string camount, string cstatus, string cremark, string bid)
         {
             try
             {
@@ -362,9 +356,9 @@ namespace kd.Models
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@ctype", ctype);
                     cmd.Parameters.AddWithValue("@camt", camount);
-                    cmd.Parameters.AddWithValue("@csts", cstatus); //to be changed
+                    cmd.Parameters.AddWithValue("@csts", cstatus);
                     cmd.Parameters.AddWithValue("@crmrk", cremark);
-                    cmd.Parameters.AddWithValue("@bid", 1); //to be changed
+                    cmd.Parameters.AddWithValue("@bid", Int32.Parse(bid));
                     cmd.ExecuteNonQuery();
                     this.CloseConnection();
                 }
@@ -377,7 +371,7 @@ namespace kd.Models
         }
 
         public int insert_paymentdetails(string pamt, string pdate, string pmode, string chkid, string chkdate, string bname,
-            string ptype, string bldpay, string bnkpay, string sts)
+            string ptype, string bldpay, string bnkpay, string sts, string bid)
         {
             try
             {
@@ -398,7 +392,7 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@bldpay", bldpay);
                     cmd.Parameters.AddWithValue("@bnkpay", bnkpay);
                     cmd.Parameters.AddWithValue("@sts", sts);
-                    cmd.Parameters.AddWithValue("@bid", 1);
+                    cmd.Parameters.AddWithValue("@bid", Int32.Parse(bid));
                     cmd.ExecuteNonQuery();
                     this.CloseConnection();
                 }
@@ -410,7 +404,7 @@ namespace kd.Models
             }
         }
 
-        public int insert_agreement(string ano, string aamount, string astatus, string bid, string adate)
+        public int insert_agreement(string ano, string adate, string anotary, string aamount, string aadjustment, string aextra, string astatus, string bid)
         {
             try
             {
@@ -470,7 +464,7 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@emiamt", emiamt);
                     cmd.Parameters.AddWithValue("@emimonths", emimonths);
                     cmd.Parameters.AddWithValue("@bookid", bookid);
-                    cmd.Parameters.AddWithValue("@finstat", finstat);//To be changed
+                    cmd.Parameters.AddWithValue("@finstat", finstat);
 
                     cmd.ExecuteNonQuery();
                     this.CloseConnection();
@@ -632,7 +626,7 @@ namespace kd.Models
             }
         }
 
-        public List<string>[] bookings_show(int offset, int limit)
+        public List<string>[] bookings_show(int offset, int limit, string search = "")
         {
             try
             {
@@ -694,11 +688,19 @@ namespace kd.Models
             }
         }
 
-        public List<string>[] enquiry_show(int offset, int limit)
+        public List<string>[] enquiry_show(int offset, int limit, string search="")
         {
             try
             {
-                string query = "SELECT * FROM daily_enquiry ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                string query = "";
+                if (search == "")
+                {
+                    query = "SELECT * FROM daily_enquiry ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                }
+                else
+                {
+                    query = "SELECT * FROM daily_enquiry where CONCAT(Customer_Name, Requirement) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                }
 
                 list_enquiry_show[0] = new List<string>();
                 list_enquiry_show[1] = new List<string>();
@@ -714,8 +716,7 @@ namespace kd.Models
                 list_enquiry_show[11] = new List<string>();
                 list_enquiry_show[12] = new List<string>();
                 list_enquiry_show[13] = new List<string>();
-
-
+                
                 if (this.OpenConnection() == true)
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
@@ -756,11 +757,19 @@ namespace kd.Models
             }
         }
 
-        public List<string>[] cost_sheet_show(string sheet_type, int offset, int limit)
+        public List<string>[] cost_sheet_show(string sheet_type, int offset, int limit, string search = "")
         {
             try
             {
-                string query = "SELECT * FROM cost_sheet where Cost_Sheet_Type = @sheet_type ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                string query = "";
+                if (search == "")
+                {
+                    query = "SELECT * FROM cost_sheet where Cost_Sheet_Type = @sheet_type ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                }
+                else
+                {
+                    query = "SELECT * FROM cost_sheet where Cost_Sheet_Type = @sheet_type and CONCAT(Basic_Rate, Type) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                }
 
                 list_cost_sheet_show[0] = new List<string>();
                 list_cost_sheet_show[1] = new List<string>();
@@ -818,11 +827,19 @@ namespace kd.Models
             }
         }
 
-        public List<string>[] customer_show(int offset, int limit)
+        public List<string>[] customer_show(int offset, int limit, string search = "")
         {
             try
             {
-                string query = "SELECT * FROM applicant ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                string query = "";
+                if (search == "")
+                {
+                    query = "SELECT * FROM applicant ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                }
+                else
+                {
+                    query = "SELECT * FROM applicant where CONCAT(Applicant_Name, Co_Applicant_Name) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                }
 
                 list_customer_show[0] = new List<string>();
                 list_customer_show[1] = new List<string>();
@@ -924,11 +941,19 @@ namespace kd.Models
             }
         }
 
-        public List<string>[] finance_show(int offset, int limit)
+        public List<string>[] finance_show(int offset, int limit, string search = "")
         {
             try
             {
-                string query = "SELECT * FROM finance_details ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                string query = "";
+                if (search == "")
+                {
+                    query = "SELECT * FROM finance_details ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                }
+                else
+                {
+                    query = "SELECT * FROM finance_details where CONCAT(Finance_Name, Finance_Executive_Name) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                }
 
                 list_finance_show[0] = new List<string>();
                 list_finance_show[1] = new List<string>();
@@ -997,11 +1022,19 @@ namespace kd.Models
             }
         }
 
-        public List<string>[] booking_show(int offset, int limit)
+        public List<string>[] booking_show(int offset, int limit, string search = "")
         {
             try
             {
-                string query = "SELECT * FROM bookings ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                string query = "";
+                if (search == "")
+                {
+                    query = "SELECT * FROM bookings ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                }
+                else
+                {
+                    query = "SELECT * FROM bookings where CONCAT(Booking_No, Referenceby) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                }
 
                 list_booking_show[0] = new List<string>();
                 list_booking_show[1] = new List<string>();
@@ -1070,11 +1103,19 @@ namespace kd.Models
             }
         }
 
-        public List<string>[] executive_show(int offset, int limit)
+        public List<string>[] executive_show(int offset, int limit, string search = "")
         {
             try
             {
-                string query = "SELECT * FROM executive ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                string query = "";
+                if (search == "")
+                {
+                    query = "SELECT * FROM executive ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                }
+                else
+                {
+                    query = "SELECT * FROM executive where CONCAT(Executive_Name, Executive_Code) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                }
 
                 list_executive_show[0] = new List<string>();
                 list_executive_show[1] = new List<string>();
@@ -1163,11 +1204,19 @@ namespace kd.Models
             }
         }
 
-        public List<string>[] file_status_show(int offset, int limit)
+        public List<string>[] file_status_show(int offset, int limit, string search = "")
         {
             try
             {
-                string query = "SELECT * FROM file_details ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                string query = "";
+                if (search == "")
+                {
+                    query = "SELECT * FROM file_details ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                }
+                else
+                {
+                    query = "SELECT * FROM file_details where CONCAT(Cheque_Id, Bank_Name) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                }
 
                 list_file_status_show[0] = new List<string>();
                 list_file_status_show[1] = new List<string>();
@@ -1215,11 +1264,19 @@ namespace kd.Models
             }
         }
 
-        public List<string>[] paycommit_show(int offset, int limit)
+        public List<string>[] paycommit_show(int offset, int limit, string search = "")
         {
             try
             {
-                string query = "SELECT * FROM payment_commitment ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                string query = "";
+                if (search == "")
+                {
+                    query = "SELECT * FROM payment_commitment ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                }
+                else
+                {
+                    query = "SELECT * FROM payment_commitment where CONCAT(Commitment_Type, Amount) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                }
 
                 list_paycommit_show[0] = new List<string>();
                 list_paycommit_show[1] = new List<string>();
@@ -1263,11 +1320,19 @@ namespace kd.Models
             }
         }
 
-        public List<string>[] paydetails_show(int offset, int limit)
+        public List<string>[] paydetails_show(int offset, int limit, string search = "")
         {
             try
             {
-                string query = "SELECT * FROM payment_details ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                string query = "";
+                if (search == "")
+                {
+                    query = "SELECT * FROM payment_details ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                }
+                else
+                {
+                    query = "SELECT * FROM payment_details where CONCAT(Cheque_Id, Payment_Type) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                }
 
                 list_paydetails_show[0] = new List<string>();
                 list_paydetails_show[1] = new List<string>();
@@ -1321,11 +1386,19 @@ namespace kd.Models
             }
         }
 
-        public List<string>[] agreement_show(int offset, int limit)
+        public List<string>[] agreement_show(int offset, int limit, string search = "")
         {
             try
             {
-                string query = "SELECT * FROM aggrement ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                string query = "";
+                if (search == "")
+                {
+                    query = "SELECT * FROM aggrement ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                }
+                else
+                {
+                    query = "SELECT * FROM aggrement where CONCAT(Aggrement_No, Aggrement_Amount) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                }
 
                 list_agreement_show[0] = new List<string>();
                 list_agreement_show[1] = new List<string>();
@@ -1366,11 +1439,19 @@ namespace kd.Models
             }
         }
 
-        public List<string>[] franchies_show(int offset, int limit)
+        public List<string>[] franchies_show(int offset, int limit, string search = "")
         {
             try
             {
-                string query = "SELECT * FROM franchies ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                string query = "";
+                if (search == "")
+                {
+                    query = "SELECT * FROM franchies ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                }
+                else
+                {
+                    query = "SELECT * FROM franchies where CONCAT(Francies_Name, Address) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                }
 
                 list_franchies_show[0] = new List<string>();
                 list_franchies_show[1] = new List<string>();
@@ -1502,12 +1583,19 @@ namespace kd.Models
             }
         }
 
-        public List<string>[] flats_show(string site_name, int offset, int limit)
+        public List<string>[] flats_show(string site_name, int offset, int limit, string search = "")
         {
             try
             {
-                string query = "SELECT * FROM flats WHERE Site_Id = @site_id ORDER BY ID DESC LIMIT @limit OFFSET @offset";
-                string query1 = "select id from sites where Site_Name = '" + site_name + "'";
+                string query = "";
+                if (search == "")
+                {
+                    query = "SELECT * FROM flats WHERE Site_Id = @site_id ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                }
+                else
+                {
+                    query = "SELECT * FROM flats WHERE Site_Id = @site_id and CONCAT(Status, Flat_No) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                }
                 
                 list_flats_show[0] = new List<string>();
                 list_flats_show[1] = new List<string>();
@@ -1521,8 +1609,7 @@ namespace kd.Models
 
                 if (this.OpenConnection() == true)
                 {
-                    MySqlCommand cmd1 = new MySqlCommand(query1, connection);
-                    int id = Convert.ToInt32(cmd1.ExecuteScalar());
+                    int id = get_site_id_by_name(site_name);
 
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@site_id", id);
@@ -1555,6 +1642,28 @@ namespace kd.Models
             catch (MySqlException ex)
             {
                 return list_flats_show;
+            }
+        }
+
+        public int get_site_id_by_name(string site)
+        {
+            try
+            {
+                string query = "select id from sites where Site_Name = '" + site + "'";
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    int id = Convert.ToInt32(cmd.ExecuteScalar());
+                    return id;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            catch (MySqlException ex)
+            {                
+                return 0;
             }
         }
 

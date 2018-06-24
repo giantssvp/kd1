@@ -10,29 +10,29 @@ namespace kd.Controllers
     public class HomeController : Controller
     {
         public static db_connect obj = new db_connect();
-        private List<string> name;
 
         public ActionResult Dashboard()
         {
             return View();
         }
         
-        public ActionResult Index(string ps="10")
+        public ActionResult Index(string ps="10", string filter="", string search="")
         {
             ViewBag.total = 0;
             HttpContext.Session.Add("offset", 0);
             List<string>[] list = new List<string>[14];
 
-            list = obj.enquiry_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
+            list = obj.enquiry_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps), search:search);
 
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
             ViewBag.pageSize = Int32.Parse(ps);
+            ViewBag.search = search;
 
             return View();
         }
 
-        public ActionResult Sites(string ps = "10")
+        public ActionResult Sites(string ps = "10", string site = "", string search = "")
         {
             ViewBag.total = 0;
             HttpContext.Session.Add("offset", 0);
@@ -40,173 +40,194 @@ namespace kd.Controllers
             List<string>[] list = new List<string>[9];
             sites = obj.sites_show();
 
-            list = obj.flats_show(sites[1][0], Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
+            if (site == "")
+            {
+                site = sites[1][0];
+                list = obj.flats_show(sites[1][0], Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
+            }
+            else
+            {
+                list = obj.flats_show(site, Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps), search: search);
+            }
 
             ViewBag.sites = sites;            
             ViewBag.total_site = sites[0].Count();
-
+            ViewBag.site = site;
+            
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
             ViewBag.pageSize = Int32.Parse(ps);
+            ViewBag.search = search;
 
             return View();
         }
 
-        public ActionResult Executive(string ps = "10")
+        public ActionResult Executive(string ps = "10", string filter="", string search = "")
         {
             ViewBag.total = 0;
             HttpContext.Session.Add("offset", 0);
             List<string>[] list = new List<string>[14];
 
-            list = obj.executive_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
+            list = obj.executive_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps), search: search);
 
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
             ViewBag.pageSize = Int32.Parse(ps);
+            ViewBag.search = search;
 
             return View();
         }
 
-        public ActionResult Franchies(string ps = "10")
+        public ActionResult Franchies(string ps = "10", string filter = "", string search = "")
         {
             ViewBag.total = 0;
             HttpContext.Session.Add("offset", 0);
             List<string>[] list = new List<string>[14];
 
-            list = obj.franchies_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
+            list = obj.franchies_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps), search: search);
 
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
             ViewBag.pageSize = Int32.Parse(ps);
+            ViewBag.search = search;
 
             return View();
         }
 
-        public ActionResult Customer(string ps = "10")
+        public ActionResult Customer(string ps = "10", string filter = "", string search = "")
         {
             ViewBag.total = 0;
             HttpContext.Session.Add("offset", 0);
             List<string>[] list = new List<string>[14];
 
-            list = obj.customer_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
+            list = obj.customer_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps), search: search);
 
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
             ViewBag.pageSize = Int32.Parse(ps);
+            ViewBag.search = search;
 
             return View();
         }
-        public ActionResult Booking(string ps = "10")
+        public ActionResult Booking(string ps = "10", string filter = "", string search = "")
         {
             ViewBag.total = 0;
             HttpContext.Session.Add("offset", 0);
             List<string>[] list = new List<string>[21];
 
-            list = obj.booking_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
+            list = obj.booking_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps), search: search);
 
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
             ViewBag.pageSize = Int32.Parse(ps);
+            ViewBag.search = search;
 
             return View();
         }
-        public ActionResult PaymentCommit(string ps = "10")
+        public ActionResult PaymentCommit(string ps = "10", string filter = "", string search = "")
         {
             ViewBag.total = 0;
             HttpContext.Session.Add("offset", 0);
             List<string>[] list = new List<string>[14];
 
-            list = obj.paycommit_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
+            list = obj.paycommit_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps), search: search);
 
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
             ViewBag.pageSize = Int32.Parse(ps);
+            ViewBag.search = search;
 
             return View();
         }
-        public ActionResult PaymentDetails(string ps = "10")
+        public ActionResult PaymentDetails(string ps = "10", string filter = "", string search = "")
         {
             ViewBag.total = 0;
             HttpContext.Session.Add("offset", 0);
             List<string>[] list = new List<string>[14];
 
-            list = obj.paydetails_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
+            list = obj.paydetails_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps), search: search);
 
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
             ViewBag.pageSize = Int32.Parse(ps);
+            ViewBag.search = search;
 
             return View();
         }
-        public ActionResult Agreement(string ps = "10")
+        public ActionResult Agreement(string ps = "10", string filter = "", string search = "")
         {
             ViewBag.total = 0;
             HttpContext.Session.Add("offset", 0);
             List<string>[] list = new List<string>[14];
 
-            list = obj.agreement_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
+            list = obj.agreement_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps), search: search);
 
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
             ViewBag.pageSize = Int32.Parse(ps);
+            ViewBag.search = search;
 
             return View();
         }
-        public ActionResult Finance(string ps = "10")
+        public ActionResult Finance(string ps = "10", string filter = "", string search = "")
         {
             ViewBag.total = 0;
             HttpContext.Session.Add("offset", 0);
             List<string>[] list = new List<string>[21];
 
-            list = obj.finance_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
+            list = obj.finance_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps), search: search);
 
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
             ViewBag.pageSize = Int32.Parse(ps);
+            ViewBag.search = search;
 
             return View();
         }
-        public ActionResult FileStatus(string ps = "10")
+        public ActionResult FileStatus(string ps = "10", string filter = "", string search = "")
         {
             ViewBag.total = 0;
             HttpContext.Session.Add("offset", 0);
             List<string>[] list = new List<string>[10];
 
-            list = obj.file_status_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
+            list = obj.file_status_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps), search: search);
 
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
             ViewBag.pageSize = Int32.Parse(ps);
+            ViewBag.search = search;
 
             return View();
         }
 
-        public ActionResult CustomerCostSheet(string ps = "10")
+        public ActionResult CustomerCostSheet(string ps = "10", string filter = "", string search = "")
         {
             ViewBag.total = 0;
             HttpContext.Session.Add("offset", 0);
             List<string>[] list = new List<string>[14];
 
-            list = obj.cost_sheet_show("customer", Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
+            list = obj.cost_sheet_show("customer", Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps), search: search);
 
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
             ViewBag.pageSize = Int32.Parse(ps);
+            ViewBag.search = search;
 
             return View();
         }
 
-        public ActionResult BuilderCostSheet(string ps = "10")
+        public ActionResult BuilderCostSheet(string ps = "10", string filter = "", string search = "")
         {
             ViewBag.total = 0;
             HttpContext.Session.Add("offset", 0);
             List<string>[] list = new List<string>[14];
 
-            list = obj.cost_sheet_show("builder", Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
+            list = obj.cost_sheet_show("builder", Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps), search: search);
 
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
             ViewBag.pageSize = Int32.Parse(ps);
+            ViewBag.search = search;
 
             return View();
         }
@@ -216,7 +237,7 @@ namespace kd.Controllers
             return View();
         }
 
-        public ActionResult First(string page, string ps)
+        public ActionResult First(string page, string ps, string filter = "", string search = "", string site = "")
         {
             try
             {
@@ -226,64 +247,66 @@ namespace kd.Controllers
 
                 if (page == "Index")
                 {
-                    list = obj.enquiry_show(0, page_size);
+                    list = obj.enquiry_show(0, page_size, search: search);
                 }
                 else if (page == "Sites")
                 {
                     List<string>[] sites = new List<string>[7];
                     sites = obj.sites_show();
-                    list = obj.flats_show(sites[1][0], 0, page_size);
+                    list = obj.flats_show(site, 0, page_size, search: search);
                     ViewBag.sites = sites;
                     ViewBag.total_site = sites[0].Count();
+                    ViewBag.site = site;
                 }
                 else if(page == "Executive")
                 {                                        
-                    list = obj.executive_show(0, page_size);
+                    list = obj.executive_show(0, page_size, search: search);
                 }
                 else if(page == "Franchies")
                 {
-                    list = obj.franchies_show(0, page_size);
+                    list = obj.franchies_show(0, page_size, search: search);
                 }
                 else if(page == "Customer")
                 {
-                    list = obj.customer_show(0, page_size);
+                    list = obj.customer_show(0, page_size, search: search);
                 }
                 else if (page == "Booking")
                 {
-                    list = obj.booking_show(0, page_size);
+                    list = obj.booking_show(0, page_size, search: search);
                 }
                 else if (page == "PaymentCommit")
                 {
-                    list = obj.paycommit_show(0, page_size);
+                    list = obj.paycommit_show(0, page_size, search: search);
                 }
                 else if (page == "PaymentDetails")
                 {
-                    list = obj.paydetails_show(0, page_size);
+                    list = obj.paydetails_show(0, page_size, search: search);
                 }
                 else if (page == "Agreement")
                 {
-                    list = obj.agreement_show(0, page_size);
+                    list = obj.agreement_show(0, page_size, search: search);
                 }
                 else if (page == "Finance")
                 {
-                    list = obj.finance_show(0, page_size);
+                    list = obj.finance_show(0, page_size, search: search);
                 }
                 else if (page == "FileStatus")
                 {
-                    list = obj.file_status_show(0, page_size);
+                    list = obj.file_status_show(0, page_size, search: search);
                 }
                 else if (page == "CustomerCostSheet")
                 {
-                    list = obj.cost_sheet_show("customer", 0, page_size);
+                    list = obj.cost_sheet_show("customer", 0, page_size, search: search);
                 }
                 else if (page == "BuilderCostSheet")
                 {
-                    list = obj.cost_sheet_show("builder", 0, page_size);
+                    list = obj.cost_sheet_show("builder", 0, page_size, search: search);
                 }
 
                 ViewBag.list = list;
                 ViewBag.total = list[0].Count();
                 ViewBag.pageSize = page_size;
+                ViewBag.search = search;
 
                 return View(page);
             }
@@ -293,7 +316,7 @@ namespace kd.Controllers
             }
         }
 
-        public ActionResult Previous(string page, string ps)
+        public ActionResult Previous(string page, string ps, string filter = "", string search = "", string site = "")
         {
             try
             {
@@ -308,64 +331,66 @@ namespace kd.Controllers
                 
                 if (page == "Index")
                 {
-                    list = obj.enquiry_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                    list = obj.enquiry_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
                 else if (page == "Sites")
                 {
                     List<string>[] sites = new List<string>[7];
                     sites = obj.sites_show();
-                    list = obj.flats_show(sites[1][0], Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                    list = obj.flats_show(site, Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                     ViewBag.sites = sites;
                     ViewBag.total_site = sites[0].Count();
+                    ViewBag.site = site;
                 }
                 else if (page == "Executive")
                 {
-                    list = obj.executive_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                    list = obj.executive_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
                 else if (page == "Franchies")
                 {
-                    list = obj.franchies_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                    list = obj.franchies_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
                 else if (page == "Customer")
                 {
-                    list = obj.customer_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                    list = obj.customer_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
                 else if (page == "Booking")
                 {
-                    list = obj.booking_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                    list = obj.booking_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
                 else if (page == "PaymentCommit")
                 {
-                    list = obj.paycommit_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                    list = obj.paycommit_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
                 else if (page == "PaymentDetails")
                 {
-                    list = obj.paydetails_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                    list = obj.paydetails_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
                 else if (page == "Agreement")
                 {
-                    list = obj.agreement_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                    list = obj.agreement_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
                 else if (page == "Finance")
                 {
-                    list = obj.finance_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                    list = obj.finance_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
                 else if (page == "FileStatus")
                 {
-                    list = obj.file_status_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                    list = obj.file_status_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
                 else if (page == "CustomerCostSheet")
                 {
-                    list = obj.cost_sheet_show("customer", Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                    list = obj.cost_sheet_show("customer", Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
                 else if (page == "BuilderCostSheet")
                 {
-                    list = obj.cost_sheet_show("builder", Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                    list = obj.cost_sheet_show("builder", Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
 
                 ViewBag.list = list;
                 ViewBag.total = list[0].Count();
                 ViewBag.pageSize = page_size;
+                ViewBag.search = search;
 
                 return View(page);
             }
@@ -375,7 +400,7 @@ namespace kd.Controllers
             }
         }
 
-        public ActionResult Next(string page, string ps)
+        public ActionResult Next(string page, string ps, string filter = "", string search = "", string site = "")
         {
             try
             {
@@ -385,55 +410,174 @@ namespace kd.Controllers
 
                 if (page == "Index")
                 {
-                    cnt = obj.get_count("daily_enquiry");
+                    string query = "";
+                    if (search == "")
+                    {
+                        query = "daily_enquiry";
+                    }
+                    else
+                    {
+                        query = "daily_enquiry where CONCAT(Customer_Name, Requirement) LIKE '%" + search + "%'";
+                    }
+                    cnt = obj.get_count(query);
                 }
                 else if (page == "Sites")
                 {
-                    cnt = obj.get_count("flats where Site_Id = 0");
+                    string query = "";
+                    int id = obj.get_site_id_by_name(site);
+                    
+                    if (search == "")
+                    {
+                        query = "flats where Site_Id = " + id;
+                    }
+                    else
+                    {
+                        query = "flats where Site_Id = " + id + " and CONCAT(Status, Flat_No) LIKE '%" + search + "%'";
+                    }
+                    cnt = obj.get_count(query);
                 }
                 else if (page == "Executive")
                 {
-                    cnt = obj.get_count("executive");
+                    string query = "";
+                    if (search == "")
+                    {
+                        query = "executive";
+                    }
+                    else
+                    {
+                        query = "executive where CONCAT(Executive_Name, Executive_Code) LIKE '%" + search + "%'";
+                    }
+                    cnt = obj.get_count(query);
                 }
                 else if (page == "Franchies")
                 {
-                    cnt = obj.get_count("franchies");
+                    string query = "";
+                    if (search == "")
+                    {
+                        query = "franchies";
+                    }
+                    else
+                    {
+                        query = "franchies where CONCAT(Francies_Name, Address) LIKE '%" + search + "%'";
+                    }
+                    cnt = obj.get_count(query);
                 }
                 else if (page == "Customer")
                 {
-                    cnt = obj.get_count("applicant");
+                    string query = "";
+                    if (search == "")
+                    {
+                        query = "applicant";
+                    }
+                    else
+                    {
+                        query = "applicant where CONCAT(Applicant_Name, Co_Applicant_Name) LIKE '%" + search + "%'";
+                    }
+                    cnt = obj.get_count(query);
                 }
                 else if (page == "Booking")
                 {
-                    cnt = obj.get_count("bookings");
+                    string query = "";
+                    if (search == "")
+                    {
+                        query = "bookings";
+                    }
+                    else
+                    {
+                        query = "bookings where CONCAT(Booking_No, Referenceby) LIKE '%" + search + "%'";
+                    }
+                    cnt = obj.get_count(query);
                 }
                 else if (page == "PaymentCommit")
                 {
-                    cnt = obj.get_count("payment_commitment");
+                    string query = "";
+                    if (search == "")
+                    {
+                        query = "payment_commitment";
+                    }
+                    else
+                    {
+                        query = "payment_commitment where CONCAT(Commitment_Type, Amount) LIKE '%" + search + "%'";
+                    }
+                    cnt = obj.get_count(query);
                 }
                 else if (page == "PaymentDetails")
                 {
-                    cnt = obj.get_count("payment_details");
+                    string query = "";
+                    if (search == "")
+                    {
+                        query = "payment_details";
+                    }
+                    else
+                    {
+                        query = "payment_details where CONCAT(Cheque_Id, Payment_Type) LIKE '%" + search + "%'";
+                    }
+                    cnt = obj.get_count(query);
                 }
                 else if (page == "Agreement")
                 {
-                    cnt = obj.get_count("aggrement");
+                    string query = "";
+                    if (search == "")
+                    {
+                        query = "aggrement";
+                    }
+                    else
+                    {
+                        query = "aggrement where CONCAT(Aggrement_No, Aggrement_Amount) LIKE '%" + search + "%'";
+                    }
+                    cnt = obj.get_count(query);
                 }
                 else if (page == "Finance")
                 {
-                    cnt = obj.get_count("finance_details");
+                    string query = "";
+                    if (search == "")
+                    {
+                        query = "finance_details";
+                    }
+                    else
+                    {
+                        query = "finance_details where CONCAT(Finance_Name, Finance_Executive_Name) LIKE '%" + search + "%'";
+                    }
+                    cnt = obj.get_count(query);
                 }
                 else if (page == "FileStatus")
                 {
-                    cnt = obj.get_count("file_details");
+                    string query = "";
+                    if (search == "")
+                    {
+                        query = "file_details";
+                    }
+                    else
+                    {
+                        query = "file_details where CONCAT(Cheque_Id, Bank_Name) LIKE '%" + search + "%'";
+                    }
+                    cnt = obj.get_count(query);
                 }
                 else if (page == "CustomerCostSheet")
                 {
-                    cnt = obj.get_count("cost_sheet where Cost_Sheet_Type = 'customer'");
+                    string query = "";
+                    if (search == "")
+                    {
+                        query = "cost_sheet where Cost_Sheet_Type = 'customer'";
+                    }
+                    else
+                    {
+                        query = "cost_sheet where Cost_Sheet_Type = 'customer' and CONCAT(Basic_Rate, Type) LIKE '%" + search + "%'";
+                    }
+                    cnt = obj.get_count(query);
                 }
                 else if (page == "BuilderCostSheet")
                 {
-                    cnt = obj.get_count("cost_sheet where Cost_Sheet_Type = 'builder'");
+                    string query = "";
+                    if (search == "")
+                    {
+                        query = "cost_sheet where Cost_Sheet_Type = 'builder'";
+                    }
+                    else
+                    {
+                        query = "cost_sheet where Cost_Sheet_Type = 'builder' and CONCAT(Basic_Rate, Type) LIKE '%" + search + "%'";
+                    }
+                    cnt = obj.get_count(query);
                 }
 
                 HttpContext.Session.Add("offset", (Int32.Parse(HttpContext.Session["offset"].ToString()) + page_size));
@@ -444,64 +588,66 @@ namespace kd.Controllers
 
                 if (page == "Index")
                 {
-                    list = obj.enquiry_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                    list = obj.enquiry_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
                 else if (page == "Sites")
                 {
                     List<string>[] sites = new List<string>[7];
                     sites = obj.sites_show();
-                    list = obj.flats_show(sites[1][0], Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                    list = obj.flats_show(site, Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                     ViewBag.sites = sites;
                     ViewBag.total_site = sites[0].Count();
+                    ViewBag.site = site;                    
                 }
                 else if (page == "Executive")
                 {
-                    list = obj.executive_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                    list = obj.executive_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
                 else if (page == "Franchies")
                 {
-                    list = obj.franchies_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                    list = obj.franchies_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
                 else if (page == "Customer")
                 {
-                    list = obj.customer_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                    list = obj.customer_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
                 else if (page == "Booking")
                 {
-                    list = obj.booking_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                    list = obj.booking_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
                 else if (page == "PaymentCommit")
                 {
-                    list = obj.paycommit_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                    list = obj.paycommit_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
                 else if (page == "PaymentDetails")
                 {
-                    list = obj.paydetails_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                    list = obj.paydetails_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
                 else if (page == "Agreement")
                 {
-                    list = obj.agreement_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                    list = obj.agreement_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
                 else if (page == "Finance")
                 {
-                    list = obj.finance_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                    list = obj.finance_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
                 else if (page == "FileStatus")
                 {
-                    list = obj.file_status_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                    list = obj.file_status_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
                 else if (page == "CustomerCostSheet")
                 {
-                    list = obj.cost_sheet_show("customer", Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                    list = obj.cost_sheet_show("customer", Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
                 else if (page == "BuilderCostSheet")
                 {
-                    list = obj.cost_sheet_show("builder", Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                    list = obj.cost_sheet_show("builder", Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
 
                 ViewBag.list = list;
                 ViewBag.total = list[0].Count();
                 ViewBag.pageSize = page_size;
+                ViewBag.search = search;
 
                 return View(page);
             }
@@ -511,7 +657,7 @@ namespace kd.Controllers
             }
         }
         
-        public ActionResult Last(string page, string ps)
+        public ActionResult Last(string page, string ps, string filter = "", string search = "", string site = "")
         {
             try
             {
@@ -521,55 +667,173 @@ namespace kd.Controllers
 
                 if (page == "Index")
                 {
-                    cnt = obj.get_count("daily_enquiry");
+                    string query = "";
+                    if (search == "")
+                    {
+                        query = "daily_enquiry";
+                    }
+                    else
+                    {
+                        query = "daily_enquiry where CONCAT(Customer_Name, Requirement) LIKE '%" + search + "%'";
+                    }
+                    cnt = obj.get_count(query);
                 }
                 else if (page == "Sites")
                 {
-                    cnt = obj.get_count("flats where Site_Id = 0");
+                    string query = "";
+                    int id = obj.get_site_id_by_name(site);
+                    if (search == "")
+                    {
+                        query = "flats where Site_Id = " + id;
+                    }
+                    else
+                    {
+                        query = "flats where Site_Id = " + id + " and CONCAT(Status, Flat_No) LIKE '%" + search + "%'";
+                    }
+                    cnt = obj.get_count(query);
                 }
                 else if (page == "Executive")
                 {
-                    cnt = obj.get_count("executive");
+                    string query = "";
+                    if (search == "")
+                    {
+                        query = "executive";
+                    }
+                    else
+                    {
+                        query = "executive where CONCAT(Executive_Name, Executive_Code) LIKE '%" + search + "%'";
+                    }
+                    cnt = obj.get_count(query);
                 }
                 else if (page == "Franchies")
                 {
-                    cnt = obj.get_count("franchies");
+                    string query = "";
+                    if (search == "")
+                    {
+                        query = "franchies";
+                    }
+                    else
+                    {
+                        query = "franchies where CONCAT(Francies_Name, Address) LIKE '%" + search + "%'";
+                    }
+                    cnt = obj.get_count(query);
                 }
                 else if (page == "Customer")
                 {
-                    cnt = obj.get_count("applicant");
+                    string query = "";
+                    if (search == "")
+                    {
+                        query = "applicant";
+                    }
+                    else
+                    {
+                        query = "applicant where CONCAT(Applicant_Name, Co_Applicant_Name) LIKE '%" + search + "%'";
+                    }
+                    cnt = obj.get_count(query);
                 }
                 else if (page == "Booking")
                 {
-                    cnt = obj.get_count("bookings");
+                    string query = "";
+                    if (search == "")
+                    {
+                        query = "bookings";
+                    }
+                    else
+                    {
+                        query = "bookings where CONCAT(Booking_No, Referenceby) LIKE '%" + search + "%'";
+                    }
+                    cnt = obj.get_count(query);
                 }
                 else if (page == "PaymentCommit")
                 {
-                    cnt = obj.get_count("payment_commitment");
+                    string query = "";
+                    if (search == "")
+                    {
+                        query = "payment_commitment";
+                    }
+                    else
+                    {
+                        query = "payment_commitment where CONCAT(Commitment_Type, Amount) LIKE '%" + search + "%'";
+                    }
+                    cnt = obj.get_count(query);
                 }
                 else if (page == "PaymentDetails")
                 {
-                    cnt = obj.get_count("payment_details");
+                    string query = "";
+                    if (search == "")
+                    {
+                        query = "payment_details";
+                    }
+                    else
+                    {
+                        query = "payment_details where CONCAT(Cheque_Id, Payment_Type) LIKE '%" + search + "%'";
+                    }
+                    cnt = obj.get_count(query);
                 }
                 else if (page == "Agreement")
                 {
-                    cnt = obj.get_count("aggrement");
+                    string query = "";
+                    if (search == "")
+                    {
+                        query = "aggrement";
+                    }
+                    else
+                    {
+                        query = "aggrement where CONCAT(Aggrement_No, Aggrement_Amount) LIKE '%" + search + "%'";
+                    }
+                    cnt = obj.get_count(query);
                 }
                 else if (page == "Finance")
                 {
-                    cnt = obj.get_count("finance_details");
+                    string query = "";
+                    if (search == "")
+                    {
+                        query = "finance_details";
+                    }
+                    else
+                    {
+                        query = "finance_details where CONCAT(Finance_Name, Finance_Executive_Name) LIKE '%" + search + "%'";
+                    }
+                    cnt = obj.get_count(query);
                 }
                 else if (page == "FileStatus")
                 {
-                    cnt = obj.get_count("file_details");
+                    string query = "";
+                    if (search == "")
+                    {
+                        query = "file_details";
+                    }
+                    else
+                    {
+                        query = "file_details where CONCAT(Cheque_Id, Bank_Name) LIKE '%" + search + "%'";
+                    }
+                    cnt = obj.get_count(query);
                 }
                 else if (page == "CustomerCostSheet")
                 {
-                    cnt = obj.get_count("cost_sheet where Cost_Sheet_Type = 'customer'");
+                    string query = "";
+                    if (search == "")
+                    {
+                        query = "cost_sheet where Cost_Sheet_Type = 'customer'";
+                    }
+                    else
+                    {
+                        query = "cost_sheet where Cost_Sheet_Type = 'customer' and CONCAT(Basic_Rate, Type) LIKE '%" + search + "%'";
+                    }
+                    cnt = obj.get_count(query);
                 }
                 else if (page == "BuilderCostSheet")
                 {
-                    cnt = obj.get_count("cost_sheet where Cost_Sheet_Type = 'builder'");
+                    string query = "";
+                    if (search == "")
+                    {
+                        query = "cost_sheet where Cost_Sheet_Type = 'builder'";
+                    }
+                    else
+                    {
+                        query = "cost_sheet where Cost_Sheet_Type = 'builder' and CONCAT(Basic_Rate, Type) LIKE '%" + search + "%'";
+                    }
+                    cnt = obj.get_count(query);
                 }
 
                 if (cnt > 0)
@@ -586,64 +850,66 @@ namespace kd.Controllers
 
                 if (page == "Index")
                 {
-                    list = obj.enquiry_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                    list = obj.enquiry_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
                 else if (page == "Sites")
                 {
                     List<string>[] sites = new List<string>[7];
                     sites = obj.sites_show();
-                    list = obj.flats_show(sites[1][0], Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                    list = obj.flats_show(site, Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                     ViewBag.sites = sites;
                     ViewBag.total_site = sites[0].Count();
+                    ViewBag.site = site;                    
                 }
                 else if (page == "Executive")
                 {
-                    list = obj.executive_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                    list = obj.executive_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
                 else if (page == "Franchies")
                 {
-                    list = obj.franchies_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                    list = obj.franchies_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
                 else if (page == "Customer")
                 {
-                    list = obj.customer_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                    list = obj.customer_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
                 else if (page == "Booking")
                 {
-                    list = obj.booking_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                    list = obj.booking_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
                 else if (page == "PaymentCommit")
                 {
-                    list = obj.paycommit_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                    list = obj.paycommit_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
                 else if (page == "PaymentDetails")
                 {
-                    list = obj.paydetails_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                    list = obj.paydetails_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
                 else if (page == "Agreement")
                 {
-                    list = obj.agreement_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                    list = obj.agreement_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
                 else if (page == "Finance")
                 {
-                    list = obj.finance_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                    list = obj.finance_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
                 else if (page == "FileStatus")
                 {
-                    list = obj.file_status_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                    list = obj.file_status_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
                 else if (page == "CustomerCostSheet")
                 {
-                    list = obj.cost_sheet_show("customer", Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                    list = obj.cost_sheet_show("customer", Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
                 else if (page == "BuilderCostSheet")
                 {
-                    list = obj.cost_sheet_show("builder", Int32.Parse(HttpContext.Session["offset"].ToString()), page_size);
+                    list = obj.cost_sheet_show("builder", Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
 
                 ViewBag.list = list;
                 ViewBag.total = list[0].Count();
                 ViewBag.pageSize = page_size;
+                ViewBag.search = search;
 
                 return View(page);
             }
@@ -715,7 +981,6 @@ namespace kd.Controllers
         {
             try
             {
-                System.Windows.Forms.MessageBox.Show(flatsitename);
                 obj.insert_flats(flatsitename, flatwing, flatfloor, flatno, flattype, flatarea, flatstatus);
                 return RedirectToAction("Sites", "Home");
             }
@@ -786,11 +1051,11 @@ namespace kd.Controllers
             }
         }
 
-        public ActionResult add_paymentcommit(string ctype, string camount, string cstatus, string cremark)
+        public ActionResult add_paymentcommit(string ctype, string camount, string cstatus, string bid, string cremark)
         {
             try
             {
-                obj.insert_paymentcommit(ctype, camount, cstatus, cremark);
+                obj.insert_paymentcommit(ctype, camount, cstatus, cremark, bid);
                 return RedirectToAction("PaymentCommit", "Home");
             }
             catch (Exception ex)
@@ -801,11 +1066,11 @@ namespace kd.Controllers
         }
 
         public ActionResult add_paymentdetails(string pamt, string pdate, string pmode, string chkid, string chkdate, string bname,
-            string ptype, string bldpay, string bnkpay, string sts)
+            string ptype, string bldpay, string bnkpay, string sts, string bid)
         {
             try
             {
-                obj.insert_paymentdetails(pamt, pdate, pmode, chkid, chkdate, bname, ptype, bldpay, bnkpay, sts);
+                obj.insert_paymentdetails(pamt, pdate, pmode, chkid, chkdate, bname, ptype, bldpay, bnkpay, sts, bid);
                 return RedirectToAction("PaymentDetails", "Home");
             }
             catch (Exception ex)
@@ -815,11 +1080,11 @@ namespace kd.Controllers
             }
         }
         
-        public ActionResult add_agreement(string ano, string aamount, string astatus, string bid, string adate)
+        public ActionResult add_agreement(string ano, string adate, string anotary, string aamount, string aadjustment, string aextra, string astatus, string bid)
         {
             try
             {
-                obj.insert_agreement(ano, aamount, astatus, bid, adate);
+                obj.insert_agreement(ano, adate, anotary, aamount, aadjustment, aextra, astatus, bid);
                 return RedirectToAction("Agreement", "Home");
             }
             catch (Exception ex)
@@ -830,12 +1095,13 @@ namespace kd.Controllers
         }
 
         public ActionResult add_finance(string fintype, string finname, string finexe, string finexemob, string finexeemail, string filehanddate,
-            string filesta, string filesanctdate, string reqloanamt, string sanctloanamt, string disburseamt, string actloanamt, string recddamt, string remddamt, string rateofinter, string emiamt, string emimonths, string bookid, string finstat)
+            string filesta, string filesanctdate, string reqloanamt, string sanctloanamt, string disburseamt, string actloanamt, string recddamt, 
+            string remddamt, string rateofinter, string emiamt, string emimonths, string bid, string finstat)
         {
             try
             {
                 obj.insert_finance(fintype, finname, finexe, finexemob, finexeemail, filehanddate,
-             filesta, filesanctdate, reqloanamt, sanctloanamt, disburseamt, actloanamt, recddamt, remddamt, rateofinter, emiamt, emimonths, bookid, finstat);
+             filesta, filesanctdate, reqloanamt, sanctloanamt, disburseamt, actloanamt, recddamt, remddamt, rateofinter, emiamt, emimonths, bid, finstat);
                 return RedirectToAction("Finance", "Home");
             }
             catch (Exception ex)

@@ -133,7 +133,15 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $("#page_size").change(function () {
-            window.location = '@Html.Raw(@Url.Action("Agreement", "Home", new { ps = "id" }))'.replace("id", $("#page_size option:selected").text());
+            window.location = '@Html.Raw(@Url.Action("Agreement", "Home", new { ps = "id", search = "srch_str" }))'.replace("id", $("#page_size option:selected").text()).replace("srch_str", $('input:text[name=search]').val());
+        });
+    });
+
+    $(document).ready(function () {
+        $("#search1").keydown(function (event) {
+            if (event.keyCode == 13) {
+                window.location = '@Html.Raw(@Url.Action("Agreement", "Home", new { ps = "id", search = "srch_str" }))'.replace("id", $("#page_size option:selected").text()).replace("srch_str", $('input:text[name=search]').val());
+            }
         });
     });
 </script>
@@ -162,22 +170,22 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $("#pagination_first").click(function () {
-            window.location = '@Html.Raw(@Url.Action("First", "Home", new { page = "Agreement", ps = "id" }))'.replace("id", $("#page_size option:selected").text());
+            window.location = '@Html.Raw(@Url.Action("First", "Home", new { page = "Agreement", ps = "id", search = "srch_str" }))'.replace("id", $("#page_size option:selected").text()).replace("srch_str", $('input:text[name=search]').val());
         });
     });
     $(document).ready(function () {
         $("#pagination_previous").click(function () {
-            window.location = '@Html.Raw(@Url.Action("Previous", "Home", new { page = "Agreement", ps = "id" }))'.replace("id", $("#page_size option:selected").text());
+            window.location = '@Html.Raw(@Url.Action("Previous", "Home", new { page = "Agreement", ps = "id", search = "srch_str" }))'.replace("id", $("#page_size option:selected").text()).replace("srch_str", $('input:text[name=search]').val());
         });
     });
     $(document).ready(function () {
         $("#pagination_next").click(function () {
-            window.location = '@Html.Raw(@Url.Action("Next", "Home", new { page = "Agreement", ps = "id" }))'.replace("id", $("#page_size option:selected").text());
+            window.location = '@Html.Raw(@Url.Action("Next", "Home", new { page = "Agreement", ps = "id", search = "srch_str" }))'.replace("id", $("#page_size option:selected").text()).replace("srch_str", $('input:text[name=search]').val());
         });
     });
     $(document).ready(function () {
         $("#pagination_last").click(function () {
-            window.location = '@Html.Raw(@Url.Action("Last", "Home", new { page = "Agreement", ps = "id" }))'.replace("id", $("#page_size option:selected").text());
+            window.location = '@Html.Raw(@Url.Action("Last", "Home", new { page = "Agreement", ps = "id", search = "srch_str" }))'.replace("id", $("#page_size option:selected").text()).replace("srch_str", $('input:text[name=search]').val());
         });
     });
 </script>
