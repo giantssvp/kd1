@@ -65,7 +65,7 @@ namespace kd.Models
             }
         }
 
-        public int insert_cost_sheet(string sheet_type, string site_name, string type, string area, string rr_rate, string basic_rate, string basic_cost, string legal_charge, string devcharge, string mseb, string stampdutyreg, string gst, string otheramt, string grandtotal)
+        public int insert_cost_sheet(string sheet_type, string site, string type, string area, string rr_rate, string basic_rate, string basic_cost, string legal_charge, string devcharge, string mseb, string stampdutyreg, string gst, string otheramt, string grandtotal)
         {
             try
             {
@@ -74,13 +74,8 @@ namespace kd.Models
                     "VALUES(@rr_rate, @type, @bas_rate, @bas_cost, @legal_charge, @mseb, @devcharge, @stamp, @gst, @otheramt, @grandtotal, @sheet_type," +
                     " @site_id)";
 
-                string query1 = "select id from sites where Site_Name = '" + site_name + "'";
-
                 if (this.OpenConnection() == true)
                 {
-                    MySqlCommand cmd1 = new MySqlCommand(query1, connection);
-                    int id = Convert.ToInt32(cmd1.ExecuteScalar());
-
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@sheet_type", sheet_type);
                     cmd.Parameters.AddWithValue("@type", type);
@@ -95,7 +90,7 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@stamp", stampdutyreg);
                     cmd.Parameters.AddWithValue("@otheramt", otheramt);
                     cmd.Parameters.AddWithValue("@grandtotal", grandtotal);
-                    cmd.Parameters.AddWithValue("@site_id", id);
+                    cmd.Parameters.AddWithValue("@site_id", site);
 
                     cmd.ExecuteNonQuery();
                     this.CloseConnection();
@@ -309,7 +304,8 @@ namespace kd.Models
                 string query = "INSERT INTO bookings (Booking_No, Referenceby, Incentive_Paid, Total_Incentive, Flat_Cancled_By, Total_Flat_Amount, " +
                     "Received_Amount, Total_Builder_Received, Reserved_Parking, Internal_Charges, Follow_Up_Date, Date, Status, Remark, Site_Id," +
                     " Applicant_Id, Executive_Id, Franchies_Id, Flat_Id) " +
-                    "VALUES(@bno, @bref, @bince, @bin, @bcan, @btamt, @bramt, @bbldr, @bpark, @bchrg, @bflp, NOW(), @bsts, @bremark, @bsite, @bflts, @bappl, @bexe, @bfrn)";
+                    "VALUES(@bno, @bref, @bince, @bin, @bcan, @btamt, @bramt, @bbldr, @bpark, @bchrg, @bflp, NOW(), @bsts, " +
+                    "@bremark, @bsite, @bappl, @bexe, @bfrn, @bflts)";
 
                 if (this.OpenConnection() == true)
                 {
