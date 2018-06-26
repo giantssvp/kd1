@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Windows.Forms;
 
 namespace kd.Controllers
 {
@@ -960,11 +961,19 @@ namespace kd.Controllers
         {
             try
             {
-                obj.insert_cost_sheet("customer", site, type, area, rr_rate, basic_rate, basic_cost, legal_charge, devcharge, mseb, stampdutyreg, gst, otheramt, grandtotal);
+                if (obj.insert_cost_sheet("customer", site, type, area, rr_rate, basic_rate, basic_cost, legal_charge, devcharge, mseb, stampdutyreg, gst, otheramt, grandtotal) == 1)
+                {
+                    TempData["AlertMessage"] = "All the details saved successfully.";
+                }
+                else
+                {
+                    TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                }
                 return RedirectToAction("CustomerCostSheet", "Home");
             }
             catch (Exception ex)
             {
+                TempData["AlertMessage"] = "There is exception while saving the details please do it again.";
                 System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
                 return RedirectToAction("CustomerCostSheet", "Home");
             }
@@ -974,27 +983,45 @@ namespace kd.Controllers
         {
             try
             {
-                obj.insert_cost_sheet("builder", site, type, area, rr_rate, basic_rate, basic_cost, legal_charge, devcharge, mseb, stampdutyreg, gst, otheramt, grandtotal);
+                if (obj.insert_cost_sheet("builder", site, type, area, rr_rate, basic_rate, basic_cost, legal_charge, devcharge, mseb, stampdutyreg, gst, otheramt, grandtotal) == 1)
+                {
+                    TempData["AlertMessage"] = "All the details saved successfully.";
+                }
+                else
+                {
+                    TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                }
                 return RedirectToAction("BuilderCostSheet", "Home");
             }
             catch (Exception ex)
             {
+                TempData["AlertMessage"] = "There is exception while saving the details please do it again.";
                 System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
                 return RedirectToAction("BuilderCostSheet", "Home");
             }
         }
 
-        public ActionResult add_enquiry(string enqname, string enqaddress, string enqmob, string enqdate, string enqsite, string enqrequirement, string enqoccu, string enqvisit, string enqinterest,
+        public ActionResult add_enquiry(string enqname, string enqaddress, string enqmob, string enqdate, string enqsite, List<string> enqrequirement, string enqoccu, string enqvisit, string enqinterest,
             string enqbudget, string enqdown, string enqbooking, string enqremark)
         {
             try
             {
-                obj.insert_enquiry(enqname, enqaddress, enqmob, enqdate, enqsite, enqrequirement, enqoccu, enqvisit,
-                    enqinterest, enqbudget, enqdown, enqbooking, enqremark);
+                string req = string.Join(" ", enqrequirement);
+
+                if (obj.insert_enquiry(enqname, enqaddress, enqmob, enqdate, enqsite, req, enqoccu, enqvisit, 
+                    enqinterest, enqbudget, enqdown, enqbooking, enqremark) == 1)
+                {
+                    TempData["AlertMessage"] = "All the details saved successfully.";
+                }
+                else
+                {
+                    TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                }
                 return RedirectToAction("Index", "Home");
             }
             catch (Exception ex)
             {
+                TempData["AlertMessage"] = "There is exception while saving the details please do it again.";
                 System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
                 return RedirectToAction("Index", "Home");
             }
@@ -1004,11 +1031,19 @@ namespace kd.Controllers
         {
             try
             {
-                obj.insert_sites(sitename, siteaddress, sitephone, siteemail, sitestatus);
+                if (obj.insert_sites(sitename, siteaddress, sitephone, siteemail, sitestatus) == 1)
+                {
+                    TempData["AlertMessage"] = "All the details saved successfully.";
+                }
+                else
+                {
+                    TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                }
                 return RedirectToAction("Sites", "Home");
             }
             catch (Exception ex)
             {
+                TempData["AlertMessage"] = "There is exception while saving the details please do it again.";
                 System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
                 return RedirectToAction("Sites", "Home");
             }
@@ -1018,11 +1053,19 @@ namespace kd.Controllers
         {
             try
             {
-                obj.insert_flats(flatsitename, flatwing, flatfloor, flatno, flattype, flatarea, flatstatus);
+                if (obj.insert_flats(flatsitename, flatwing, flatfloor, flatno, flattype, flatarea, flatstatus) == 1)
+                {
+                    TempData["AlertMessage"] = "All the details saved successfully.";
+                }
+                else
+                {
+                    TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                }
                 return RedirectToAction("Sites", "Home");
             }
             catch (Exception ex)
             {
+                TempData["AlertMessage"] = "There is exception while saving the details please do it again.";
                 System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
                 return RedirectToAction("Sites", "Home");
             }
@@ -1032,11 +1075,19 @@ namespace kd.Controllers
         {
             try
             {
-                obj.insert_executive(exename, execode, exeemail, exemob, exeadd, exejoin, exebirth, exestatus);
+                if (obj.insert_executive(exename, execode, exeemail, exemob, exeadd, exejoin, exebirth, exestatus) == 1)
+                {
+                    TempData["AlertMessage"] = "All the details saved successfully.";
+                }
+                else
+                {
+                    TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                }
                 return RedirectToAction("Executive", "Home");
             }
             catch (Exception ex)
             {
+                TempData["AlertMessage"] = "There is exception while saving the details please do it again.";
                 System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
                 return RedirectToAction("Executive", "Home");
             }
@@ -1046,11 +1097,19 @@ namespace kd.Controllers
         {
             try
             {
-                obj.insert_franchies(francname, franccode, francemail, francmob, francadd, francjoin, francstatus);
+                if (obj.insert_franchies(francname, franccode, francemail, francmob, francadd, francjoin, francstatus) == 1)
+                {
+                    TempData["AlertMessage"] = "All the details saved successfully.";
+                }
+                else
+                {
+                    TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                }
                 return RedirectToAction("Franchies", "Home");
             }
             catch (Exception ex)
             {
+                TempData["AlertMessage"] = "There is exception while saving the details please do it again.";
                 System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
                 return RedirectToAction("Franchies", "Home");
             }
@@ -1061,12 +1120,20 @@ namespace kd.Controllers
         {
             try
             {
-                obj.insert_applicant(applname, applemail, applmob, appladdr, applpan, applaadhar,
-             apploccu, applbirth, applage, coapplname, coapplpan, coapplaadhar, coapploccu, coapplbirth, applstatus);
+                if (obj.insert_applicant(applname, applemail, applmob, appladdr, applpan, applaadhar,
+             apploccu, applbirth, applage, coapplname, coapplpan, coapplaadhar, coapploccu, coapplbirth, applstatus) == 1)
+                {
+                    TempData["AlertMessage"] = "All the details saved successfully.";
+                }
+                else
+                {
+                    TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                }
                 return RedirectToAction("Customer", "Home");
             }
             catch (Exception ex)
             {
+                TempData["AlertMessage"] = "There is exception while saving the details please do it again.";
                 System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
                 return RedirectToAction("Customer", "Home");
             }
@@ -1077,12 +1144,20 @@ namespace kd.Controllers
         {
             try
             {
-                obj.insert_booking(bno, breferred, bincentive, bincome, bcancel, btamount,
-             bramount, bblder, bparking, bcharges, bfollowup, bstatus, bremark, bsite, bflats, bapplicant, bexecutive, bfranchies);
+                if (obj.insert_booking(bno, breferred, bincentive, bincome, bcancel, btamount,
+             bramount, bblder, bparking, bcharges, bfollowup, bstatus, bremark, bsite, bflats, bapplicant, bexecutive, bfranchies) == 1)
+                {
+                    TempData["AlertMessage"] = "All the details saved successfully.";
+                }
+                else
+                {
+                    TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                }
                 return RedirectToAction("Booking", "Home");
             }
             catch (Exception ex)
             {
+                TempData["AlertMessage"] = "There is exception while saving the details please do it again.";
                 System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
                 return RedirectToAction("Booking", "Home");
             }
@@ -1092,11 +1167,19 @@ namespace kd.Controllers
         {
             try
             {
-                obj.insert_paymentcommit(ctype, camount, cstatus, cremark, bid);
+                if (obj.insert_paymentcommit(ctype, camount, cstatus, cremark, bid) == 1)
+                {
+                    TempData["AlertMessage"] = "All the details saved successfully.";
+                }
+                else
+                {
+                    TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                }
                 return RedirectToAction("PaymentCommit", "Home");
             }
             catch (Exception ex)
             {
+                TempData["AlertMessage"] = "There is exception while saving the details please do it again.";
                 System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
                 return RedirectToAction("PaymentCommit", "Home");
             }
@@ -1107,11 +1190,19 @@ namespace kd.Controllers
         {
             try
             {
-                obj.insert_paymentdetails(pamt, pdate, pmode, chkid, chkdate, bname, ptype, bldpay, bnkpay, sts, bid);
+                if (obj.insert_paymentdetails(pamt, pdate, pmode, chkid, chkdate, bname, ptype, bldpay, bnkpay, sts, bid) == 1)
+                {
+                    TempData["AlertMessage"] = "All the details saved successfully.";
+                }
+                else
+                {
+                    TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                }
                 return RedirectToAction("PaymentDetails", "Home");
             }
             catch (Exception ex)
             {
+                TempData["AlertMessage"] = "There is exception while saving the details please do it again.";
                 System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
                 return RedirectToAction("PaymentDetails", "Home");
             }
@@ -1121,11 +1212,19 @@ namespace kd.Controllers
         {
             try
             {
-                obj.insert_agreement(ano, adate, anotary, aamount, aadjustment, aextra, astatus, bid);
+                if (obj.insert_agreement(ano, adate, anotary, aamount, aadjustment, aextra, astatus, bid) == 1)
+                {
+                    TempData["AlertMessage"] = "All the details saved successfully.";
+                }
+                else
+                {
+                    TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                }
                 return RedirectToAction("Agreement", "Home");
             }
             catch (Exception ex)
             {
+                TempData["AlertMessage"] = "There is exception while saving the details please do it again.";
                 System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
                 return RedirectToAction("Agreement", "Home");
             }
@@ -1137,12 +1236,20 @@ namespace kd.Controllers
         {
             try
             {
-                obj.insert_finance(fintype, finname, finexe, finexemob, finexeemail, filehanddate,
-             filesta, filesanctdate, reqloanamt, sanctloanamt, disburseamt, actloanamt, recddamt, remddamt, rateofinter, emiamt, emimonths, bid, finstat);
+                if (obj.insert_finance(fintype, finname, finexe, finexemob, finexeemail, filehanddate,
+             filesta, filesanctdate, reqloanamt, sanctloanamt, disburseamt, actloanamt, recddamt, remddamt, rateofinter, emiamt, emimonths, bid, finstat) == 1)
+                {
+                    TempData["AlertMessage"] = "All the details saved successfully.";
+                }
+                else
+                {
+                    TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                }
                 return RedirectToAction("Finance", "Home");
             }
             catch (Exception ex)
             {
+                TempData["AlertMessage"] = "There is exception while saving the details please do it again.";
                 System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
                 return RedirectToAction("Finance", "Home");
             }
@@ -1153,11 +1260,19 @@ namespace kd.Controllers
         {
             try
             {
-                obj.insert_filestatus(chrg, lfee, chid, chdate, bnknm, figst, lfamt, fid, fstatus);
+                if (obj.insert_filestatus(chrg, lfee, chid, chdate, bnknm, figst, lfamt, fid, fstatus) == 1)
+                {
+                    TempData["AlertMessage"] = "All the details saved successfully.";
+                }
+                else
+                {
+                    TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                }
                 return RedirectToAction("FileStatus", "Home");
             }
             catch (Exception ex)
             {
+                TempData["AlertMessage"] = "There is exception while saving the details please do it again.";
                 System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
                 return RedirectToAction("FileStatus", "Home");
             }

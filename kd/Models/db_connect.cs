@@ -94,12 +94,13 @@ namespace kd.Models
 
                     cmd.ExecuteNonQuery();
                     this.CloseConnection();
+                    return 1;
                 }
                 return 0;
             }
             catch (MySqlException ex)
             {
-                return -1;
+                return 0;
             }
         }
 
@@ -130,12 +131,13 @@ namespace kd.Models
 
                     cmd.ExecuteNonQuery();
                     this.CloseConnection();
+                    return 1;
                 }
                 return 0;
             }
             catch (MySqlException ex)
             {
-                return -1;
+                return 0;
             }
         }
 
@@ -157,12 +159,13 @@ namespace kd.Models
 
                     cmd.ExecuteNonQuery();
                     this.CloseConnection();
+                    return 1;
                 }
                 return 0;
             }
             catch (MySqlException ex)
             {
-                return -1;
+                return 0;
             }
         }
 
@@ -186,12 +189,13 @@ namespace kd.Models
 
                     cmd.ExecuteNonQuery();
                     this.CloseConnection();
+                    return 1;
                 }
                 return 0;
             }
             catch (MySqlException ex)
             {
-                return -1;
+                return 0;
             }
         }        
 
@@ -216,12 +220,13 @@ namespace kd.Models
 
                     cmd.ExecuteNonQuery();
                     this.CloseConnection();
+                    return 1;
                 }
                 return 0;
             }
             catch (MySqlException ex)
             {
-                return -1;
+                return 0;
             }
         }
                 
@@ -245,12 +250,13 @@ namespace kd.Models
 
                     cmd.ExecuteNonQuery();
                     this.CloseConnection();
+                    return 1;
                 }
                 return 0;
             }
             catch (MySqlException ex)
             {
-                return -1;
+                return 0;
             }
         }        
 
@@ -287,12 +293,13 @@ namespace kd.Models
 
                     cmd.ExecuteNonQuery();
                     this.CloseConnection();
+                    return 1;
                 }
                 return 0;
             }
             catch (MySqlException ex)
             {
-                return -1;
+                return 0;
             }
         }
 
@@ -331,12 +338,13 @@ namespace kd.Models
 
                     cmd.ExecuteNonQuery();
                     this.CloseConnection();
+                    return 1;
                 }
                 return 0;
             }
             catch (MySqlException ex)
             {
-                return -1;
+                return 0;
             }
         }
 
@@ -357,12 +365,13 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@bid", Int32.Parse(bid));
                     cmd.ExecuteNonQuery();
                     this.CloseConnection();
+                    return 1;
                 }
                 return 0;
             }
             catch (MySqlException ex)
             {
-                return -1;
+                return 0;
             }
         }
 
@@ -391,12 +400,13 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@bid", Int32.Parse(bid));
                     cmd.ExecuteNonQuery();
                     this.CloseConnection();
+                    return 1;
                 }
                 return 0;
             }
             catch (MySqlException ex)
             {
-                return -1;
+                return 0;
             }
         }
 
@@ -418,12 +428,13 @@ namespace kd.Models
 
                     cmd.ExecuteNonQuery();
                     this.CloseConnection();
+                    return 1;
                 }
                 return 0;
             }
             catch (MySqlException ex)
             {
-                return -1;
+                return 0;
             }
         }
 
@@ -464,12 +475,13 @@ namespace kd.Models
 
                     cmd.ExecuteNonQuery();
                     this.CloseConnection();
+                    return 1;
                 }
                 return 0;
             }
             catch (MySqlException ex)
             {
-                return -1;
+                return 0;
             }
         }
 
@@ -496,12 +508,13 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@fstatus", fstatus);
                     cmd.ExecuteNonQuery();
                     this.CloseConnection();
+                    return 1;
                 }
                 return 0;
             }
             catch (MySqlException ex)
             {
-                return -1;
+                return 0;
             }
         }
 
