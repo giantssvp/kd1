@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Report";
+    ViewBag.Title = "DailyReport";
 }
 
 <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
@@ -13,7 +13,7 @@
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
 
 <div id="content-header">
-    <div id="breadcrumb"> <a href='@Url.Action("Dashboard", "Home")' title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href='@Url.Action("Products", "Home")'>Add Products</a></div>
+    <div id="breadcrumb"> <a href='@Url.Action("Dashboard", "Home")' title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href='@Url.Action("DailyReport", "Home")'>Daily Report</a></div>
 </div>
 <div class="container-fluid">
     <div class="row-fluid">
@@ -21,23 +21,23 @@
             <div class="widget-box">
                 <div class="widget-title">
                     <span class="icon"> <i class="icon-info-sign"></i> </span>
-                    <h5>Add Product Details</h5>
+                    <h5>Daily Enquiry Report</h5>
                 </div>
                 <div class="widget-content nopadding">
-                    <form method="post" action="#" name="basic_validate" id="basic_validate" novalidate="novalidate">
+                    <form method="post" action="@Url.Action("Display_pdf","Home")" target="_blank" name="basic_validate" id="basic_validate" novalidate="novalidate">
                         <table class="table table-striped">
                             <tbody>
                                 <tr class="odd gradeX">
-                                    <td><label class="control-label">Customer Name</label></td>
-                                    <td><input type="text" name="enqname" id="required"></td>
-                                    <td><label class="control-label">Address</label></td>
-                                    <td> <input type="text" name="enqaddress" id="required"></td>
+
+                                    <td><label class="control-label">Enquiry Date</label></td>
+                                    <td><input type="date" name="enqdate" id="required"></td>
                                     <td><label class="control-label">Mobile No</label></td>
                                     <td><input type="number" name="enqmob" id="required"></td>
                                 </tr>
                                 <tr class="odd gradeX">
-                                    <td><label class="control-label">Date</label></td>
-                                    <td><input type="date" name="enqdate" id="required"></td>
+                                    <td><label class="control-label">Customer Name</label></td>
+                                    <td><input type="text" name="enqname" id="required"></td>
+
                                     <td><label class="control-label">Site</label></td>
                                     <td>
                                         <select name="enqsite" id="enqsite">    </select>
@@ -51,7 +51,6 @@
                                             <option value="3BHK">3BHK</option>
                                             <option value="Other">Other</option>
                                         </select>
-                                        <input type="text" name="enqrequirementother" id="required">
                                     </td>
                                 </tr>
                                 <tr class="odd gradeX">
@@ -97,66 +96,11 @@
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Remark</label></td>
                                     <td> <textarea class="span11" name="enqremark"></textarea></td>
-                                    <td><input type="submit" value="GeneratePdf" class="btn btn-success" /></td>
+                                    <td><input type="submit" value="Generate Pdf" class="btn btn-success" /></td>
                                 </tr>
                             </tbody>
                         </table>
                     </form>
-                </div>
-            </div>
-            <div class="widget-box">
-                <div class="widget-title">
-                    <span class="icon"><i class="icon-th"></i></span>
-                    <h5>All Products</h5> <span style="float:right"><button class="btn btn-danger">Multiple Delete</button></span>
-                </div>
-                <div class="widget-content nopadding">
-                    <table class="table table-bordered data-table with-check">
-                        <thead>
-                            <tr>
-                                <th><input type="checkbox" id="title-table-checkbox" name="title-table-checkbox" /></th>
-                                <th>Sr. No</th>
-                                <th>Product Name</th>
-                                <th>Description</th>
-                                <th>HSN</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="gradeX">
-                                <td><input type="checkbox" /></td>
-                                <td>Trident</td>
-                                <td>
-                                    Internet
-                                    Explorer 4.0
-                                </td>
-                                <td>Win 95+</td>
-                                <td class="center">4</td>
-                                <td align="center"><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>
-                            </tr>
-                            <tr class="gradeC">
-                                <td><input type="checkbox" /></td>
-                                <td>Trident</td>
-                                <td>
-                                    Internet
-                                    Explorer 5.0
-                                </td>
-                                <td>Win 95+</td>
-                                <td class="center">5</td>
-                                <td align="center"><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>
-                            </tr>
-                            <tr class="gradeA">
-                                <td><input type="checkbox" /></td>
-                                <td>Trident</td>
-                                <td>
-                                    Internet
-                                    Explorer 5.5
-                                </td>
-                                <td>Win 95+</td>
-                                <td class="center">5.5</td>
-                                <td align="center"><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>
             </div>
         </div>
@@ -174,3 +118,5 @@
 <script src="~/Scripts/matrix.tables.js"></script>
 <script src="~/Scripts/jquery.validate.js"></script>
 <script src="~/Scripts/matrix.form_validation.js"></script>
+
+
