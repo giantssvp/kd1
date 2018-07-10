@@ -38,7 +38,7 @@ namespace kd.Models
         private bool OpenConnection()
         {
             string connetionString = null;
-            connetionString = "server=182.50.133.77;database=kolhedeveloper;uid=kolheadmin;pwd=Kolhe@123;Allow User Variables=True;";
+            connetionString = "server=182.50.133.77;database=kolhedeveloper;uid=kolheadmin;pwd=Kolhe@123;Allow User Variables=True;SslMode=none";
             connection = new MySqlConnection(connetionString);
             try
             {
