@@ -1850,6 +1850,27 @@ namespace kd.Models
             }
         }
 
+        public int Delete_Record(string table, int id)
+        {
+            try
+            {
+                string query = "DELETE FROM " + table +" where ID="+id;
+                
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.ExecuteNonQuery();
+                    this.CloseConnection();
+                    return 0;
+                }
+                return -1;
+            }
+            catch (MySqlException ex)
+            {
+                return -1;
+            }
+        }
+
         public void Delete_Event(int id)
         {
             try
