@@ -37,15 +37,17 @@
                 <div>
                     <form method="post" action="@Url.Action("Generate_pdf","Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
                         <div id="Grid">
-                            <table cellpadding="2" cellspacing="1" border="1">
+                            <table cellpadding="2" cellspacing="1" border="1" width="100%">
                                 <thead>
+                                    <tr> 
+                                        <th colspan="12" align="center" valign="middle"> <p style="font-weight:bold;font-size:large;text-align:center">Daily Enquiry </p></th>
+                                    </tr>
                                     <tr>
-                                        <th>ID</th>
+                                        <th>Enquiry Date</th>
                                         <th>Customer Name</th>
                                         <th>Address</th>
                                         <th>Mobile No</th>
                                         <th>Occupation</th>
-                                        <th>Date</th>
                                         <th>Site</th>
                                         <th>Requirement</th>
                                         <th>Visit</th>
@@ -58,21 +60,20 @@
                                 <tbody>
                                     @for (var i = 0; i < cnt; i++)
                                     {
-                                        <tr>
-                                            <td>@results[0][i]</td>
-                                            <td>@results[2][i]</td>
-                                            <td>@results[7][i]</td>
-                                            <td>@results[3][i]</td>
-                                            <td>@results[8][i]</td>
-                                            <td>@results[1][i]</td>
-                                            <td>@results[13][i]</td>
-                                            <td>@results[4][i]</td>
-                                            <td>@results[9][i]</td>
-                                            <td>@results[10][i]</td>
-                                            <td>@results[5][i]</td>
-                                            <td>@results[11][i]</td>
-                                            <td>@results[12][i]</td>
-                                        </tr>
+                                    <tr>
+                                        <td>@results[1][i]</td>
+                                        <td>@results[2][i]</td>
+                                        <td>@results[7][i]</td>
+                                        <td>@results[3][i]</td>
+                                        <td>@results[8][i]</td>
+                                        <td>@results[13][i]</td>
+                                        <td>@results[4][i]</td>
+                                        <td>@results[9][i]</td>
+                                        <td>@results[10][i]</td>
+                                        <td>@results[5][i]</td>
+                                        <td>@results[11][i]</td>
+                                        <td>@results[12][i]</td>
+                                    </tr>
                                     }
                                 </tbody>
                             </table>
