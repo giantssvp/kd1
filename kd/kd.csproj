@@ -276,6 +276,8 @@
     <Content Include="Views\Shared\page_size.cshtml" />
     <Content Include="Views\Shared\pagination.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Home\DailyEnquiryPDF.cshtml" />
+    <Content Include="Views\Home\DailyReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
