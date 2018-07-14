@@ -1528,5 +1528,65 @@ namespace kd.Controllers
         {
             return View();
         }
+
+        public ActionResult SiteReport()
+        {
+            return View();
+        }
+
+        public ActionResult SiteReportPDF()
+        {
+            return View();
+        }
+
+        public ActionResult CustomerReport()
+        {
+            return View();
+        }
+
+        public ActionResult CustomerReportPDF()
+        {
+            return View();
+        }
+
+         public ActionResult FileStatusReport()
+        {
+            return View();
+        }
+
+        public ActionResult FileStatusReportPDF()
+        {
+            return View();
+        }
+
+        public ActionResult ExecutiveReport()
+        {
+            return View();
+        }
+
+        public ActionResult ExecutiveReportPDF()
+        {
+            return View();
+        }
+
+        public ActionResult ProfitLossReport()
+        {
+            return View();
+        }
+
+        public ActionResult ProfitLossReportPDF()
+        {
+            return View();
+        }
+
+        public ActionResult MasterReport()
+        {
+            return View();
+        }
+
+        public ActionResult MasterReportPDF()
+        {
+            return View();
+        }
     }
 }
