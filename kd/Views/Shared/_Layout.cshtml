@@ -12,7 +12,7 @@
     @Scripts.Render("~/bundles/jquery")
     <!--Header-part-->
     <div id="header">
-        <h1><a href="dashboard.html">Kolhe Developers</a></h1>
+        <h1><a href='@Url.Action("Index", "Home")'>Angel Group of companies</a></h1>
     </div>    
     <!--close-Header-part-->
     <!--top-Header-menu-->
@@ -43,18 +43,31 @@
             <li><a href='@Url.Action("Sites", "Home")'><i class="icon icon-signal"></i> <span>Sites</span></a> </li>
             <li><a href='@Url.Action("Executive", "Home")'><i class="icon icon-inbox"></i> <span>Executive</span></a> </li>
             <li><a href='@Url.Action("Franchies", "Home")'><i class="icon icon-inbox"></i> <span>Franchies</span></a> </li>
-            <li><a href='@Url.Action("Customer", "Home")'><i class="icon icon-th"></i> <span>Customer</span></a></li>
-            <li><a href='@Url.Action("Booking", "Home")'><i class="icon icon-fullscreen"></i> <span>Booking</span></a></li>
-            <li><a href='@Url.Action("PaymentCommit", "Home")'><i class="icon icon-tint"></i> <span>Payment Commitment</span></a></li>
-            <li><a href='@Url.Action("PaymentDetails", "Home")'><i class="icon icon-pencil"></i> <span>Payment Details</span></a></li>
-            <li><a href='@Url.Action("Agreement", "Home")'><i class="icon icon-pencil"></i> <span>Agreement Details</span></a></li>
-            <li><a href='@Url.Action("Finance", "Home")'><i class="icon icon-pencil"></i> <span>Finance</span></a></li>
-            <li><a href='@Url.Action("FileStatus", "Home")'><i class="icon icon-pencil"></i> <span>FileStatus</span></a></li>
+
+            <li class="submenu">
+                <a href='@Url.Action("Customer", "Home")'><i class="icon icon-th"></i> <span>Customer</span></a>
+                <ul>
+                    <li><a href='@Url.Action("Customer", "Home")'><i class="icon icon-th"></i> <span>Customer</span></a></li>
+                    <li><a href='@Url.Action("Booking", "Home")'><i class="icon icon-fullscreen"></i> <span>Booking</span></a></li>
+                    <li><a href='@Url.Action("PaymentCommit", "Home")'><i class="icon icon-tint"></i> <span>Payment Commitment</span></a></li>
+                    <li><a href='@Url.Action("PaymentDetails", "Home")'><i class="icon icon-pencil"></i> <span>Payment Details</span></a></li>
+                    <li><a href='@Url.Action("Agreement", "Home")'><i class="icon icon-pencil"></i> <span>Agreement Details</span></a></li>
+                    <li><a href='@Url.Action("Finance", "Home")'><i class="icon icon-pencil"></i> <span>Finance</span></a></li>
+                    <li><a href='@Url.Action("FileStatus", "Home")'><i class="icon icon-pencil"></i> <span>FileStatus</span></a></li>
+                </ul>
+            </li>
+            
             <li class="submenu">
                 <a href="#"><i class="icon icon-file"></i> <span>Cost Sheets</span></a>
                 <ul>
-                    <li><a href='@Url.Action("CustomerCostSheet", "Home")'>Customer Cost Sheet</a></li>
-                    <li><a href='@Url.Action("BuilderCostSheet", "Home")'>Builer Cost Sheet</a></li>
+                    <li><a href='@Url.Action("DailyReport", "Home")'>Customer Cost Sheet</a></li>
+                    <li><a href='@Url.Action("SiteReport", "Home")'>Site Report</a></li>
+                    <li><a href='@Url.Action("CustomerReport", "Home")'>Customer Report</a></li> 
+                    <li><a href='@Url.Action("FinanceReport", "Home")'>Finance Report</a></li>
+                    <li><a href='@Url.Action("FileStatusReport", "Home")'>File Status Report</a></li>
+                    <li><a href='@Url.Action("ExecutiveReport", "Home")'>Executive/Franchies Report</a></li>
+                    <li><a href='@Url.Action("ProfitLossReport", "Home")'>Profit and Loss Report</a></li>
+                    <li><a href='@Url.Action("MasterReport", "Home")'>Master Report</a></li>
                 </ul>
             </li>
             <li class="submenu">
@@ -76,7 +89,7 @@
     <!--Footer-part-->
 
     <div class="row-fluid">
-        <div id="footer" class="span12"> 2018 &copy; Kolhe Developers</div>
+        <div id="footer" class="span12"> 2018 &copy; Angel Group of Companies</div>
     </div>
 
     <!--end-Footer-part-->

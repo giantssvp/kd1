@@ -52,16 +52,16 @@ hr{ border-top-color:#dadada;}
 	width: 100%;
 	z-index: -9;
 }
-#header h1 {
-	background: url("../img/logo.png") no-repeat scroll 0 0 transparent;
-	height: 31px;
-	left: 20px;
-	line-height: 600px;
-	overflow: hidden;
-	position: relative;
-	top: 26px;
-	width: 191px;
-}
+    #header h1 {
+        background: url("../images/logo.png")  no-repeat scroll 0 0 transparent;
+        height: 31px;
+        left: 20px;
+        line-height: 600px;
+        overflow: hidden;
+        position: relative;
+        top: 26px;
+        width: 191px;
+    }
 #header h1 a {
 	display: block;
 }
@@ -165,7 +165,7 @@ hr{ border-top-color:#dadada;}
 	margin-right: 10px;
 }
 #sidebar > ul > li.active > a {
-	background: url("../img/menu-active.png") no-repeat scroll right center transparent !important;
+	background: url("../images/menu-active.png") no-repeat scroll right center transparent !important;
 	text-decoration:none;
 }
 #sidebar > ul > li > a > .label {
@@ -243,7 +243,7 @@ hr{ border-top-color:#dadada;}
 #breadcrumb a {
 	padding: 8px 20px 8px 10px;
 	display: inline-block;
-	background-image: url('../img/breadcrumb.png');
+	background-image: url('../images/breadcrumb.png');
 	background-position: center right;
 	background-repeat: no-repeat;
 	font-size: 11px;
@@ -1086,7 +1086,7 @@ div.dataTables_wrapper .ui-widget-header {
 	opacity: 1; color:#fff; top:50%; transition:1s ease-out;
 }
 .line {
-	background: url("../img/line.png") repeat-x scroll 0 0 transparent;
+	background: url("../images/line.png") repeat-x scroll 0 0 transparent;
 	display: block;
 	height: 8px;
 }
@@ -1407,7 +1407,7 @@ form {
 	font-size:12px;
 }
 #sidebar > ul li a i {
-	background-image: url("../img/glyphicons-halflings-white.png");
+	background-image: url("../images/glyphicons-halflings-white.png");
 	margin-top:4px;
 	vertical-align: top;
 }
