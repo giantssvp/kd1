@@ -1400,5 +1400,15 @@ namespace kd.Controllers
                 return File(stream.ToArray(), "application/pdf", "Grid.pdf");
             }
         }
+
+        public ActionResult FinanceReport()
+        {
+            return View();
+        }
+
+        public ActionResult FinanceReportPDF()
+        {
+            return View();
+        }
     }
 }
