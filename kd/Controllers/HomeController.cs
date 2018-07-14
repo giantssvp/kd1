@@ -280,6 +280,124 @@ namespace kd.Controllers
             return View();
         }
 
+        public ActionResult delete_record(string page, string ps, string del_id, string filter = "", string search = "", string site = "")
+        {
+            try
+            {
+                int id = Int32.Parse(del_id);
+                int pass = 0;
+
+                if (page == "Index")
+                {
+                    if(obj.Delete_Record("daily_enquiry", id)  == 0)
+                    {
+                        pass = 1;
+                    }
+                }
+                else if (page == "Sites")
+                {
+                    if (obj.Delete_Record("flats", id) == 0)
+                    {
+                        pass = 1;
+                    }
+                }
+                else if (page == "Executive")
+                {
+                    if (obj.Delete_Record("executive", id) == 0)
+                    {
+                        pass = 1;
+                    }
+                }
+                else if (page == "Franchies")
+                {
+                    if (obj.Delete_Record("franchies", id) == 0)
+                    {
+                        pass = 1;
+                    }
+                }
+                else if (page == "Customer")
+                {
+                    if (obj.Delete_Record("applicant", id) == 0)
+                    {
+                        pass = 1;
+                    }
+                }
+                else if (page == "FileStatus")
+                {
+                    if (obj.Delete_Record("file_details", id) == 0)
+                    {
+                        pass = 1;
+                    }
+                }
+                else if (page == "Finance")
+                {
+                    if (obj.Delete_Record("finance_details", id) == 0)
+                    {
+                        pass = 1;
+                    }
+                }
+                else if (page == "Agreement")
+                {
+                    if (obj.Delete_Record("aggrement", id) == 0)
+                    {
+                        pass = 1;
+                    }
+                }
+                else if (page == "Booking")
+                {
+                    if (obj.Delete_Record("bookings", id) == 0)
+                    {
+                        pass = 1;
+                    }
+                }
+                else if (page == "PaymentCommit")
+                {
+                    if (obj.Delete_Record("payment_commitment", id) == 0)
+                    {
+                        pass = 1;
+                    }
+                }
+                else if (page == "PaymentDetails")
+                {
+                    if (obj.Delete_Record("payment_details", id) == 0)
+                    {
+                        pass = 1;
+                    }
+                }
+                else if (page == "CustomerCostSheet")
+                {
+                    if (obj.Delete_Record("cost_sheet", id) == 0)
+                    {
+                        pass = 1;
+                    }
+                }
+                else if (page == "builderCostSheet")
+                {
+                    if (obj.Delete_Record("cost_sheet", id) == 0)
+                    {
+                        pass = 1;
+                    }
+                }
+
+                if (pass == 1)
+                {
+                    TempData["AlertMessage"] = "Record deleted successfully.";
+                }
+                else
+                {
+                    TempData["AlertMessage"] = "There is some issue while deleting the details please do it again.";
+                }
+
+                return RedirectToAction(page, "Home", new { ps=ps, search=search, site=site});
+            }
+            catch (Exception ex)
+            {
+                TempData["AlertMessage"] = "There is exception while deleting the details please do it again.";
+                System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
+                return RedirectToAction(page, "Home");
+            }
+        }
+
         public ActionResult First(string page, string ps, string filter = "", string search = "", string site = "")
         {
             try

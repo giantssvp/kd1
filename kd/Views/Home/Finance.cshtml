@@ -144,7 +144,10 @@
                                     <td>@results[3][i]</td>
                                     <td>@results[7][i]</td>
                                     <td>@results[11][i]</td>
-                                    <td align="center"><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>
+                                    <td align="center">
+                                        <button class="btn btn-primary">Edit</button>
+                                        <button onclick="fun(this);" value="@results[0][i]" class="btn btn-danger">Delete</button>
+                                    </td>
                                 </tr>
                             }
                         </tbody>
@@ -167,6 +170,16 @@
 <script src="~/Scripts/matrix.tables.js"></script>
 <script src="~/Scripts/jquery.validate.js"></script>
 <script src="~/Scripts/matrix.form_validation.js"></script>
+
+<script type="text/javascript">
+    function fun(obj)
+    {
+        if (confirm('Are you sure you want to delete this record?'))
+        {
+            window.location = '@Html.Raw(@Url.Action("delete_record", "Home", new { page = "Finance", ps = "id", search = "srch_str", del_id = "delid" }))'.replace("id", $("#page_size option:selected").text()).replace("srch_str", $('input:text[name=search]').val()).replace("delid", obj.value);
+        }
+    }
+</script>
 
 <script type="text/javascript">
     $(document).ready(function () {
