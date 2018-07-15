@@ -398,6 +398,115 @@ namespace kd.Controllers
             }
         }
 
+        public ActionResult edit_record(string page, string ps, string edit_id, string filter = "", string search = "", string site = "")
+        {
+            try
+            {
+                int id = Int32.Parse(edit_id);
+                List<string> edit_list = new List<string>();
+                int pass = 0;
+
+                if (page == "Index")
+                {
+                    edit_list = obj.get_edit_record("daily_enquiry", id);
+                    ViewBag.edit_list = edit_list;
+                    ViewBag.edit_str = "edit";
+                }
+                else if (page == "Sites")
+                {
+                    if (obj.Delete_Record("flats", id) == 0)
+                    {
+                        pass = 1;
+                    }
+                }
+                else if (page == "Executive")
+                {
+                    if (obj.Delete_Record("executive", id) == 0)
+                    {
+                        pass = 1;
+                    }
+                }
+                else if (page == "Franchies")
+                {
+                    if (obj.Delete_Record("franchies", id) == 0)
+                    {
+                        pass = 1;
+                    }
+                }
+                else if (page == "Customer")
+                {
+                    if (obj.Delete_Record("applicant", id) == 0)
+                    {
+                        pass = 1;
+                    }
+                }
+                else if (page == "FileStatus")
+                {
+                    if (obj.Delete_Record("file_details", id) == 0)
+                    {
+                        pass = 1;
+                    }
+                }
+                else if (page == "Finance")
+                {
+                    if (obj.Delete_Record("finance_details", id) == 0)
+                    {
+                        pass = 1;
+                    }
+                }
+                else if (page == "Agreement")
+                {
+                    if (obj.Delete_Record("aggrement", id) == 0)
+                    {
+                        pass = 1;
+                    }
+                }
+                else if (page == "Booking")
+                {
+                    if (obj.Delete_Record("bookings", id) == 0)
+                    {
+                        pass = 1;
+                    }
+                }
+                else if (page == "PaymentCommit")
+                {
+                    if (obj.Delete_Record("payment_commitment", id) == 0)
+                    {
+                        pass = 1;
+                    }
+                }
+                else if (page == "PaymentDetails")
+                {
+                    if (obj.Delete_Record("payment_details", id) == 0)
+                    {
+                        pass = 1;
+                    }
+                }
+                else if (page == "CustomerCostSheet")
+                {
+                    if (obj.Delete_Record("cost_sheet", id) == 0)
+                    {
+                        pass = 1;
+                    }
+                }
+                else if (page == "builderCostSheet")
+                {
+                    if (obj.Delete_Record("cost_sheet", id) == 0)
+                    {
+                        pass = 1;
+                    }
+                }
+
+                //return RedirectToAction(page, "Home", new { ps = ps, search = search, site = site });
+                return View(page);
+            }
+            catch (Exception ex)
+            {
+                System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
+                return RedirectToAction(page, "Home");
+            }
+        }
+
         public ActionResult First(string page, string ps, string filter = "", string search = "", string site = "")
         {
             try
@@ -1125,20 +1234,35 @@ namespace kd.Controllers
         }
 
         public ActionResult add_enquiry(string enqname, string enqaddress, string enqmob, string enqdate, string enqsite, List<string> enqrequirement, string enqoccu, string enqvisit, string enqinterest,
-            string enqbudget, string enqdown, string enqbooking, string enqremark)
+            string enqbudget, string enqdown, string enqbooking, string enqremark, string submit_btn, string edit_id="0")
         {
             try
             {
                 string req = string.Join(" ", enqrequirement);
-
-                if (obj.insert_enquiry(enqname, enqaddress, enqmob, enqdate, enqsite, req, enqoccu, enqvisit, 
-                    enqinterest, enqbudget, enqdown, enqbooking, enqremark) == 1)
+                if (submit_btn == "Save")
                 {
-                    TempData["AlertMessage"] = "All the details saved successfully.";
+                    if (obj.insert_enquiry(enqname, enqaddress, enqmob, enqdate, enqsite, req, enqoccu, enqvisit,
+                        enqinterest, enqbudget, enqdown, enqbooking, enqremark) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details saved successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                    }
                 }
-                else
+                else if (submit_btn == "Update")
                 {
-                    TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                    int id = Int32.Parse(edit_id);
+                    if (obj.insert_enquiry(enqname, enqaddress, enqmob, enqdate, enqsite, req, enqoccu, enqvisit,
+                        enqinterest, enqbudget, enqdown, enqbooking, enqremark, "edit", id) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details updated successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while updating the details please do it again.";
+                    }
                 }
                 return RedirectToAction("Index", "Home");
             }

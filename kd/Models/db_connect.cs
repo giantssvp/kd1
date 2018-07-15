@@ -105,14 +105,34 @@ namespace kd.Models
         }
 
         public int insert_enquiry(string enqname, string enqaddress, string enqmob, string enqdate, string enqsite, string enqrequirement, string enqoccu, string enqvisit, string enqinterest,
-            string enqbudget, string enqdown, string enqbooking, string enqremark)
+            string enqbudget, string enqdown, string enqbooking, string enqremark, string type="insert", int id = 0)
         {
             try
             {
-                string query = "INSERT INTO daily_enquiry (Enquiry_Date, Customer_Name, Mobile_No, Requirement, Down_Payment, Budget, Address," +
-                    " Occupation, Visit, Interested, Booking_no, Remarks, Site_Id) " +
-                    "VALUES(NOW(), @name, @mob, @req, @down_pay, @budget, @addr, @occu, @visit, @interested, @booking, @remark, @site_id)";
-
+                string query = "";
+                if (type == "edit")
+                {
+                    query = "UPDATE daily_enquiry SET " +
+                        "Enquiry_Date = @enqdate, " +
+                        "Customer_Name = @name, " +
+                        "Mobile_No = @mob, " +
+                        "Requirement = @req, " +
+                        "Down_Payment = @down_pay, " +
+                        "Budget = @budget," +
+                        "Address = @addr," +
+                        "Occupation = @occu," +
+                        "Visit = @visit, " +
+                        "Interested = @interested, " +
+                        "Booking_no = @booking, " +
+                        "Remarks = @remark, " +
+                        "Site_Id = @site_id where id=@id";
+                }
+                else
+                {
+                    query = "INSERT INTO daily_enquiry (Enquiry_Date, Customer_Name, Mobile_No, Requirement, Down_Payment, Budget, Address," +
+                        " Occupation, Visit, Interested, Booking_no, Remarks, Site_Id) " +
+                        "VALUES(NOW(), @name, @mob, @req, @down_pay, @budget, @addr, @occu, @visit, @interested, @booking, @remark, @site_id)";
+                }
                 if (this.OpenConnection() == true)
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
@@ -129,6 +149,11 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@remark", enqremark);
                     cmd.Parameters.AddWithValue("@site_id", enqsite);
 
+                    if (type == "edit")
+                    {
+                        cmd.Parameters.AddWithValue("@enqdate", enqdate);
+                        cmd.Parameters.AddWithValue("@id", id);
+                    }
                     cmd.ExecuteNonQuery();
                     this.CloseConnection();
                     return 1;
@@ -1868,6 +1893,41 @@ namespace kd.Models
             catch (MySqlException ex)
             {
                 return -1;
+            }
+        }
+
+        public List<string> get_edit_record(string table, int id)
+        {
+            try
+            {
+                string query = "select * FROM " + table + " where ID=" + id;
+                List<string> list_edit = new List<string>();
+                
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    int count = dataReader.FieldCount;
+                    while (dataReader.Read())
+                    {
+                        for(int i=0; i<count; i++)
+                        {
+                            list_edit.Add(dataReader.GetValue(i).ToString());
+                        }
+                    }
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return list_edit;
+                }
+                else
+                {
+                    return list_edit;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return new List<string>();
             }
         }
 
