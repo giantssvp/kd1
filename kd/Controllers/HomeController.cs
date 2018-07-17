@@ -414,90 +414,77 @@ namespace kd.Controllers
                 }
                 else if (page == "Sites")
                 {
-                    if (obj.Delete_Record("flats", id) == 0)
-                    {
-                        pass = 1;
-                    }
+                    edit_list = obj.get_edit_record("flats", id);
+                    ViewBag.edit_list = edit_list;
+                    ViewBag.edit_str = "edit";
                 }
                 else if (page == "Executive")
                 {
-                    if (obj.Delete_Record("executive", id) == 0)
-                    {
-                        pass = 1;
-                    }
+                    edit_list = obj.get_edit_record("executive", id);
+                    ViewBag.edit_list = edit_list;
+                    ViewBag.edit_str = "edit";
                 }
                 else if (page == "Franchies")
                 {
-                    if (obj.Delete_Record("franchies", id) == 0)
-                    {
-                        pass = 1;
-                    }
+                    edit_list = obj.get_edit_record("franchies", id);
+                    ViewBag.edit_list = edit_list;
+                    ViewBag.edit_str = "edit";
                 }
                 else if (page == "Customer")
                 {
-                    if (obj.Delete_Record("applicant", id) == 0)
-                    {
-                        pass = 1;
-                    }
+                    edit_list = obj.get_edit_record("applicant", id);
+                    ViewBag.edit_list = edit_list;
+                    ViewBag.edit_str = "edit";
                 }
                 else if (page == "FileStatus")
                 {
-                    if (obj.Delete_Record("file_details", id) == 0)
-                    {
-                        pass = 1;
-                    }
+                    edit_list = obj.get_edit_record("file_details", id);
+                    ViewBag.edit_list = edit_list;
+                    ViewBag.edit_str = "edit";
                 }
                 else if (page == "Finance")
                 {
-                    if (obj.Delete_Record("finance_details", id) == 0)
-                    {
-                        pass = 1;
-                    }
+                    edit_list = obj.get_edit_record("finance_details", id);
+                    ViewBag.edit_list = edit_list;
+                    ViewBag.edit_str = "edit";
                 }
                 else if (page == "Agreement")
                 {
-                    if (obj.Delete_Record("aggrement", id) == 0)
-                    {
-                        pass = 1;
-                    }
+                    edit_list = obj.get_edit_record("aggrement", id);
+                    ViewBag.edit_list = edit_list;
+                    ViewBag.edit_str = "edit";
                 }
                 else if (page == "Booking")
                 {
-                    if (obj.Delete_Record("bookings", id) == 0)
-                    {
-                        pass = 1;
-                    }
+                    edit_list = obj.get_edit_record("bookings", id);
+                    ViewBag.edit_list = edit_list;
+                    ViewBag.edit_str = "edit";
                 }
                 else if (page == "PaymentCommit")
                 {
-                    if (obj.Delete_Record("payment_commitment", id) == 0)
-                    {
-                        pass = 1;
-                    }
+                    edit_list = obj.get_edit_record("payment_commitment", id);
+                    ViewBag.edit_list = edit_list;
+                    ViewBag.edit_str = "edit";
                 }
                 else if (page == "PaymentDetails")
                 {
-                    if (obj.Delete_Record("payment_details", id) == 0)
-                    {
-                        pass = 1;
-                    }
+                    edit_list = obj.get_edit_record("payment_details", id);
+                    ViewBag.edit_list = edit_list;
+                    ViewBag.edit_str = "edit";
                 }
                 else if (page == "CustomerCostSheet")
                 {
-                    if (obj.Delete_Record("cost_sheet", id) == 0)
-                    {
-                        pass = 1;
-                    }
+                    edit_list = obj.get_edit_record("cost_sheet", id);
+                    ViewBag.edit_list = edit_list;
+                    ViewBag.edit_str = "edit";
                 }
                 else if (page == "builderCostSheet")
                 {
-                    if (obj.Delete_Record("cost_sheet", id) == 0)
-                    {
-                        pass = 1;
-                    }
+                    edit_list = obj.get_edit_record("cost_sheet", id);
+                    ViewBag.edit_list = edit_list;
+                    ViewBag.edit_str = "edit";
                 }
 
-                //return RedirectToAction(page, "Home", new { ps = ps, search = search, site = site });
                 return View(page);
             }
             catch (Exception ex)
@@ -1296,19 +1283,34 @@ namespace kd.Controllers
             }
         }
 
-        public ActionResult add_flats(string flatsitename, string flatwing, string flatfloor, string flatno, string flattype, string flatarea, string flatstatus)
+        public ActionResult add_flats(string flatsitename, string flatwing, string flatfloor, string flatno, string flattype, string flatarea, string flatstatus, string submit_btn, string edit_id = "0")
         {
             try
             {
-                if (obj.insert_flats(flatsitename, flatwing, flatfloor, flatno, flattype, flatarea, flatstatus) == 1)
+                if (submit_btn == "Save")
                 {
-                    TempData["AlertMessage"] = "All the details saved successfully.";
+                    if (obj.insert_flats(flatsitename, flatwing, flatfloor, flatno, flattype, flatarea, flatstatus) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details saved successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                    }
                 }
-                else
+                else if (submit_btn == "Update")
                 {
-                    TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                    int id = Int32.Parse(edit_id);
+                    if (obj.insert_flats(flatsitename, flatwing, flatfloor, flatno, flattype, flatarea, flatstatus, "edit", id) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details updated successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while updating the details please do it again.";
+                    }
                 }
-                return RedirectToAction("Sites", "Home");
+                    return RedirectToAction("Sites", "Home");
             }
             catch (Exception ex)
             {

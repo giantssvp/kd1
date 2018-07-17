@@ -194,12 +194,27 @@ namespace kd.Models
             }
         }
 
-        public int insert_flats(string flatsitename, string flatwing, string flatfloor, string flatno, string flattype, string flatarea, string flatstatus)
+        public int insert_flats(string flatsitename, string flatwing, string flatfloor, string flatno, string flattype, string flatarea, string flatstatus, string type = "insert", int id = 0)
         {
             try
             {
-                string query = "INSERT INTO flats (Flat_No, Floor, Area, Flat_Type, Wing, Date, Status, Site_Id) " +
+                string query = "";
+                if (type == "edit")
+                {
+                    query = "UPDATE flats SET " +
+                        "Flat_No = @flatno," +
+                        "Floor = @floor, " +
+                        "Area = @area, " +
+                        "Flat_Type = @flat_type, " +
+                        "Wing = @wing, " +
+                        "Status = @status, " +
+                        "Site_Id = @siteid where id=@id";
+                }
+                else
+                {
+                    query = "INSERT INTO flats (Flat_No, Floor, Area, Flat_Type, Wing, Date, Status, Site_Id) " +
                     "VALUES(@flatno, @floor, @area, @flat_type, @wing, NOW(), @status, @siteid)";
+                }
 
                 if (this.OpenConnection() == true)
                 {
@@ -211,6 +226,11 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@wing", flatwing);
                     cmd.Parameters.AddWithValue("@status", flatstatus);
                     cmd.Parameters.AddWithValue("@siteid", Int32.Parse(flatsitename));
+
+                    if (type == "edit")
+                    {
+                        cmd.Parameters.AddWithValue("@id", id);
+                    }
 
                     cmd.ExecuteNonQuery();
                     this.CloseConnection();
