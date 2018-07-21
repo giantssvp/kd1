@@ -10,6 +10,12 @@
     {
         cnt = 0;
     }
+    var elist = ViewBag.edit_list;
+    bool edit = false;
+    if (ViewBag.edit_str == "edit")
+    {
+        edit = true;
+    }
 }
 
 <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
@@ -40,20 +46,20 @@
                                     <td><label class="control-label">Commitment Type</label></td>
                                     <td>
                                         <select name="ctype" id="required">
-                                            <option value="token" selected="selected">Token Amount</option>
-                                            <option value="booking">Booking Amount</option>
-                                            <option value="agreement">Agreement Amount</option>
-                                            <option value="notary">Notary Amount</option>
-                                            <option value="extra">Extra Amount</option>
-                                            <option value="adjustment">Adjustment Amount</option>
-                                            <option value="commitment">Commitment Amount</option>
-                                            <option value="other">Other</option>
+                                            <option value="token" @(edit ? (elist[1].Contains("token") ? "selected" : "") : "selected")>Token Amount</option>
+                                            <option value="booking" @(edit ? (elist[1].Contains("booking") ? "selected" : "") : "")>Booking Amount</option>
+                                            <option value="agreement" @(edit ? (elist[1].Contains("agreement") ? "selected" : "") : "")>Agreement Amount</option>
+                                            <option value="notary" @(edit ? (elist[1].Contains("notary") ? "selected" : "") : "")>Notary Amount</option>
+                                            <option value="extra" @(edit ? (elist[1].Contains("extra") ? "selected" : "") : "")>Extra Amount</option>
+                                            <option value="adjustment" @(edit ? (elist[1].Contains("adjustment") ? "selected" : "") : "")>Adjustment Amount</option>
+                                            <option value="commitment" @(edit ? (elist[1].Contains("commitment") ? "selected" : "") : "")>Commitment Amount</option>
+                                            <option value="other" @(edit ? (elist[1].Contains("other") ? "selected" : "") : "")>Other</option>
                                         </select>
                                     </td>
                                     <td><label class="control-label">Amount</label></td>
-                                    <td> <input type="number" name="camount" id="required"></td>
+                                    <td> <input type="number" name="camount" id="required" @(edit ? new { value = elist[2] } : null)></td>
                                     <td><label class="control-label">Date</label></td>
-                                    <td><input type="date" name="cstatus" id="required"></td>
+                                    <td><input type="date" name="cstatus" id="required" @(edit ? new { value = @Convert.ToDateTime(elist[3]).ToString("yyyy-MM-dd") } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Customer Name</label></td>
@@ -61,66 +67,78 @@
                                         <select name="bid" id="bid">    </select>
                                     </td>
                                     <td><label class="control-label">Remark</label></td>
-                                    <td> <textarea class="cremark" name="cremark"></textarea></td>
-                                    <td><input type="submit" value="Save" class="btn btn-success" /></td>
-                                    <td><input type="reset" value="Cancel" class="btn btn-danger" /></td>
+                                    <td> <textarea class="cremark" name="cremark"> @(edit ? elist[5] : null)</textarea></td>
+                                    @if (edit)
+                                    {
+                                        <td><input type="submit" name="submit_btn" value="Update" class="btn btn-success" /></td>
+                                        <td colspan="3"> <input type="submit" name="submit_btn" value="Cancel" class="btn btn-danger" /> </td>
+                                        <td> <input type="hidden" name="edit_id" value=@elist[0] /> </td>
+                                    }
+                                    else
+                                    {
+                                        <td><input type="submit" name="submit_btn" value="Save" class="btn btn-success" /></td>
+                                        <td colspan="3"> <input type="reset" value="Cancel" class="btn btn-danger" /> </td>
+                                    }
                                 </tr>
                             </tbody>
                         </table>
                     </form>
                 </div>
             </div>
-            <div class="widget-box">
-                <div class="widget-title">
-                    <span class="icon"><i class="icon-th"></i></span>
-                    <h5>Payment Commitment</h5> 
-                    <div class="select-site">
-                        <h5>Booking Name</h5>
-                        <div class="dataTables_length">
-                            <select name="site_name" id="site_name" style="max-width:90%;">
-                               <option value="Mangesh"> Mangesh</option>
-                                <option value="Ramesh"> Ramesh</option>
-                                <option value="Shivaji"> Shivaji</option>
-                            </select>
+            @if (!edit)
+            {
+                <div class="widget-box">
+                    <div class="widget-title">
+                        <span class="icon"><i class="icon-th"></i></span>
+                        <h5>Payment Commitment</h5>
+                        <div class="select-site">
+                            <h5>Booking Name</h5>
+                            <div class="dataTables_length">
+                                <select name="site_name" id="site_name" style="max-width:90%;">
+                                    <option value="Mangesh"> Mangesh</option>
+                                    <option value="Ramesh"> Ramesh</option>
+                                    <option value="Shivaji"> Shivaji</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="widget-content nopadding">
-                    @Html.Partial("page_size")
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Commit Type</th>
-                                <th>Amount</th>
-                                <th>Status</th>
-                                <th>Remark</th>
-                                <th>Bkno</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @for (var i = 0; i < cnt; i++)
-                            {
-                                <tr class="gradeX">
-                                    <td>@results[0][i]</td>
-                                    <td>@results[1][i]</td>
-                                    <td>@results[2][i]</td>
-                                    <td>@results[4][i]</td>
-                                    <td>@results[5][i]</td>
-                                    <td>@results[6][i]</td>
-                                    <td align="center">
-                                        <button class="btn btn-primary">Edit</button>
-                                        <button onclick="fun(this);" value="@results[0][i]" class="btn btn-danger">Delete</button>
-                                    </td>
+                    <div class="widget-content nopadding">
+                        @Html.Partial("page_size")
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Commit Type</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Remark</th>
+                                    <th>Bkno</th>
+                                    <th>Action</th>
                                 </tr>
-                            }
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @for (var i = 0; i < cnt; i++)
+                                {
+                                    <tr class="gradeX">
+                                        <td>@results[0][i]</td>
+                                        <td>@results[1][i]</td>
+                                        <td>@results[2][i]</td>
+                                        <td>@results[4][i]</td>
+                                        <td>@results[5][i]</td>
+                                        <td>@results[6][i]</td>
+                                        <td align="center">
+                                            <button onclick="fun_edit(this);" value="@results[0][i]" class="btn btn-primary">Edit</button>
+                                            <button onclick="fun_del(this);" value="@results[0][i]" class="btn btn-danger">Delete</button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    @Html.Partial("pagination")
                 </div>
-                @Html.Partial("pagination")
+            }
             </div>
-        </div>
     </div>
 </div>
 
@@ -137,12 +155,17 @@
 <script src="~/Scripts/matrix.form_validation.js"></script>
 
 <script type="text/javascript">
-    function fun(obj)
+    function fun_del(obj)
     {
         if (confirm('Are you sure you want to delete this record?'))
         {
             window.location = '@Html.Raw(@Url.Action("delete_record", "Home", new { page = "PaymentCommit", ps = "id", search = "srch_str", del_id = "delid" }))'.replace("id", $("#page_size option:selected").text()).replace("srch_str", $('input:text[name=search]').val()).replace("delid", obj.value);
         }
+    }
+
+    function fun_edit(obj)
+    {
+        window.location = '@Html.Raw(@Url.Action("edit_record", "Home", new { page = "PaymentCommit", ps = "id", search = "srch_str", edit_id = "editid" }))'.replace("id", $("#page_size option:selected").text()).replace("srch_str", $('input:text[name=search]').val()).replace("editid", obj.value);
     }
 </script>
 
@@ -176,6 +199,7 @@
                 $.each(list, function (index, value) {
                     $("#bid").append($('<option></option>').val(list1[index]).html(value));
                 });
+                document.getElementById("bid").value = @(edit ? elist[6] : 1);
             },
             error: function (err) {
                 alert(err.responseText);

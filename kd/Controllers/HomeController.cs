@@ -478,7 +478,7 @@ namespace kd.Controllers
                     ViewBag.edit_list = edit_list;
                     ViewBag.edit_str = "edit";
                 }
-                else if (page == "builderCostSheet")
+                else if (page == "BuilderCostSheet")
                 {
                     edit_list = obj.get_edit_record("cost_sheet", id);
                     ViewBag.edit_list = edit_list;
@@ -1175,51 +1175,7 @@ namespace kd.Controllers
                 return View(page);
             }
         }
-
-        public ActionResult add_customer_cost_sheet(string site, string type, string area, string rr_rate, string basic_rate, string basic_cost, string legal_charge, string devcharge, string mseb, string stampdutyreg, string gst, string otheramt, string grandtotal)
-        {
-            try
-            {
-                if (obj.insert_cost_sheet("customer", site, type, area, rr_rate, basic_rate, basic_cost, legal_charge, devcharge, mseb, stampdutyreg, gst, otheramt, grandtotal) == 1)
-                {
-                    TempData["AlertMessage"] = "All the details saved successfully.";
-                }
-                else
-                {
-                    TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
-                }
-                return RedirectToAction("CustomerCostSheet", "Home");
-            }
-            catch (Exception ex)
-            {
-                TempData["AlertMessage"] = "There is exception while saving the details please do it again.";
-                System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
-                return RedirectToAction("CustomerCostSheet", "Home");
-            }
-        }
-
-        public ActionResult add_builder_cost_sheet(string site, string type, string area, string rr_rate, string basic_rate, string basic_cost, string legal_charge, string devcharge, string mseb, string stampdutyreg, string gst, string otheramt, string grandtotal)
-        {
-            try
-            {
-                if (obj.insert_cost_sheet("builder", site, type, area, rr_rate, basic_rate, basic_cost, legal_charge, devcharge, mseb, stampdutyreg, gst, otheramt, grandtotal) == 1)
-                {
-                    TempData["AlertMessage"] = "All the details saved successfully.";
-                }
-                else
-                {
-                    TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
-                }
-                return RedirectToAction("BuilderCostSheet", "Home");
-            }
-            catch (Exception ex)
-            {
-                TempData["AlertMessage"] = "There is exception while saving the details please do it again.";
-                System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
-                return RedirectToAction("BuilderCostSheet", "Home");
-            }
-        }
-
+                
         public ActionResult add_enquiry(string enqname, string enqaddress, string enqmob, string enqdate, string enqsite, List<string> enqrequirement, string enqoccu, string enqvisit, string enqinterest,
             string enqbudget, string enqdown, string enqbooking, string enqremark, string submit_btn, string edit_id="0")
         {
@@ -1229,7 +1185,7 @@ namespace kd.Controllers
                 if (submit_btn == "Save")
                 {
                     if (obj.insert_enquiry(enqname, enqaddress, enqmob, enqdate, enqsite, req, enqoccu, enqvisit,
-                        enqinterest, enqbudget, enqdown, enqbooking, enqremark) == 1)
+                                           enqinterest, enqbudget, enqdown, enqbooking, enqremark) == 1)
                     {
                         TempData["AlertMessage"] = "All the details saved successfully.";
                     }
@@ -1242,7 +1198,7 @@ namespace kd.Controllers
                 {
                     int id = Int32.Parse(edit_id);
                     if (obj.insert_enquiry(enqname, enqaddress, enqmob, enqdate, enqsite, req, enqoccu, enqvisit,
-                        enqinterest, enqbudget, enqdown, enqbooking, enqremark, "edit", id) == 1)
+                                           enqinterest, enqbudget, enqdown, enqbooking, enqremark, "edit", id) == 1)
                     {
                         TempData["AlertMessage"] = "All the details updated successfully.";
                     }
@@ -1320,19 +1276,34 @@ namespace kd.Controllers
             }
         }
 
-        public ActionResult add_executive(string exename, string execode, string exeemail, string exemob, string exeadd, string exejoin, string exebirth, string exestatus)
+        public ActionResult add_executive(string exename, string execode, string exeemail, string exemob, string exeadd, string exejoin, string exebirth, string exestatus, string submit_btn, string edit_id = "0")
         {
             try
             {
-                if (obj.insert_executive(exename, execode, exeemail, exemob, exeadd, exejoin, exebirth, exestatus) == 1)
+                if (submit_btn == "Save")
                 {
-                    TempData["AlertMessage"] = "All the details saved successfully.";
+                    if (obj.insert_executive(exename, execode, exeemail, exemob, exeadd, exejoin, exebirth, exestatus) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details saved successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                    }
                 }
-                else
+                else if (submit_btn == "Update")
                 {
-                    TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                    int id = Int32.Parse(edit_id);
+                    if (obj.insert_executive(exename, execode, exeemail, exemob, exeadd, exejoin, exebirth, exestatus, "edit", id) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details updated successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while updating the details please do it again.";
+                    }
                 }
-                return RedirectToAction("Executive", "Home");
+                    return RedirectToAction("Executive", "Home");
             }
             catch (Exception ex)
             {
@@ -1342,17 +1313,32 @@ namespace kd.Controllers
             }
         }
 
-        public ActionResult add_franchies(string francname, string franccode, string francemail, string francmob, string francadd, string francjoin, string francstatus)
+        public ActionResult add_franchies(string francname, string franccode, string francemail, string francmob, string francadd, string francjoin, string francstatus, string submit_btn, string edit_id = "0")
         {
             try
             {
-                if (obj.insert_franchies(francname, franccode, francemail, francmob, francadd, francjoin, francstatus) == 1)
+                if (submit_btn == "Save")
                 {
-                    TempData["AlertMessage"] = "All the details saved successfully.";
+                    if (obj.insert_franchies(francname, franccode, francemail, francmob, francadd, francjoin, francstatus) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details saved successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                    }
                 }
-                else
+                else if (submit_btn == "Update")
                 {
-                    TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                    int id = Int32.Parse(edit_id);
+                    if (obj.insert_franchies(francname, franccode, francemail, francmob, francadd, francjoin, francstatus, "edit", id) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details updated successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while updating the details please do it again.";
+                    }
                 }
                 return RedirectToAction("Franchies", "Home");
             }
@@ -1365,18 +1351,36 @@ namespace kd.Controllers
         }
 
         public ActionResult add_applicant(string applname, string applemail, string applmob, string appladdr, string applpan, string applaadhar,
-            string apploccu, string applbirth, string applage, string coapplname, string coapplpan, string coapplaadhar, string coapploccu, string coapplbirth, string applstatus)
+            string apploccu, string applbirth, string applage, string coapplname, string coapplpan, string coapplaadhar, string coapploccu, string coapplbirth, string applstatus, string submit_btn, string edit_id = "0")
         {
             try
             {
-                if (obj.insert_applicant(applname, applemail, applmob, appladdr, applpan, applaadhar,
-             apploccu, applbirth, applage, coapplname, coapplpan, coapplaadhar, coapploccu, coapplbirth, applstatus) == 1)
+                if (submit_btn == "Save")
                 {
-                    TempData["AlertMessage"] = "All the details saved successfully.";
+                    if (obj.insert_applicant(applname, applemail, applmob, appladdr, applpan, applaadhar,
+                                             apploccu, applbirth, applage, coapplname, coapplpan, coapplaadhar, 
+                                             coapploccu, coapplbirth, applstatus) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details saved successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                    }
                 }
-                else
+                else if (submit_btn == "Update")
                 {
-                    TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                    int id = Int32.Parse(edit_id);
+                    if (obj.insert_applicant(applname, applemail, applmob, appladdr, applpan, applaadhar,
+                                             apploccu, applbirth, applage, coapplname, coapplpan, coapplaadhar, 
+                                             coapploccu, coapplbirth, applstatus, "edit", id) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details updated successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while updating the details please do it again.";
+                    }
                 }
                 return RedirectToAction("Customer", "Home");
             }
@@ -1389,18 +1393,37 @@ namespace kd.Controllers
         }
 
         public ActionResult add_booking(string bno, string breferred, string bincentive, string bincome, string bcancel, string btamount,
-            string bramount, string bblder, string bparking, string bcharges, string bfollowup, string bstatus, string bremark, string bsite, string bflats, string bapplicant, string bexecutive, string bfranchies)
+            string bramount, string bblder, string bparking, string bcharges, string bfollowup, string bstatus, string bremark, string bsite, string bflats, string bapplicant, string bexecutive, string bfranchies, string submit_btn, string edit_id = "0")
         {
             try
             {
-                if (obj.insert_booking(bno, breferred, bincentive, bincome, bcancel, btamount,
-             bramount, bblder, bparking, bcharges, bfollowup, bstatus, bremark, bsite, bflats, bapplicant, bexecutive, bfranchies) == 1)
+                if (submit_btn == "Save")
                 {
-                    TempData["AlertMessage"] = "All the details saved successfully.";
+                    if (obj.insert_booking(bno, breferred, bincentive, bincome, bcancel, btamount,
+                                           bramount, bblder, bparking, bcharges, bfollowup, bstatus, 
+                                           bremark, bsite, bflats, bapplicant, bexecutive, bfranchies) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details saved successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                    }
                 }
-                else
+                else if (submit_btn == "Update")
                 {
-                    TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                    int id = Int32.Parse(edit_id);
+                    if (obj.insert_booking(bno, breferred, bincentive, bincome, bcancel, btamount,
+                                           bramount, bblder, bparking, bcharges, bfollowup, bstatus, 
+                                           bremark, bsite, bflats, bapplicant, bexecutive, 
+                                           bfranchies, "edit", id) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details updated successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while updating the details please do it again.";
+                    }
                 }
                 return RedirectToAction("Booking", "Home");
             }
@@ -1412,17 +1435,32 @@ namespace kd.Controllers
             }
         }
 
-        public ActionResult add_paymentcommit(string ctype, string camount, string cstatus, string bid, string cremark)
+        public ActionResult add_paymentcommit(string ctype, string camount, string cstatus, string bid, string cremark, string submit_btn, string edit_id = "0")
         {
             try
             {
-                if (obj.insert_paymentcommit(ctype, camount, cstatus, cremark, bid) == 1)
+                if (submit_btn == "Save")
                 {
-                    TempData["AlertMessage"] = "All the details saved successfully.";
+                    if (obj.insert_paymentcommit(ctype, camount, cstatus, cremark, bid) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details saved successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                    }
                 }
-                else
+                else if (submit_btn == "Update")
                 {
-                    TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                    int id = Int32.Parse(edit_id);
+                    if (obj.insert_paymentcommit(ctype, camount, cstatus, cremark, bid, "edit", id) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details updated successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while updating the details please do it again.";
+                    }
                 }
                 return RedirectToAction("PaymentCommit", "Home");
             }
@@ -1435,17 +1473,32 @@ namespace kd.Controllers
         }
 
         public ActionResult add_paymentdetails(string pamt, string pdate, string pmode, string chkid, string chkdate, string bname,
-            string ptype, string bldpay, string bnkpay, string sts, string bid)
+            string ptype, string bldpay, string bnkpay, string sts, string bid, string submit_btn, string edit_id = "0")
         {
             try
             {
-                if (obj.insert_paymentdetails(pamt, pdate, pmode, chkid, chkdate, bname, ptype, bldpay, bnkpay, sts, bid) == 1)
+                if (submit_btn == "Save")
                 {
-                    TempData["AlertMessage"] = "All the details saved successfully.";
+                    if (obj.insert_paymentdetails(pamt, pdate, pmode, chkid, chkdate, bname, ptype, bldpay, bnkpay, sts, bid) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details saved successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                    }
                 }
-                else
+                else if (submit_btn == "Update")
                 {
-                    TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                    int id = Int32.Parse(edit_id);
+                    if (obj.insert_paymentdetails(pamt, pdate, pmode, chkid, chkdate, bname, ptype, bldpay, bnkpay, sts, bid, "edit", id) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details updated successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while updating the details please do it again.";
+                    }
                 }
                 return RedirectToAction("PaymentDetails", "Home");
             }
@@ -1457,17 +1510,32 @@ namespace kd.Controllers
             }
         }
         
-        public ActionResult add_agreement(string ano, string adate, string anotary, string aamount, string aadjustment, string aextra, string astatus, string bid)
+        public ActionResult add_agreement(string ano, string adate, string anotary, string aamount, string aadjustment, string aextra, string astatus, string bid, string submit_btn, string edit_id = "0")
         {
             try
             {
-                if (obj.insert_agreement(ano, adate, anotary, aamount, aadjustment, aextra, astatus, bid) == 1)
+                if (submit_btn == "Save")
                 {
-                    TempData["AlertMessage"] = "All the details saved successfully.";
+                    if (obj.insert_agreement(ano, adate, anotary, aamount, aadjustment, aextra, astatus, bid) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details saved successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                    }
                 }
-                else
+                else if (submit_btn == "Update")
                 {
-                    TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                    int id = Int32.Parse(edit_id);
+                    if (obj.insert_agreement(ano, adate, anotary, aamount, aadjustment, aextra, astatus, bid, "edit", id) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details updated successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while updating the details please do it again.";
+                    }
                 }
                 return RedirectToAction("Agreement", "Home");
             }
@@ -1481,18 +1549,38 @@ namespace kd.Controllers
 
         public ActionResult add_finance(string fintype, string finname, string finexe, string finexemob, string finexeemail, string filehanddate,
             string filesta, string filesanctdate, string reqloanamt, string sanctloanamt, string disburseamt, string actloanamt, string recddamt, 
-            string remddamt, string rateofinter, string emiamt, string emimonths, string bid, string finstat)
+            string remddamt, string rateofinter, string emiamt, string emimonths, string bid, string finstat, string submit_btn, string edit_id = "0")
         {
             try
             {
-                if (obj.insert_finance(fintype, finname, finexe, finexemob, finexeemail, filehanddate,
-             filesta, filesanctdate, reqloanamt, sanctloanamt, disburseamt, actloanamt, recddamt, remddamt, rateofinter, emiamt, emimonths, bid, finstat) == 1)
+                if (submit_btn == "Save")
                 {
-                    TempData["AlertMessage"] = "All the details saved successfully.";
+                    if (obj.insert_finance(fintype, finname, finexe, finexemob, finexeemail, filehanddate,
+                                           filesta, filesanctdate, reqloanamt, sanctloanamt, disburseamt, 
+                                           actloanamt, recddamt, remddamt, rateofinter, emiamt, emimonths, 
+                                           bid, finstat) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details saved successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                    }
                 }
-                else
+                else if (submit_btn == "Update")
                 {
-                    TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                    int id = Int32.Parse(edit_id);
+                    if (obj.insert_finance(fintype, finname, finexe, finexemob, finexeemail, filehanddate,
+                                           filesta, filesanctdate, reqloanamt, sanctloanamt, disburseamt, 
+                                           actloanamt, recddamt, remddamt, rateofinter, emiamt, emimonths, 
+                                           bid, finstat, "edit", id) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details updated successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while updating the details please do it again.";
+                    }
                 }
                 return RedirectToAction("Finance", "Home");
             }
@@ -1505,17 +1593,32 @@ namespace kd.Controllers
         }
 
         public ActionResult add_filestatus(string chrg, string lfee, string chid, string chdate, string bnknm, string figst,
-            string lfamt, string fid, string fstatus)
+            string lfamt, string fid, string fstatus, string submit_btn, string edit_id = "0")
         {
             try
             {
-                if (obj.insert_filestatus(chrg, lfee, chid, chdate, bnknm, figst, lfamt, fid, fstatus) == 1)
+                if (submit_btn == "Save")
                 {
-                    TempData["AlertMessage"] = "All the details saved successfully.";
+                    if (obj.insert_filestatus(chrg, lfee, chid, chdate, bnknm, figst, lfamt, fid, fstatus) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details saved successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                    }
                 }
-                else
+                else if (submit_btn == "Update")
                 {
-                    TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                    int id = Int32.Parse(edit_id);
+                    if (obj.insert_filestatus(chrg, lfee, chid, chdate, bnknm, figst, lfamt, fid, fstatus, "edit", id) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details updated successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while updating the details please do it again.";
+                    }
                 }
                 return RedirectToAction("FileStatus", "Home");
             }
@@ -1524,6 +1627,80 @@ namespace kd.Controllers
                 TempData["AlertMessage"] = "There is exception while saving the details please do it again.";
                 System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
                 return RedirectToAction("FileStatus", "Home");
+            }
+        }
+
+        public ActionResult add_customer_cost_sheet(string site, string type, string area, string rr_rate, string basic_rate, string basic_cost, string legal_charge, string devcharge, string mseb, string stampdutyreg, string gst, string otheramt, string grandtotal, string submit_btn, string edit_id = "0")
+        {
+            try
+            {
+                if (submit_btn == "Save")
+                {
+                    if (obj.insert_cost_sheet("customer", site, type, area, rr_rate, basic_rate, basic_cost, legal_charge, devcharge, mseb, stampdutyreg, gst, otheramt, grandtotal) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details saved successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                    }
+                }
+                else if (submit_btn == "Update")
+                {
+                    int id = Int32.Parse(edit_id);
+                    if (obj.insert_cost_sheet("customer", site, type, area, rr_rate, basic_rate, basic_cost, legal_charge, devcharge, mseb, stampdutyreg, gst, otheramt, grandtotal, "edit", id) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details updated successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while updating the details please do it again.";
+                    }
+                }
+                return RedirectToAction("CustomerCostSheet", "Home");
+            }
+            catch (Exception ex)
+            {
+                TempData["AlertMessage"] = "There is exception while saving the details please do it again.";
+                System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
+                return RedirectToAction("CustomerCostSheet", "Home");
+            }
+        }
+
+        public ActionResult add_builder_cost_sheet(string site, string type, string area, string rr_rate, string basic_rate, string basic_cost, string legal_charge, string devcharge, string mseb, string stampdutyreg, string gst, string otheramt, string grandtotal, string submit_btn, string edit_id = "0")
+        {
+            try
+            {
+                if (submit_btn == "Save")
+                {
+                    if (obj.insert_cost_sheet("builder", site, type, area, rr_rate, basic_rate, basic_cost, legal_charge, devcharge, mseb, stampdutyreg, gst, otheramt, grandtotal) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details saved successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                    }
+                }
+                else if (submit_btn == "Update")
+                {
+                    int id = Int32.Parse(edit_id);
+                    if (obj.insert_cost_sheet("builder", site, type, area, rr_rate, basic_rate, basic_cost, legal_charge, devcharge, mseb, stampdutyreg, gst, otheramt, grandtotal, "edit", id) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details updated successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while updating the details please do it again.";
+                    }
+                }
+                return RedirectToAction("BuilderCostSheet", "Home");
+            }
+            catch (Exception ex)
+            {
+                TempData["AlertMessage"] = "There is exception while saving the details please do it again.";
+                System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
+                return RedirectToAction("BuilderCostSheet", "Home");
             }
         }
 
