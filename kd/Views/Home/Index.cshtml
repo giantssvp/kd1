@@ -42,109 +42,211 @@
             <div class="widget-box">
                 <div class="widget-title">
                     <span class="icon"> <i class="icon-info-sign"></i> </span>
-                    <h5>Daily Enquiry </h5>
+                    <h5>Daily Enquiry - Customer Details</h5>
                 </div>
                 <div class="widget-content nopadding">
                     <form method="post" action="@Url.Action("add_enquiry","Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
-                            <table class="table table-striped">
-                                <tbody>
-                                    <tr class="odd gradeX">
-                                        <td><label class="control-label">Customer Name</label></td>
-                                        <td><input type="text" name="enqname" id="required" @(edit ? new { value = elist[2] } : null)></td>
-                                        <td><label class="control-label">Address</label></td>
-                                        <td> <input type="text" name="enqaddress" id="required"  @(edit ? new { value = elist[7] } : null)></td>
-                                        <td><label class="control-label">Mobile No</label></td>
-                                        <td><input type="number" name="enqmob" id="required"  @(edit ? new { value = elist[3] } : null)></td>
-                                    </tr>
-                                    <tr class="odd gradeX">
-                                        <td><label class="control-label">Date</label></td>
-                                        <td><input type="date" name="enqdate" id="required"  @(edit ? new { value = @Convert.ToDateTime(elist[1]).ToString("yyyy-MM-dd") } : null)></td>
-                                        <td><label class="control-label">Site</label></td>
-                                        <td>
-                                            <select name="enqsite" id="enqsite">    </select>
-                                        </td>
-                                        <td><label class="control-label">Requirement</label></td>
-                                        <td>
-                                            <select multiple name="enqrequirement" id="required">
-                                                <option value="1RK" @(edit ? (elist[4].Contains("1RK") ? "selected" : "") : "selected")>1RK</option>
-                                                <option value="1BHK" @(edit ? (elist[4].Contains("1BHK") ? "selected" : "") : "")>1BHK</option>
-                                                <option value="2BHK" @(edit ? (elist[4].Contains("2BHK") ? "selected" : "") : "")>2BHK</option>
-                                                <option value="3BHK" @(edit ? (elist[4].Contains("3BHK") ? "selected" : "") : "")>3BHK</option>
-                                                <option value="Other" @(edit ? (elist[4].Contains("Other") ? "selected" : "") : "")>Other</option>
-                                            </select>
-                                            <input type="text" name="enqrequirementother" id="required">
-                                        </td>
-                                    </tr>
-                                    <tr class="odd gradeX">
-                                        <td><label class="control-label">Occupation</label></td>
-                                        <td>
-                                            <select name="enqoccu" id="required">
-                                                <option value="Salaried" @(edit ? (elist[8].Contains("Salaried") ? "selected" : "") : "selected")>Salaried</option>
-                                                <option value="Business" @(edit ? (elist[8].Contains("Business") ? "selected" : "") : "")>Business</option>
-                                                <option value="Pensioner" @(edit ? (elist[8].Contains("Pensioner") ? "selected" : "") : "")>Pensioner</option>
-                                                <option value="Other" @(edit ? (elist[8].Contains("Other") ? "selected" : "") : "")>Other</option>
-                                            </select>
-                                        </td>
-                                        <td><label class="control-label">Visit</label></td>
-                                        <td>
-                                            <select name="enqvisit" id="required">
-                                                <option value="Yes" @(edit ? (elist[9].Contains("Yes") ? "selected" : "") : "selected")>Yes</option>
-                                                <option value="No" @(edit ? (elist[9].Contains("No") ? "selected" : "") : "")>No</option>
-                                                <option value="Other" @(edit ? (elist[9].Contains("Other") ? "selected" : "") : "")>Other</option>
-                                            </select>
-                                        </td>
-                                        <td><label class="control-label">Interest</label></td>
-                                        <td>
-                                            <select name="enqinterest" id="required">
-                                                <option value="Yes" @(edit ? (elist[10].Contains("Yes") ? "selected" : "") : "selected")>Yes</option>
-                                                <option value="No" @(edit ? (elist[10].Contains("No") ? "selected" : "") : "")>No</option>
-                                                <option value="Other" @(edit ? (elist[10].Contains("Other") ? "selected" : "") : "")>Other</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr class="odd gradeX">
-                                        <td><label class="control-label">Budget</label></td>
-                                        <td><input type="number" name="enqbudget" id="required"  @(edit ? new { value = elist[6] } : null)></td>
-                                        <td><label class="control-label">Down Payment</label></td>
-                                        <td><input type="number" name="enqdown" id="required"  @(edit ? new { value = elist[5] } : null)></td>
-                                        <td><label class="control-label">Booking</label></td>
-                                        <td>
-                                            <select name="enqbooking" id="required">
-                                                <option value="Yes" @(edit ? (elist[11].Contains("Yes") ? "selected" : "") : "selected")>Yes</option>
-                                                <option value="No" @(edit ? (elist[11].Contains("No") ? "selected" : "") : "")>No</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr class="odd gradeX">
-                                        <td><label class="control-label">Remark</label></td>
-                                        <td> <textarea class="span11" name="enqremark">@(edit ? elist[12] : null)</textarea></td>
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr class="odd gradeX">
+                                    <td><label class="control-label">Customer Name</label></td>
+                                    <td><input type="text" name="enqname" id="required" @(edit ? new { value = elist[2] } : null)></td>
+                                    <td><label class="control-label">Address</label></td>
+                                    <td> <input type="text" name="enqaddress" id="required" @(edit ? new { value = elist[7] } : null)></td>
+                                    <td><label class="control-label">Mobile No(Whatsapp)</label></td>
+                                    <td><input type="number" name="enqmob" id="required" @(edit ? new { value = elist[3] } : null)></td>
+                                </tr>
+                                <tr class="odd gradeX">
+                                    <td><label class="control-label">Alternate Mobile</label></td>
+                                    <td><input type="number" name="enqaltmob" id="required"></td>
+                                    <td><label class="control-label">Email Id</label></td>
+                                    <td><input type="text" name="enqemail" id="required"></td>                                    
+                                    <td><label class="control-label">Requirement</label></td>
+                                    <td>
+                                        <select multiple name="enqrequirement" id="required">
+                                            <option value="1RK" @(edit ? (elist[4].Contains("1RK") ? "selected" : "") : "selected")>1RK</option>
+                                            <option value="1BHK" @(edit ? (elist[4].Contains("1BHK") ? "selected" : "") : "")>1BHK</option>
+                                            <option value="2BHK" @(edit ? (elist[4].Contains("2BHK") ? "selected" : "") : "")>2BHK</option>
+                                            <option value="3BHK" @(edit ? (elist[4].Contains("3BHK") ? "selected" : "") : "")>3BHK</option>
+                                            <option value="3BHK" @(edit ? (elist[4].Contains("Plot") ? "selected" : "") : "")>Plot</option>
+                                            <option value="Other" @(edit ? (elist[4].Contains("Other") ? "selected" : "") : "")>Other</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr class="odd gradeX">
+                                    <td><label class="control-label">Occupation</label></td>
+                                    <td>
+                                        <select name="enqoccu" id="required">
+                                            <option value="Salaried" @(edit ? (elist[8].Contains("Salaried") ? "selected" : "") : "selected")>Salaried</option>
+                                            <option value="Business" @(edit ? (elist[8].Contains("Business") ? "selected" : "") : "")>Business</option>
+                                            <option value="Pensioner" @(edit ? (elist[8].Contains("Pensioner") ? "selected" : "") : "")>Pensioner</option>
+                                            <option value="Other" @(edit ? (elist[8].Contains("Other") ? "selected" : "") : "")>Other</option>
+                                        </select>
+                                    </td>
+                                    <td><label class="control-label">Income</label></td>
+                                    <td><input type="number" name="enqincome" id="required"></td>
+                                    <td><label class="control-label">Budget</label></td>
+                                    <td><input type="number" name="enqbudget" id="required" @(edit ? new { value = elist[6] } : null)></td>
+                                </tr>
+                                <tr class="odd gradeX">
 
-                                        @if (edit)
-                                        {
-                                            <td><input type="submit" name="submit_btn" value="Update" class="btn btn-success" /></td>
-                                            <td colspan="3"> <input type="submit" name="submit_btn" value="Cancel" class="btn btn-danger" /> </td>
-                                            <td> <input type="hidden" name="edit_id" value=@elist[0] /> </td>                                            
-                                        }
-                                        else
-                                        {
-                                            <td><input type="submit" name="submit_btn" value="Save" class="btn btn-success" /></td>
-                                            <td colspan="3"> <input type="reset" value="Cancel" class="btn btn-danger" /> </td>
-                                        }
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </form>
-</div>
+                                    <td><label class="control-label">Down Payment</label></td>
+                                    <td><input type="number" name="enqdown" id="required" @(edit ? new { value = elist[5] } : null)></td>
+                                    <td><label class="control-label">Current Status</label></td>
+                                    <td>
+                                        <select name="enqinterest" id="required">
+                                            <option value="Yes" @(edit ? (elist[10].Contains("Yes") ? "selected" : "") : "selected")>Interested</option>
+                                            <option value="No" @(edit ? (elist[10].Contains("No") ? "selected" : "") : "")>Not Interested</option>
+                                            <option value="Other" @(edit ? (elist[10].Contains("Other") ? "selected" : "") : "")>In Process</option>
+                                            <option value="Other" @(edit ? (elist[10].Contains("Other") ? "selected" : "") : "")>Booked</option>
+                                        </select>
+                                    </td>
+                                    <td><label class="control-label">Visit</label></td>
+                                    <td>
+                                        <select name="enqvisit" id="required">
+                                            <option value="Yes" @(edit ? (elist[9].Contains("Yes") ? "selected" : "") : "selected")>Visited</option>
+                                            <option value="No" @(edit ? (elist[9].Contains("No") ? "selected" : "") : "")>Enquiry</option>
+                                            <option value="Other" @(edit ? (elist[9].Contains("Other") ? "selected" : "") : "")>Other</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr class="odd gradeX">
+                                    <td><label class="control-label">Source</label></td>
+                                    <td>
+                                        <select name="enqsource" id="enqsource">
+                                            <option value="source">Reference</option>
+                                            <option value="source">Advertisement</option>
+                                            <option value="source">Walk In</option>
+                                        </select>
+                                    </td>
+                                    <td><label class="control-label">Source Details</label></td>
+                                    <td><input type="text" name="enqsourcedetails" id="required"></td>
+
+                                    <td><label class="control-label">Sanction Type</label></td>
+                                    <td>
+                                        <select name="enqsanctiontype" id="required">
+                                            <option value="NATP" @(edit ? (elist[9].Contains("Yes") ? "selected" : "") : "selected")>NATP</option>
+                                            <option value="GP" @(edit ? (elist[9].Contains("No") ? "selected" : "") : "")>GP</option>
+                                            <option value="Both" @(edit ? (elist[9].Contains("Other") ? "selected" : "") : "")>Both</option>
+                                        </select>
+                                    </td>
+
+                                    @if (edit)
+                                    {
+                                        <td><input type="submit" name="submit_btn" value="Update" class="btn btn-success" /></td>
+                                        <td colspan="3"> <input type="submit" name="submit_btn" value="Cancel" class="btn btn-danger" /> </td>
+                                        <td> <input type="hidden" name="edit_id" value=@elist[0] /> </td>
+                                    }
+                                    else
+                                    {
+                                        <td><input type="submit" name="submit_btn" value="Save" class="btn btn-success" /></td>
+                                        <td colspan="3"> <input type="reset" value="Cancel" class="btn btn-danger" /> </td>
+                                    }
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
             </div>
+            <!-- Site visit details-->
+            <div class="widget-box">
+                <div class="widget-title">
+                    <span class="icon"> <i class="icon-info-sign"></i> </span>
+                    <h5>Daily Enquiry - Site Visit Details</h5>
+                </div>
+                <div class="widget-content nopadding">
+                    <form method="post" action="@Url.Action("add_enquiry","Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr class="odd gradeX">
+                                    <td><label class="control-label">Customer Name</label></td>
+                                    <td><input type="text" name="enqname" id="required" @(edit ? new { value = elist[2] } : null)></td>
+                                    <td><label class="control-label">Site Name</label></td>
+                                    <td> <input type="text" name="enqaddress" id="required" @(edit ? new { value = elist[7] } : null)></td>
+                                    <td><label class="control-label">Type(Flat/Plot)</label></td>
+                                    <td><input type="number" name="enqmob" id="required" @(edit ? new { value = elist[3] } : null)></td>
+                                </tr>
+                                <tr class="odd gradeX">
+                                    <td><label class="control-label">Wing</label></td>
+                                    <td><input type="number" name="enqaltmob" id="required"></td>
+                                    <td><label class="control-label">Flat/Plot No</label></td>
+                                    <td><input type="number" name="enqflatno" id="required"></td>
+                                    <td><label class="control-label">Flat/Plot Size</label></td>
+                                    <td><input type="number" name="enqsize" id="required"></td>                                    
+                                </tr>
+                                <tr class="odd gradeX">
+                                    <td><label class="control-label">Executive Name</label></td>
+                                    <td><input type="text" name="enqsourcedetails" id="required"></td>
+                                    @if (edit)
+                                    {
+                                        <td><input type="submit" name="submit_btn" value="Update" class="btn btn-success" /></td>
+                                        <td colspan="3"> <input type="submit" name="submit_btn" value="Cancel" class="btn btn-danger" /> </td>
+                                        <td> <input type="hidden" name="edit_id" value=@elist[0] /> </td>
+                                    }
+                                    else
+                                    {
+                                        <td><input type="submit" name="submit_btn" value="Save" class="btn btn-success" /></td>
+                                        <td colspan="3"> <input type="reset" value="Cancel" class="btn btn-danger" /> </td>
+                                    }
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </div>
+            <!-- Customer Follow up details-->
+            <div class="widget-box">
+                <div class="widget-title">
+                    <span class="icon"> <i class="icon-info-sign"></i> </span>
+                    <h5>Daily Enquiry - Customer Follow Up</h5>
+                </div>
+                <div class="widget-content nopadding">
+                    <form method="post" action="@Url.Action("add_enquiry","Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr class="odd gradeX">
+                                    <td><label class="control-label">Customer Name</label></td>
+                                    <td><input type="text" name="enqname" id="required" @(edit ? new { value = elist[2] } : null)></td>
+                                    <td><label class="control-label">Follow up date</label></td>
+                                    <td> <input type="text" name="enqaddress" id="required" @(edit ? new { value = elist[7] } : null)></td>
+                                    <td><label class="control-label">Next Follow up Date</label></td>
+                                    <td><input type="number" name="enqmob" id="required" @(edit ? new { value = elist[3] } : null)></td>
+                                </tr>
+                                <tr class="odd gradeX">
+                                    <td><label class="control-label">Follow Details</label></td>
+                                    <td><input type="number" name="enqaltmob" id="required"></td>
+                                    <td><label class="control-label">Executive Name</label></td>
+                                    <td><input type="text" name="enqsourcedetails" id="required"></td>
+                                </tr>
+                                <tr class="odd gradeX">
+
+                                    @if (edit)
+                                    {
+                                        <td><input type="submit" name="submit_btn" value="Update" class="btn btn-success" /></td>
+                                        <td colspan="3"> <input type="submit" name="submit_btn" value="Cancel" class="btn btn-danger" /> </td>
+                                        <td> <input type="hidden" name="edit_id" value=@elist[0] /> </td>
+                                    }
+                                    else
+                                    {
+                                        <td><input type="submit" name="submit_btn" value="Save" class="btn btn-success" /></td>
+                                        <td colspan="3"> <input type="reset" value="Cancel" class="btn btn-danger" /> </td>
+                                    }
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </div>
+            <!--All Result details-->
             @if (!edit)
             {
                 <div class="widget-box">
-                <div class="widget-title">
-                    <span class="icon"><i class="icon-th"></i></span>
-                    <h5>All Enquiries</h5> 
-                </div>
-                <div class="widget-content nopadding">
-                    @Html.Partial("page_size")                    
+                    <div class="widget-title">
+                        <span class="icon"><i class="icon-th"></i></span>
+                        <h5>All Enquiries</h5>
+                    </div>
+                    <div class="widget-content nopadding">
+                        @Html.Partial("page_size")
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
@@ -190,7 +292,7 @@
                             </tbody>
                         </table>
                     </div>
-                    @Html.Partial("pagination")                
+                    @Html.Partial("pagination")
                 </div>
             }
         </div>
