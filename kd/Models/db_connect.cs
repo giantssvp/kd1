@@ -6,17 +6,13 @@ using MySql.Data.MySqlClient;
 using System.Windows.Forms;
 using System.Security.Cryptography;
 using System.Text;
+using System.Data;
 
 namespace kd.Models
 {
     public class db_connect
     {
         private MySqlConnection connection;
-        public List<string>[] list_feedback_show = new List<string>[3];
-        public List<string>[] list_time_show = new List<string>[1];
-        public List<string>[] list_gallery_show = new List<string>[2];
-        public List<string>[] list_events_show = new List<string>[4];
-        public List<string>[] list_bookings_show = new List<string>[14];
         public List<string>[] list_enquiry_show = new List<string>[14];
         public List<string>[] list_sites_show = new List<string>[11];
         public List<string>[] list_executive_show = new List<string>[10];
@@ -28,7 +24,7 @@ namespace kd.Models
         public List<string>[] list_paycommit_show = new List<string>[7];
         public List<string>[] list_paydetails_show = new List<string>[12];
         public List<string>[] list_flats_show = new List<string>[9];
-        public List<string>[] list_booking_show = new List<string>[21];
+        public List<string>[] list_booking_show = new List<string>[17];
         public List<string>[] list_finance_show = new List<string>[21];
         public List<string>[] list_file_status_show = new List<string>[10];
         public List<string>[] list_agreement_show = new List<string>[9];
@@ -811,185 +807,7 @@ namespace kd.Models
             }
         }
 
-        public List<string>[] feedback_show(int offset, int limit)
-        {
-            try
-            {
-                string query = "SELECT * FROM feedback ORDER BY ID DESC LIMIT @limit OFFSET @offset";
-
-                list_feedback_show[0] = new List<string>();
-                list_feedback_show[1] = new List<string>();
-                list_feedback_show[2] = new List<string>();
-
-                if (this.OpenConnection() == true)
-                {
-                    MySqlCommand cmd = new MySqlCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@offset", offset);
-                    cmd.Parameters.AddWithValue("@limit", limit);
-                    MySqlDataReader dataReader = cmd.ExecuteReader();
-
-                    while (dataReader.Read())
-                    {
-                        list_feedback_show[0].Add(dataReader["subject"] + "");
-                        list_feedback_show[1].Add(dataReader["message"] + "");
-                        list_feedback_show[2].Add(dataReader["date"] + "");
-                    }
-
-                    dataReader.Close();
-                    this.CloseConnection();
-                    return list_feedback_show;
-                }
-                else
-                {
-                    return list_feedback_show;
-                }
-            }
-            catch (MySqlException ex)
-            {
-                return list_feedback_show;
-            }
-        }
-
-        public List<string>[] time_slot_show(string date)
-        {
-            try
-            {
-                string query = "SELECT start_time FROM booking where date = @date";
-
-                list_time_show[0] = new List<string>();
-                //list_feedback_show[1] = new List<string>();
-                //list_feedback_show[2] = new List<string>();
-
-                if (this.OpenConnection() == true)
-                {
-                    MySqlCommand cmd = new MySqlCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@date", date);
-                    MySqlDataReader dataReader = cmd.ExecuteReader();
-
-                    while (dataReader.Read())
-                    {
-                        list_time_show[0].Add(dataReader["start_time"] + "");
-                    }
-
-                    dataReader.Close();
-                    this.CloseConnection();
-                    return list_time_show;
-                }
-                else
-                {
-                    return list_time_show;
-                }
-            }
-            catch (MySqlException ex)
-            {
-                return list_time_show;
-            }
-        }
-
-        /*News Section */
-        public List<string>[] events_show(int offset, int limit)
-        {
-            try
-            {
-                string query = "SELECT * FROM events ORDER BY ID DESC LIMIT @limit OFFSET @offset";
-
-                list_events_show[0] = new List<string>();
-                list_events_show[1] = new List<string>();
-                list_events_show[2] = new List<string>();
-                list_events_show[3] = new List<string>();
-
-                if (this.OpenConnection() == true)
-                {
-                    MySqlCommand cmd = new MySqlCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@offset", offset);
-                    cmd.Parameters.AddWithValue("@limit", limit);
-                    MySqlDataReader dataReader = cmd.ExecuteReader();
-
-                    while (dataReader.Read())
-                    {
-                        list_events_show[0].Add(dataReader["Heading"] + "");
-                        list_events_show[1].Add(dataReader["Description"] + "");
-                        list_events_show[2].Add(dataReader["Date"] + "");
-                        list_events_show[3].Add(dataReader["ID"] + "");
-                    }
-
-                    dataReader.Close();
-                    this.CloseConnection();
-                    return list_events_show;
-                }
-                else
-                {
-                    return list_events_show;
-                }
-            }
-            catch (MySqlException ex)
-            {
-                return list_events_show;
-            }
-        }
-
-        public List<string>[] bookings_show(int offset, int limit, string search = "")
-        {
-            try
-            {
-                string query = "SELECT * FROM booking_details ORDER BY ID DESC LIMIT @limit OFFSET @offset";
-
-                list_bookings_show[0] = new List<string>();
-                list_bookings_show[1] = new List<string>();
-                list_bookings_show[2] = new List<string>();
-                list_bookings_show[3] = new List<string>();
-                list_bookings_show[4] = new List<string>();
-                list_bookings_show[5] = new List<string>();
-                list_bookings_show[6] = new List<string>();
-                list_bookings_show[7] = new List<string>();
-                list_bookings_show[8] = new List<string>();
-                list_bookings_show[9] = new List<string>();
-                list_bookings_show[10] = new List<string>();
-                list_bookings_show[11] = new List<string>();
-                list_bookings_show[12] = new List<string>();
-                list_bookings_show[13] = new List<string>();
-
-
-                if (this.OpenConnection() == true)
-                {
-                    MySqlCommand cmd = new MySqlCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@offset", offset);
-                    cmd.Parameters.AddWithValue("@limit", limit);
-                    MySqlDataReader dataReader = cmd.ExecuteReader();
-
-                    while (dataReader.Read())
-                    {
-                        list_bookings_show[0].Add(dataReader["ID"] + "");
-                        list_bookings_show[1].Add(dataReader["transaction_id"] + "");
-                        list_bookings_show[2].Add(dataReader["transaction_status"] + "");
-                        list_bookings_show[3].Add(dataReader["transaction_date"] + "");
-                        list_bookings_show[4].Add(dataReader["product_info"] + "");
-                        list_bookings_show[5].Add(dataReader["name"] + "");
-                        list_bookings_show[6].Add(dataReader["email"] + "");
-                        list_bookings_show[7].Add(dataReader["phone"] + "");
-                        list_bookings_show[8].Add(dataReader["booking_date"] + "");
-                        list_bookings_show[9].Add(dataReader["adults"] + "");
-                        list_bookings_show[10].Add(dataReader["children"] + "");
-                        list_bookings_show[11].Add(dataReader["total_amount"] + "");
-                        list_bookings_show[12].Add(dataReader["part_payment"] + "");
-                        list_bookings_show[13].Add(dataReader["paid_amount"] + "");
-                    }
-
-                    dataReader.Close();
-                    this.CloseConnection();
-                    return list_bookings_show;
-                }
-                else
-                {
-                    return list_bookings_show;
-                }
-            }
-            catch (MySqlException ex)
-            {
-                return list_bookings_show;
-            }
-        }
-
+        /* Show Queries */
         public List<string>[] enquiry_show(int offset, int limit, string search="")
         {
             try
@@ -997,53 +815,34 @@ namespace kd.Models
                 string query = "";
                 if (search == "")
                 {
-                    query = "SELECT * FROM daily_enquiry ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                    query = "SELECT * FROM daily_enquiry ORDER BY ID DESC LIMIT @lim OFFSET @off";
+                    //query = "daily_enquiry_sp";
                 }
                 else
                 {
                     query = "SELECT * FROM daily_enquiry where CONCAT(Customer_Name, Requirement) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
 
-                list_enquiry_show[0] = new List<string>();
-                list_enquiry_show[1] = new List<string>();
-                list_enquiry_show[2] = new List<string>();
-                list_enquiry_show[3] = new List<string>();
-                list_enquiry_show[4] = new List<string>();
-                list_enquiry_show[5] = new List<string>();
-                list_enquiry_show[6] = new List<string>();
-                list_enquiry_show[7] = new List<string>();
-                list_enquiry_show[8] = new List<string>();
-                list_enquiry_show[9] = new List<string>();
-                list_enquiry_show[10] = new List<string>();
-                list_enquiry_show[11] = new List<string>();
-                list_enquiry_show[12] = new List<string>();
-                list_enquiry_show[13] = new List<string>();
-                
+                for (int i = 0; i < 14; i++)
+                {
+                    list_enquiry_show[i] = new List<string>();
+                }
+                                
                 if (this.OpenConnection() == true)
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@offset", offset);
-                    cmd.Parameters.AddWithValue("@limit", limit);
+                    //cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@off", offset);
+                    cmd.Parameters.AddWithValue("@lim", limit);
                     MySqlDataReader dataReader = cmd.ExecuteReader();
 
                     while (dataReader.Read())
                     {
-                        list_enquiry_show[0].Add(dataReader["ID"] + "");
-                        list_enquiry_show[1].Add(dataReader["Enquiry_date"] + "");
-                        list_enquiry_show[2].Add(dataReader["Customer_Name"] + "");
-                        list_enquiry_show[3].Add(dataReader["Mobile_No"] + "");
-                        list_enquiry_show[4].Add(dataReader["Requirement"] + "");
-                        list_enquiry_show[5].Add(dataReader["Down_Payment"] + "");
-                        list_enquiry_show[6].Add(dataReader["Budget"] + "");
-                        list_enquiry_show[7].Add(dataReader["Address"] + "");
-                        list_enquiry_show[8].Add(dataReader["Occupation"] + "");
-                        list_enquiry_show[9].Add(dataReader["Visit"] + "");
-                        list_enquiry_show[10].Add(dataReader["Interested"] + "");
-                        list_enquiry_show[11].Add(dataReader["Booking_no"] + "");
-                        list_enquiry_show[12].Add(dataReader["Remarks"] + "");
-                        list_enquiry_show[13].Add(dataReader["Site_Id"] + "");
+                        for (int i = 0; i < 14; i++)
+                        {
+                            list_enquiry_show[i].Add(dataReader[i] + "");
+                        }
                     }
-
                     dataReader.Close();
                     this.CloseConnection();
                     return list_enquiry_show;
@@ -1073,20 +872,10 @@ namespace kd.Models
                     query = "SELECT * FROM cost_sheet where Cost_Sheet_Type = @sheet_type and CONCAT(Basic_Rate, Type) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
 
-                list_cost_sheet_show[0] = new List<string>();
-                list_cost_sheet_show[1] = new List<string>();
-                list_cost_sheet_show[2] = new List<string>();
-                list_cost_sheet_show[3] = new List<string>();
-                list_cost_sheet_show[4] = new List<string>();
-                list_cost_sheet_show[5] = new List<string>();
-                list_cost_sheet_show[6] = new List<string>();
-                list_cost_sheet_show[7] = new List<string>();
-                list_cost_sheet_show[8] = new List<string>();
-                list_cost_sheet_show[9] = new List<string>();
-                list_cost_sheet_show[10] = new List<string>();
-                list_cost_sheet_show[11] = new List<string>();
-                list_cost_sheet_show[12] = new List<string>();
-                list_cost_sheet_show[13] = new List<string>();
+                for (int i = 0; i < 14; i++)
+                {
+                    list_cost_sheet_show[i] = new List<string>();
+                }
                 
                 if (this.OpenConnection() == true)
                 {
@@ -1098,22 +887,11 @@ namespace kd.Models
 
                     while (dataReader.Read())
                     {
-                        list_cost_sheet_show[0].Add(dataReader["ID"] + "");
-                        list_cost_sheet_show[1].Add(dataReader["RR_Rate"] + "");
-                        list_cost_sheet_show[2].Add(dataReader["Type"] + "");
-                        list_cost_sheet_show[3].Add(dataReader["Basic_Rate"] + "");
-                        list_cost_sheet_show[4].Add(dataReader["Basic_Cost"] + "");
-                        list_cost_sheet_show[5].Add(dataReader["Legal_Charges"] + "");
-                        list_cost_sheet_show[6].Add(dataReader["MSEB_Charges"] + "");
-                        list_cost_sheet_show[7].Add(dataReader["Development_Charges"] + "");
-                        list_cost_sheet_show[8].Add(dataReader["Stamp_Duty_Registration"] + "");
-                        list_cost_sheet_show[9].Add(dataReader["GST"] + "");
-                        list_cost_sheet_show[10].Add(dataReader["Other_Amount"] + "");
-                        list_cost_sheet_show[11].Add(dataReader["Grand_Total"] + "");
-                        list_cost_sheet_show[12].Add(dataReader["Cost_Sheet_Type"] + "");
-                        list_cost_sheet_show[13].Add(dataReader["Site_Id"] + "");
+                        for (int i = 0; i < 14; i++)
+                        {
+                            list_cost_sheet_show[i].Add(dataReader[i] + "");
+                        }
                     }
-
                     dataReader.Close();
                     this.CloseConnection();
                     return list_cost_sheet_show;
@@ -1143,24 +921,10 @@ namespace kd.Models
                     query = "SELECT * FROM applicant where CONCAT(Applicant_Name, Co_Applicant_Name) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
 
-                list_customer_show[0] = new List<string>();
-                list_customer_show[1] = new List<string>();
-                list_customer_show[2] = new List<string>();
-                list_customer_show[3] = new List<string>();
-                list_customer_show[4] = new List<string>();
-                list_customer_show[5] = new List<string>();
-                list_customer_show[6] = new List<string>();
-                list_customer_show[7] = new List<string>();
-                list_customer_show[8] = new List<string>();
-                list_customer_show[9] = new List<string>();
-                list_customer_show[10] = new List<string>();
-                list_customer_show[11] = new List<string>();
-                list_customer_show[12] = new List<string>();
-                list_customer_show[13] = new List<string>();
-                list_customer_show[14] = new List<string>();
-                list_customer_show[15] = new List<string>();
-                list_customer_show[16] = new List<string>();
-
+                for (int i = 0; i < 17; i++)
+                {
+                    list_customer_show[i] = new List<string>();
+                }
 
                 if (this.OpenConnection() == true)
                 {
@@ -1171,25 +935,11 @@ namespace kd.Models
 
                     while (dataReader.Read())
                     {
-                        list_customer_show[0].Add(dataReader["ID"] + "");
-                        list_customer_show[1].Add(dataReader["Applicant_Name"] + "");
-                        list_customer_show[2].Add(dataReader["Applicant_Email_Id"] + "");
-                        list_customer_show[3].Add(dataReader["Applicant_Phone"] + "");
-                        list_customer_show[4].Add(dataReader["Applicant_Address"] + "");
-                        list_customer_show[5].Add(dataReader["Applicant_Pan_No"] + "");
-                        list_customer_show[6].Add(dataReader["Applicant_Adhar_No"] + "");
-                        list_customer_show[7].Add(dataReader["Applicant_Occupation"] + "");
-                        list_customer_show[8].Add(dataReader["Applicant_DOB"] + "");
-                        list_customer_show[9].Add(dataReader["Applicant_Age"] + "");
-                        list_customer_show[10].Add(dataReader["Co_Applicant_Name"] + "");
-                        list_customer_show[11].Add(dataReader["Co_Applicant_Pan_No"] + "");
-                        list_customer_show[12].Add(dataReader["Co_Applicant_Adhar_No"] + "");
-                        list_customer_show[13].Add(dataReader["Co_Applicant_Occupation"] + "");
-                        list_customer_show[14].Add(dataReader["Co_Applicant_DOB"] + "");
-                        list_customer_show[15].Add(dataReader["Date"] + "");
-                        list_customer_show[16].Add(dataReader["Status"] + "");
+                        for (int i = 0; i < 17; i++)
+                        {
+                            list_customer_show[i].Add(dataReader[i] + "");
+                        }
                     }
-
                     dataReader.Close();
                     this.CloseConnection();
                     return list_customer_show;
@@ -1205,9 +955,7 @@ namespace kd.Models
             }
         }
 
-        /** 
-         * Get the customer name
-         */
+        /* Get the customer name */
         public List<string>[] customer_show_name()
         {
             try
@@ -1257,26 +1005,10 @@ namespace kd.Models
                     query = "SELECT * FROM finance_details where CONCAT(Finance_Name, Finance_Executive_Name) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
 
-                list_finance_show[0] = new List<string>();
-                list_finance_show[1] = new List<string>();
-                list_finance_show[2] = new List<string>();
-                list_finance_show[3] = new List<string>();
-                list_finance_show[4] = new List<string>();
-                list_finance_show[5] = new List<string>();
-                list_finance_show[6] = new List<string>();
-                list_finance_show[7] = new List<string>();
-                list_finance_show[8] = new List<string>();
-                list_finance_show[9] = new List<string>();
-                list_finance_show[10] = new List<string>();
-                list_finance_show[11] = new List<string>();
-                list_finance_show[12] = new List<string>();
-                list_finance_show[13] = new List<string>();
-                list_finance_show[14] = new List<string>();
-                list_finance_show[15] = new List<string>();
-                list_finance_show[16] = new List<string>();
-                list_finance_show[17] = new List<string>();
-                list_finance_show[18] = new List<string>();
-                list_finance_show[19] = new List<string>();
+                for (int i = 0; i < 20; i++)
+                {
+                    list_finance_show[i] = new List<string>();
+                }
 
                 if (this.OpenConnection() == true)
                 {
@@ -1287,28 +1019,11 @@ namespace kd.Models
 
                     while (dataReader.Read())
                     {
-                        list_finance_show[0].Add(dataReader["ID"] + "");
-                        list_finance_show[1].Add(dataReader["Finance_Type"] + "");
-                        list_finance_show[2].Add(dataReader["Finance_Name"] + "");
-                        list_finance_show[3].Add(dataReader["Finance_Executive_Name"] + "");
-                        list_finance_show[4].Add(dataReader["Finance_Executive_Mobile"] + "");
-                        list_finance_show[5].Add(dataReader["Finance_Executive_Email"] + "");
-                        list_finance_show[6].Add(dataReader["File_Handover_Date"] + "");
-                        list_finance_show[7].Add(dataReader["File_Status"] + "");
-                        list_finance_show[8].Add(dataReader["File_Sanction_Date"] + "");
-                        list_finance_show[9].Add(dataReader["Required_Loan_amount"] + "");
-                        list_finance_show[10].Add(dataReader["Sanctioned_Loan_Amount"] + "");
-                        list_finance_show[11].Add(dataReader["Total_Disbursed_Amount"] + "");
-                        list_finance_show[12].Add(dataReader["Actual_Loan_amount"] + "");
-                        list_finance_show[13].Add(dataReader["Received_DD_Amount"] + "");
-                        list_finance_show[14].Add(dataReader["Remaining_DD_Amount"] + "");
-                        list_finance_show[15].Add(dataReader["Rate_Of_Interest"] + "");
-                        list_finance_show[16].Add(dataReader["EMI_Amount"] + "");
-                        list_finance_show[17].Add(dataReader["EMI_Total_Months"] + "");
-                        list_finance_show[18].Add(dataReader["Status"] + "");
-                        list_finance_show[19].Add(dataReader["Booking_Id"] + "");
+                        for (int i = 0; i < 20; i++)
+                        {
+                            list_finance_show[i].Add(dataReader[i] + "");
+                        }
                     }
-
                     dataReader.Close();
                     this.CloseConnection();
                     return list_finance_show;
@@ -1338,26 +1053,10 @@ namespace kd.Models
                     query = "SELECT * FROM bookings where CONCAT(Booking_No, Referenceby) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
 
-                list_booking_show[0] = new List<string>();
-                list_booking_show[1] = new List<string>();
-                list_booking_show[2] = new List<string>();
-                list_booking_show[3] = new List<string>();
-                list_booking_show[4] = new List<string>();
-                list_booking_show[5] = new List<string>();
-                list_booking_show[6] = new List<string>();
-                list_booking_show[7] = new List<string>();
-                list_booking_show[8] = new List<string>();
-                list_booking_show[9] = new List<string>();
-                list_booking_show[10] = new List<string>();
-                list_booking_show[11] = new List<string>();
-                list_booking_show[12] = new List<string>();
-                list_booking_show[13] = new List<string>();
-                list_booking_show[14] = new List<string>();
-                list_booking_show[15] = new List<string>();
-                list_booking_show[16] = new List<string>();
-                list_booking_show[17] = new List<string>();
-                list_booking_show[18] = new List<string>();
-                list_booking_show[19] = new List<string>();
+                for (int i = 0; i < 17; i++)
+                {
+                    list_booking_show[i] = new List<string>();
+                }
 
                 if (this.OpenConnection() == true)
                 {
@@ -1368,28 +1067,11 @@ namespace kd.Models
 
                     while (dataReader.Read())
                     {
-                        list_booking_show[0].Add(dataReader["ID"] + "");
-                        list_booking_show[1].Add(dataReader["Booking_No"] + "");
-                        list_booking_show[2].Add(dataReader["Referenceby"] + "");
-                        list_booking_show[3].Add(dataReader["Incentive_Paid"] + "");
-                        list_booking_show[4].Add(dataReader["Total_Incentive"] + "");
-                        list_booking_show[5].Add(dataReader["Flat_Cancled_By"] + "");
-                        list_booking_show[6].Add(dataReader["Total_Flat_Amount"] + "");
-                        list_booking_show[7].Add(dataReader["Received_Amount"] + "");
-                        list_booking_show[8].Add(dataReader["Total_Builder_Received"] + "");
-                        list_booking_show[9].Add(dataReader["Reserved_Parking"] + "");
-                        list_booking_show[10].Add(dataReader["Internal_Charges"] + "");
-                        list_booking_show[11].Add(dataReader["Follow_Up_Date"] + "");
-                        list_booking_show[12].Add(dataReader["Date"] + "");
-                        list_booking_show[13].Add(dataReader["Status"] + "");
-                        list_booking_show[14].Add(dataReader["Remark"] + "");
-                        list_booking_show[15].Add(dataReader["Site_Id"] + "");
-                        list_booking_show[16].Add(dataReader["Applicant_Id"] + "");
-                        list_booking_show[17].Add(dataReader["Executive_Id"] + "");
-                        list_booking_show[18].Add(dataReader["Franchies_Id"] + "");
-                        list_booking_show[19].Add(dataReader["Flat_Id"] + "");
+                        for (int i = 0; i < 17; i++)
+                        {
+                            list_booking_show[i].Add(dataReader[i] + "");
+                        }
                     }
-
                     dataReader.Close();
                     this.CloseConnection();
                     return list_booking_show;
@@ -1419,17 +1101,10 @@ namespace kd.Models
                     query = "SELECT * FROM executive where CONCAT(Executive_Name, Executive_Code) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
 
-                list_executive_show[0] = new List<string>();
-                list_executive_show[1] = new List<string>();
-                list_executive_show[2] = new List<string>();
-                list_executive_show[3] = new List<string>();
-                list_executive_show[4] = new List<string>();
-                list_executive_show[5] = new List<string>();
-                list_executive_show[6] = new List<string>();
-                list_executive_show[7] = new List<string>();
-                list_executive_show[8] = new List<string>();
-                list_executive_show[9] = new List<string>();
-
+                for (int i = 0; i < 10; i++)
+                {
+                    list_executive_show[i] = new List<string>();
+                }
 
                 if (this.OpenConnection() == true)
                 {
@@ -1440,18 +1115,11 @@ namespace kd.Models
 
                     while (dataReader.Read())
                     {
-                        list_executive_show[0].Add(dataReader["ID"] + "");
-                        list_executive_show[1].Add(dataReader["Executive_Name"] + "");
-                        list_executive_show[2].Add(dataReader["Executive_Code"] + "");
-                        list_executive_show[3].Add(dataReader["Email_Id"] + "");
-                        list_executive_show[4].Add(dataReader["Phone"] + "");
-                        list_executive_show[5].Add(dataReader["Address"] + "");
-                        list_executive_show[6].Add(dataReader["Birth_Date"] + "");
-                        list_executive_show[7].Add(dataReader["Joining_Date"] + "");
-                        list_executive_show[8].Add(dataReader["Date"] + "");
-                        list_executive_show[9].Add(dataReader["Status"] + "");
+                        for (int i = 0; i < 10; i++)
+                        {
+                            list_executive_show[i].Add(dataReader[i] + "");
+                        }
                     }
-
                     dataReader.Close();
                     this.CloseConnection();
                     return list_executive_show;
@@ -1467,10 +1135,7 @@ namespace kd.Models
             }
         }
 
-        /**
-         * Get the executive name
-         */
-
+        /* Get the executive name */
         public List<string>[] executive_show_name()
         {
             try
@@ -1520,16 +1185,10 @@ namespace kd.Models
                     query = "SELECT * FROM file_details where CONCAT(Cheque_Id, Bank_Name) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
 
-                list_file_status_show[0] = new List<string>();
-                list_file_status_show[1] = new List<string>();
-                list_file_status_show[2] = new List<string>();
-                list_file_status_show[3] = new List<string>();
-                list_file_status_show[4] = new List<string>();
-                list_file_status_show[5] = new List<string>();
-                list_file_status_show[6] = new List<string>();
-                list_file_status_show[7] = new List<string>();
-                list_file_status_show[8] = new List<string>();
-
+                for (int i = 0; i < 9; i++)
+                {
+                    list_file_status_show[i] = new List<string>();
+                }
 
                 if (this.OpenConnection() == true)
                 {
@@ -1540,17 +1199,11 @@ namespace kd.Models
 
                     while (dataReader.Read())
                     {
-                        list_file_status_show[0].Add(dataReader["ID"] + "");
-                        list_file_status_show[1].Add(dataReader["Service_Charge"] + "");
-                        list_file_status_show[2].Add(dataReader["Loan_Fees_amount"] + "");
-                        list_file_status_show[3].Add(dataReader["Cheque_Id"] + "");
-                        list_file_status_show[4].Add(dataReader["Cheque_Date"] + "");
-                        list_file_status_show[5].Add(dataReader["Bank_Name"] + "");
-                        list_file_status_show[6].Add(dataReader["Loan_Fees"] + "");
-                        list_file_status_show[7].Add(dataReader["Status"] + "");
-                        list_file_status_show[8].Add(dataReader["Finance_Id"] + "");
+                        for (int i = 0; i < 9; i++)
+                        {
+                            list_file_status_show[i].Add(dataReader[i] + "");
+                        }
                     }
-
                     dataReader.Close();
                     this.CloseConnection();
                     return list_file_status_show;
@@ -1580,14 +1233,10 @@ namespace kd.Models
                     query = "SELECT * FROM payment_commitment where CONCAT(Commitment_Type, Amount) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
 
-                list_paycommit_show[0] = new List<string>();
-                list_paycommit_show[1] = new List<string>();
-                list_paycommit_show[2] = new List<string>();
-                list_paycommit_show[3] = new List<string>();
-                list_paycommit_show[4] = new List<string>();
-                list_paycommit_show[5] = new List<string>();
-                list_paycommit_show[6] = new List<string>();
-
+                for (int i = 0; i < 7; i++)
+                {
+                    list_paycommit_show[i] = new List<string>();
+                }
 
                 if (this.OpenConnection() == true)
                 {
@@ -1598,15 +1247,11 @@ namespace kd.Models
 
                     while (dataReader.Read())
                     {
-                        list_paycommit_show[0].Add(dataReader["ID"] + "");
-                        list_paycommit_show[1].Add(dataReader["Commitment_Type"] + "");
-                        list_paycommit_show[2].Add(dataReader["Amount"] + "");
-                        list_paycommit_show[3].Add(dataReader["Date"] + "");
-                        list_paycommit_show[4].Add(dataReader["Status"] + "");
-                        list_paycommit_show[5].Add(dataReader["Remark"] + "");
-                        list_paycommit_show[6].Add(dataReader["Booking_Id"] + "");
+                        for (int i = 0; i < 7; i++)
+                        {
+                            list_paycommit_show[i].Add(dataReader[i] + "");
+                        }
                     }
-
                     dataReader.Close();
                     this.CloseConnection();
                     return list_paycommit_show;
@@ -1636,19 +1281,10 @@ namespace kd.Models
                     query = "SELECT * FROM payment_details where CONCAT(Cheque_Id, Payment_Type) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
 
-                list_paydetails_show[0] = new List<string>();
-                list_paydetails_show[1] = new List<string>();
-                list_paydetails_show[2] = new List<string>();
-                list_paydetails_show[3] = new List<string>();
-                list_paydetails_show[4] = new List<string>();
-                list_paydetails_show[5] = new List<string>();
-                list_paydetails_show[6] = new List<string>();
-                list_paydetails_show[7] = new List<string>();
-                list_paydetails_show[8] = new List<string>();
-                list_paydetails_show[9] = new List<string>();
-                list_paydetails_show[10] = new List<string>();
-                list_paydetails_show[11] = new List<string>();
-
+                for (int i = 0; i < 12; i++)
+                {
+                    list_paydetails_show[i] = new List<string>();
+                }
 
                 if (this.OpenConnection() == true)
                 {
@@ -1659,20 +1295,11 @@ namespace kd.Models
 
                     while (dataReader.Read())
                     {
-                        list_paydetails_show[0].Add(dataReader["ID"] + "");
-                        list_paydetails_show[1].Add(dataReader["Amount"] + "");
-                        list_paydetails_show[2].Add(dataReader["Date"] + "");
-                        list_paydetails_show[3].Add(dataReader["Payment_Mode"] + "");
-                        list_paydetails_show[4].Add(dataReader["Cheque_Id"] + "");
-                        list_paydetails_show[5].Add(dataReader["Cheque_Date"] + "");
-                        list_paydetails_show[6].Add(dataReader["Bank_Name"] + "");
-                        list_paydetails_show[7].Add(dataReader["Payment_Type"] + "");
-                        list_paydetails_show[8].Add(dataReader["Builder_Pay"] + "");
-                        list_paydetails_show[9].Add(dataReader["Bank_Pay"] + "");
-                        list_paydetails_show[10].Add(dataReader["Status"] + "");
-                        list_paydetails_show[11].Add(dataReader["Booking_Id"] + "");
+                        for (int i = 0; i < 12; i++)
+                        {
+                            list_paydetails_show[i].Add(dataReader[i] + "");
+                        }
                     }
-
                     dataReader.Close();
                     this.CloseConnection();
                     return list_paydetails_show;
@@ -1702,15 +1329,10 @@ namespace kd.Models
                     query = "SELECT * FROM aggrement where CONCAT(Aggrement_No, Aggrement_Amount) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
 
-                list_agreement_show[0] = new List<string>();
-                list_agreement_show[1] = new List<string>();
-                list_agreement_show[2] = new List<string>();
-                list_agreement_show[3] = new List<string>();
-                list_agreement_show[4] = new List<string>();
-                list_agreement_show[5] = new List<string>();
-                list_agreement_show[6] = new List<string>();
-                list_agreement_show[7] = new List<string>();
-                list_agreement_show[8] = new List<string>();
+                for (int i = 0; i < 9; i++)
+                {
+                    list_agreement_show[i] = new List<string>();
+                }
 
                 if (this.OpenConnection() == true)
                 {
@@ -1721,17 +1343,11 @@ namespace kd.Models
 
                     while (dataReader.Read())
                     {
-                        list_agreement_show[0].Add(dataReader["ID"] + "");
-                        list_agreement_show[1].Add(dataReader["Aggrement_Amount"] + "");
-                        list_agreement_show[2].Add(dataReader["Aggrement_Date"] + "");
-                        list_agreement_show[3].Add(dataReader["Aggrement_No"] + "");
-                        list_agreement_show[4].Add(dataReader["Status"] + "");
-                        list_agreement_show[5].Add(dataReader["Booking_Id"] + "");
-                        list_agreement_show[6].Add(dataReader["Notary_Amount"] + "");
-                        list_agreement_show[7].Add(dataReader["Adjustment_Amount"] + "");
-                        list_agreement_show[8].Add(dataReader["Extra_Amount"] + "");
+                        for (int i = 0; i < 9; i++)
+                        {
+                            list_agreement_show[i].Add(dataReader[i] + "");
+                        }
                     }
-
                     dataReader.Close();
                     this.CloseConnection();
                     return list_agreement_show;
@@ -1761,15 +1377,10 @@ namespace kd.Models
                     query = "SELECT * FROM franchies where CONCAT(Francies_Name, Address) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
 
-                list_franchies_show[0] = new List<string>();
-                list_franchies_show[1] = new List<string>();
-                list_franchies_show[2] = new List<string>();
-                list_franchies_show[3] = new List<string>();
-                list_franchies_show[4] = new List<string>();
-                list_franchies_show[5] = new List<string>();
-                list_franchies_show[6] = new List<string>();
-                list_franchies_show[7] = new List<string>();
-                list_franchies_show[8] = new List<string>();
+                for (int i = 0; i < 9; i++)
+                {
+                    list_franchies_show[i] = new List<string>();
+                }
 
                 if (this.OpenConnection() == true)
                 {
@@ -1780,17 +1391,11 @@ namespace kd.Models
 
                     while (dataReader.Read())
                     {
-                        list_franchies_show[0].Add(dataReader["ID"] + "");
-                        list_franchies_show[1].Add(dataReader["Francies_Name"] + "");
-                        list_franchies_show[2].Add(dataReader["Email_Id"] + "");
-                        list_franchies_show[3].Add(dataReader["Phone"] + "");
-                        list_franchies_show[4].Add(dataReader["Address"] + "");
-                        list_franchies_show[5].Add(dataReader["Date"] + "");
-                        list_franchies_show[6].Add(dataReader["Status"] + "");
-                        list_franchies_show[7].Add(dataReader["Joining_Date"] + "");
-                        list_franchies_show[8].Add(dataReader["Francies_Code"] + "");
+                        for (int i = 0; i < 9; i++)
+                        {
+                            list_franchies_show[i].Add(dataReader[i] + "");
+                        }
                     }
-
                     dataReader.Close();
                     this.CloseConnection();
                     return list_franchies_show;
@@ -1806,10 +1411,7 @@ namespace kd.Models
             }
         }
 
-        /** 
-         * Get Franchies name
-         */
-
+        /* Get Franchies name */
         public List<string>[] franchies_show_name()
         {
             try
@@ -1844,25 +1446,17 @@ namespace kd.Models
                 return list_franchies_show_name;
             }
         }
-
-
+        
         public List<string>[] sites_show()
         {
             try
             {
                 string query = "SELECT * FROM sites ORDER BY ID DESC";
 
-                list_sites_show[0] = new List<string>();
-                list_sites_show[1] = new List<string>();
-                list_sites_show[2] = new List<string>();
-                list_sites_show[3] = new List<string>();
-                list_sites_show[4] = new List<string>();
-                list_sites_show[5] = new List<string>();
-                list_sites_show[6] = new List<string>();
-                list_sites_show[7] = new List<string>();
-                list_sites_show[8] = new List<string>();
-                list_sites_show[9] = new List<string>();
-                list_sites_show[10] = new List<string>();
+                for (int i = 0; i < 7; i++)
+                {
+                    list_sites_show[i] = new List<string>();
+                }
                 
                 if (this.OpenConnection() == true)
                 {
@@ -1871,15 +1465,11 @@ namespace kd.Models
 
                     while (dataReader.Read())
                     {
-                        list_sites_show[0].Add(dataReader["ID"] + "");
-                        list_sites_show[1].Add(dataReader["Site_Name"] + "");
-                        list_sites_show[2].Add(dataReader["Email_Id"] + "");
-                        list_sites_show[3].Add(dataReader["Phone"] + "");
-                        list_sites_show[4].Add(dataReader["Address"] + "");
-                        list_sites_show[5].Add(dataReader["Date"] + "");
-                        list_sites_show[6].Add(dataReader["Status"] + "");                      
-                    }
-                    
+                        for (int i = 0; i < 7; i++)
+                        {
+                            list_sites_show[i].Add(dataReader[i] + "");
+                        }                     
+                    }                    
                     dataReader.Close();
                     this.CloseConnection();
                     return list_sites_show;
@@ -1908,16 +1498,11 @@ namespace kd.Models
                 {
                     query = "SELECT * FROM flats WHERE Site_Id = @site_id and CONCAT(Status, Flat_No) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
-                
-                list_flats_show[0] = new List<string>();
-                list_flats_show[1] = new List<string>();
-                list_flats_show[2] = new List<string>();
-                list_flats_show[3] = new List<string>();
-                list_flats_show[4] = new List<string>();
-                list_flats_show[5] = new List<string>();
-                list_flats_show[6] = new List<string>();
-                list_flats_show[7] = new List<string>();
-                list_flats_show[8] = new List<string>();
+
+                for (int i = 0; i < 9; i++)
+                {
+                    list_flats_show[i] = new List<string>();
+                }
 
                 if (this.OpenConnection() == true)
                 {
@@ -1931,17 +1516,11 @@ namespace kd.Models
 
                     while (dataReader.Read())
                     {
-                        list_flats_show[0].Add(dataReader["ID"] + "");
-                        list_flats_show[1].Add(dataReader["Flat_No"] + "");
-                        list_flats_show[2].Add(dataReader["Floor"] + "");
-                        list_flats_show[3].Add(dataReader["Area"] + "");
-                        list_flats_show[4].Add(dataReader["Flat_Type"] + "");
-                        list_flats_show[5].Add(dataReader["Wing"] + "");
-                        list_flats_show[6].Add(dataReader["Date"] + "");
-                        list_flats_show[7].Add(dataReader["Status"] + "");
-                        list_flats_show[8].Add(dataReader["Site_Id"] + "");
+                        for (int i = 0; i < 9; i++)
+                        {
+                            list_flats_show[i].Add(dataReader[i] + "");
+                        }
                     }
-
                     dataReader.Close();
                     this.CloseConnection();
                     return list_flats_show;
@@ -2013,9 +1592,7 @@ namespace kd.Models
                 return list_customer_booking_show;
             }
         }
-
-
-
+        
         public int get_count(string table)
         {
             try
@@ -2035,124 +1612,7 @@ namespace kd.Models
                 return 0;
             }
         }
-
-        public int feedback_count()
-        {
-            try
-            {
-                int count = 0;
-                string query = "select count(id) from feedback";
-                if (this.OpenConnection() == true)
-                {
-                    MySqlCommand cmd = new MySqlCommand(query, connection);
-                    count = Convert.ToInt32(cmd.ExecuteScalar());
-                    this.CloseConnection();
-                }
-                return count;
-            }
-            catch (MySqlException ex)
-            {
-                return 0;
-            }
-        }
-
-        /**/
-        public int event_count()
-        {
-            try
-            {
-                int count = 0;
-                string query = "select count(id) from pawna_camping.events";
-                if (this.OpenConnection() == true)
-                {
-                    MySqlCommand cmd = new MySqlCommand(query, connection);
-                    count = Convert.ToInt32(cmd.ExecuteScalar());
-                    this.CloseConnection();
-                }
-                return count;
-            }
-            catch (MySqlException ex)
-            {
-                return 0;
-            }
-        }
-
-        public int get_rates(string age_grp, string type)
-        {
-            try
-            {
-                int count = 0;
-                string query = "select amount from pawna_camping.rates where age_group = \"" + age_grp + "\" and package_type=@type";
-                if (this.OpenConnection() == true)
-                {
-                    MySqlCommand cmd = new MySqlCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@type", Int32.Parse(type));
-                    count = Convert.ToInt32(cmd.ExecuteScalar());
-                    this.CloseConnection();
-                }
-                return count;
-            }
-            catch (MySqlException ex)
-            {
-                return 0;
-            }
-        }
-
-        public int update_rates(string base_adult, string base_child, int type)
-        {
-            try
-            {
-                int id = -1;
-                string query1 = "UPDATE rates SET amount=@base_adult WHERE age_group=\"adult\" and package_type=@type";
-                string query2 = "UPDATE rates SET amount=@base_child WHERE age_group=\"child\" and package_type=@type1";
-
-                if (this.OpenConnection() == true)
-                {
-                    MySqlCommand cmd = new MySqlCommand(query1, connection);
-                    cmd.Parameters.AddWithValue("@base_adult", Int32.Parse(base_adult));
-                    cmd.Parameters.AddWithValue("@type", type);
-                    MySqlCommand cmd1 = new MySqlCommand(query2, connection);
-                    cmd1.Parameters.AddWithValue("@base_child", Int32.Parse(base_child));
-                    cmd1.Parameters.AddWithValue("@type1", type);
-
-                    cmd.ExecuteNonQuery();
-                    cmd1.ExecuteNonQuery();
-
-                    this.CloseConnection();
-                }
-                return id;
-            }
-            catch (MySqlException ex)
-            {
-                return -1;
-            }
-        }
-
-        public int Insert_Event(string heading, string description)
-        {
-            try
-            {
-                int id = -1;
-                string query = "INSERT INTO events (Heading, Description, Date) VALUES(@heading, @description, NOW())";
-
-                if (this.OpenConnection() == true)
-                {
-                    MySqlCommand cmd = new MySqlCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@heading", heading);
-                    cmd.Parameters.AddWithValue("@description", description);
-
-                    cmd.ExecuteNonQuery();
-
-                    this.CloseConnection();
-                }
-                return id;
-            }
-            catch (MySqlException ex)
-            {
-                return -1;
-            }
-        }
-
+        
         public int Delete_Record(string table, int id)
         {
             try
@@ -2208,30 +1668,7 @@ namespace kd.Models
                 return new List<string>();
             }
         }
-
-        public void Delete_Event(int id)
-        {
-            try
-            {
-                string query = "DELETE FROM events where ID = @id";
-
-                if (this.OpenConnection() == true)
-                {
-                    MySqlCommand cmd = new MySqlCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@id", id);
-
-                    cmd.ExecuteNonQuery();
-
-                    this.CloseConnection();
-                }
-            }
-            catch (MySqlException ex)
-            {
-
-            }
-        }
-        /*News Section*/
-
+        
         /*Password Hashing*/
         private static string getHash(string text)
         {
@@ -2244,6 +1681,7 @@ namespace kd.Models
                 return BitConverter.ToString(hashedBytes).Replace("-", "").ToLower();
             }
         }
+
         /*Login Section*/
         public string Login(string name, string password)
         {
