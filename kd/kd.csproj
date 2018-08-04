@@ -366,6 +366,7 @@
     <Content Include="Views\Home\ProfitLossReportPDF.cshtml" />
     <Content Include="Views\Home\MasterReport.cshtml" />
     <Content Include="Views\Home\MasterReportPDF.cshtml" />
+    <Content Include="Views\Home\ExecutiveAudits.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

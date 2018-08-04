@@ -1891,5 +1891,10 @@ namespace kd.Controllers
         {
             return View();
         }
+
+        public ActionResult ExecutiveAudits()
+        {
+            return View();
+        }
     }
 }

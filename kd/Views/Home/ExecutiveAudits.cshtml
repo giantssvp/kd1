@@ -1,0 +1,94 @@
+﻿
+@{
+    ViewBag.Title = "ExecutiveAudits";
+}
+
+@{
+    var results = ViewBag.list;
+    int? cnt = new int?();
+    cnt = ViewBag.total;
+    if (cnt == null)
+    {
+        cnt = 0;
+    }
+    var elist = ViewBag.edit_list;
+    bool edit = false;
+    if (ViewBag.edit_str == "edit")
+    {
+        edit = true;
+    }
+}
+
+<link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+<link rel="stylesheet" href="~/Content/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="~/Content/matrix-style.css" />
+<link rel="stylesheet" href="~/Content/matrix-media.css" />
+<link rel="stylesheet" href="~/Content/uniform.css" />
+<link rel="stylesheet" href="~/Content/select2.css" />
+<link href="~/fonts/gst_font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+
+<div id="content-header">
+    <div id="breadcrumb"> <a href='@Url.Action("Dashboard", "Home")' title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href='@Url.Action("ExecutiveAudits", "Home")'>Add Booking</a></div>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget-box">
+                <div class="widget-title">
+                    <span class="icon"> <i class="icon-info-sign"></i> </span>
+                    <h5>Execute/Finance Booking Details</h5>
+                </div>
+                <div class="widget-content nopadding">
+                    <form method="post" action="@Url.Action("add_booking","Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr class="odd gradeX">
+                                    <td><label class="control-label">Executive Name</label></td>
+                                    <td><input type="number" name="bno" id="required" @(edit ? new { value = elist[1] } : null)></td>
+                                    <td><label class="control-label">Franchies Name</label></td>
+                                    <td> <input type="text" name="breferred" id="required" @(edit ? new { value = elist[2] } : null)></td>
+                                    <td><label class="control-label">Booking No</label></td>
+                                    <td><input type="number" name="bincentive" id="required" @(edit ? new { value = elist[3] } : null)></td>
+                                </tr>
+                                <tr class="odd gradeX">
+                                    <td><label class="control-label">Total Incentive</label></td>
+                                    <td><input type="number" name="bincome" id="required" @(edit ? new { value = elist[4] } : null)></td>
+                                    <td><label class="control-label">Total Share</label></td>
+                                    <td> <input type="text" name="bcancel" id="required" @(edit ? new { value = elist[5] } : null)></td>
+                                    <td><label class="control-label">Total Paid Amount</label></td>
+                                    <td><input type="number" name="btamount" id="required" @(edit ? new { value = elist[6] } : null)></td>
+                                </tr>
+                                <tr class="odd gradeX">
+                                    @if (edit)
+                                    {
+                                        <td><input type="submit" name="submit_btn" value="Update" class="btn btn-success" /></td>
+                                        <td colspan="3"> <input type="submit" name="submit_btn" value="Cancel" class="btn btn-danger" /> </td>
+                                        <td> <input type="hidden" name="edit_id" value=@elist[0] /> </td>
+                                    }
+                                    else
+                                    {
+                                        <td><input type="submit" name="submit_btn" value="Save" class="btn btn-success" /></td>
+                                        <td colspan="3"> <input type="reset" value="Cancel" class="btn btn-danger" /> </td>
+                                    }
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery.min.js"></script>
+<script src="~/Scripts/jquery.ui.custom.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/matrix.popover.js"></script>
+<script src="~/Scripts/jquery.uniform.js"></script>
+<script src="~/Scripts/select2.min.js"></script>
+<script src="~/Scripts/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/matrix.js"></script>
+<script src="~/Scripts/matrix.tables.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/matrix.form_validation.js"></script>

@@ -47,22 +47,38 @@
                                     <td><input type="number" name="bno" id="required" @(edit ? new { value = elist[1] } : null)></td>
                                     <td><label class="control-label">Referred By</label></td>
                                     <td> <input type="text" name="breferred" id="required" @(edit ? new { value = elist[2] } : null)></td>
-                                    <td><label class="control-label">Incentive Paid</label></td>
-                                    <td><input type="number" name="bincentive" id="required" @(edit ? new { value = elist[3] } : null)></td>
+                                    <td><label class="control-label">Applicant</label></td>
+                                    <td>
+                                        <select name="bapplicant" id="bapplicant">    </select>
+                                    </td>
                                 </tr>
                                 <tr class="odd gradeX">
-                                    <td><label class="control-label">Total Incentive</label></td>
-                                    <td><input type="number" name="bincome" id="required" @(edit ? new { value = elist[4] } : null)></td>
-                                    <td><label class="control-label">Flat Cancelled By</label></td>
-                                    <td> <input type="text" name="bcancel" id="required" @(edit ? new { value = elist[5] } : null)></td>
                                     <td><label class="control-label">Total Flat Amount</label></td>
                                     <td><input type="number" name="btamount" id="required" @(edit ? new { value = elist[6] } : null)></td>
-                                </tr>
-                                <tr class="odd gradeX">
                                     <td><label class="control-label">Received Amount</label></td>
                                     <td><input type="number" name="bramount" id="required" @(edit ? new { value = elist[7] } : null)></td>
                                     <td><label class="control-label">Total Builder Received</label></td>
                                     <td> <input type="number" name="bblder" id="required" @(edit ? new { value = elist[8] } : null)></td>
+
+                                </tr>
+                                <tr class="odd gradeX">
+                                    <td><label class="control-label">Site</label></td>
+                                    <td>
+                                        <select name="bsite" id="bsite">    </select>
+                                    </td>
+                                    <td><label class="control-label">Wing</label></td>
+                                    <td><input type="text" name="bwing" id="required" @(edit ? new { value = elist[5] } : null)></td>
+                                    <td><label class="control-label">Flats</label></td>
+                                    <td><input type="text" name="bflats" id="required" @(edit ? new { value = elist[5] } : null)></td>
+                                </tr>
+                                <tr class="odd gradeX">
+                                    <td><label class="control-label">Internal Charges</label></td>
+                                    <td>
+                                        <select name="bcharges" id="bcharges" style="max-width:90%;">
+                                            <option value="Yes" @(edit ? (elist[9].Contains("Covered") ? "selected" : "") : "")>Yes</option>
+                                            <option value="No" @(edit ? (elist[9].Contains("No") ? "selected" : "") : "")> No</option>
+                                        </select>
+                                    </td>
                                     <td><label class="control-label">Reserved Parking</label></td>
                                     <td>
                                         <select name="bparking" id="bparking" style="max-width:90%;">
@@ -71,10 +87,10 @@
                                             <option value="No" @(edit ? (elist[9].Contains("No") ? "selected" : "") : "")> No</option>
                                         </select>
                                     </td>
+                                    <td><label class="control-label">Flat Cancelled By</label></td>
+                                    <td> <input type="text" name="bcancel" id="required" @(edit ? new { value = elist[5] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
-                                    <td><label class="control-label">Internal Charges</label></td>
-                                    <td><input type="number" name="bcharges" id="required" @(edit ? new { value = elist[10] } : null)></td>
                                     <td><label class="control-label">Follow Up Date</label></td>
                                     <td> <input type="date" name="bfollowup" id="required" @(edit ? new { value = @Convert.ToDateTime(elist[11]).ToString("yyyy-MM-dd") } : null)></td>
                                     <td><label class="control-label">Status</label></td>
@@ -84,30 +100,9 @@
                                             <option value="Cancel" @(edit ? (elist[13].Contains("Cancel") ? "selected" : "") : "")>Cancel</option>
                                         </select>
                                     </td>
-                                </tr>
-                                <tr class="odd gradeX">
                                     <td><label class="control-label">Remarks</label></td>
                                     <td><input type="text" name="bremark" id="required" @(edit ? new { value = elist[14] } : null)></td>
-                                    <td><label class="control-label">Site</label></td>
-                                    <td>
-                                        <select name="bsite" id="bsite">    </select>
-                                    </td>
-                                    <td><label class="control-label">Flats</label></td>
-                                    <td><input type="text" name="bflats" id="required" @(edit ? new { value = elist[5] } : null)></td>
-                                </tr>
-                                <tr class="odd gradeX">
-                                    <td><label class="control-label">Applicant</label></td>
-                                    <td>
-                                        <select name="bapplicant" id="bapplicant">    </select>
-                                    </td>
-                                    <td><label class="control-label">Executive</label></td>
-                                    <td>
-                                        <select name="bexecutive" id="bexecutive">    </select>
-                                    </td>
-                                    <td><label class="control-label">Franchies</label></td>
-                                    <td>
-                                        <select name="bfranchies" id="bfranchies">    </select>
-                                    </td>
+
                                 </tr>
                                 <tr class="odd gradeX">
                                     @if (edit)
