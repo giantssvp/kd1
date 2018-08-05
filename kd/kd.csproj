@@ -189,7 +189,6 @@
     <Content Include="fonts\icomoon\icomoon.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="images\logo2.png" />
     <Content Include="images\breadcrumb.png" />
     <Content Include="images\demo\av1.jpg" />
     <Content Include="images\demo\av2.jpg" />

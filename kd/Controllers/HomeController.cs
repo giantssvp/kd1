@@ -1176,16 +1176,18 @@ namespace kd.Controllers
             }
         }
                 
-        public ActionResult add_enquiry(string enqname, string enqaddress, string enqmob, string enqdate, string enqsite, List<string> enqrequirement, string enqoccu, string enqvisit, string enqinterest,
-            string enqbudget, string enqdown, string enqbooking, string enqremark, string submit_btn, string edit_id="0")
+        public ActionResult add_enquiry(string enqname, string enqaddress, string enqmob, string enqaltmob, string enqemail,
+            List<string> enqrequirement, string enqoccu, string enqincome, string enqbudget, string enqdown, 
+            string enqcurstatus, string enqvisit, string enqsource, string enqsourcedetails, string enqsanctiontype, 
+            string submit_btn, string edit_id="0")
         {
             try
             {
                 string req = string.Join(" ", enqrequirement);
                 if (submit_btn == "Save")
                 {
-                    if (obj.insert_enquiry(enqname, enqaddress, enqmob, enqdate, enqsite, req, enqoccu, enqvisit,
-                                           enqinterest, enqbudget, enqdown, enqbooking, enqremark) == 1)
+                    if (obj.insert_enquiry(enqname, enqaddress, enqmob, enqaltmob, enqemail, req, enqoccu, enqincome, 
+                        enqbudget, enqdown, enqcurstatus, enqvisit, enqsource, enqsourcedetails, enqsanctiontype) == 1)
                     {
                         TempData["AlertMessage"] = "All the details saved successfully.";
                     }
@@ -1197,8 +1199,88 @@ namespace kd.Controllers
                 else if (submit_btn == "Update")
                 {
                     int id = Int32.Parse(edit_id);
-                    if (obj.insert_enquiry(enqname, enqaddress, enqmob, enqdate, enqsite, req, enqoccu, enqvisit,
-                                           enqinterest, enqbudget, enqdown, enqbooking, enqremark, "edit", id) == 1)
+                    if (obj.insert_enquiry(enqname, enqaddress, enqmob, enqaltmob, enqemail, req, enqoccu, enqincome,
+                        enqbudget, enqdown, enqcurstatus, enqvisit, enqsource, enqsourcedetails, enqsanctiontype, "edit", id) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details updated successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while updating the details please do it again.";
+                    }
+                }
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception ex)
+            {
+                TempData["AlertMessage"] = "There is exception while saving the details please do it again.";
+                System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
+                return RedirectToAction("Index", "Home");
+            }
+        }
+        
+        public ActionResult add_de_sitevisit(string enqname, string enqsitename, string enqtype, string enqwing, string enqflatno,
+            string enqsize, string enqexename1, string enqexename2, string enqexename3, string submit_btn, string edit_id = "0")
+        {
+            try
+            {
+                if (submit_btn == "Save")
+                {
+                    if (obj.insert_de_sitevisit(enqname, enqsitename, enqtype, enqwing, enqflatno, enqsize, enqexename1, 
+                        enqexename2, enqexename3) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details saved successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                    }
+                }
+                else if (submit_btn == "Update")
+                {
+                    int id = Int32.Parse(edit_id);
+                    if (obj.insert_de_sitevisit(enqname, enqsitename, enqtype, enqwing, enqflatno, enqsize, enqexename1,
+                        enqexename2, enqexename3, "edit", id) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details updated successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while updating the details please do it again.";
+                    }
+                }
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception ex)
+            {
+                TempData["AlertMessage"] = "There is exception while saving the details please do it again.";
+                System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        public ActionResult add_de_followup(string enqname, string enqfollow, string enqnextfollow, string enqfollowdetails, 
+            string enqexename1, string enqexename2, string enqexename3, string submit_btn, string edit_id = "0")
+        {
+            try
+            {
+                if (submit_btn == "Save")
+                {
+                    if (obj.insert_de_followup(enqname, enqfollow, enqnextfollow, enqfollowdetails, enqexename1, enqexename2, 
+                        enqexename3) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details saved successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                    }
+                }
+                else if (submit_btn == "Update")
+                {
+                    int id = Int32.Parse(edit_id);
+                    if (obj.insert_de_followup(enqname, enqfollow, enqnextfollow, enqfollowdetails, enqexename1, enqexename2,
+                        enqexename3, "edit", id) == 1)
                     {
                         TempData["AlertMessage"] = "All the details updated successfully.";
                     }

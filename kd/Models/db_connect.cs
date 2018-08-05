@@ -14,7 +14,7 @@ namespace kd.Models
     {
         private MySqlConnection connection;
         public List<string>[] list_enquiry_show = new List<string>[14];
-        public List<string>[] list_sites_show = new List<string>[11];
+        public List<string>[] list_sites_show = new List<string>[9];
         public List<string>[] list_executive_show = new List<string>[10];
         public List<string>[] list_executive_show_name = new List<string>[2];
         public List<string>[] list_franchies_show = new List<string>[9];
@@ -60,9 +60,10 @@ namespace kd.Models
                 return false;
             }
         }
-        
-        public int insert_enquiry(string enqname, string enqaddress, string enqmob, string enqdate, string enqsite, string enqrequirement, string enqoccu, string enqvisit, string enqinterest,
-            string enqbudget, string enqdown, string enqbooking, string enqremark, string type="insert", int id = 0)
+
+        public int insert_enquiry(string enqname, string enqaddress, string enqmob, string enqaltmob, string enqemail,
+            string enqrequirement, string enqoccu, string enqincome, string enqbudget, string enqdown, string enqcurstatus, 
+            string enqvisit, string enqsource, string enqsourcedetails, string enqsanctiontype, string type="insert", int id = 0)
         {
             try
             {
@@ -70,45 +71,152 @@ namespace kd.Models
                 if (type == "edit")
                 {
                     query = "UPDATE daily_enquiry SET " +
-                        "Enquiry_Date = @enqdate," +
                         " Customer_Name = @name," +
-                        " Mobile_No = @mob," +
-                        " Requirement = @req," +
-                        " Down_Payment = @down_pay," +
-                        " Budget = @budget," +
                         " Address = @addr," +
+                        " Mobile_No = @mob," +
+                        " Second_Mobile_No = @altmob," +
+                        " Email_ID = @email," +
+                        " Requirement = @req," +
                         " Occupation = @occu," +
+                        " Income = @income," +
+                        " Budget = @budget," +
+                        " Down_Payment = @down_pay," +
                         " Visit = @visit," +
-                        " Interested = @interested," +
-                        " Booking_no = @booking," +
-                        " Remarks = @remark," +
-                        " Site_Id = @site_id where id=@id";
+                        " Current_Status = @cur_status," +
+                        " Source = @source," +
+                        " Source_Details = @source_detail," +
+                        " Sanction_Type = @sanction_type where id=@id";
                 }
                 else
                 {
-                    query = "INSERT INTO daily_enquiry (Enquiry_Date, Customer_Name, Mobile_No, Requirement, Down_Payment, Budget, Address," +
-                        " Occupation, Visit, Interested, Booking_no, Remarks, Site_Id) " +
-                        "VALUES(NOW(), @name, @mob, @req, @down_pay, @budget, @addr, @occu, @visit, @interested, @booking, @remark, @site_id)";
+                    query = "INSERT INTO daily_enquiry (Customer_Name, Address, Mobile_No, Second_Mobile_No, Email_ID, " +
+                        "Requirement, Occupation, Income, Budget, Down_Payment, Visit, Current_Status, Source, Source_Details, Sanction_Type) " +
+                        "VALUES(@name, @addr, @mob, @altmob, @email, @req, @occu, @income, @budget, @down_pay, @visit, " +
+                        "@cur_status, @source, @source_detail, @sanction_type)";
                 }
                 if (this.OpenConnection() == true)
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@name", enqname);
-                    cmd.Parameters.AddWithValue("@mob", enqmob);
-                    cmd.Parameters.AddWithValue("@req", enqrequirement);
-                    cmd.Parameters.AddWithValue("@down_pay", enqdown);
-                    cmd.Parameters.AddWithValue("@budget", enqbudget);
                     cmd.Parameters.AddWithValue("@addr", enqaddress);
+                    cmd.Parameters.AddWithValue("@mob", enqmob);
+                    cmd.Parameters.AddWithValue("@altmob", enqaltmob);
+                    cmd.Parameters.AddWithValue("@email", enqemail);
+                    cmd.Parameters.AddWithValue("@req", enqrequirement);
                     cmd.Parameters.AddWithValue("@occu", enqoccu);
+                    cmd.Parameters.AddWithValue("@income", enqincome);
+                    cmd.Parameters.AddWithValue("@budget", enqbudget);
+                    cmd.Parameters.AddWithValue("@down_pay", enqdown);
                     cmd.Parameters.AddWithValue("@visit", enqvisit);
-                    cmd.Parameters.AddWithValue("@interested", enqinterest);
-                    cmd.Parameters.AddWithValue("@booking", enqbooking);
-                    cmd.Parameters.AddWithValue("@remark", enqremark);
-                    cmd.Parameters.AddWithValue("@site_id", enqsite);
+                    cmd.Parameters.AddWithValue("@cur_status", enqcurstatus);
+                    cmd.Parameters.AddWithValue("@source", enqsource);
+                    cmd.Parameters.AddWithValue("@source_detail", enqsourcedetails);
+                    cmd.Parameters.AddWithValue("@sanction_type", enqsanctiontype);
 
                     if (type == "edit")
                     {
-                        cmd.Parameters.AddWithValue("@enqdate", enqdate);
+                        cmd.Parameters.AddWithValue("@id", id);
+                    }
+                    cmd.ExecuteNonQuery();
+                    this.CloseConnection();
+                    return 1;
+                }
+                return 0;
+            }
+            catch (MySqlException ex)
+            {
+                return 0;
+            }
+        }
+
+        public int insert_de_sitevisit(string enqname, string enqsitename, string enqtype, string enqwing, string enqflatno,
+            string enqsize, string enqexename1, string enqexename2, string enqexename3, string type = "insert", int id = 0)
+        {
+            try
+            {
+                string query = "";
+                if (type == "edit")
+                {
+                    query = "UPDATE daily_sitevisit SET " +
+                        " Daily_Customer_ID = @name," +
+                        " Site_ID = @site," +
+                        " Type = @enqtype," +
+                        " Wing = @wing," +
+                        " Flat = @flat," +
+                        " Executive1_ID = @exe1," +
+                        " Executive2_ID = @exe2," +
+                        " Executive3_ID = @exe3 where id=@id";
+                }
+                else
+                {
+                    query = "INSERT INTO daily_sitevisit (Daily_Customer_ID, Site_ID, Type, Wing, Flat, Executive1_ID, " +
+                        "Executive2_ID, Executive3_ID) " +
+                        "VALUES(@name, @site, @enqtype, @wing, @flat, @exe1, @exe2, @exe3)";
+                }
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@name", enqname);
+                    cmd.Parameters.AddWithValue("@site", enqsitename);
+                    cmd.Parameters.AddWithValue("@enqtype", enqtype);
+                    cmd.Parameters.AddWithValue("@wing", enqwing);
+                    cmd.Parameters.AddWithValue("@flat", enqflatno);
+                    cmd.Parameters.AddWithValue("@exe1", enqexename1);
+                    cmd.Parameters.AddWithValue("@exe2", enqexename2);
+                    cmd.Parameters.AddWithValue("@exe3", enqexename3);
+
+                    if (type == "edit")
+                    {
+                        cmd.Parameters.AddWithValue("@id", id);
+                    }
+                    cmd.ExecuteNonQuery();
+                    this.CloseConnection();
+                    return 1;
+                }
+                return 0;
+            }
+            catch (MySqlException ex)
+            {
+                return 0;
+            }
+        }
+
+        public int insert_de_followup(string enqname, string enqfollow, string enqnextfollow, string enqfollowdetails,
+            string enqexename1, string enqexename2, string enqexename3, string type = "insert", int id = 0)
+        {
+            try
+            {
+                string query = "";
+                if (type == "edit")
+                {
+                    query = "UPDATE daily_followup SET " +
+                        " Daily_Customer_ID = @name," +
+                        " Folloup_Date = @addr," +
+                        " Next_Folloup_Date = @mob," +
+                        " Folloup_Details = @altmob," +
+                        " Executive1_ID = @exe1," +
+                        " Executive2_ID = @exe2," +
+                        " Executive3_ID = @exe3 where id=@id";
+                }
+                else
+                {
+                    query = "INSERT INTO daily_followup (Daily_Customer_ID, Folloup_Date, Next_Folloup_Date, Folloup_Details, " +
+                        "Executive1_ID, Executive2_ID, Executive3_ID) " +
+                        "VALUES(@name, @follow, @nextfollow, @followdetail, @exe1, @exe2, @exe3)";
+                }
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@name", enqname);
+                    cmd.Parameters.AddWithValue("@follow", enqfollow);
+                    cmd.Parameters.AddWithValue("@nextfollow", enqnextfollow);
+                    cmd.Parameters.AddWithValue("@followdetail", enqfollowdetails);
+                    cmd.Parameters.AddWithValue("@exe1", enqexename1);
+                    cmd.Parameters.AddWithValue("@exe2", enqexename2);
+                    cmd.Parameters.AddWithValue("@exe3", enqexename3);
+
+                    if (type == "edit")
+                    {
                         cmd.Parameters.AddWithValue("@id", id);
                     }
                     cmd.ExecuteNonQuery();
@@ -1453,7 +1561,7 @@ namespace kd.Models
             {
                 string query = "SELECT * FROM sites ORDER BY ID DESC";
 
-                for (int i = 0; i < 7; i++)
+                for (int i = 0; i < 5; i++)
                 {
                     list_sites_show[i] = new List<string>();
                 }
@@ -1465,7 +1573,7 @@ namespace kd.Models
 
                     while (dataReader.Read())
                     {
-                        for (int i = 0; i < 7; i++)
+                        for (int i = 0; i < 5; i++)
                         {
                             list_sites_show[i].Add(dataReader[i] + "");
                         }                     
@@ -1499,7 +1607,7 @@ namespace kd.Models
                     query = "SELECT * FROM flats WHERE Site_Id = @site_id and CONCAT(Status, Flat_No) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
 
-                for (int i = 0; i < 9; i++)
+                for (int i = 0; i < 7; i++)
                 {
                     list_flats_show[i] = new List<string>();
                 }
@@ -1516,7 +1624,7 @@ namespace kd.Models
 
                     while (dataReader.Read())
                     {
-                        for (int i = 0; i < 9; i++)
+                        for (int i = 0; i < 7; i++)
                         {
                             list_flats_show[i].Add(dataReader[i] + "");
                         }

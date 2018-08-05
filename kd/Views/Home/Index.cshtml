@@ -94,18 +94,18 @@
                                     <td><input type="number" name="enqdown" id="required" @(edit ? new { value = elist[5] } : null)></td>
                                     <td><label class="control-label">Current Status</label></td>
                                     <td>
-                                        <select name="enqinterest" id="required">
-                                            <option value="Yes" @(edit ? (elist[10].Contains("Yes") ? "selected" : "") : "selected")>Interested</option>
-                                            <option value="No" @(edit ? (elist[10].Contains("No") ? "selected" : "") : "")>Not Interested</option>
-                                            <option value="Other" @(edit ? (elist[10].Contains("Other") ? "selected" : "") : "")>In Process</option>
-                                            <option value="Other" @(edit ? (elist[10].Contains("Other") ? "selected" : "") : "")>Booked</option>
+                                        <select name="enqcurstatus" id="required">
+                                            <option value="Interested" @(edit ? (elist[10].Contains("Interested") ? "selected" : "") : "selected")>Interested</option>
+                                            <option value="Not Interested" @(edit ? (elist[10].Contains("Not Interested") ? "selected" : "") : "")>Not Interested</option>
+                                            <option value="In Process" @(edit ? (elist[10].Contains("In Process") ? "selected" : "") : "")>In Process</option>
+                                            <option value="Booked" @(edit ? (elist[10].Contains("Booked") ? "selected" : "") : "")>Booked</option>
                                         </select>
                                     </td>
                                     <td><label class="control-label">Visit</label></td>
                                     <td>
                                         <select name="enqvisit" id="required">
-                                            <option value="Yes" @(edit ? (elist[9].Contains("Yes") ? "selected" : "") : "selected")>Visited</option>
-                                            <option value="No" @(edit ? (elist[9].Contains("No") ? "selected" : "") : "")>Enquiry</option>
+                                            <option value="Visited" @(edit ? (elist[9].Contains("Visited") ? "selected" : "") : "selected")>Visited</option>
+                                            <option value="Enquiry" @(edit ? (elist[9].Contains("Enquiry") ? "selected" : "") : "")>Enquiry</option>
                                             <option value="Other" @(edit ? (elist[9].Contains("Other") ? "selected" : "") : "")>Other</option>
                                         </select>
                                     </td>
@@ -114,9 +114,9 @@
                                     <td><label class="control-label">Source</label></td>
                                     <td>
                                         <select name="enqsource" id="enqsource">
-                                            <option value="source">Reference</option>
-                                            <option value="source">Advertisement</option>
-                                            <option value="source">Walk In</option>
+                                            <option value="Reference">Reference</option>
+                                            <option value="Advertisement">Advertisement</option>
+                                            <option value="Walk In">Walk In</option>
                                         </select>
                                     </td>
                                     <td><label class="control-label">Source Details</label></td>
@@ -125,28 +125,26 @@
                                     <td><label class="control-label">Sanction Type</label></td>
                                     <td>
                                         <select name="enqsanctiontype" id="required">
-                                            <option value="NATP" @(edit ? (elist[9].Contains("Yes") ? "selected" : "") : "selected")>NATP</option>
-                                            <option value="GP" @(edit ? (elist[9].Contains("No") ? "selected" : "") : "")>GP</option>
-                                            <option value="Both" @(edit ? (elist[9].Contains("Other") ? "selected" : "") : "")>Both</option>
+                                            <option value="NATP" @(edit ? (elist[9].Contains("NATP") ? "selected" : "") : "selected")>NATP</option>
+                                            <option value="GP" @(edit ? (elist[9].Contains("GP") ? "selected" : "") : "")>GP</option>
+                                            <option value="Both" @(edit ? (elist[9].Contains("Both") ? "selected" : "") : "")>Both</option>
                                         </select>
                                     </td>
                                 </tr>
-                                @if (edit)
-                                {
-                                    <tr class="odd gradeX">
+                                <tr class="odd gradeX">
+                                    @if (edit)
+                                    {
                                         <td><input type="submit" name="submit_btn" value="Update" class="btn btn-success" /></td>
                                         <td colspan="3"> <input type="submit" name="submit_btn" value="Cancel" class="btn btn-danger" /> </td>
                                         <td> <input type="hidden" name="edit_id" value=@elist[0] /> </td>
-                                    </tr>
-                                }
-                                else
-                                {
-                                    <tr class="odd gradeX">
+                                    }
+                                    else
+                                    {
                                         <td><input type="submit" name="submit_btn" value="Save" class="btn btn-success" /></td>
                                         <td colspan="3"> <input type="reset" value="Cancel" class="btn btn-danger" /> </td>
-                                    </tr>
-                                }
-                            </tbody>
+                                    }
+                                </tr>
+                                </tbody>
                         </table>
                     </form>
                 </div>
@@ -158,28 +156,34 @@
                     <h5>Daily Enquiry - Site Visit Details</h5>
                 </div>
                 <div class="widget-content nopadding">
-                    <form method="post" action="@Url.Action("add_enquiry","Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
+                    <form method="post" action="@Url.Action("add_de_sitevisit","Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
                         <table class="table table-striped">
                             <tbody>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Customer Name</label></td>
                                     <td><input type="text" name="enqname" id="required" @(edit ? new { value = elist[2] } : null)></td>
                                     <td><label class="control-label">Site Name</label></td>
-                                    <td> <input type="text" name="enqaddress" id="required" @(edit ? new { value = elist[7] } : null)></td>
+                                    <td> <input type="text" name="enqsitename" id="required" @(edit ? new { value = elist[7] } : null)></td>
                                     <td><label class="control-label">Type(Flat/Plot)</label></td>
-                                    <td><input type="text" name="enqmob" id="required" @(edit ? new { value = elist[3] } : null)></td>
+                                    <td><input type="text" name="enqtype" id="required" @(edit ? new { value = elist[3] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Wing</label></td>
-                                    <td><input type="text" name="enqaltmob" id="required"></td>
+                                    <td><input type="text" name="enqwing" id="required"></td>
                                     <td><label class="control-label">Flat/Plot No</label></td>
                                     <td><input type="number" name="enqflatno" id="required"></td>
                                     <td><label class="control-label">Flat/Plot Size</label></td>
-                                    <td><input type="number" name="enqsize" id="required"></td>                                    
+                                    <td><input type="number" name="enqsize" id="required"></td>
                                 </tr>
                                 <tr class="odd gradeX">
-                                    <td><label class="control-label">Executive Name</label></td>
-                                    <td><input type="text" name="enqsourcedetails" id="required"></td>
+                                    <td><label class="control-label">Executive1 Name</label></td>
+                                    <td><input type="text" name="enqexename1" id="required"></td>
+                                    <td><label class="control-label">Executive2 Name</label></td>
+                                    <td><input type="text" name="enqexename2" id="required"></td>
+                                    <td><label class="control-label">Executive3 Name</label></td>
+                                    <td><input type="text" name="enqexename3" id="required"></td>
+                                </tr>
+                                <tr class="odd gradeX">
                                     @if (edit)
                                     {
                                         <td><input type="submit" name="submit_btn" value="Update" class="btn btn-success" /></td>
@@ -204,25 +208,28 @@
                     <h5>Daily Enquiry - Customer Follow Up</h5>
                 </div>
                 <div class="widget-content nopadding">
-                    <form method="post" action="@Url.Action("add_enquiry","Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
+                    <form method="post" action="@Url.Action("add_de_followup","Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
                         <table class="table table-striped">
                             <tbody>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Customer Name</label></td>
                                     <td><input type="text" name="enqname" id="required" @(edit ? new { value = elist[2] } : null)></td>
                                     <td><label class="control-label">Follow up date</label></td>
-                                    <td> <input type="date" name="enqaddress" id="required" @(edit ? new { value = elist[7] } : null)></td>
+                                    <td> <input type="date" name="enqfollow" id="required" @(edit ? new { value = elist[7] } : null)></td>
                                     <td><label class="control-label">Next Follow up Date</label></td>
-                                    <td><input type="date" name="enqmob" id="required" @(edit ? new { value = elist[3] } : null)></td>
+                                    <td><input type="date" name="enqnextfollow" id="required" @(edit ? new { value = elist[3] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Follow Details</label></td>
-                                    <td><input type="text" name="enqaltmob" id="required"></td>
-                                    <td><label class="control-label">Executive Name</label></td>
-                                    <td><input type="text" name="enqsourcedetails" id="required"></td>
+                                    <td><input type="text" name="enqfollowdetails" id="required"></td>
+                                    <td><label class="control-label">Executive1 Name</label></td>
+                                    <td><input type="text" name="enqexename1" id="required"></td>
+                                    <td><label class="control-label">Executive2 Name</label></td>
+                                    <td><input type="text" name="enqexename2" id="required"></td>
                                 </tr>
                                 <tr class="odd gradeX">
-
+                                    <td><label class="control-label">Executive3 Name</label></td>
+                                    <td><input type="text" name="enqexename3" id="required"></td>
                                     @if (edit)
                                     {
                                         <td><input type="submit" name="submit_btn" value="Update" class="btn btn-success" /></td>
