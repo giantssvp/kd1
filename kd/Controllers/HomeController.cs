@@ -404,11 +404,18 @@ namespace kd.Controllers
             {
                 int id = Int32.Parse(edit_id);
                 List<string> edit_list = new List<string>();
-                int pass = 0;
-
+                
                 if (page == "Index")
                 {
-                    edit_list = obj.get_edit_record("daily_enquiry", id);
+                    edit_list = obj.get_edit_record("daily_sitevisit", id);
+                    
+                    List<string> edit_list1 = new List<string>();
+                    id = Int32.Parse(edit_list[1]);
+                    edit_list1 = obj.get_edit_record("daily_enquiry", id);
+                    edit_list.AddRange(edit_list1);                        
+                    id = Int32.Parse("2");
+                    edit_list1 = obj.get_edit_record("daily_followup", id);
+                    edit_list.AddRange(edit_list1);                        
                     ViewBag.edit_list = edit_list;
                     ViewBag.edit_str = "edit";
                 }

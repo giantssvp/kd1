@@ -13,7 +13,7 @@ namespace kd.Models
     public class db_connect
     {
         private MySqlConnection connection;
-        public List<string>[] list_enquiry_show = new List<string>[14];
+        public List<string>[] list_enquiry_show = new List<string>[21];
         public List<string>[] list_sites_show = new List<string>[9];
         public List<string>[] list_executive_show = new List<string>[10];
         public List<string>[] list_executive_show_name = new List<string>[2];
@@ -141,17 +141,18 @@ namespace kd.Models
                         " Daily_Customer_ID = @name," +
                         " Site_ID = @site," +
                         " Type = @enqtype," +
-                        " Wing = @wing," +
+                        " Wing = @wing," +                        
                         " Flat = @flat," +
+                        " Size = @size," +
                         " Executive1_ID = @exe1," +
                         " Executive2_ID = @exe2," +
                         " Executive3_ID = @exe3 where id=@id";
                 }
                 else
                 {
-                    query = "INSERT INTO daily_sitevisit (Daily_Customer_ID, Site_ID, Type, Wing, Flat, Executive1_ID, " +
+                    query = "INSERT INTO daily_sitevisit (Daily_Customer_ID, Site_ID, Type, Wing, Flat, Size, Executive1_ID, " +
                         "Executive2_ID, Executive3_ID) " +
-                        "VALUES(@name, @site, @enqtype, @wing, @flat, @exe1, @exe2, @exe3)";
+                        "VALUES(@name, @site, @enqtype, @wing, @flat, @size, @exe1, @exe2, @exe3)";
                 }
                 if (this.OpenConnection() == true)
                 {
@@ -161,6 +162,7 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@enqtype", enqtype);
                     cmd.Parameters.AddWithValue("@wing", enqwing);
                     cmd.Parameters.AddWithValue("@flat", enqflatno);
+                    cmd.Parameters.AddWithValue("@size", enqsize);
                     cmd.Parameters.AddWithValue("@exe1", enqexename1);
                     cmd.Parameters.AddWithValue("@exe2", enqexename2);
                     cmd.Parameters.AddWithValue("@exe3", enqexename3);
@@ -191,9 +193,9 @@ namespace kd.Models
                 {
                     query = "UPDATE daily_followup SET " +
                         " Daily_Customer_ID = @name," +
-                        " Folloup_Date = @addr," +
-                        " Next_Folloup_Date = @mob," +
-                        " Folloup_Details = @altmob," +
+                        " Folloup_Date = @follow," +
+                        " Next_Folloup_Date = @nextfollow," +
+                        " Folloup_Details = @followdetail," +
                         " Executive1_ID = @exe1," +
                         " Executive2_ID = @exe2," +
                         " Executive3_ID = @exe3 where id=@id";
@@ -923,7 +925,8 @@ namespace kd.Models
                 string query = "";
                 if (search == "")
                 {
-                    query = "SELECT * FROM daily_enquiry ORDER BY ID DESC LIMIT @lim OFFSET @off";
+                    //query = "SELECT * FROM daily_enquiry ORDER BY ID DESC LIMIT @lim OFFSET @off";
+                    query = "SELECT * FROM daily ORDER BY ID DESC LIMIT @lim OFFSET @off";
                     //query = "daily_enquiry_sp";
                 }
                 else
@@ -931,7 +934,7 @@ namespace kd.Models
                     query = "SELECT * FROM daily_enquiry where CONCAT(Customer_Name, Requirement) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
 
-                for (int i = 0; i < 14; i++)
+                for (int i = 0; i < 21; i++)
                 {
                     list_enquiry_show[i] = new List<string>();
                 }
@@ -946,7 +949,7 @@ namespace kd.Models
 
                     while (dataReader.Read())
                     {
-                        for (int i = 0; i < 14; i++)
+                        for (int i = 0; i < 21; i++)
                         {
                             list_enquiry_show[i].Add(dataReader[i] + "");
                         }
