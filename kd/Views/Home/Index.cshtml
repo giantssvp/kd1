@@ -170,7 +170,7 @@
                                     </td>
                                     <td><label class="control-label">Type(Flat/Plot)</label></td>
                                     <td>
-                                        <select name="enqtype" id="required">
+                                        <select name="enqtype" id="enqtype">
                                             <option value="Flat" @(edit ? (elist[3].Contains("Flat") ? "selected" : "") : "selected")>Flat</option>
                                             <option value="Plot" @(edit ? (elist[3].Contains("Plot") ? "selected" : "") : "")>Plot</option>
                                         </select>
@@ -178,19 +178,31 @@
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Wing</label></td>
-                                    <td><input type="text" name="enqwing" id="required" @(edit ? new { value = elist[4] } : null)></td>
+                                    <td>
+                                        <select name="enqwing" id="enqwing">    </select>
+                                        <input type="text" name="sample" id="required">
+                                    </td>
                                     <td><label class="control-label">Flat/Plot No</label></td>
-                                    <td><input type="number" name="enqflatno" id="required" @(edit ? new { value = elist[5] } : null)></td>
+                                    <td>
+                                        <select name="enqflatno" id="enqflatno">    </select>
+                                        <input type="text" name="sample1" id="required">
+                                    </td>
                                     <td><label class="control-label">Flat/Plot Size</label></td>
                                     <td><input type="number" name="enqsize" id="required" @(edit ? new { value = elist[6] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Executive1 Name</label></td>
-                                    <td><input type="text" name="enqexename1" id="required" @(edit ? new { value = elist[7] } : null)></td>
+                                    <td>
+                                        <select name="enqexename1" id="enqexename1">  </select>
+                                    </td>
                                     <td><label class="control-label">Executive2 Name</label></td>
-                                    <td><input type="text" name="enqexename2" id="required" @(edit ? new { value = elist[8] } : null)></td>
+                                    <td>
+                                        <select name="enqexename2" id="enqexename2">  </select>
+                                    </td>
                                     <td><label class="control-label">Executive3 Name</label></td>
-                                    <td><input type="text" name="enqexename3" id="required" @(edit ? new { value = elist[9] } : null)></td>
+                                    <td>
+                                        <select name="enqexename3" id="enqexename3">  </select>
+                                    </td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     @if (edit)
@@ -222,7 +234,7 @@
                             <tbody>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Customer Name</label></td>
-                                    <td>                                      
+                                    <td>
                                         <select name="enqnamefollowup" id="enqnamefollowup">    </select>
                                     </td>
                                     <td><label class="control-label">Follow up date</label></td>
@@ -234,13 +246,19 @@
                                     <td><label class="control-label">Follow Details</label></td>
                                     <td><input type="text" name="enqfollowdetails" id="required" @(edit ? new { value = elist[30] } : null)></td>
                                     <td><label class="control-label">Executive1 Name</label></td>
-                                    <td><input type="text" name="enqexename1" id="required" @(edit ? new { value = elist[31] } : null)></td>
+                                    <td>
+                                        <select name="enqexenamefollowup1" id="enqexenamefollowup1">  </select>
+                                    </td>
                                     <td><label class="control-label">Executive2 Name</label></td>
-                                    <td><input type="text" name="enqexename2" id="required" @(edit ? new { value = elist[32] } : null)></td>
+                                    <td>
+                                        <select name="enqexenamefollowup2" id="enqexenamefollowup2">  </select>
+                                    </td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Executive3 Name</label></td>
-                                    <td><input type="text" name="enqexename3" id="required" @(edit ? new { value = elist[33] } : null)></td>
+                                    <td>
+                                        <select name="enqexenamefollowup3" id="enqexenamefollowup3">  </select>
+                                    </td>
                                     @if (edit)
                                     {
                                         <td><input type="submit" name="submit_btn" value="Update" class="btn btn-success" /></td>
@@ -417,6 +435,132 @@
     });
 </script>
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("get_executive", "Home")',
+            data: {},
+            dataType: 'json',
+            success: function (d) {
+                var list1 = d.id;
+                var list = d.name;
+                $("#enqexename1").html("");
+                $.each(list, function (index, value) {
+                    $("#enqexename1").append($('<option></option>').val(list1[index]).html(value));
+                });
+                document.getElementById("enqexename1").value = @(edit ? elist[7] : 1);
+
+                $("#enqexename2").html("");
+                $.each(list, function (index, value) {
+                    $("#enqexename2").append($('<option></option>').val(list1[index]).html(value));
+                });
+                document.getElementById("enqexename2").value = @(edit ? elist[8] : 1);
+
+                 $("#enqexename3").html("");
+                $.each(list, function (index, value) {
+                    $("#enqexename3").append($('<option></option>').val(list1[index]).html(value));
+                });
+                document.getElementById("enqexename3").value = @(edit ? elist[9] : 1);
+
+                $("#enqexenamefollowup1").html("");
+                $.each(list, function (index, value) {
+                    $("#enqexenamefollowup1").append($('<option></option>').val(list1[index]).html(value));
+                });
+                document.getElementById("enqexenamefollowup1").value = @(edit ? elist[31] : 1);
+
+                $("#enqexenamefollowup2").html("");
+                $.each(list, function (index, value) {
+                    $("#enqexenamefollowup2").append($('<option></option>').val(list1[index]).html(value));
+                });
+                document.getElementById("enqexenamefollowup2").value = @(edit ? elist[32] : 1);
+
+                $("#enqexenamefollowup3").html("");
+                $.each(list, function (index, value) {
+                    $("#enqexenamefollowup3").append($('<option></option>').val(list1[index]).html(value));
+                });
+                document.getElementById("enqexenamefollowup3").value = @(edit ? elist[33] : 1);
+            },
+            error: function (err) {
+                alert(err.responseText);
+            },
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        wing_name = "Flat"
+        $('#enqsitename').change(function () {
+            //var ds = $('#enqsitename').val()
+            //alert(ds);
+            var data = JSON.stringify({
+                'site_id': $('#enqsitename').val()
+            });
+            
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("get_wing_name", "Home")',
+                data: data,
+                dataType: 'json',
+                success: function (d) {
+                    //var list = d.c;
+                    //$('#enqwing').val(list);
+
+                    var list1 = d.id;
+                    var list = d.name;
+                    $("#enqwing").html("");
+                    $.each(list, function (index, value) {
+                        $("#enqwing").append($('<option></option>').val(list1[index]).html(value));
+                    });
+                    document.getElementById("enqwing").value = @(edit ? elist[4] : 1);
+                },
+                error: function (err) {
+                    alert(err.responseText);
+                },
+                contentType: 'application/json'
+            });
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        wing_name = "Flat"
+        $('#enqwing').change(function () {
+            //var ds = $('#enqsitename').val()
+            //alert(ds);
+            var data = JSON.stringify({
+                'wing_name': $('#enqwing').val(),
+                'site_id': $('#enqsitename').val()
+            });
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("get_flat_no", "Home")',
+                data: data,
+                dataType: 'json',
+                success: function (d) {
+                    //var list = d.c;
+                    //$('#enqwing').val(list);
+
+                    var list1 = d.id;
+                    var list = d.name;
+                    alert(d.name)
+                    $("#enqflatno").html("");
+                    $.each(list, function (index, value) {
+                        $("#enqflatno").append($('<option></option>').val(list1[index]).html(value));
+                    });
+                    document.getElementById("enqflatno").value = @(edit ? elist[5] : 1);
+                },
+                error: function (err) {
+                    alert(err.responseText);
+                },
+                contentType: 'application/json'
+            });
+        });
+    });
+</script>
 
 <script type="text/javascript">
     $(document).ready(function () {

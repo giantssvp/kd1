@@ -31,6 +31,8 @@ namespace kd.Models
         public List<string>[] list_cost_sheet_show = new List<string>[14];
         public List<string>[] list_customer_booking_show = new List<string>[2];
         public List<string>[] list_daily_customer_name_show = new List<string>[21];
+        public List<string>[] list_wing_name_show = new List<string>[9];
+        public List<string>[] list_flat_no_show = new List<string>[9];
 
         private bool OpenConnection()
         {
@@ -1681,6 +1683,88 @@ namespace kd.Models
                 else
                 {
                     return list_daily_customer_name_show;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return list_daily_customer_name_show;
+            }
+        }
+
+        /**
+         * Show Daily wing name for page load
+         */
+        public List<string>[] wing_show_name(string site_id)
+        {
+            try
+            {
+                string query = "SELECT * FROM flats where Site_Id = '" + site_id + "'";
+
+                for (int i = 0; i < 9; i++)
+                {
+                    list_wing_name_show[i] = new List<string>();
+                }
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    while (dataReader.Read())
+                    {
+                        for (int i = 0; i < 9; i++)
+                        {
+                            list_wing_name_show[i].Add(dataReader[i] + "");
+                        }
+                    }
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return list_wing_name_show;
+                }
+                else
+                {
+                    return list_wing_name_show;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return list_daily_customer_name_show;
+            }
+        }
+
+        /**
+         * Show Daily flat no for page load
+         */
+        public List<string>[] flat_show_no(string wing_name, string site_id)
+        {
+            try
+            {
+                string query = "SELECT * FROM flats where Site_Id = '" + site_id + "' and wing = '" + wing_name + "'";
+
+                for (int i = 0; i < 9; i++)
+                {
+                    list_flat_no_show[i] = new List<string>();
+                }
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    while (dataReader.Read())
+                    {
+                        for (int i = 0; i < 9; i++)
+                        {
+                            list_flat_no_show[i].Add(dataReader[i] + "");
+                        }
+                    }
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return list_flat_no_show;
+                }
+                else
+                {
+                    return list_flat_no_show;
                 }
             }
             catch (MySqlException ex)

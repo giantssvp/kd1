@@ -1267,14 +1267,14 @@ namespace kd.Controllers
         }
 
         public ActionResult add_de_followup(string enqnamefollowup, string enqfollow, string enqnextfollow, string enqfollowdetails, 
-            string enqexename1, string enqexename2, string enqexename3, string submit_btn, string edit_id = "0")
+            string enqexenamefollowup1, string enqexenamefollowup2, string enqexenamefollowup3, string submit_btn, string edit_id = "0")
         {
             try
             {
                 if (submit_btn == "Save")
                 {
-                    if (obj.insert_de_followup(enqnamefollowup, enqfollow, enqnextfollow, enqfollowdetails, enqexename1, enqexename2, 
-                        enqexename3) == 1)
+                    if (obj.insert_de_followup(enqnamefollowup, enqfollow, enqnextfollow, enqfollowdetails, enqexenamefollowup1, enqexenamefollowup2,
+                        enqexenamefollowup3) == 1)
                     {
                         TempData["AlertMessage"] = "All the details saved successfully.";
                     }
@@ -1286,8 +1286,8 @@ namespace kd.Controllers
                 else if (submit_btn == "Update")
                 {
                     int id = Int32.Parse(edit_id);
-                    if (obj.insert_de_followup(enqnamefollowup, enqfollow, enqnextfollow, enqfollowdetails, enqexename1, enqexename2,
-                        enqexename3, "edit", id) == 1)
+                    if (obj.insert_de_followup(enqnamefollowup, enqfollow, enqnextfollow, enqfollowdetails, enqexenamefollowup1, enqexenamefollowup2,
+                        enqexenamefollowup3, "edit", id) == 1)
                     {
                         TempData["AlertMessage"] = "All the details updated successfully.";
                     }
@@ -1839,6 +1839,40 @@ namespace kd.Controllers
         }
 
         /** 
+         * Drop Down list for wing name on page load
+         */
+        [HttpPost]
+        public ActionResult get_wing_name(string site_id)
+        {
+            List<string>[] wing = new List<string>[7];
+            wing = obj.wing_show_name(site_id);
+            //MessageBox.Show(wing[0]);
+            var result = new
+            {
+                id = wing[0],
+                name = wing[5]
+            };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        /** 
+         * Drop Down list for flat no on page load
+         */
+        [HttpPost]
+        public ActionResult get_flat_no(string wing_name, string site_id)
+        {
+            List<string>[] flat = new List<string>[7];
+            flat = obj.flat_show_no(wing_name, site_id);
+            //MessageBox.Show(wing[0]);
+            var result = new
+            {
+                id = flat[0],
+                name = flat[1]
+            };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        /** 
          * Drop Down list for franchies name on page load
          */
         [HttpGet]
@@ -1878,7 +1912,6 @@ namespace kd.Controllers
         {
             List<string>[] dcname = new List<string>[21];
             dcname = obj.daily_customer_name_show();
-            MessageBox.Show(dcname[1].ToString());
             var result = new
             {
                 id = dcname[0],
