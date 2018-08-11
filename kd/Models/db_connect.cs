@@ -30,6 +30,7 @@ namespace kd.Models
         public List<string>[] list_agreement_show = new List<string>[9];
         public List<string>[] list_cost_sheet_show = new List<string>[14];
         public List<string>[] list_customer_booking_show = new List<string>[2];
+        public List<string>[] list_daily_customer_name_show = new List<string>[21];
 
         private bool OpenConnection()
         {
@@ -1644,6 +1645,47 @@ namespace kd.Models
             catch (MySqlException ex)
             {
                 return list_flats_show;
+            }
+        }
+
+        /**
+         * Show Daily customer name for page load
+         */
+        public List<string>[] daily_customer_name_show()
+        {
+            try
+            {
+                string query = "SELECT * FROM daily ORDER BY ID DESC";
+
+                for (int i = 0; i < 21; i++)
+                {
+                   list_daily_customer_name_show[i] = new List<string>();
+                }
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    while (dataReader.Read())
+                    {
+                        for (int i = 0; i < 21; i++)
+                        {
+                            list_daily_customer_name_show[i].Add(dataReader[i] + "");
+                        }
+                    }
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return list_daily_customer_name_show;
+                }
+                else
+                {
+                    return list_daily_customer_name_show;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return list_daily_customer_name_show;
             }
         }
 

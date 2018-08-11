@@ -1226,14 +1226,14 @@ namespace kd.Controllers
             }
         }
         
-        public ActionResult add_de_sitevisit(string enqname, string enqsitename, string enqtype, string enqwing, string enqflatno,
+        public ActionResult add_de_sitevisit(string enqnamevisit, string enqsitename, string enqtype, string enqwing, string enqflatno,
             string enqsize, string enqexename1, string enqexename2, string enqexename3, string submit_btn, string edit_id = "0")
         {
             try
             {
                 if (submit_btn == "Save")
                 {
-                    if (obj.insert_de_sitevisit(enqname, enqsitename, enqtype, enqwing, enqflatno, enqsize, enqexename1, 
+                    if (obj.insert_de_sitevisit(enqnamevisit, enqsitename, enqtype, enqwing, enqflatno, enqsize, enqexename1, 
                         enqexename2, enqexename3) == 1)
                     {
                         TempData["AlertMessage"] = "All the details saved successfully.";
@@ -1246,7 +1246,7 @@ namespace kd.Controllers
                 else if (submit_btn == "Update")
                 {
                     int id = Int32.Parse(edit_id);
-                    if (obj.insert_de_sitevisit(enqname, enqsitename, enqtype, enqwing, enqflatno, enqsize, enqexename1,
+                    if (obj.insert_de_sitevisit(enqnamevisit, enqsitename, enqtype, enqwing, enqflatno, enqsize, enqexename1,
                         enqexename2, enqexename3, "edit", id) == 1)
                     {
                         TempData["AlertMessage"] = "All the details updated successfully.";
@@ -1266,14 +1266,14 @@ namespace kd.Controllers
             }
         }
 
-        public ActionResult add_de_followup(string enqname, string enqfollow, string enqnextfollow, string enqfollowdetails, 
+        public ActionResult add_de_followup(string enqnamefollowup, string enqfollow, string enqnextfollow, string enqfollowdetails, 
             string enqexename1, string enqexename2, string enqexename3, string submit_btn, string edit_id = "0")
         {
             try
             {
                 if (submit_btn == "Save")
                 {
-                    if (obj.insert_de_followup(enqname, enqfollow, enqnextfollow, enqfollowdetails, enqexename1, enqexename2, 
+                    if (obj.insert_de_followup(enqnamefollowup, enqfollow, enqnextfollow, enqfollowdetails, enqexename1, enqexename2, 
                         enqexename3) == 1)
                     {
                         TempData["AlertMessage"] = "All the details saved successfully.";
@@ -1286,7 +1286,7 @@ namespace kd.Controllers
                 else if (submit_btn == "Update")
                 {
                     int id = Int32.Parse(edit_id);
-                    if (obj.insert_de_followup(enqname, enqfollow, enqnextfollow, enqfollowdetails, enqexename1, enqexename2,
+                    if (obj.insert_de_followup(enqnamefollowup, enqfollow, enqnextfollow, enqfollowdetails, enqexename1, enqexename2,
                         enqexename3, "edit", id) == 1)
                     {
                         TempData["AlertMessage"] = "All the details updated successfully.";
@@ -1870,6 +1870,22 @@ namespace kd.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
+        /**
+         * Drop Down list for site customer name on page load
+         */
+        [HttpGet]
+        public ActionResult get_daily_customer_name(string data)
+        {
+            List<string>[] dcname = new List<string>[21];
+            dcname = obj.daily_customer_name_show();
+            MessageBox.Show(dcname[1].ToString());
+            var result = new
+            {
+                id = dcname[0],
+                name = dcname[1]
+            };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult DailyReport()
         {
             return View();

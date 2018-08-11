@@ -144,7 +144,7 @@
                                         <td colspan="3"> <input type="reset" value="Cancel" class="btn btn-danger" /> </td>
                                     }
                                 </tr>
-                                </tbody>
+                            </tbody>
                         </table>
                     </form>
                 </div>
@@ -161,13 +161,20 @@
                             <tbody>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Customer Name</label></td>
-                                    <td><input type="text" name="enqname" id="required" @(edit ? new { value = elist[1] } : null)></td>
+                                    <td>
+                                        <select name="enqnamevisit" id="enqnamevisit">    </select>
+                                    </td>
                                     <td><label class="control-label">Site Name</label></td>
                                     <td>
                                         <select name="enqsitename" id="enqsitename">    </select>
                                     </td>
                                     <td><label class="control-label">Type(Flat/Plot)</label></td>
-                                    <td><input type="text" name="enqtype" id="required" @(edit ? new { value = elist[3] } : null)></td>
+                                    <td>
+                                        <select name="enqtype" id="required">
+                                            <option value="Flat" @(edit ? (elist[3].Contains("Flat") ? "selected" : "") : "selected")>Flat</option>
+                                            <option value="Plot" @(edit ? (elist[3].Contains("Plot") ? "selected" : "") : "")>Plot</option>
+                                        </select>
+                                    </td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Wing</label></td>
@@ -215,7 +222,9 @@
                             <tbody>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Customer Name</label></td>
-                                    <td><input type="text" name="enqname" id="required" @(edit ? new { value = elist[27] } : null)></td>
+                                    <td>                                      
+                                        <select name="enqnamefollowup" id="enqnamefollowup">    </select>
+                                    </td>
                                     <td><label class="control-label">Follow up date</label></td>
                                     <td> <input type="date" name="enqfollow" id="required" @(edit ? new { value = @Convert.ToDateTime(elist[28]).ToString("yyyy-MM-dd") } : null)></td>
                                     <td><label class="control-label">Next Follow up Date</label></td>
@@ -358,18 +367,24 @@
     $(document).ready(function () {
         $.ajax({
             type: "GET",
-            url: '@Url.Action("get_site", "Home")',
+            url: '@Url.Action("get_daily_customer_name", "Home")',
             data: {},
             dataType: 'json',
             success: function (d) {
                 var list1 = d.id;
                 var list = d.name;
-                
-                $("#enqsitename").html("");
+
+                $("#enqnamevisit").html("");
                 $.each(list, function (index, value) {
-                    $("#enqsitename").append($('<option></option>').val(list1[index]).html(value));        
+                    $("#enqnamevisit").append($('<option></option>').val(list1[index]).html(value));
                 });
-                document.getElementById("enqsitename").value = @(edit ? elist[2] : 1);                
+                document.getElementById("enqnamevisit").value = @(edit ? elist[1] : 1);
+
+                $("#enqnamefollowup").html("");
+                $.each(list, function (index, value) {
+                    $("#enqnamefollowup").append($('<option></option>').val(list1[index]).html(value));
+                });
+                document.getElementById("enqnamefollowup").value = @(edit ? elist[27] : 1);
             },
             error: function (err) {
                 alert(err.responseText);
@@ -377,6 +392,31 @@
         });
     });
 </script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("get_site", "Home")',
+            data: {},
+            dataType: 'json',
+            success: function (d) {
+                var list1 = d.id;
+                var list = d.name;
+
+                $("#enqsitename").html("");
+                $.each(list, function (index, value) {
+                    $("#enqsitename").append($('<option></option>').val(list1[index]).html(value));
+                });
+                document.getElementById("enqsitename").value = @(edit ? elist[2] : 1);
+            },
+            error: function (err) {
+                alert(err.responseText);
+            },
+        });
+    });
+</script>
+
 
 <script type="text/javascript">
     $(document).ready(function () {
