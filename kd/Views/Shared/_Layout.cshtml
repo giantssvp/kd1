@@ -57,7 +57,7 @@
                     <li><a href='@Url.Action("FileStatus", "Home")'><i class="icon icon-pencil"></i> <span>FileStatus</span></a></li>
                 </ul>
             </li>
-            
+
             <li class="submenu">
                 <a href="#"><i class="icon icon-book"></i> <span>Cost Sheets</span></a>
                 <ul>
@@ -65,21 +65,24 @@
                     <li><a href='@Url.Action("BuilderCostSheet", "Home")'><i class="icon icon-book"></i><span>Builder Cost Sheet</span></a></li>
                 </ul>
             </li>
-            <li class="submenu">
-                <a href="#"><i class="icon icon-file"></i> <span>Report</span></a>
-                <ul>
-                    <li><a href='@Url.Action("DailyReport", "Home")'><i class="icon icon-file"></i> <span>Daily Report</span></a></li>
-                    <li><a href='@Url.Action("SiteReport", "Home")'><i class="icon icon-file"></i> <span>Site Report</span></a></li>
-                    <li><a href='@Url.Action("CustomerReport", "Home")'><i class="icon icon-file"></i> <span>Customer Report</span></a></li>
-                    <li><a href='@Url.Action("FinanceReport", "Home")'><i class="icon icon-file"></i> <span>Finance Report</span></a></li>
-                    <li><a href='@Url.Action("FileStatusReport", "Home")'><i class="icon icon-file"></i> <span>File Status Report</span></a></li>
-                    <li><a href='@Url.Action("ExecutiveReport", "Home")'><i class="icon icon-file"></i> <span>Executive/Franchies Report</span></a></li>
-                    <li><a href='@Url.Action("ProfitLossReport", "Home")'><i class="icon icon-file"></i> <span>Profit and Loss Report</span></a></li>
-                    <li><a href='@Url.Action("MasterReport", "Home")'><i class="icon icon-file"></i> <span>Master Report</span></a></li>              
-                </ul>
-            </li>
-            <li><a href='@Url.Action("Dashboard", "Home")'><i class="icon icon-pencil"></i> <span>Backup</span></a></li>
-        </ul>
+            @if (this.Session["role"].ToString() == "admin")
+            {
+                <li class="submenu">
+                    <a href="#"><i class="icon icon-file"></i> <span>Report</span></a>
+                    <ul>
+                        <li><a href='@Url.Action("DailyReport", "Home")'><i class="icon icon-file"></i> <span>Daily Report</span></a></li>
+                        <li><a href='@Url.Action("SiteReport", "Home")'><i class="icon icon-file"></i> <span>Site Report</span></a></li>
+                        <li><a href='@Url.Action("CustomerReport", "Home")'><i class="icon icon-file"></i> <span>Customer Report</span></a></li>
+                        <li><a href='@Url.Action("FinanceReport", "Home")'><i class="icon icon-file"></i> <span>Finance Report</span></a></li>
+                        <li><a href='@Url.Action("FileStatusReport", "Home")'><i class="icon icon-file"></i> <span>File Status Report</span></a></li>
+                        <li><a href='@Url.Action("ExecutiveReport", "Home")'><i class="icon icon-file"></i> <span>Executive/Franchies Report</span></a></li>
+                        <li><a href='@Url.Action("ProfitLossReport", "Home")'><i class="icon icon-file"></i> <span>Profit and Loss Report</span></a></li>
+                        <li><a href='@Url.Action("MasterReport", "Home")'><i class="icon icon-file"></i> <span>Master Report</span></a></li>
+                    </ul>
+                </li>
+            }
+                <li><a href="#"><i class="icon icon-pencil"></i> <span>Backup</span></a></li>
+            </ul>
     </div>
     <!--sidebar-menu-->
     <!--main-container-part-->

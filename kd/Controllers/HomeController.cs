@@ -18,6 +18,7 @@ namespace kd.Controllers
     {
         public static db_connect obj = new db_connect();
 
+        [Authorize]
         public ActionResult Dashboard()
         {
             return View();
@@ -58,7 +59,8 @@ namespace kd.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Login", "Home");
         }
-                
+
+        [Authorize]
         public ActionResult Index(string ps="10", string filter="", string search="")
         {
             ViewBag.total = 0;
@@ -75,6 +77,7 @@ namespace kd.Controllers
             return View();
         }
 
+        [Authorize]
         public ActionResult Sites(string ps = "10", string site = "", string search = "")
         {
             ViewBag.total = 0;
@@ -105,6 +108,7 @@ namespace kd.Controllers
             return View();
         }
 
+        [Authorize]
         public ActionResult Executive(string ps = "10", string filter="", string search = "")
         {
             ViewBag.total = 0;
@@ -121,6 +125,7 @@ namespace kd.Controllers
             return View();
         }
 
+        [Authorize]
         public ActionResult Franchies(string ps = "10", string filter = "", string search = "")
         {
             ViewBag.total = 0;
@@ -137,6 +142,7 @@ namespace kd.Controllers
             return View();
         }
 
+        [Authorize]
         public ActionResult Customer(string ps = "10", string filter = "", string search = "")
         {
             ViewBag.total = 0;
@@ -152,6 +158,8 @@ namespace kd.Controllers
 
             return View();
         }
+
+        [Authorize]
         public ActionResult Booking(string ps = "10", string filter = "", string search = "")
         {
             ViewBag.total = 0;
@@ -167,6 +175,8 @@ namespace kd.Controllers
 
             return View();
         }
+
+        [Authorize]
         public ActionResult PaymentCommit(string ps = "10", string filter = "", string search = "")
         {
             ViewBag.total = 0;
@@ -182,6 +192,8 @@ namespace kd.Controllers
 
             return View();
         }
+
+        [Authorize]
         public ActionResult PaymentDetails(string ps = "10", string filter = "", string search = "")
         {
             ViewBag.total = 0;
@@ -197,6 +209,8 @@ namespace kd.Controllers
 
             return View();
         }
+
+        [Authorize]
         public ActionResult Agreement(string ps = "10", string filter = "", string search = "")
         {
             ViewBag.total = 0;
@@ -212,6 +226,8 @@ namespace kd.Controllers
 
             return View();
         }
+
+        [Authorize]
         public ActionResult Finance(string ps = "10", string filter = "", string search = "")
         {
             ViewBag.total = 0;
@@ -227,6 +243,8 @@ namespace kd.Controllers
 
             return View();
         }
+
+        [Authorize]
         public ActionResult FileStatus(string ps = "10", string filter = "", string search = "")
         {
             ViewBag.total = 0;
@@ -243,6 +261,7 @@ namespace kd.Controllers
             return View();
         }
 
+        [Authorize]
         public ActionResult CustomerCostSheet(string ps = "10", string filter = "", string search = "")
         {
             ViewBag.total = 0;
@@ -259,6 +278,7 @@ namespace kd.Controllers
             return View();
         }
 
+        [Authorize]
         public ActionResult BuilderCostSheet(string ps = "10", string filter = "", string search = "")
         {
             ViewBag.total = 0;
@@ -275,11 +295,12 @@ namespace kd.Controllers
             return View();
         }
 
+        [Authorize]
         public ActionResult Report()
         {
             return View();
         }
-
+        
         public ActionResult delete_record(string page, string ps, string del_id, string filter = "", string search = "", string site = "")
         {
             try
