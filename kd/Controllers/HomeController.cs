@@ -1940,11 +1940,14 @@ namespace kd.Controllers
             };
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
+        [Authorize]
         public ActionResult DailyReport()
         {
             return View();
         }
 
+        [Authorize]
         public ActionResult Display_pdf()
         {
             ViewBag.total = 0;
@@ -1959,11 +1962,13 @@ namespace kd.Controllers
             return View("DailyEnquiryPDF");
         }
 
+        [Authorize]
         public ActionResult DailyEnquiryPDF()
         {
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         [ValidateInput(false)]
         public FileResult Generate_pdf(string GridHtml)
@@ -1981,76 +1986,91 @@ namespace kd.Controllers
             }
         }
 
+        [Authorize]
         public ActionResult FinanceReport()
         {
             return View();
         }
 
+        [Authorize]
         public ActionResult FinanceReportPDF()
         {
             return View();
         }
 
+        [Authorize]
         public ActionResult SiteReport()
         {
             return View();
         }
 
+        [Authorize]
         public ActionResult SiteReportPDF()
         {
             return View();
         }
 
+        [Authorize]
         public ActionResult CustomerReport()
         {
             return View();
         }
 
+        [Authorize]
         public ActionResult CustomerReportPDF()
         {
             return View();
         }
 
-         public ActionResult FileStatusReport()
+        [Authorize]
+        public ActionResult FileStatusReport()
         {
             return View();
         }
 
+        [Authorize]
         public ActionResult FileStatusReportPDF()
         {
             return View();
         }
 
+        [Authorize]
         public ActionResult ExecutiveReport()
         {
             return View();
         }
 
+        [Authorize]
         public ActionResult ExecutiveReportPDF()
         {
             return View();
         }
 
+        [Authorize]
         public ActionResult ProfitLossReport()
         {
             return View();
         }
 
+        [Authorize]
         public ActionResult ProfitLossReportPDF()
         {
             return View();
         }
 
+        [Authorize]
         public ActionResult MasterReport()
         {
             return View();
         }
 
+        [Authorize]
         public ActionResult MasterReportPDF()
         {
             return View();
         }
 
+        [Authorize]
         public ActionResult ExecutiveAudits()
         {
             return View();
