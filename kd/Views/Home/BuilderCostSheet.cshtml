@@ -28,7 +28,7 @@
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
 
 <div id="content-header">
-    <div id="breadcrumb"> <a href='@Url.Action("Dashboard", "Home")' title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href='@Url.Action("BuilderCostSheet", "Home")'>Builder Cost Sheet</a></div>
+    <div id="breadcrumb"> <a href='@Url.Action("Index", "Home")' title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href='@Url.Action("BuilderCostSheet", "Home")'>Builder Cost Sheet</a></div>
 </div>
 <div class="container-fluid">
     <div class="row-fluid">
@@ -101,17 +101,7 @@
                 <div class="widget-box">
                     <div class="widget-title">
                         <span class="icon"><i class="icon-th"></i></span>
-                        <h5>Cost Details</h5>
-                        <div class="select-site">
-                            <h5>Site Name</h5>
-                            <div class="dataTables_length">
-                                <select name="site_name" id="site_name" style="max-width:90%;">
-                                    <option value="GK REM"> GK REM</option>
-                                    <option value="GK Rahadaki"> GK Rahadaki</option>
-                                    <option value="GK Royal"> GK Royal</option>
-                                </select>
-                            </div>
-                        </div>
+                        <h5>Cost Sheet Details</h5>
                     </div>
                     <div class="widget-content nopadding">
                         @Html.Partial("page_size")

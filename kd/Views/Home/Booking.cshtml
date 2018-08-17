@@ -28,7 +28,7 @@
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
 
 <div id="content-header">
-    <div id="breadcrumb"> <a href='@Url.Action("Dashboard", "Home")' title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href='@Url.Action("Booking", "Home")'>Add Booking</a></div>
+    <div id="breadcrumb"> <a href='@Url.Action("Index", "Home")' title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href='@Url.Action("Booking", "Home")'>Add Booking</a></div>
 </div>
 <div class="container-fluid">
     <div class="row-fluid">
@@ -140,23 +140,29 @@
                                     <th>Site</th>
                                     <th>Flat</th>
                                     <th>Amount</th>
-                                    <th>Action</th>
-                                </tr>
+                                    @if (this.Session["role"].ToString() == "admin")
+                                    {
+                                        <th>Action</th>
+                                    }
+                                    </tr>
                             </thead>
                             <tbody>
                                 @for (var i = 0; i < cnt; i++)
                                 {
-                                    <tr class="gradeX">
-                                        <td>@results[0][i]</td>
-                                        <td>@results[1][i]</td>
-                                        <td>@results[3][i]</td>
-                                        <td>@results[7][i]</td>
-                                        <td>@results[9][i]</td>
-                                        <td>@results[4][i]</td>
+                                <tr class="gradeX">
+                                    <td>@results[0][i]</td>
+                                    <td>@results[1][i]</td>
+                                    <td>@results[3][i]</td>
+                                    <td>@results[7][i]</td>
+                                    <td>@results[9][i]</td>
+                                    <td>@results[4][i]</td>
+                                    @if (this.Session["role"].ToString() == "admin")
+                                    {
                                         <td align="center">
                                             <button onclick="fun_edit(this);" value="@results[0][i]" class="btn btn-primary">Edit</button>
                                             <button onclick="fun_del(this);" value="@results[0][i]" class="btn btn-danger">Delete</button>
                                         </td>
+                                    }
                                     </tr>
                                 }
                             </tbody>

@@ -54,13 +54,13 @@ hr{ border-top-color:#dadada;}
 }
     #header h1 {
         background: url("../images/logo.png")  no-repeat scroll 0 0 transparent;
-        height: 31px;
-        left: 20px;
+        height: 78px;
+        left: 0px;
         line-height: 600px;
         overflow: hidden;
         position: relative;
-        top: 26px;
-        width: 191px;
+        top: 0px;
+        width: 220px;
     }
 #header h1 a {
 	display: block;

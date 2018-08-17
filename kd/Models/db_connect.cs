@@ -1567,7 +1567,7 @@ namespace kd.Models
             {
                 string query = "SELECT * FROM sites ORDER BY ID DESC";
 
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < 8; i++)
                 {
                     list_sites_show[i] = new List<string>();
                 }
@@ -1579,7 +1579,7 @@ namespace kd.Models
 
                     while (dataReader.Read())
                     {
-                        for (int i = 0; i < 5; i++)
+                        for (int i = 0; i < 8; i++)
                         {
                             list_sites_show[i].Add(dataReader[i] + "");
                         }                     
@@ -1613,7 +1613,7 @@ namespace kd.Models
                     query = "SELECT * FROM flats WHERE Site_Id = @site_id and CONCAT(Status, Flat_No) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
 
-                for (int i = 0; i < 7; i++)
+                for (int i = 0; i < 9; i++)
                 {
                     list_flats_show[i] = new List<string>();
                 }
@@ -1630,7 +1630,7 @@ namespace kd.Models
 
                     while (dataReader.Read())
                     {
-                        for (int i = 0; i < 7; i++)
+                        for (int i = 0; i < 9; i++)
                         {
                             list_flats_show[i].Add(dataReader[i] + "");
                         }
@@ -1933,7 +1933,7 @@ namespace kd.Models
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@name", name);
-                    cmd.Parameters.AddWithValue("@password", password);
+                    cmd.Parameters.AddWithValue("@password", hash);
                     rdr = cmd.ExecuteReader();
 
                     if (rdr.Read())
