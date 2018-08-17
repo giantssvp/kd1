@@ -3,5 +3,65 @@
     ViewBag.Title = "ExecutiveReport";
 }
 
-<h2>ExecutiveReport</h2>
+<link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+<link rel="stylesheet" href="~/Content/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="~/Content/matrix-style.css" />
+<link rel="stylesheet" href="~/Content/matrix-media.css" />
+<link rel="stylesheet" href="~/Content/uniform.css" />
+<link rel="stylesheet" href="~/Content/select2.css" />
+<link href="~/fonts/gst_font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
 
+<div id="content-header">
+    <div id="breadcrumb"> <a href='@Url.Action("Dashboard", "Home")' title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href='@Url.Action("ExecutiveReport", "Home")'>Executive/Franchies Report</a></div>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget-box">
+                <div class="widget-title">
+                    <span class="icon"> <i class="icon-info-sign"></i> </span>
+                    <h5>Finance Report</h5>
+                </div>
+                <div class="widget-content nopadding">
+                    <form method="post" action="@Url.Action("FinanceReportPDF","Home")" target="_blank" name="basic_validate" id="basic_validate" novalidate="novalidate">
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr class="odd gradeX">
+
+                                    <td><label class="control-label">Start Date</label></td>
+                                    <td><input type="date" name="startDate" id="required"></td>
+                                    <td><label class="control-label">End Date</label></td>
+                                    <td><input type="date" name="endDate" id="required"></td>
+                                </tr>
+                                <tr class="odd gradeX">
+                                    <td><label class="control-label">Executive Franchies Name</label></td>
+                                    <td><input type="text" name="exeName" id="required"></td>
+                                    <td><label class="control-label">Site Name</label></td>                                                                       </td>
+                                    <td>
+                                        <select name="sitename" id="sitename">    </select>
+                                    </td>
+                                </tr>
+                                <tr>                              
+                                    <td><input type="submit" value="Generate Report" class="btn btn-success" /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery.min.js"></script>
+<script src="~/Scripts/jquery.ui.custom.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/matrix.popover.js"></script>
+<script src="~/Scripts/jquery.uniform.js"></script>
+<script src="~/Scripts/select2.min.js"></script>
+<!--<script src="~/Scripts/jquery.dataTables.min.js"></script> -->
+<script src="~/Scripts/matrix.js"></script>
+<script src="~/Scripts/matrix.tables.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/matrix.form_validation.js"></script>

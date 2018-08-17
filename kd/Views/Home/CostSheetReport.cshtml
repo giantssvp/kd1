@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "FinanceReport";
+    ViewBag.Title = "CostSheetReport";
 }
 
 <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
@@ -13,7 +13,7 @@
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
 
 <div id="content-header">
-    <div id="breadcrumb"> <a href='@Url.Action("Dashboard", "Home")' title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href='@Url.Action("FinanceReport", "Home")'>Finance Report</a></div>
+    <div id="breadcrumb"> <a href='@Url.Action("Dashboard", "Home")' title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href='@Url.Action("FinanceReport", "Home")'>Cost Sheet Report</a></div>
 </div>
 <div class="container-fluid">
     <div class="row-fluid">
@@ -21,38 +21,26 @@
             <div class="widget-box">
                 <div class="widget-title">
                     <span class="icon"> <i class="icon-info-sign"></i> </span>
-                    <h5>Finance Report</h5>
+                    <h5>Cost Sheet Report</h5>
                 </div>
                 <div class="widget-content nopadding">
                     <form method="post" action="@Url.Action("FinanceReportPDF","Home")" target="_blank" name="basic_validate" id="basic_validate" novalidate="novalidate">
                         <table class="table table-striped">
                             <tbody>
                                 <tr class="odd gradeX">
-
-                                    <td><label class="control-label">Start Date</label></td>
-                                    <td><input type="date" name="startDate" id="required"></td>
-                                    <td><label class="control-label">End Date</label></td>
-                                    <td><input type="date" name="endDate" id="required"></td>
-                                </tr>
-                                <tr class="odd gradeX">
-                                    <td><label class="control-label">Finance Name</label></td>
-                                    <td><input type="text" name="financeName" id="required"></td>
-                                    <td><label class="control-label">Site Name</label></td>                                                                       </td>  
+                                    <td><label class="control-label">Cost Sheet Name</label></td>
+                                    <td>
+                                        <select name="filesta" id="required">
+                                            <option value="Process">Customer</option>
+                                            <option value="Login">Build</option>                                            
+                                        </select>
+                                    </td>
+                                    <td><label class="control-label">Site Name</label></td>                                                                       </td>
                                     <td>
                                         <select name="sitename" id="sitename">    </select>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><label class="control-label">File Status</label></td>
-                                    <td>
-                                        <select name="filesta" id="required">
-                                            <option value="Process">Process</option>
-                                            <option value="Login">Login</option>
-                                            <option value="Sanction">Saction</option>
-                                            <option value="Disbus">Disbus</option>
-                                            <option value="Other">Other</option>
-                                        </select>
-                                    </td>
                                     <td><input type="submit" value="Generate Report" class="btn btn-success" /></td>
                                 </tr>
                             </tbody>

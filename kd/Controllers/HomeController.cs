@@ -280,6 +280,16 @@ namespace kd.Controllers
             return View();
         }
 
+        public ActionResult PaymentCommitReport()
+        {
+            return View();
+        }
+
+        public ActionResult CostSheetReport()
+        {
+            return View();
+        }
+
         public ActionResult delete_record(string page, string ps, string del_id, string filter = "", string search = "", string site = "")
         {
             try

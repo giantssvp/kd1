@@ -96,8 +96,8 @@
                                     <td>
                                         <select name="enqcurstatus" id="required">
                                             <option value="Interested" @(edit ? (elist[22].Contains("Interested") ? "selected" : "") : "selected")>Interested</option>
-                                            <option value="Not Interested" @(edit ? (elist[22].Contains("Not Interested") ? "selected" : "") : "")>Not Interested</option>
-                                            <option value="In Process" @(edit ? (elist[22].Contains("In Process") ? "selected" : "") : "")>In Process</option>
+                                            <option value="NotInterested" @(edit ? (elist[22].Contains("Not Interested") ? "selected" : "") : "")>Not Interested</option>
+                                            <option value="InProcess" @(edit ? (elist[22].Contains("In Process") ? "selected" : "") : "")>In Process</option>
                                             <option value="Booked" @(edit ? (elist[22].Contains("Booked") ? "selected" : "") : "")>Booked</option>
                                         </select>
                                     </td>
@@ -187,14 +187,12 @@
                                         <select name="enqflatno" id="enqflatno">    </select>
                                         <input type="text" name="sample1" id="required">
                                     </td>
-                                    <td><label class="control-label">Flat/Plot Size</label></td>
-                                    <td><input type="number" name="enqsize" id="required" @(edit ? new { value = elist[6] } : null)></td>
-                                </tr>
-                                <tr class="odd gradeX">
                                     <td><label class="control-label">Executive1 Name</label></td>
                                     <td>
                                         <select name="enqexename1" id="enqexename1">  </select>
                                     </td>
+                                </tr>
+                                <tr class="odd gradeX">
                                     <td><label class="control-label">Executive2 Name</label></td>
                                     <td>
                                         <select name="enqexename2" id="enqexename2">  </select>
@@ -511,7 +509,7 @@
                     var list = d.name;
                     $("#enqwing").html("");
                     $.each(list, function (index, value) {
-                        $("#enqwing").append($('<option></option>').val(list1[index]).html(value));
+                        $("#enqwing").append($('<option></option>').val(value).html(value));
                     });
                     document.getElementById("enqwing").value = @(edit ? elist[4] : 1);
                 },
@@ -546,7 +544,6 @@
 
                     var list1 = d.id;
                     var list = d.name;
-                    alert(d.name)
                     $("#enqflatno").html("");
                     $.each(list, function (index, value) {
                         $("#enqflatno").append($('<option></option>').val(list1[index]).html(value));

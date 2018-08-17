@@ -41,7 +41,9 @@
                                     <td><label class="control-label">Site</label></td>
                                     <td>
                                         <select name="enqsite" id="enqsite">    </select>
-                                    </td>
+                                    </td>                                                               
+                                </tr>
+                                <tr class="odd gradeX">
                                     <td><label class="control-label">Requirement</label></td>
                                     <td>
                                         <select multiple name="enqrequirement" id="required">
@@ -49,11 +51,11 @@
                                             <option value="1BHK">1BHK</option>
                                             <option value="2BHK">2BHK</option>
                                             <option value="3BHK">3BHK</option>
+                                            <option value="Plot">Plot</option>
+                                            <option value="Shop">Shop</option>
                                             <option value="Other">Other</option>
                                         </select>
                                     </td>
-                                </tr>
-                                <tr class="odd gradeX">
                                     <td><label class="control-label">Occupation</label></td>
                                     <td>
                                         <select name="enqoccu" id="required">
@@ -63,20 +65,23 @@
                                             <option value="Other">Other</option>
                                         </select>
                                     </td>
+                                </tr>
+                                <tr>
                                     <td><label class="control-label">Visit</label></td>
                                     <td>
                                         <select name="enqvisit" id="required">
-                                            <option value="Yes" selected="selected">Yes</option>
-                                            <option value="No">No</option>
+                                            <option value="Visited">Visited</option>
+                                            <option value="Enquiry">Enquiry</option>
                                             <option value="Other">Other</option>
                                         </select>
                                     </td>
                                     <td><label class="control-label">Interest</label></td>
                                     <td>
                                         <select name="enqinterest" id="required">
-                                            <option value="Yes" selected="selected">Yes</option>
-                                            <option value="No">No</option>
-                                            <option value="Other">Other</option>
+                                            <option value="Interested" selected="selected">Interested</option>
+                                            <option value="NotInterested">Not Interested</option>
+                                            <option value="InProcess">In Process</option>
+                                            <option value="Booked">Booked</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -84,19 +89,10 @@
                                     <td><label class="control-label">Budget</label></td>
                                     <td><input type="number" name="enqbudget" id="required"></td>
                                     <td><label class="control-label">Down Payment</label></td>
-                                    <td><input type="number" name="enqdown" id="required"></td>
-                                    <td><label class="control-label">Booking</label></td>
-                                    <td>
-                                        <select name="enqbooking" id="required">
-                                            <option value="Yes" selected="selected">Yes</option>
-                                            <option value="No">No</option>
-                                        </select>
-                                    </td>
+                                    <td><input type="number" name="enqdown" id="required"></td>                                    
                                 </tr>
-                                <tr class="odd gradeX">
-                                    <td><label class="control-label">Remark</label></td>
-                                    <td> <textarea class="span11" name="enqremark"></textarea></td>
-                                    <td><input type="submit" value="Generate Pdf" class="btn btn-success" /></td>
+                                <tr>
+                                    <td><input type="submit" value="Generate Report" class="btn btn-success" /></td>
                                 </tr>
                             </tbody>
                         </table>

@@ -366,8 +366,6 @@
     <Content Include="Views\Home\SiteReportPDF.cshtml" />
     <Content Include="Views\Home\CustomerReport.cshtml" />
     <Content Include="Views\Home\CustomerReportPDF.cshtml" />
-    <Content Include="Views\Home\FileStatusReport.cshtml" />
-    <Content Include="Views\Home\FileStatusReportPDF.cshtml" />
     <Content Include="Views\Home\ExecutiveReport.cshtml" />
     <Content Include="Views\Home\ExecutiveReportPDF.cshtml" />
     <Content Include="Views\Home\ProfitLossReport.cshtml" />
@@ -375,6 +373,8 @@
     <Content Include="Views\Home\MasterReport.cshtml" />
     <Content Include="Views\Home\MasterReportPDF.cshtml" />
     <Content Include="Views\Home\ExecutiveAudits.cshtml" />
+    <Content Include="Views\Home\PaymentCommitReport.cshtml" />
+    <Content Include="Views\Home\CostSheetReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
