@@ -54,11 +54,11 @@
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Total Flat Amount</label></td>
-                                    <td><input type="number" name="btamount" id="required" @(edit ? new { value = elist[6] } : null)></td>
+                                    <td><input type="number" name="btamount" id="required" @(edit ? new { value = elist[3] } : null)></td>
                                     <td><label class="control-label">Received Amount</label></td>
-                                    <td><input type="number" name="bramount" id="required" @(edit ? new { value = elist[7] } : null)></td>
+                                    <td><input type="number" name="bramount" id="required" @(edit ? new { value = elist[4] } : null)></td>
                                     <td><label class="control-label">Total Builder Received</label></td>
-                                    <td> <input type="number" name="bblder" id="required" @(edit ? new { value = elist[8] } : null)></td>
+                                    <td> <input type="number" name="bblder" id="required" @(edit ? new { value = elist[5] } : null)></td>
 
                                 </tr>
                                 <tr class="odd gradeX">
@@ -67,16 +67,20 @@
                                         <select name="bsite" id="bsite">    </select>
                                     </td>
                                     <td><label class="control-label">Wing</label></td>
-                                    <td><input type="text" name="bwing" id="required" @(edit ? new { value = elist[5] } : null)></td>
-                                    <td><label class="control-label">Flats</label></td>
-                                    <td><input type="text" name="bflats" id="required" @(edit ? new { value = elist[5] } : null)></td>
+                                    <td>
+                                        <select name="bwing" id="bwing">    </select>
+                                    </td>
+                                    <td><label class="control-label">Flats/Plot</label></td>
+                                    <td>
+                                        <select name="bflats" id="bflats">    </select>
+                                    </td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Internal Charges</label></td>
                                     <td>
                                         <select name="bcharges" id="bcharges" style="max-width:90%;">
-                                            <option value="Yes" @(edit ? (elist[9].Contains("Covered") ? "selected" : "") : "")>Yes</option>
-                                            <option value="No" @(edit ? (elist[9].Contains("No") ? "selected" : "") : "")> No</option>
+                                            <option value="Yes" @(edit ? (elist[8].Contains("Covered") ? "selected" : "") : "")>Yes</option>
+                                            <option value="No" @(edit ? (elist[8].Contains("No") ? "selected" : "") : "")> No</option>
                                         </select>
                                     </td>
                                     <td><label class="control-label">Reserved Parking</label></td>
@@ -88,7 +92,7 @@
                                         </select>
                                     </td>
                                     <td><label class="control-label">Flat Cancelled By</label></td>
-                                    <td> <input type="text" name="bcancel" id="required" @(edit ? new { value = elist[5] } : null)></td>
+                                    <td> <input type="text" name="bcancel" id="required" @(edit ? new { value = elist[10] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Follow Up Date</label></td>
@@ -96,12 +100,12 @@
                                     <td><label class="control-label">Status</label></td>
                                     <td>
                                         <select name="bstatus" id="bstatus" style="max-width:90%;">
-                                            <option value="Active" @(edit ? (elist[13].Contains("Active") ? "selected" : "") : "selected")>Active</option>
-                                            <option value="Cancel" @(edit ? (elist[13].Contains("Cancel") ? "selected" : "") : "")>Cancel</option>
+                                            <option value="Active" @(edit ? (elist[12].Contains("Active") ? "selected" : "") : "selected")>Active</option>
+                                            <option value="Cancel" @(edit ? (elist[12].Contains("Cancel") ? "selected" : "") : "")>Cancel</option>
                                         </select>
                                     </td>
                                     <td><label class="control-label">Remarks</label></td>
-                                    <td><input type="text" name="bremark" id="required" @(edit ? new { value = elist[14] } : null)></td>
+                                    <td><input type="text" name="bremark" id="required" @(edit ? new { value = elist[13] } : null)></td>
 
                                 </tr>
                                 <tr class="odd gradeX">
@@ -144,25 +148,25 @@
                                     {
                                         <th>Action</th>
                                     }
-                                    </tr>
+                                </tr>
                             </thead>
                             <tbody>
                                 @for (var i = 0; i < cnt; i++)
                                 {
-                                <tr class="gradeX">
-                                    <td>@results[0][i]</td>
-                                    <td>@results[1][i]</td>
-                                    <td>@results[3][i]</td>
-                                    <td>@results[7][i]</td>
-                                    <td>@results[9][i]</td>
-                                    <td>@results[4][i]</td>
-                                    @if (this.Session["role"].ToString() == "admin")
-                                    {
-                                        <td align="center">
-                                            <button onclick="fun_edit(this);" value="@results[0][i]" class="btn btn-primary">Edit</button>
-                                            <button onclick="fun_del(this);" value="@results[0][i]" class="btn btn-danger">Delete</button>
-                                        </td>
-                                    }
+                                    <tr class="gradeX">
+                                        <td>@results[0][i]</td>
+                                        <td>@results[1][i]</td>
+                                        <td>@results[3][i]</td>
+                                        <td>@results[7][i]</td>
+                                        <td>@results[9][i]</td>
+                                        <td>@results[4][i]</td>
+                                        @if (this.Session["role"].ToString() == "admin")
+                                        {
+                                            <td align="center">
+                                                <button onclick="fun_edit(this);" value="@results[0][i]" class="btn btn-primary">Edit</button>
+                                                <button onclick="fun_del(this);" value="@results[0][i]" class="btn btn-danger">Delete</button>
+                                            </td>
+                                        }
                                     </tr>
                                 }
                             </tbody>
@@ -171,7 +175,7 @@
                     @Html.Partial("pagination")
                 </div>
             }
-            </div>
+        </div>
     </div>
 </div>
 
@@ -263,48 +267,74 @@
         });
     });
 </script>
+
 <script type="text/javascript">
     $(document).ready(function () {
-        $.ajax({
-            type: "GET",
-            url: '@Url.Action("get_executive", "Home")',
-            data: {},
-            dataType: 'json',
-            success: function (d) {
-                var list1 = d.id;
-                var list = d.name;
-                $("#bexecutive").html("");
-                $.each(list, function (index, value) {
-                    $("#bexecutive").append($('<option></option>').val(list1[index]).html(value));
-                });
-                document.getElementById("bexecutive").value = @(edit ? elist[17] : 1);
-            },
-            error: function (err) {
-                alert(err.responseText);
-            },
+        $('#bsite').change(function () {
+            //var ds = $('#enqsitename').val()
+            //alert(ds);
+            var data = JSON.stringify({
+                'site_id': $('#bsite').val()
+            });
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("get_wing_name", "Home")',
+                data: data,
+                dataType: 'json',
+                success: function (d) {
+                    //var list = d.c;
+                    //$('#enqwing').val(list);
+                    var list1 = d.id;
+                    var list = d.name;
+                    $("#bwing").html("");
+                    $.each(list, function (index, value) {
+                        $("#bwing").append($('<option></option>').val(value).html(value));
+                    });
+                    document.getElementById("bwing").value = @(edit ? elist[6] : 1);
+                },
+                error: function (err) {
+                    alert(err.responseText);
+                },
+                contentType: 'application/json'
+            });
         });
     });
 </script>
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $.ajax({
-            type: "GET",
-            url: '@Url.Action("get_franchies", "Home")',
-            data: {},
-            dataType: 'json',
-            success: function (d) {
-                var list1 = d.id;
-                var list = d.name;
-                $("#bfranchies").html("");
-                $.each(list, function (index, value) {
-                    $("#bfranchies").append($('<option></option>').val(list1[index]).html(value));
-                });
-                document.getElementById("bfranchies").value = @(edit ? elist[18] : 1);
-            },
-            error: function (err) {
-                alert(err.responseText);
-            },
+        wing_name = "Flat"
+        $('#bwing').change(function () {
+            //var ds = $('#enqsitename').val()
+            //alert(ds);
+            var data = JSON.stringify({
+                'wing_name': $('#bwing').val(),
+                'site_id': $('#bsite').val()
+            });
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("get_flat_no", "Home")',
+                data: data,
+                dataType: 'json',
+                success: function (d) {
+                    //var list = d.c;
+                    //$('#enqwing').val(list);
+
+                    var list1 = d.id;
+                    var list = d.name;
+                    $("#bflats").html("");
+                    $.each(list, function (index, value) {
+                        $("#bflats").append($('<option></option>').val(list1[index]).html(value));
+                    });
+                    document.getElementById("bflats").value = @(edit ? elist[7] : 1);
+                },
+                error: function (err) {
+                    alert(err.responseText);
+                },
+                contentType: 'application/json'
+            });
         });
     });
 </script>
