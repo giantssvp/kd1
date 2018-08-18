@@ -285,6 +285,7 @@
     <Content Include="images\demo\Thumbs.db" />
     <Content Include="images\icons\32\Thumbs.db" />
     <Content Include="images\Thumbs.db" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\excanvas.min.js" />
     <Content Include="Scripts\fullcalendar.min.js" />
