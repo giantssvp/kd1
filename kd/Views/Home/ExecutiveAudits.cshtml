@@ -40,24 +40,24 @@
                     <h5>Execute/Finance Booking Details</h5>
                 </div>
                 <div class="widget-content nopadding">
-                    <form method="post" action="@Url.Action("add_booking","Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
+                    <form method="post" action="@Url.Action("add_exe_franc_audit","Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
                         <table class="table table-striped">
                             <tbody>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Executive Name</label></td>
-                                    <td><input type="number" name="bno" id="required" @(edit ? new { value = elist[1] } : null)></td>
+                                    <td><input type="number" name="ename" id="required" @(edit ? new { value = elist[1] } : null)></td>
                                     <td><label class="control-label">Franchies Name</label></td>
-                                    <td> <input type="text" name="breferred" id="required" @(edit ? new { value = elist[2] } : null)></td>
+                                    <td> <input type="text" name="fname" id="required" @(edit ? new { value = elist[2] } : null)></td>
                                     <td><label class="control-label">Booking No</label></td>
-                                    <td><input type="number" name="bincentive" id="required" @(edit ? new { value = elist[3] } : null)></td>
+                                    <td><input type="number" name="bno" id="required" @(edit ? new { value = elist[3] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Total Incentive</label></td>
-                                    <td><input type="number" name="bincome" id="required" @(edit ? new { value = elist[4] } : null)></td>
+                                    <td><input type="number" name="incentive" id="required" @(edit ? new { value = elist[4] } : null)></td>
                                     <td><label class="control-label">Total Share</label></td>
-                                    <td> <input type="text" name="bcancel" id="required" @(edit ? new { value = elist[5] } : null)></td>
+                                    <td> <input type="text" name="share" id="required" @(edit ? new { value = elist[5] } : null)></td>
                                     <td><label class="control-label">Total Paid Amount</label></td>
-                                    <td><input type="number" name="btamount" id="required" @(edit ? new { value = elist[6] } : null)></td>
+                                    <td><input type="number" name="paidamt" id="required" @(edit ? new { value = elist[6] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     @if (edit)

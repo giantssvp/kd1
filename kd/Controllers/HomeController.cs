@@ -1337,11 +1337,11 @@ namespace kd.Controllers
             }
         }
 
-        public ActionResult add_sites(string sitename, string siteaddress, string sitephone, string siteemail, string sitestatus)
+        public ActionResult add_sites(string sitename, string sitetype, string siteaddress, string sitephone, string siteemail, string sitestatus, string sitesanctiontype)
         {
             try
             {
-                if (obj.insert_sites(sitename, siteaddress, sitephone, siteemail, sitestatus) == 1)
+                if (obj.insert_sites(sitename, sitetype, siteaddress, sitephone, siteemail, sitestatus, sitesanctiontype) == 1)
                 {
                     TempData["AlertMessage"] = "All the details saved successfully.";
                 }
@@ -1387,6 +1387,43 @@ namespace kd.Controllers
                     }
                 }
                     return RedirectToAction("Sites", "Home");
+            }
+            catch (Exception ex)
+            {
+                TempData["AlertMessage"] = "There is exception while saving the details please do it again.";
+                System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
+                return RedirectToAction("Sites", "Home");
+            }
+        }
+
+        public ActionResult add_plots(string plotsitename, string plotno, string plotarea, string plotstatus, string submit_btn, string edit_id = "0")
+        {
+            try
+            {
+                if (submit_btn == "Save")
+                {
+                    if (obj.insert_plots(plotsitename, plotno, plotarea, plotstatus) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details saved successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                    }
+                }
+                else if (submit_btn == "Update")
+                {
+                    int id = Int32.Parse(edit_id);
+                    if (obj.insert_plots(plotsitename, plotno, plotarea, plotstatus, "edit", id) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details updated successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while updating the details please do it again.";
+                    }
+                }
+                return RedirectToAction("Sites", "Home");
             }
             catch (Exception ex)
             {
@@ -1552,6 +1589,43 @@ namespace kd.Controllers
                 TempData["AlertMessage"] = "There is exception while saving the details please do it again.";
                 System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
                 return RedirectToAction("Booking", "Home");
+            }
+        }
+
+        public ActionResult add_exe_franc_audit(string ename, string fname, string bno, string incentive, string share, string paidamt, string submit_btn, string edit_id = "0")
+        {
+            try
+            {
+                if (submit_btn == "Save")
+                {
+                    if (obj.insert_exe_franc_audit(ename, fname, bno, incentive, share, paidamt) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details saved successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                    }
+                }
+                else if (submit_btn == "Update")
+                {
+                    int id = Int32.Parse(edit_id);
+                    if (obj.insert_exe_franc_audit(ename, fname, bno, incentive, share, paidamt, "edit", id) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details updated successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while updating the details please do it again.";
+                    }
+                }
+                return RedirectToAction("ExecutiveAudits", "Home");
+            }
+            catch (Exception ex)
+            {
+                TempData["AlertMessage"] = "There is exception while saving the details please do it again.";
+                System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
+                return RedirectToAction("ExecutiveAudits", "Home");
             }
         }
 
@@ -1828,10 +1902,10 @@ namespace kd.Controllers
          * Drop Down list for site name on page load
          */
         [HttpGet]
-        public ActionResult get_site(string data)
+        public ActionResult get_site(string data, string site_type = "All")
         {
             List<string>[] sites = new List<string>[7];
-            sites = obj.sites_show();
+            sites = obj.sites_show(site_type);
             var result = new { id = sites[0],
                 name = sites[1]};
             return Json(result, JsonRequestBehavior.AllowGet);

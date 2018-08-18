@@ -14,7 +14,7 @@ namespace kd.Models
     {
         private MySqlConnection connection;
         public List<string>[] list_enquiry_show = new List<string>[21];
-        public List<string>[] list_sites_show = new List<string>[9];
+        public List<string>[] list_sites_show = new List<string>[10];
         public List<string>[] list_executive_show = new List<string>[10];
         public List<string>[] list_executive_show_name = new List<string>[2];
         public List<string>[] list_franchies_show = new List<string>[9];
@@ -236,21 +236,23 @@ namespace kd.Models
             }
         }
 
-        public int insert_sites(string sitename, string siteaddress, string sitephone, string siteemail, string sitestatus)
+        public int insert_sites(string sitename, string sitetype, string siteaddress, string sitephone, string siteemail, string sitestatus, string sitesanctiontype)
         {
             try
             {
-                string query = "INSERT INTO sites (Site_Name, Email_Id, Phone, Address, Date, Status) " +
-                    "VALUES(@name, @email, @mob, @addr, NOW(), @status)";
+                string query = "INSERT INTO sites (Site_Name, Site_Type, Email_Id, Phone, Address, Date, Status, Sanction_Type) " +
+                    "VALUES(@name, @site_type, @email, @mob, @addr, NOW(), @status, @sact_type)";
 
                 if (this.OpenConnection() == true)
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@name", sitename);
+                    cmd.Parameters.AddWithValue("@site_type", sitetype);
                     cmd.Parameters.AddWithValue("@email", siteemail);
                     cmd.Parameters.AddWithValue("@mob", sitephone);
                     cmd.Parameters.AddWithValue("@addr", siteaddress);
                     cmd.Parameters.AddWithValue("@status", sitestatus);
+                    cmd.Parameters.AddWithValue("@sact_type", sitesanctiontype);
 
                     cmd.ExecuteNonQuery();
                     this.CloseConnection();
@@ -312,7 +314,51 @@ namespace kd.Models
             {
                 return 0;
             }
-        }        
+        }
+
+        public int insert_plots(string plotsitename, string plotno, string plotarea, string plotstatus, string type = "insert", int id = 0)
+        {
+            try
+            {
+                string query = "";
+                if (type == "edit")
+                {
+                    query = "UPDATE plot SET " +
+                        "Site_ID = @site," +
+                        " Plot_NO = @plotno," +
+                        " Plot_Area = @area," +
+                        " Plot_Status = @tatus where id=@id";
+                }
+                else
+                {
+                    query = "INSERT INTO plot (Site_ID, Plot_NO, Plot_Area, Plot_Status) " +
+                    "VALUES(@site, @plotno, @area, @status)";
+                }
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@site", plotsitename);
+                    cmd.Parameters.AddWithValue("@plotno", plotno);
+                    cmd.Parameters.AddWithValue("@area", plotarea);
+                    cmd.Parameters.AddWithValue("@status", plotstatus);
+
+                    if (type == "edit")
+                    {
+                        cmd.Parameters.AddWithValue("@id", id);
+                    }
+
+                    cmd.ExecuteNonQuery();
+                    this.CloseConnection();
+                    return 1;
+                }
+                return 0;
+            }
+            catch (MySqlException ex)
+            {
+                return 0;
+            }
+        }
 
         public int insert_executive(string exename, string execode, string exeemail, string exemob, string exeadd, string exejoin, string exebirth, string exestatus, string type = "insert", int id = 0)
         {
@@ -469,6 +515,54 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@coccu", coapploccu);
                     cmd.Parameters.AddWithValue("@cbirth", coapplbirth);
                     cmd.Parameters.AddWithValue("@status", applstatus);
+
+                    if (type == "edit")
+                    {
+                        cmd.Parameters.AddWithValue("@id", id);
+                    }
+
+                    cmd.ExecuteNonQuery();
+                    this.CloseConnection();
+                    return 1;
+                }
+                return 0;
+            }
+            catch (MySqlException ex)
+            {
+                return 0;
+            }
+        }
+
+        public int insert_exe_franc_audit(string ename, string fname, string bno, string incentive, string share, string paidamt, string type = "insert", int id = 0)
+        {
+            try
+            {
+                string query = "";
+                if (type == "edit")
+                {
+                    query = "UPDATE execu_fran_audit SET " +
+                        "Booking_ID = @bno," +
+                        " Executive_ID = @ename," +
+                        " Franchies_ID = @fname," +
+                        " Total_Incentive = @incentive," +
+                        " Total_Share = @share," +
+                        " Total_Paid = @paidamt where id=@id";
+                }
+                else
+                {
+                    query = "INSERT INTO execu_fran_audit (Booking_ID, Executive_ID, Franchies_ID, Total_Incentive, Total_Share, Total_Paid) " +
+                    "VALUES(@bno, @ename, fname, @incentive, @share, @paidamt)";
+                }
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@bno", bno);
+                    cmd.Parameters.AddWithValue("@ename", ename);
+                    cmd.Parameters.AddWithValue("@fname", fname);
+                    cmd.Parameters.AddWithValue("@incentive", incentive);
+                    cmd.Parameters.AddWithValue("@share", share);
+                    cmd.Parameters.AddWithValue("@paidamt", paidamt);
 
                     if (type == "edit")
                     {
@@ -1561,13 +1655,21 @@ namespace kd.Models
             }
         }
         
-        public List<string>[] sites_show()
+        public List<string>[] sites_show(string site_type = "All")
         {
             try
             {
-                string query = "SELECT * FROM sites ORDER BY ID DESC";
+                string query = "";
+                if (site_type == "All")
+                {
+                    query = "SELECT * FROM sites ORDER BY ID DESC";
+                }
+                else
+                {
+                    query = "SELECT * FROM sites where Site_Type = '" + site_type + "' ORDER BY ID DESC";
+                }
 
-                for (int i = 0; i < 8; i++)
+                for (int i = 0; i < 9; i++)
                 {
                     list_sites_show[i] = new List<string>();
                 }
@@ -1575,11 +1677,12 @@ namespace kd.Models
                 if (this.OpenConnection() == true)
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
+
                     MySqlDataReader dataReader = cmd.ExecuteReader();
 
                     while (dataReader.Read())
                     {
-                        for (int i = 0; i < 8; i++)
+                        for (int i = 0; i < 9; i++)
                         {
                             list_sites_show[i].Add(dataReader[i] + "");
                         }                     
