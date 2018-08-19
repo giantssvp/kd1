@@ -24,29 +24,29 @@
                     <h5>Daily Enquiry Report</h5>
                 </div>
                 <div class="widget-content nopadding">
-                    <form method="post" action="@Url.Action("Display_pdf","Home")" target="_blank" name="basic_validate" id="basic_validate" novalidate="novalidate">
+                    <form method="post" action="@Url.Action("DisplayDailyReport","Home")" target="_blank" name="basic_validate" id="basic_validate" novalidate="novalidate">
                         <table class="table table-striped">
                             <tbody>
                                 <tr class="odd gradeX">
 
-                                    <td><label class="control-label">Enquiry Date</label></td>
-                                    <td><input type="date" name="enqdate" id="required"></td>
-                                    <td><label class="control-label">Mobile No</label></td>
-                                    <td><input type="number" name="enqmob" id="required"></td>
+                                    <td><label class="control-label">Start Date</label></td>
+                                    <td><input type="date" name="enqStartDate" id="required"></td>
+                                    <td><label class="control-label">End Date</label></td>
+                                    <td><input type="date" name="enqEndDate" id="required"></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Customer Name</label></td>
-                                    <td><input type="text" name="enqname" id="required"></td>
+                                    <td><input type="text" name="enqName" id="required"></td>
 
                                     <td><label class="control-label">Site</label></td>
                                     <td>
-                                        <select name="enqsite" id="enqsite">    </select>
+                                        <select name="enqsite" id="enqSite">    </select>
                                     </td>                                                               
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Requirement</label></td>
                                     <td>
-                                        <select multiple name="enqrequirement" id="required">
+                                        <select name="enqRequirement" id="required">
                                             <option value="1RK" selected="selected">1RK</option>
                                             <option value="1BHK">1BHK</option>
                                             <option value="2BHK">2BHK</option>
@@ -58,7 +58,7 @@
                                     </td>
                                     <td><label class="control-label">Occupation</label></td>
                                     <td>
-                                        <select name="enqoccu" id="required">
+                                        <select name="enqOccu" id="required">
                                             <option value="Salaried" selected="selected">Salaried</option>
                                             <option value="Business">Business</option>
                                             <option value="Pensioner">Pensioner</option>
@@ -69,7 +69,7 @@
                                 <tr>
                                     <td><label class="control-label">Visit</label></td>
                                     <td>
-                                        <select name="enqvisit" id="required">
+                                        <select name="enqVisit" id="required">
                                             <option value="Visited">Visited</option>
                                             <option value="Enquiry">Enquiry</option>
                                             <option value="Other">Other</option>
@@ -77,7 +77,7 @@
                                     </td>
                                     <td><label class="control-label">Interest</label></td>
                                     <td>
-                                        <select name="enqinterest" id="required">
+                                        <select name="enqInterest">
                                             <option value="Interested" selected="selected">Interested</option>
                                             <option value="NotInterested">Not Interested</option>
                                             <option value="InProcess">In Process</option>
@@ -87,11 +87,13 @@
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Budget</label></td>
-                                    <td><input type="number" name="enqbudget" id="required"></td>
+                                    <td><input type="number" name="enqBudget"></td>
                                     <td><label class="control-label">Down Payment</label></td>
-                                    <td><input type="number" name="enqdown" id="required"></td>                                    
+                                    <td><input type="number" name="enqDown"></td>                                    
                                 </tr>
                                 <tr>
+                                    <td><label class="control-label">Mobile No</label></td>
+                                    <td><input type="number" name="enqMob"></td>
                                     <td><input type="submit" value="Generate Report" class="btn btn-success" /></td>
                                 </tr>
                             </tbody>
