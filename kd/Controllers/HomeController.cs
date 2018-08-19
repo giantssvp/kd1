@@ -402,7 +402,7 @@ namespace kd.Controllers
                         pass = 1;
                     }
                 }
-                else if (page == "builderCostSheet")
+                else if (page == "BuilderCostSheet")
                 {
                     if (obj.Delete_Record("cost_sheet", id) == 0)
                     {
@@ -1627,13 +1627,13 @@ namespace kd.Controllers
             }
         }
 
-        public ActionResult add_paymentcommit(string ctype, string camount, string cstatus, string bid, string cremark, string submit_btn, string edit_id = "0")
+        public ActionResult add_paymentcommit(string ctype, string camount, string cdate, string bid, string cremark, string submit_btn, string edit_id = "0")
         {
             try
             {
                 if (submit_btn == "Save")
                 {
-                    if (obj.insert_paymentcommit(ctype, camount, cstatus, cremark, bid) == 1)
+                    if (obj.insert_paymentcommit(ctype, camount, cdate, cremark, bid) == 1)
                     {
                         TempData["AlertMessage"] = "All the details saved successfully.";
                     }
@@ -1645,7 +1645,7 @@ namespace kd.Controllers
                 else if (submit_btn == "Update")
                 {
                     int id = Int32.Parse(edit_id);
-                    if (obj.insert_paymentcommit(ctype, camount, cstatus, cremark, bid, "edit", id) == 1)
+                    if (obj.insert_paymentcommit(ctype, camount, cdate, cremark, bid, "edit", id) == 1)
                     {
                         TempData["AlertMessage"] = "All the details updated successfully.";
                     }

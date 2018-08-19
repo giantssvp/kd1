@@ -58,8 +58,8 @@
                                     </td>
                                     <td><label class="control-label">Amount</label></td>
                                     <td> <input type="number" name="camount" id="required" @(edit ? new { value = elist[2] } : null)></td>
-                                    <td><label class="control-label">Date</label></td>
-                                    <td><input type="date" name="cstatus" id="required" @(edit ? new { value = @Convert.ToDateTime(elist[3]).ToString("yyyy-MM-dd") } : null)></td>
+                                    <td><label class="control-label">Commitment Date</label></td>
+                                    <td><input type="date" name="cdate" id="required" @(edit ? new { value = @Convert.ToDateTime(elist[3]).ToString("yyyy-MM-dd") } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Customer Name</label></td>
@@ -100,7 +100,7 @@
                                     <th>ID</th>
                                     <th>Commit Type</th>
                                     <th>Amount</th>
-                                    <th>Status</th>
+                                    <th>Commitment Date</th>
                                     <th>Remark</th>
                                     <th>Bkno</th>
                                     @if (this.Session["role"].ToString() == "admin")

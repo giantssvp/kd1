@@ -46,7 +46,6 @@ namespace kd.Models
             }
             catch (MySqlException ex)
             {
-
                 return false;
             }
         }
@@ -652,7 +651,7 @@ namespace kd.Models
             }
         }
 
-        public int insert_paymentcommit(string ctype, string camount, string cstatus, string cremark, string bid, string type = "insert", int id = 0)
+        public int insert_paymentcommit(string ctype, string camount, string cdate, string cremark, string bid, string type = "insert", int id = 0)
         {
             try
             {
@@ -662,14 +661,14 @@ namespace kd.Models
                     query = "UPDATE payment_commitment SET " +
                         "Commitment_Type = @ctype," +
                         " Amount = @camt," +
-                        " Status = @csts," +
+                        " Commitment_Date = @cdate," +
                         " Remark = @crmrk," +
                         " Booking_Id = @bid where id=@id";
                 }
                 else
                 {
-                    query = "INSERT INTO payment_commitment (Commitment_Type, Amount, Date, Status, Remark, Booking_Id) " +
-                    "VALUES(@ctype, @camt, NOW(), @csts, @crmrk, @bid)";
+                    query = "INSERT INTO payment_commitment (Commitment_Type, Amount, Commitment_Date, Date, Remark, Booking_Id) " +
+                    "VALUES(@ctype, @camt, @cdate, NOW(), @crmrk, @bid)";
                 }
 
                 if (this.OpenConnection() == true)
@@ -677,7 +676,7 @@ namespace kd.Models
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@ctype", ctype);
                     cmd.Parameters.AddWithValue("@camt", camount);
-                    cmd.Parameters.AddWithValue("@csts", cstatus);
+                    cmd.Parameters.AddWithValue("@cdate", cdate);
                     cmd.Parameters.AddWithValue("@crmrk", cremark);
                     cmd.Parameters.AddWithValue("@bid", Int32.Parse(bid));
 
@@ -2099,8 +2098,6 @@ namespace kd.Models
                         return role;
                     }
                 }
-
-                this.CloseConnection();
                 return "false";
             }
             catch (MySqlException ex)
