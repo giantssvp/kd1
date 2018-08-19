@@ -551,7 +551,7 @@ namespace kd.Models
                 else
                 {
                     query = "INSERT INTO execu_fran_audit (Booking_ID, Executive_ID, Franchies_ID, Total_Incentive, Total_Share, Total_Paid) " +
-                    "VALUES(@bno, @ename, fname, @incentive, @share, @paidamt)";
+                    "VALUES(@bno, @ename, @fname, @incentive, @share, @paidamt)";
                 }
 
                 if (this.OpenConnection() == true)
@@ -581,8 +581,9 @@ namespace kd.Models
             }
         }
 
-        public int insert_booking(string bno, string breferred, string bincentive, string bincome, string bcancel, string btamount,
-            string bramount, string bblder, string bparking, string bcharges, string bfollowup, string bstatus, string bremark, string bsite, string bflats, string bapplicant, string bexecutive, string bfranchies, string type = "insert", int id = 0)
+        public int insert_booking(string bno, string breferred, string bapplicant, string btamount, string bramount, string bblder,
+            string bsite, string bwing, string bflats, string bcharges, string bparking, string bcancel,
+            string bfollowup, string bstatus, string bremark, string type = "insert", int id = 0)
         {
             try
             {
@@ -592,30 +593,27 @@ namespace kd.Models
                     query = "UPDATE bookings SET " +
                         "Booking_No = @bno," +
                         " Referenceby = @bref," +
-                        " Incentive_Paid = @bince," +
-                        " Total_Incentive = @bin," +
-                        " Flat_Cancled_By = @bcan," +
+                        " Applicant_Id = @bappl," +
                         " Total_Flat_Amount = @btamt," +
                         " Received_Amount = @bramt," +
                         " Total_Builder_Received = @bbldr," +
-                        " Reserved_Parking = @bpark," +
+                        " Site_Id = @bsite," +
+                        " Wing = @bwing," +
+                        " Flat = @bflat," +
                         " Internal_Charges = @bchrg," +
+                        " Reserved_Parking = @bpark," +
+                        " Flat_Cancled_By = @bcan," +
                         " Follow_Up_Date = @bflp," +
                         " Status = @bsts," +
-                        " Remark = @bremark," +
-                        " Site_Id = @bsite," +
-                        " Applicant_Id = @bappl," +
-                        " Executive_Id = @bexe," +
-                        " Franchies_Id = @bfrn," +
-                        " Flat_Id = @bflts where id=@id";
+                        " Remark = @bremark where id=@id";
                 }
                 else
                 {
-                    query = "INSERT INTO bookings (Booking_No, Referenceby, Incentive_Paid, Total_Incentive, Flat_Cancled_By, Total_Flat_Amount, " +
-                    "Received_Amount, Total_Builder_Received, Reserved_Parking, Internal_Charges, Follow_Up_Date, Date, Status, Remark, Site_Id," +
-                    " Applicant_Id, Executive_Id, Franchies_Id, Flat_Id) " +
-                    "VALUES(@bno, @bref, @bince, @bin, @bcan, @btamt, @bramt, @bbldr, @bpark, @bchrg, @bflp, NOW(), @bsts, " +
-                    "@bremark, @bsite, @bappl, @bexe, @bfrn, @bflts)";
+                    query = "INSERT INTO bookings (Booking_No, Referenceby, Applicant_Id, Total_Flat_Amount, " +
+                        "Received_Amount, Total_Builder_Received, Site_Id, Wing, Flat, Internal_Charges, Reserved_Parking, " +
+                        "Flat_Cancled_By, Follow_Up_Date, Remark, Status, Date) " +
+                    "VALUES(@bno, @bref, @bappl, @btamt, @bramt, @bbldr, @bsite, @bwing, @bflat, @bchrg, @bpark, @bcan," +
+                    " @bflp, @bremark, @bsts, NOW())";
                 }
 
                 if (this.OpenConnection() == true)
@@ -623,22 +621,19 @@ namespace kd.Models
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@bno", bno);
                     cmd.Parameters.AddWithValue("@bref", breferred);
-                    cmd.Parameters.AddWithValue("@bince", bincentive);
-                    cmd.Parameters.AddWithValue("@bin", bincome);
-                    cmd.Parameters.AddWithValue("@bcan", bcancel);
+                    cmd.Parameters.AddWithValue("@bappl", bapplicant);
                     cmd.Parameters.AddWithValue("@btamt", btamount);
                     cmd.Parameters.AddWithValue("@bramt", bramount);
                     cmd.Parameters.AddWithValue("@bbldr", bblder);
-                    cmd.Parameters.AddWithValue("@bpark", bparking);
+                    cmd.Parameters.AddWithValue("@bsite", bsite);
+                    cmd.Parameters.AddWithValue("@bwing", bwing);
+                    cmd.Parameters.AddWithValue("@bflat", bflats);
                     cmd.Parameters.AddWithValue("@bchrg", bcharges);
+                    cmd.Parameters.AddWithValue("@bpark", bparking);
+                    cmd.Parameters.AddWithValue("@bcan", bcancel);
                     cmd.Parameters.AddWithValue("@bflp", bfollowup);
                     cmd.Parameters.AddWithValue("@bsts", bstatus);
                     cmd.Parameters.AddWithValue("@bremark", bremark);
-                    cmd.Parameters.AddWithValue("@bsite", bsite);
-                    cmd.Parameters.AddWithValue("@bflts", bflats);
-                    cmd.Parameters.AddWithValue("@bappl", bapplicant);
-                    cmd.Parameters.AddWithValue("@bexe", bexecutive);
-                    cmd.Parameters.AddWithValue("@bfrn", bfranchies);
 
                     if (type == "edit")
                     {
@@ -703,7 +698,7 @@ namespace kd.Models
             }
         }
 
-        public int insert_paymentdetails(string pamt, string pdate, string pmode, string chkid, string chkdate, string bname,
+        public int insert_paymentdetails(string pamt, string pmode, string chkid, string chkdate, string bname,
             string ptype, string bldpay, string bnkpay, string sts, string bid, string type = "insert", int id = 0)
         {
             try
@@ -734,7 +729,6 @@ namespace kd.Models
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@pamt", pamt);
-                    cmd.Parameters.AddWithValue("@pdate", pdate);
                     cmd.Parameters.AddWithValue("@pmode", pmode);
                     cmd.Parameters.AddWithValue("@chkid", chkid);
                     cmd.Parameters.AddWithValue("@chkdate", chkdate);
@@ -762,7 +756,7 @@ namespace kd.Models
             }
         }
 
-        public int insert_agreement(string ano, string adate, string anotary, string aamount, string aadjustment, string aextra, string astatus, string bid, string type = "insert", int id = 0)
+        public int insert_agreement(string ano, string adate, string anotary, string aamount, string aadjustment, string aextra, string gst, string astatus, string bid, string type = "insert", int id = 0)
         {
             try
             {
@@ -777,12 +771,13 @@ namespace kd.Models
                         " Notary_Amount = @notary," +
                         " Adjustment_Amount = @adjust," +
                         " Extra_Amount = @extra," +
+                        " GST_Amount = @gst, " +
                         " Booking_Id = @bid where id=@id";
                 }
                 else
                 {
-                    query = "INSERT INTO aggrement (Aggrement_Amount, Aggrement_Date, Aggrement_No, Status, Booking_Id, Notary_Amount, Adjustment_Amount, Extra_Amount) " +
-                    "VALUES(@aamount, @adate, @ano, @astatus, @bid, @notary, @adjust, @extra)";
+                    query = "INSERT INTO aggrement (Aggrement_Amount, Aggrement_Date, Aggrement_No, Status, Booking_Id, Notary_Amount, Adjustment_Amount, Extra_Amount, GST_Amount) " +
+                    "VALUES(@aamount, @adate, @ano, @astatus, @bid, @notary, @adjust, @extra, @gst)";
                 }
 
                 if (this.OpenConnection() == true)
@@ -796,6 +791,7 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@notary", anotary);
                     cmd.Parameters.AddWithValue("@adjust", aadjustment);
                     cmd.Parameters.AddWithValue("@extra", aextra);
+                    cmd.Parameters.AddWithValue("@gst", gst);
 
                     if (type == "edit")
                     {

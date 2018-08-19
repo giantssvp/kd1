@@ -59,12 +59,16 @@
                                     <td><input type="number" name="aextra" id="required" @(edit ? new { value = elist[8] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
+                                    <td><label class="control-label">GST Amount</label></td>
+                                    <td><input type="number" name="gst" id="required" @(edit ? new { value = elist[8] } : null)></td>
                                     <td><label class="control-label">Agreement Status</label></td>
                                     <td><input type="text" name="astatus" id="required" @(edit ? new { value = elist[4] } : null)></td>
                                     <td><label class="control-label">Customer Name</label></td>
                                     <td>
                                         <select name="bid" id="bid">    </select>
                                     </td>
+                                </tr>
+                                <tr class="odd gradeX">
                                     @if (edit)
                                     {
                                         <td><input type="submit" name="submit_btn" value="Update" class="btn btn-success" /></td>

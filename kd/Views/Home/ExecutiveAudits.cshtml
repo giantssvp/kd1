@@ -92,3 +92,12 @@
 <script src="~/Scripts/matrix.tables.js"></script>
 <script src="~/Scripts/jquery.validate.js"></script>
 <script src="~/Scripts/matrix.form_validation.js"></script>
+
+@{
+    var message = TempData["AlertMessage"] ?? string.Empty;
+}
+<script type="text/javascript">
+    var message = '@message';
+    if(message)
+        alert(message);
+</script>

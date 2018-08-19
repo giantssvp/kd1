@@ -1549,16 +1549,16 @@ namespace kd.Controllers
             }
         }
 
-        public ActionResult add_booking(string bno, string breferred, string bincentive, string bincome, string bcancel, string btamount,
-            string bramount, string bblder, string bparking, string bcharges, string bfollowup, string bstatus, string bremark, string bsite, string bflats, string bapplicant, string bexecutive, string bfranchies, string submit_btn, string edit_id = "0")
+        public ActionResult add_booking(string bno, string breferred, string bapplicant, string btamount, string bramount, string bblder,
+            string bsite, string bwing, string bflats, string bcharges, string bparking, string bcancel,
+            string bfollowup, string bstatus, string bremark, string submit_btn, string edit_id = "0")
         {
             try
             {
                 if (submit_btn == "Save")
                 {
-                    if (obj.insert_booking(bno, breferred, bincentive, bincome, bcancel, btamount,
-                                           bramount, bblder, bparking, bcharges, bfollowup, bstatus, 
-                                           bremark, bsite, bflats, bapplicant, bexecutive, bfranchies) == 1)
+                    if (obj.insert_booking(bno, breferred, bapplicant, btamount, bramount, bblder, bsite, bwing, bflats, 
+                        bcharges, bparking, bcancel, bfollowup, bstatus, bremark) == 1)
                     {
                         TempData["AlertMessage"] = "All the details saved successfully.";
                     }
@@ -1570,10 +1570,8 @@ namespace kd.Controllers
                 else if (submit_btn == "Update")
                 {
                     int id = Int32.Parse(edit_id);
-                    if (obj.insert_booking(bno, breferred, bincentive, bincome, bcancel, btamount,
-                                           bramount, bblder, bparking, bcharges, bfollowup, bstatus, 
-                                           bremark, bsite, bflats, bapplicant, bexecutive, 
-                                           bfranchies, "edit", id) == 1)
+                    if (obj.insert_booking(bno, breferred, bapplicant, btamount, bramount, bblder, bsite, bwing, bflats, 
+                        bcharges, bparking, bcancel, bfollowup, bstatus, bremark, "edit", id) == 1)
                     {
                         TempData["AlertMessage"] = "All the details updated successfully.";
                     }
@@ -1666,14 +1664,14 @@ namespace kd.Controllers
             }
         }
 
-        public ActionResult add_paymentdetails(string pamt, string pdate, string pmode, string chkid, string chkdate, string bname,
+        public ActionResult add_paymentdetails(string pamt, string pmode, string chkid, string chkdate, string bname,
             string ptype, string bldpay, string bnkpay, string sts, string bid, string submit_btn, string edit_id = "0")
         {
             try
             {
                 if (submit_btn == "Save")
                 {
-                    if (obj.insert_paymentdetails(pamt, pdate, pmode, chkid, chkdate, bname, ptype, bldpay, bnkpay, sts, bid) == 1)
+                    if (obj.insert_paymentdetails(pamt, pmode, chkid, chkdate, bname, ptype, bldpay, bnkpay, sts, bid) == 1)
                     {
                         TempData["AlertMessage"] = "All the details saved successfully.";
                     }
@@ -1685,7 +1683,7 @@ namespace kd.Controllers
                 else if (submit_btn == "Update")
                 {
                     int id = Int32.Parse(edit_id);
-                    if (obj.insert_paymentdetails(pamt, pdate, pmode, chkid, chkdate, bname, ptype, bldpay, bnkpay, sts, bid, "edit", id) == 1)
+                    if (obj.insert_paymentdetails(pamt, pmode, chkid, chkdate, bname, ptype, bldpay, bnkpay, sts, bid, "edit", id) == 1)
                     {
                         TempData["AlertMessage"] = "All the details updated successfully.";
                     }
@@ -1704,13 +1702,13 @@ namespace kd.Controllers
             }
         }
         
-        public ActionResult add_agreement(string ano, string adate, string anotary, string aamount, string aadjustment, string aextra, string astatus, string bid, string submit_btn, string edit_id = "0")
+        public ActionResult add_agreement(string ano, string adate, string anotary, string aamount, string aadjustment, string aextra, string gst, string astatus, string bid, string submit_btn, string edit_id = "0")
         {
             try
             {
                 if (submit_btn == "Save")
                 {
-                    if (obj.insert_agreement(ano, adate, anotary, aamount, aadjustment, aextra, astatus, bid) == 1)
+                    if (obj.insert_agreement(ano, adate, anotary, aamount, aadjustment, aextra, gst, astatus, bid) == 1)
                     {
                         TempData["AlertMessage"] = "All the details saved successfully.";
                     }
@@ -1722,7 +1720,7 @@ namespace kd.Controllers
                 else if (submit_btn == "Update")
                 {
                     int id = Int32.Parse(edit_id);
-                    if (obj.insert_agreement(ano, adate, anotary, aamount, aadjustment, aextra, astatus, bid, "edit", id) == 1)
+                    if (obj.insert_agreement(ano, adate, anotary, aamount, aadjustment, aextra, gst, astatus, bid, "edit", id) == 1)
                     {
                         TempData["AlertMessage"] = "All the details updated successfully.";
                     }
@@ -1951,7 +1949,6 @@ namespace kd.Controllers
         {
             List<string>[] wing = new List<string>[7];
             wing = obj.wing_show_name(site_id);
-            //MessageBox.Show(wing[0]);
             var result = new
             {
                 id = wing[0],
@@ -1968,7 +1965,6 @@ namespace kd.Controllers
         {
             List<string>[] flat = new List<string>[7];
             flat = obj.flat_show_no(wing_name, site_id);
-            //MessageBox.Show(wing[0]);
             var result = new
             {
                 id = flat[0],
