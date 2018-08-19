@@ -43,10 +43,12 @@
                         <table class="table table-striped">
                             <tbody>
                                 <tr class="odd gradeX">
+                                    <td><label class="control-label">Customer Name</label></td>
+                                    <td>
+                                        <select name="bid" id="bid">    </select>
+                                    </td>
                                     <td><label class="control-label">Amount</label></td>
                                     <td><input type="number" name="pamt" id="required" @(edit ? new { value = elist[1] } : null)></td>
-                                    <td><label class="control-label">Date</label></td>
-                                    <td> <input type="date" name="pdate" id="required" @(edit ? new { value = @Convert.ToDateTime(elist[2]).ToString("yyyy-MM-dd") } : null)></td>
                                     <td><label class="control-label">Payment Mode</label></td>
                                     <td><input type="text" name="pmode" id="required" @(edit ? new { value = elist[3] } : null)></td>
                                 </tr>
@@ -89,10 +91,6 @@
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Status</label></td>
                                     <td><input type="text" name="sts" id="required" @(edit ? new { value = elist[10] } : null)></td>
-                                    <td><label class="control-label">Customer Name</label></td>
-                                    <td>
-                                        <select name="bid" id="bid">    </select>
-                                    </td>
                                     @if (edit)
                                     {
                                         <td><input type="submit" name="submit_btn" value="Update" class="btn btn-success" /></td>

@@ -79,14 +79,14 @@
                                     <td><label class="control-label">Internal Charges</label></td>
                                     <td>
                                         <select name="bcharges" id="bcharges" style="max-width:90%;">
-                                            <option value="Yes" @(edit ? (elist[8].Contains("Covered") ? "selected" : "") : "")>Yes</option>
+                                            <option value="Yes" @(edit ? (elist[8].Contains("Yes") ? "selected" : "") : "selected")>Yes</option>
                                             <option value="No" @(edit ? (elist[8].Contains("No") ? "selected" : "") : "")> No</option>
                                         </select>
                                     </td>
                                     <td><label class="control-label">Reserved Parking</label></td>
                                     <td>
                                         <select name="bparking" id="bparking" style="max-width:90%;">
-                                            <option value="Covered" @(edit ? (elist[9].Contains("Covered") ? "selected" : "") : "")>Covered</option>
+                                            <option value="Covered" @(edit ? (elist[9].Contains("Covered") ? "selected" : "") : "selected")>Covered</option>
                                             <option value="Open" @(edit ? (elist[9].Contains("Open") ? "selected" : "") : "")> Open</option>
                                             <option value="No" @(edit ? (elist[9].Contains("No") ? "selected" : "") : "")> No</option>
                                         </select>

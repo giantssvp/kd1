@@ -53,26 +53,33 @@
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Site Name</label></td>
                                     <td><input type="text" name="sitename" id="required"></td>
+                                    <td><label class="control-label">Site Type</label></td>
+                                    <td>
+                                        <select name="sitetype" id="required">
+                                            <option value="Flat" @(edit ? (elist[9].Contains("Flat") ? "selected" : "") : "selected")>Flat</option>
+                                            <option value="Plot" @(edit ? (elist[9].Contains("Plot") ? "selected" : "") : "")>Plot</option>
+                                        </select>
+                                    </td>
                                     <td><label class="control-label">Site Address</label></td>
-                                    <td> <input type="text" name="siteaddress" id="required"></td>
-                                    <td><label class="control-label">Phone No</label></td>
-                                    <td><input type="number" name="sitephone" id="required"></td>
+                                    <td> <input type="text" name="siteaddress" id="required"></td>                                    
                                 </tr>
                                 <tr class="odd gradeX">
+                                    <td><label class="control-label">Phone No</label></td>
+                                    <td><input type="number" name="sitephone" id="required"></td>
                                     <td><label class="control-label">Email ID</label></td>
-                                    <td><input type="email" name="siteemail" id="required"></td>
-                                    <td><label class="control-label">Status</label></td>
-                                    <td> <input type="text" name="sitestatus" id="required"></td>
+                                    <td><input type="email" name="siteemail" id="required"></td>                                    
                                     <td><label class="control-label">Sanction Type</label></td>
                                     <td>
                                         <select name="sitesanctiontype" id="required">
-                                            <option value="NATP" @(edit ? (elist[9].Contains("Yes") ? "selected" : "") : "selected")>NATP</option>
-                                            <option value="GP" @(edit ? (elist[9].Contains("No") ? "selected" : "") : "")>GP</option>
-                                            <option value="Both" @(edit ? (elist[9].Contains("Other") ? "selected" : "") : "")>Both</option>
+                                            <option value="NATP" @(edit ? (elist[9].Contains("NATP") ? "selected" : "") : "selected")>NATP</option>
+                                            <option value="GP" @(edit ? (elist[9].Contains("GP") ? "selected" : "") : "")>GP</option>
+                                            <option value="Both" @(edit ? (elist[9].Contains("Both") ? "selected" : "") : "")>Both</option>
                                         </select>
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td><label class="control-label">Status</label></td>
+                                    <td> <input type="text" name="sitestatus" id="required"></td>
                                     <td><input type="submit" value="Save" class="btn btn-success" /></td>
                                     <td><input type="reset" value="Cancel" class="btn btn-danger" /></td>
                                 </tr>
@@ -99,21 +106,20 @@
                                     <td><label class="control-label">Wing Name</label></td>
                                     <td> <input type="text" name="flatwing" id="required" @(edit ? new { value = elist[5] } : null)></td>
                                     <td><label class="control-label">Floor</label></td>
-                                    <td><input type="number" name="flatfloor" id="required" @(edit ? new { value = elist[2] } : null)></td>
+                                     <td><input type="number" name="flatfloor" id="required" @(edit ? new { value = elist[2] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Flat No</label></td>
                                     <td><input type="number" name="flatno" id="required" @(edit ? new { value = elist[1] } : null)></td>
                                     <td><label class="control-label">Flat Type</label></td>
                                     <td>
-                                        <select multiple name="flattype" id="required">
+                                        <select name="flattype" id="required">
                                             <option value="1RK" @(edit ? (elist[4].Contains("1RK") ? "selected" : "") : "selected")>1RK</option>
                                             <option value="1BHK" @(edit ? (elist[4].Contains("1BHK") ? "selected" : "") : "")>1BHK</option>
                                             <option value="2BHK" @(edit ? (elist[4].Contains("2BHK") ? "selected" : "") : "")>2BHK</option>
                                             <option value="3BHK" @(edit ? (elist[4].Contains("3BHK") ? "selected" : "") : "")>3BHK</option>
                                             <option value="Other" @(edit ? (elist[4].Contains("Other") ? "selected" : "") : "")>Other</option>
                                         </select>
-                                        <input type="text" name="flattype" id="required">
                                     </td>
                                     <td><label class="control-label">Flat Area</label></td>
                                     <td><input type="number" name="flatarea" id="required" @(edit ? new { value = elist[3] } : null)></td>
@@ -145,22 +151,22 @@
                     <h5>Add Plot Details</h5>
                 </div>
                 <div class="widget-content nopadding">
-                    <form method="post" action="@Url.Action("add_flats","Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
+                    <form method="post" action="@Url.Action("add_plots","Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
                         <table class="table table-striped">
                             <tbody>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Site Name</label></td>
                                     <td>
-                                        <select name="flatsitename" id="flatsitename">    </select>
+                                        <select name="plotsitename" id="plotsitename">    </select>
                                     </td>
                                     <td><label class="control-label">Plot No</label></td>
-                                    <td> <input type="text" name="flatwing" id="required" @(edit ? new { value = elist[5] } : null)></td>
+                                    <td> <input type="text" name="plotno" id="required" @(edit ? new { value = elist[5] } : null)></td>
                                     <td><label class="control-label">Plot Area</label></td>
-                                    <td><input type="number" name="flatfloor" id="required" @(edit ? new { value = elist[2] } : null)></td>
+                                    <td><input type="number" name="plotarea" id="required" @(edit ? new { value = elist[2] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Plot Status</label></td>
-                                    <td><input type="text" name="flatstatus" id="required" @(edit ? new { value = elist[7] } : null)></td>
+                                    <td><input type="text" name="plotstatus" id="required" @(edit ? new { value = elist[7] } : null)></td>
                                     @if (edit)
                                     {
                                         <td><input type="submit" name="submit_btn" value="Update" class="btn btn-success" /></td>
@@ -297,7 +303,7 @@
     $(document).ready(function () {
         $.ajax({
             type: "GET",
-            url: '@Url.Action("get_site", "Home")',
+            url: '@Url.Action("get_site", "Home", new { site_type = "Flat" })',
             data: {},
             dataType: 'json',
             success: function (d) {
@@ -308,6 +314,27 @@
                     $("#flatsitename").append($('<option></option>').val(list1[index]).html(value));
                 });
                 document.getElementById("flatsitename").value = @(edit ? elist[8] : 1);
+            },
+            error: function (err) {
+                alert(err.responseText);
+            },
+        });
+    });
+
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("get_site", "Home", new { site_type = "Plot" })',
+            data: {},
+            dataType: 'json',
+            success: function (d) {
+                var list1 = d.id;
+                var list = d.name;
+                $("#plotsitename").html("");
+                $.each(list, function (index, value) {
+                    $("#plotsitename").append($('<option></option>').val(list1[index]).html(value));
+                });
+                document.getElementById("plotsitename").value = @(edit ? elist[1] : 1);
             },
             error: function (err) {
                 alert(err.responseText);
