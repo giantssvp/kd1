@@ -1947,12 +1947,12 @@ namespace kd.Controllers
         [HttpPost]
         public ActionResult get_wing_name(string site_id)
         {
-            List<string>[] wing = new List<string>[7];
+            List<string>[] wing = new List<string>[2];
             wing = obj.wing_show_name(site_id);
             var result = new
             {
                 id = wing[0],
-                name = wing[5]
+                name = wing[1]
             };
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -1963,7 +1963,7 @@ namespace kd.Controllers
         [HttpPost]
         public ActionResult get_flat_no(string wing_name, string site_id)
         {
-            List<string>[] flat = new List<string>[7];
+            List<string>[] flat = new List<string>[2];
             flat = obj.flat_show_no(wing_name, site_id);
             var result = new
             {

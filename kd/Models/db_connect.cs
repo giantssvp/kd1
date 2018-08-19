@@ -30,9 +30,9 @@ namespace kd.Models
         public List<string>[] list_agreement_show = new List<string>[9];
         public List<string>[] list_cost_sheet_show = new List<string>[14];
         public List<string>[] list_customer_booking_show = new List<string>[2];
-        public List<string>[] list_daily_customer_name_show = new List<string>[21];
-        public List<string>[] list_wing_name_show = new List<string>[9];
-        public List<string>[] list_flat_no_show = new List<string>[9];
+        public List<string>[] list_daily_customer_name_show = new List<string>[2];
+        public List<string>[] list_wing_name_show = new List<string>[2];
+        public List<string>[] list_flat_no_show = new List<string>[2];
 
         private bool OpenConnection()
         {
@@ -330,8 +330,8 @@ namespace kd.Models
                 }
                 else
                 {
-                    query = "INSERT INTO plot (Site_ID, Plot_NO, Plot_Area, Plot_Status) " +
-                    "VALUES(@site, @plotno, @area, @status)";
+                    query = "INSERT INTO plot (Site_ID, Plot_NO, Plot_Area, Plot_Status, Wing) " +
+                    "VALUES(@site, @plotno, @area, @status, @wing)";
                 }
 
                 if (this.OpenConnection() == true)
@@ -341,6 +341,7 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@plotno", plotno);
                     cmd.Parameters.AddWithValue("@area", plotarea);
                     cmd.Parameters.AddWithValue("@status", plotstatus);
+                    cmd.Parameters.AddWithValue("@wing", "None");
 
                     if (type == "edit")
                     {
@@ -1812,12 +1813,11 @@ namespace kd.Models
         {
             try
             {
-                string query = "SELECT * FROM daily ORDER BY ID DESC";
+                string query = "SELECT ID, Customer_Name FROM daily_enquiry ORDER BY ID DESC";
 
-                for (int i = 0; i < 21; i++)
-                {
-                   list_daily_customer_name_show[i] = new List<string>();
-                }
+                list_daily_customer_name_show[0] = new List<string>();
+                list_daily_customer_name_show[1] = new List<string>();
+                
 
                 if (this.OpenConnection() == true)
                 {
@@ -1826,10 +1826,8 @@ namespace kd.Models
 
                     while (dataReader.Read())
                     {
-                        for (int i = 0; i < 21; i++)
-                        {
-                            list_daily_customer_name_show[i].Add(dataReader[i] + "");
-                        }
+                        list_daily_customer_name_show[0].Add(dataReader["ID"] + "");
+                        list_daily_customer_name_show[1].Add(dataReader["Customer_Name"] + "");
                     }
                     dataReader.Close();
                     this.CloseConnection();
@@ -1847,18 +1845,17 @@ namespace kd.Models
         }
 
         /**
-         * Show Daily wing name for page load
+         * Show site type
          */
-        public List<string>[] wing_show_name(string site_id)
+        public string show_site_type(string site_id)
         {
             try
             {
-                string query = "SELECT * FROM flats where Site_Id = '" + site_id + "'";
+                string query = "SELECT Site_Type FROM sites where ID = '" + site_id + "'";
 
-                for (int i = 0; i < 9; i++)
-                {
-                    list_wing_name_show[i] = new List<string>();
-                }
+                
+                    string site_type = "";
+                
 
                 if (this.OpenConnection() == true)
                 {
@@ -1867,10 +1864,54 @@ namespace kd.Models
 
                     while (dataReader.Read())
                     {
-                        for (int i = 0; i < 9; i++)
-                        {
-                            list_wing_name_show[i].Add(dataReader[i] + "");
-                        }
+                        site_type = dataReader[0].ToString(); 
+                        
+                    }
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return site_type;
+                }
+                else
+                {
+                    return site_type;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return "Failed";
+            }
+        }
+
+        /**
+         * Show Daily wing name for page load
+         */
+        public List<string>[] wing_show_name(string site_id)
+        {
+            try
+            {
+                string query = "";
+                string site_type = show_site_type(site_id);
+                if (site_type == "Flat")
+                {
+                    query = "SELECT ID, Wing FROM flats where Site_Id = '" + site_id + "'";
+                }
+                else {
+                    query = "SELECT ID, Wing FROM plot where Site_ID = '" + site_id + "'";
+                }
+                
+                list_wing_name_show[0] = new List<string>();
+                list_wing_name_show[1] = new List<string>();
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    while (dataReader.Read())
+                    {
+                        list_wing_name_show[0].Add(dataReader["ID"] + "");
+                        list_wing_name_show[1].Add(dataReader["Wing"] + "");
+                        
                     }
                     dataReader.Close();
                     this.CloseConnection();
@@ -1894,12 +1935,18 @@ namespace kd.Models
         {
             try
             {
-                string query = "SELECT * FROM flats where Site_Id = '" + site_id + "' and wing = '" + wing_name + "'";
-
-                for (int i = 0; i < 9; i++)
+                string query;
+                if (wing_name == "None")
                 {
-                    list_flat_no_show[i] = new List<string>();
+                    query = "SELECT ID, Plot_NO as NUM FROM plot where Site_ID = '" + site_id + "' and wing = '" + wing_name + "'";
+                    
+                } else
+                {
+                    query = "SELECT ID, Flat_No as NUM FROM flats where Site_Id = '" + site_id + "' and wing = '" + wing_name + "'";
                 }
+
+                list_flat_no_show[0] = new List<string>();
+                list_flat_no_show[1] = new List<string>();
 
                 if (this.OpenConnection() == true)
                 {
@@ -1908,10 +1955,10 @@ namespace kd.Models
 
                     while (dataReader.Read())
                     {
-                        for (int i = 0; i < 9; i++)
-                        {
-                            list_flat_no_show[i].Add(dataReader[i] + "");
-                        }
+                        
+                        list_flat_no_show[0].Add(dataReader["ID"] + "");
+                        list_flat_no_show[1].Add(dataReader["NUM"] + "");
+
                     }
                     dataReader.Close();
                     this.CloseConnection();

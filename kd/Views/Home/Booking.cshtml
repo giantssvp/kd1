@@ -47,65 +47,75 @@
                                     <td><input type="number" name="bno" id="required" @(edit ? new { value = elist[1] } : null)></td>
                                     <td><label class="control-label">Referred By</label></td>
                                     <td> <input type="text" name="breferred" id="required" @(edit ? new { value = elist[2] } : null)></td>
+                                </tr>
+                                <tr class="odd gradeX">
                                     <td><label class="control-label">Applicant</label></td>
                                     <td>
                                         <select name="bapplicant" id="bapplicant">    </select>
                                     </td>
+                                    <td><label class="control-label">Total Flat Amount</label></td>
+                                    <td><input type="number" name="btamount" id="required" @(edit ? new { value = elist[3] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
-                                    <td><label class="control-label">Total Flat Amount</label></td>
-                                    <td><input type="number" name="btamount" id="required" @(edit ? new { value = elist[4] } : null)></td>
                                     <td><label class="control-label">Received Amount</label></td>
-                                    <td><input type="number" name="bramount" id="required" @(edit ? new { value = elist[5] } : null)></td>
-                                    <td><label class="control-label">Total Builder Received</label></td>
-                                    <td> <input type="number" name="bblder" id="required" @(edit ? new { value = elist[6] } : null)></td>
+                                    <td><input type="number" name="bramount" id="required" @(edit ? new { value = elist[4] } : null)></td>
 
+                                    <td><label class="control-label">Total Builder Received</label></td>
+                                    <td> <input type="number" name="bblder" id="required" @(edit ? new { value = elist[5] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Site</label></td>
                                     <td>
                                         <select name="bsite" id="bsite">    </select>
                                     </td>
+
                                     <td><label class="control-label">Wing</label></td>
                                     <td>
                                         <select name="bwing" id="bwing">    </select>
                                     </td>
+                                </tr>
+                                <tr class="odd gradeX">
                                     <td><label class="control-label">Flats/Plot</label></td>
                                     <td>
                                         <select name="bflats" id="bflats">    </select>
                                     </td>
-                                </tr>
-                                <tr class="odd gradeX">
+
                                     <td><label class="control-label">Internal Charges</label></td>
                                     <td>
                                         <select name="bcharges" id="bcharges" style="max-width:90%;">
-                                            <option value="Yes" @(edit ? (elist[10].Contains("Yes") ? "selected" : "") : "selected")>Yes</option>
-                                            <option value="No" @(edit ? (elist[10].Contains("No") ? "selected" : "") : "")> No</option>
+                                            <option value="Yes" @(edit ? (elist[8].Contains("Yes") ? "selected" : "") : "selected")>Yes</option>
+                                            <option value="No" @(edit ? (elist[8].Contains("No") ? "selected" : "") : "")> No</option>
                                         </select>
                                     </td>
+                                </tr>
+                                <tr class="odd gradeX">
                                     <td><label class="control-label">Reserved Parking</label></td>
                                     <td>
                                         <select name="bparking" id="bparking" style="max-width:90%;">
-                                            <option value="Covered" @(edit ? (elist[11].Contains("Covered") ? "selected" : "") : "selected")>Covered</option>
-                                            <option value="Open" @(edit ? (elist[11].Contains("Open") ? "selected" : "") : "")> Open</option>
-                                            <option value="No" @(edit ? (elist[11].Contains("No") ? "selected" : "") : "")> No</option>
+                                            <option value="Covered" @(edit ? (elist[9].Contains("Covered") ? "selected" : "") : "selected")>Covered</option>
+                                            <option value="Open" @(edit ? (elist[9].Contains("Open") ? "selected" : "") : "")> Open</option>
+                                            <option value="No" @(edit ? (elist[9].Contains("No") ? "selected" : "") : "")> No</option>
                                         </select>
                                     </td>
+
                                     <td><label class="control-label">Flat Cancelled By</label></td>
-                                    <td> <input type="text" name="bcancel" id="required" @(edit ? new { value = elist[12] } : null)></td>
+                                    <td> <input type="text" name="bcancel" id="required" @(edit ? new { value = elist[10] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Follow Up Date</label></td>
-                                    <td> <input type="date" name="bfollowup" id="required" @(edit ? new { value = @Convert.ToDateTime(elist[13]).ToString("yyyy-MM-dd") } : null)></td>
+                                    <td> <input type="date" name="bfollowup" id="required" @(edit ? new { value = @Convert.ToDateTime(elist[11]).ToString("yyyy-MM-dd") } : null)></td>
+
                                     <td><label class="control-label">Status</label></td>
                                     <td>
                                         <select name="bstatus" id="bstatus" style="max-width:90%;">
-                                            <option value="Active" @(edit ? (elist[15].Contains("Active") ? "selected" : "") : "selected")>Active</option>
-                                            <option value="Cancel" @(edit ? (elist[15].Contains("Cancel") ? "selected" : "") : "")>Cancel</option>
+                                            <option value="Active" @(edit ? (elist[12].Contains("Active") ? "selected" : "") : "selected")>Active</option>
+                                            <option value="Cancel" @(edit ? (elist[12].Contains("Cancel") ? "selected" : "") : "")>Cancel</option>
                                         </select>
                                     </td>
+                                </tr>
+                                <tr class="odd gradeX">
                                     <td><label class="control-label">Remarks</label></td>
-                                    <td><input type="text" name="bremark" id="required" @(edit ? new { value = elist[14] } : null)></td>
+                                    <td><input type="text" name="bremark" id="required" @(edit ? new { value = elist[13] } : null)></td>
 
                                 </tr>
                                 <tr class="odd gradeX">
@@ -236,7 +246,7 @@
                 $.each(list, function (index, value) {
                     $("#bsite").append($('<option></option>').val(list1[index]).html(value));
                 });
-                document.getElementById("bsite").value = @(edit ? elist[7] : 1);
+                document.getElementById("bsite").value = @(edit ? elist[15] : 1);
             },
             error: function (err) {
                 alert(err.responseText);
@@ -259,7 +269,7 @@
                 $.each(list, function (index, value) {
                     $("#bapplicant").append($('<option></option>').val(list1[index]).html(value));
                 });
-                document.getElementById("bapplicant").value = @(edit ? elist[3] : 1);
+                document.getElementById("bapplicant").value = @(edit ? elist[16] : 1);
             },
             error: function (err) {
                 alert(err.responseText);
@@ -291,7 +301,7 @@
                     $.each(list, function (index, value) {
                         $("#bwing").append($('<option></option>').val(value).html(value));
                     });
-                    document.getElementById("bwing").value = @(edit ? elist[8] : 1);
+                    document.getElementById("bwing").value = @(edit ? elist[6] : 1);
                 },
                 error: function (err) {
                     alert(err.responseText);
@@ -328,7 +338,7 @@
                     $.each(list, function (index, value) {
                         $("#bflats").append($('<option></option>').val(list1[index]).html(value));
                     });
-                    document.getElementById("bflats").value = @(edit ? elist[9] : 1);
+                    document.getElementById("bflats").value = @(edit ? elist[7] : 1);
                 },
                 error: function (err) {
                     alert(err.responseText);

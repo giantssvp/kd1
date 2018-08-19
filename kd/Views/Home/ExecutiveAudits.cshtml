@@ -45,15 +45,24 @@
                             <tbody>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Executive Name</label></td>
-                                    <td><input type="number" name="ename" id="required" @(edit ? new { value = elist[1] } : null)></td>
+                                    <td>
+                                        <select name="ename" id="ename">  </select>
+                                    </td>
                                     <td><label class="control-label">Franchies Name</label></td>
-                                    <td> <input type="text" name="fname" id="required" @(edit ? new { value = elist[2] } : null)></td>
-                                    <td><label class="control-label">Booking No</label></td>
-                                    <td><input type="number" name="bno" id="required" @(edit ? new { value = elist[3] } : null)></td>
+                                    <td>
+                                        <select name="fname" id="fname">  </select>
+                                    </td>
                                 </tr>
                                 <tr class="odd gradeX">
+                                    <td><label class="control-label">Customer Name</label></td>
+                                    <td>
+                                        <select name="bno" id="bno">  </select>
+                                   </td>
+
                                     <td><label class="control-label">Total Incentive</label></td>
                                     <td><input type="number" name="incentive" id="required" @(edit ? new { value = elist[4] } : null)></td>
+                                </tr>
+                                <tr class="odd gradeX">
                                     <td><label class="control-label">Total Share</label></td>
                                     <td> <input type="text" name="share" id="required" @(edit ? new { value = elist[5] } : null)></td>
                                     <td><label class="control-label">Total Paid Amount</label></td>
@@ -100,4 +109,75 @@
     var message = '@message';
     if(message)
         alert(message);
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("get_executive", "Home")',
+            data: {},
+            dataType: 'json',
+            success: function (d) {
+                var list1 = d.id;
+                var list = d.name;
+                $("#ename-").html("");
+                $.each(list, function (index, value) {
+                    $("#ename").append($('<option></option>').val(list1[index]).html(value));
+                });
+                document.getElementById("ename").value = @(edit ? elist[1] : 1);
+
+            },
+            error: function (err) {
+                alert(err.responseText);
+            },
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("get_franchies", "Home")',
+            data: {},
+            dataType: 'json',
+            success: function (d) {
+                var list1 = d.id;
+                var list = d.name;
+                $("#fname-").html("");
+                $.each(list, function (index, value) {
+                    $("#fname").append($('<option></option>').val(list1[index]).html(value));
+                });
+                document.getElementById("fname").value = @(edit ? elist[2] : 1);
+
+            },
+            error: function (err) {
+                alert(err.responseText);
+            },
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("get_customer_booking_name", "Home")',
+            data: {},
+            dataType: 'json',
+            success: function (d) {
+                var list1 = d.id;
+                var list = d.name;
+                $("#bno").html("");
+                $.each(list, function (index, value) {
+                    $("#bno").append($('<option></option>').val(list1[index]).html(value));
+                });
+                document.getElementById("bno").value = @(edit ? elist[3] : 1);
+            },
+            error: function (err) {
+                alert(err.responseText);
+            },
+        });
+    });
 </script>

@@ -36,7 +36,7 @@
             <div class="widget-box">
                 <div class="widget-title">
                     <span class="icon"> <i class="icon-info-sign"></i> </span>
-                    <h5>Add File Status</h5>
+                    <h5>File Process Charges</h5>
                 </div>
                 <div class="widget-content nopadding">
                     <form method="post" action="@Url.Action("add_filestatus","Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
@@ -47,12 +47,15 @@
                                     <td><input type="number" name="chrg" id="required" @(edit ? new { value = elist[1] } : null)></td>
                                     <td><label class="control-label">Loan Fees Amount</label></td>
                                     <td> <input type="number" name="lfamt" id="required" @(edit ? new { value = elist[2] } : null)></td>
-                                    <td><label class="control-label">Cheque ID</label></td>
-                                    <td><input type="text" name="chid" id="required" @(edit ? new { value = elist[3] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
+                                    <td><label class="control-label">Cheque ID</label></td>
+                                    <td><input type="text" name="chid" id="required" @(edit ? new { value = elist[3] } : null)></td>
+
                                     <td><label class="control-label">Cheque Date</label></td>
                                     <td><input type="date" name="chdate" id="required" @(edit ? new { value = @Convert.ToDateTime(elist[4]).ToString("yyyy-MM-dd") } : null)></td>
+                                </tr>
+                                <tr class="odd gradeX">
                                     <td><label class="control-label">Bank Name</label></td>
                                     <td> <input type="text" name="bnknm" id="required" @(edit ? new { value = elist[5] } : null)></td>
                                     <td><label class="control-label">Loan Fees</label></td>
@@ -63,11 +66,16 @@
                                         </select>
                                     </td>
                                 </tr>
-                                <tr class="odd gradeX">                                    
+                                <tr class="odd gradeX">
                                     <td><label class="control-label">Finance ID</label></td>
-                                    <td><input type="text" name="fid" id="required" @(edit ? new { value = elist[8] } : null)></td>
+                                    <td>
+                                        <select name="financename" id="finacename"  @(edit ? new { value = elist[8] } : null)>  </select>
+                                  
+                                    </td>
                                     <td><label class="control-label">Status</label></td>
                                     <td> <textarea class="span11" name="fstatus">@(edit ? elist[7] : null)</textarea></td>
+                                </tr>
+                                <tr class="odd gradeX">
                                     @if (edit)
                                     {
                                         <td><input type="submit" name="submit_btn" value="Update" class="btn btn-success" /></td>

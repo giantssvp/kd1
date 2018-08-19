@@ -60,14 +60,16 @@
                                             <option value="Plot" @(edit ? (elist[9].Contains("Plot") ? "selected" : "") : "")>Plot</option>
                                         </select>
                                     </td>
-                                    <td><label class="control-label">Site Address</label></td>
-                                    <td> <input type="text" name="siteaddress" id="required"></td>                                    
                                 </tr>
                                 <tr class="odd gradeX">
+                                    <td><label class="control-label">Site Address</label></td>
+                                    <td> <input type="text" name="siteaddress" id="required"></td>
                                     <td><label class="control-label">Phone No</label></td>
                                     <td><input type="number" name="sitephone" id="required"></td>
+                                </tr>
+                                <tr class="odd gradeX">
                                     <td><label class="control-label">Email ID</label></td>
-                                    <td><input type="email" name="siteemail" id="required"></td>                                    
+                                    <td><input type="email" name="siteemail" id="required"></td>
                                     <td><label class="control-label">Sanction Type</label></td>
                                     <td>
                                         <select name="sitesanctiontype" id="required">
@@ -77,7 +79,7 @@
                                         </select>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr class="odd gradeX">
                                     <td><label class="control-label">Status</label></td>
                                     <td> <input type="text" name="sitestatus" id="required"></td>
                                     <td><input type="submit" value="Save" class="btn btn-success" /></td>
@@ -105,12 +107,14 @@
                                     </td>
                                     <td><label class="control-label">Wing Name</label></td>
                                     <td> <input type="text" name="flatwing" id="required" @(edit ? new { value = elist[5] } : null)></td>
-                                    <td><label class="control-label">Floor</label></td>
-                                     <td><input type="number" name="flatfloor" id="required" @(edit ? new { value = elist[2] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
+                                    <td><label class="control-label">Floor</label></td>
+                                    <td><input type="number" name="flatfloor" id="required" @(edit ? new { value = elist[2] } : null)></td>
                                     <td><label class="control-label">Flat No</label></td>
                                     <td><input type="number" name="flatno" id="required" @(edit ? new { value = elist[1] } : null)></td>
+                                </tr>
+                                <tr class="odd gradeX">
                                     <td><label class="control-label">Flat Type</label></td>
                                     <td>
                                         <select name="flattype" id="required">
@@ -161,12 +165,14 @@
                                     </td>
                                     <td><label class="control-label">Plot No</label></td>
                                     <td> <input type="text" name="plotno" id="required" @(edit ? new { value = elist[5] } : null)></td>
-                                    <td><label class="control-label">Plot Area</label></td>
-                                    <td><input type="number" name="plotarea" id="required" @(edit ? new { value = elist[2] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
+                                    <td><label class="control-label">Plot Area</label></td>
+                                    <td><input type="number" name="plotarea" id="required" @(edit ? new { value = elist[2] } : null)></td>
                                     <td><label class="control-label">Plot Status</label></td>
                                     <td><input type="text" name="plotstatus" id="required" @(edit ? new { value = elist[7] } : null)></td>
+                                </tr>
+                                <tr class="odd gradeX">
                                     @if (edit)
                                     {
                                         <td><input type="submit" name="submit_btn" value="Update" class="btn btn-success" /></td>
