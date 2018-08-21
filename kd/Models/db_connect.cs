@@ -1708,7 +1708,7 @@ namespace kd.Models
             }
         }
         
-        public List<string>[] sites_show(string site_type = "All")
+        public List<string>[] sites_show(string site_type = "All", int offset = 0, int limit = 0, string search = "")
         {
             try
             {
@@ -1720,6 +1720,16 @@ namespace kd.Models
                 else
                 {
                     query = "SELECT * FROM sites where Site_Type = '" + site_type + "' ORDER BY ID DESC";
+                }
+
+                if (limit != 0)
+                {
+                    query = query + " limit " + limit.ToString();
+                }
+
+                if (offset != 0)
+                {
+                    query = query + " offset " + offset.ToString();
                 }
 
                 for (int i = 0; i < 9; i++)

@@ -78,7 +78,55 @@ namespace kd.Controllers
         }
 
         [Authorize]
-        public ActionResult Sites(string ps = "10", string site = "", string search = "")
+        public ActionResult Sites(string ps = "10", string filter = "", string search = "")
+        {
+            ViewBag.total = 0;
+            HttpContext.Session.Add("offset", 0);
+            List<string>[] list = new List<string>[9];
+
+            list = obj.sites_show("All", Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps), search: search);
+
+            ViewBag.list = list;
+            ViewBag.total = list[0].Count();
+            ViewBag.pageSize = Int32.Parse(ps);
+            ViewBag.search = search;
+
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult Flats(string ps = "10", string site = "All", string search = "")
+        {
+            ViewBag.total = 0;
+            HttpContext.Session.Add("offset", 0);
+            List<string>[] sites = new List<string>[7];
+            List<string>[] list = new List<string>[9];
+            sites = obj.sites_show();
+
+            if (site == "")
+            {
+                site = sites[1][0];
+                list = obj.flats_show(site, Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
+            }
+            else
+            {
+                list = obj.flats_show(site, Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps), search: search);
+            }
+
+            ViewBag.sites = sites;            
+            ViewBag.total_site = sites[0].Count();
+            ViewBag.site = site;
+            
+            ViewBag.list = list;
+            ViewBag.total = list[0].Count();
+            ViewBag.pageSize = Int32.Parse(ps);
+            ViewBag.search = search;
+
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult Plots(string ps = "10", string site = "", string search = "")
         {
             ViewBag.total = 0;
             HttpContext.Session.Add("offset", 0);
@@ -96,10 +144,10 @@ namespace kd.Controllers
                 list = obj.flats_show(site, Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps), search: search);
             }
 
-            ViewBag.sites = sites;            
+            ViewBag.sites = sites;
             ViewBag.total_site = sites[0].Count();
             ViewBag.site = site;
-            
+
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
             ViewBag.pageSize = Int32.Parse(ps);
@@ -325,7 +373,7 @@ namespace kd.Controllers
                         pass = 1;
                     }
                 }
-                else if (page == "Sites")
+                else if (page == "Flats")
                 {
                     if (obj.Delete_Record("flats", id) == 0)
                     {
@@ -450,7 +498,7 @@ namespace kd.Controllers
                     ViewBag.edit_list = edit_list;
                     ViewBag.edit_str = "edit";
                 }
-                else if (page == "Sites")
+                else if (page == "Flats")
                 {
                     edit_list = obj.get_edit_record("flats", id);
                     ViewBag.edit_list = edit_list;
@@ -544,7 +592,7 @@ namespace kd.Controllers
                 {
                     list = obj.enquiry_show(0, page_size, search: search);
                 }
-                else if (page == "Sites")
+                else if (page == "Flats")
                 {
                     List<string>[] sites = new List<string>[7];
                     sites = obj.sites_show();
@@ -628,7 +676,7 @@ namespace kd.Controllers
                 {
                     list = obj.enquiry_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
-                else if (page == "Sites")
+                else if (page == "Flats")
                 {
                     List<string>[] sites = new List<string>[7];
                     sites = obj.sites_show();
@@ -716,7 +764,7 @@ namespace kd.Controllers
                     }
                     cnt = obj.get_count(query);
                 }
-                else if (page == "Sites")
+                else if (page == "Flats")
                 {
                     string query = "";
                     int id = obj.get_site_id_by_name(site);
@@ -885,7 +933,7 @@ namespace kd.Controllers
                 {
                     list = obj.enquiry_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
-                else if (page == "Sites")
+                else if (page == "Flats")
                 {
                     List<string>[] sites = new List<string>[7];
                     sites = obj.sites_show();
@@ -973,7 +1021,7 @@ namespace kd.Controllers
                     }
                     cnt = obj.get_count(query);
                 }
-                else if (page == "Sites")
+                else if (page == "Flats")
                 {
                     string query = "";
                     int id = obj.get_site_id_by_name(site);
@@ -1147,7 +1195,7 @@ namespace kd.Controllers
                 {
                     list = obj.enquiry_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
-                else if (page == "Sites")
+                else if (page == "Flats")
                 {
                     List<string>[] sites = new List<string>[7];
                     sites = obj.sites_show();
@@ -1349,13 +1397,13 @@ namespace kd.Controllers
                 {
                     TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
                 }
-                return RedirectToAction("Sites", "Home");
+                return RedirectToAction("Flats", "Home");
             }
             catch (Exception ex)
             {
                 TempData["AlertMessage"] = "There is exception while saving the details please do it again.";
                 System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
-                return RedirectToAction("Sites", "Home");
+                return RedirectToAction("Flats", "Home");
             }
         }
 
@@ -1386,13 +1434,13 @@ namespace kd.Controllers
                         TempData["AlertMessage"] = "There is some issue while updating the details please do it again.";
                     }
                 }
-                    return RedirectToAction("Sites", "Home");
+                    return RedirectToAction("Flats", "Home");
             }
             catch (Exception ex)
             {
                 TempData["AlertMessage"] = "There is exception while saving the details please do it again.";
                 System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
-                return RedirectToAction("Sites", "Home");
+                return RedirectToAction("Flats", "Home");
             }
         }
 
@@ -1423,13 +1471,13 @@ namespace kd.Controllers
                         TempData["AlertMessage"] = "There is some issue while updating the details please do it again.";
                     }
                 }
-                return RedirectToAction("Sites", "Home");
+                return RedirectToAction("Flats", "Home");
             }
             catch (Exception ex)
             {
                 TempData["AlertMessage"] = "There is exception while saving the details please do it again.";
                 System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
-                return RedirectToAction("Sites", "Home");
+                return RedirectToAction("Flats", "Home");
             }
         }
 
