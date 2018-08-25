@@ -383,12 +383,13 @@
     <Content Include="Views\Home\CostSheetReport.cshtml" />
     <Content Include="Views\Home\Flats.cshtml" />
     <Content Include="Views\Home\Plots.cshtml" />
+    <Content Include="Views\Home\SiteVisit.cshtml" />
+    <Content Include="Views\Home\Followup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\agreement\" />
-    <Folder Include="Views\booking\" />
-    <Folder Include="Views\customer\" />
+    <Folder Include="Views\customer\booking\" />
     <Folder Include="Views\daily_enquiry\" />
     <Folder Include="Views\executive\" />
     <Folder Include="Views\sites\" />
