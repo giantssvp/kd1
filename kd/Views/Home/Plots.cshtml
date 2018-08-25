@@ -54,16 +54,16 @@
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Site Name</label></td>
                                     <td>
-                                        <select name="plotsitename" id="plotsitename">    </select>
+                                        <select name="plotsitename" id="plotsitename"> </select>
                                     </td>
                                     <td><label class="control-label">Plot No</label></td>
-                                    <td> <input type="number" name="plotno" id="required" @(edit ? new { value = elist[5] } : null)></td>
+                                    <td> <input type="number" name="plotno" id="required" @(edit ? new { value = elist[2] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Plot Area</label></td>
-                                    <td><input type="number" name="plotarea" id="required" @(edit ? new { value = elist[2] } : null)></td>
+                                    <td><input type="number" name="plotarea" id="required" @(edit ? new { value = elist[3] } : null)></td>
                                     <td><label class="control-label">Plot Status</label></td>
-                                    <td><input type="text" name="plotstatus" id="required" @(edit ? new { value = elist[7] } : null)></td>
+                                    <td><input type="text" name="plotstatus" id="required" @(edit ? new { value = elist[4] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     @if (edit)
@@ -107,12 +107,10 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Wing Name</th>
-                                    <th>Floor</th>
-                                    <th>Flat No</th>
-                                    <th>Flat Type</th>
-                                    <th>Flat Area</th>
-                                    <th>Status</th>
+                                    <th>Site Name</th>
+                                    <th>Plot Number</th>
+                                    <th>Plot Area</th>
+                                    <th>Plot Status</th>
                                     @if (this.Session["role"].ToString() == "admin")
                                     {
                                         <th>Modify</th>
@@ -124,12 +122,10 @@
                                 {
                                 <tr class="gradeX">
                                     <td>@results[0][i]</td>
-                                    <td>@results[5][i]</td>
-                                    <td>@results[2][i]</td>
                                     <td>@results[1][i]</td>
-                                    <td>@results[4][i]</td>
+                                    <td>@results[2][i]</td>
                                     <td>@results[3][i]</td>
-                                    <td>@results[7][i]</td>
+                                    <td>@results[4][i]</td>
                                     @if (this.Session["role"].ToString() == "admin")
                                     {
                                         <td align="center">
@@ -199,27 +195,6 @@
 </script>
 
 <script type="text/javascript">
-    $(document).ready(function () {
-        $.ajax({
-            type: "GET",
-            url: '@Url.Action("get_site", "Home", new { site_type = "Flat" })',
-            data: {},
-            dataType: 'json',
-            success: function (d) {
-                var list1 = d.id;
-                var list = d.name;
-                $("#flatsitename").html("");
-                $.each(list, function (index, value) {
-                    $("#flatsitename").append($('<option></option>').val(list1[index]).html(value));
-                });
-                document.getElementById("flatsitename").value = @(edit ? elist[8] : 1);
-            },
-            error: function (err) {
-                alert(err.responseText);
-            },
-        });
-    });
-
     $(document).ready(function () {
         $.ajax({
             type: "GET",

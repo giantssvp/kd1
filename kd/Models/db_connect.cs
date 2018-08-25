@@ -24,6 +24,7 @@ namespace kd.Models
         public List<string>[] list_paycommit_show = new List<string>[7];
         public List<string>[] list_paydetails_show = new List<string>[12];
         public List<string>[] list_flats_show = new List<string>[9];
+        public List<string>[] list_plots_show = new List<string>[6];
         public List<string>[] list_booking_show = new List<string>[17];
         public List<string>[] list_finance_show = new List<string>[21];
         public List<string>[] list_file_status_show = new List<string>[10];
@@ -235,13 +236,27 @@ namespace kd.Models
             }
         }
 
-        public int insert_sites(string sitename, string sitetype, string siteaddress, string sitephone, string siteemail, string sitestatus, string sitesanctiontype)
+        public int insert_sites(string sitename, string sitetype, string siteaddress, string sitephone, string siteemail, string sitestatus, string sitesanctiontype, string type = "insert", int id = 0)
         {
             try
             {
-                string query = "INSERT INTO sites (Site_Name, Site_Type, Email_Id, Phone, Address, Date, Status, Sanction_Type) " +
+                string query = "";
+                if (type == "edit")
+                {
+                    query = "UPDATE sites SET " +
+                        " Site_Name = @name," +
+                        " Site_Type = @site_type," +
+                        " Email_Id = @email," +
+                        " Phone = @mob," +
+                        " Address = @addr," +
+                        " Status = @status," +
+                        " Sanction_Type = @sact_type where id=@id";
+                }
+                else
+                {
+                    query = "INSERT INTO sites (Site_Name, Site_Type, Email_Id, Phone, Address, Date, Status, Sanction_Type) " +
                     "VALUES(@name, @site_type, @email, @mob, @addr, NOW(), @status, @sact_type)";
-
+                }
                 if (this.OpenConnection() == true)
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
@@ -253,6 +268,10 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@status", sitestatus);
                     cmd.Parameters.AddWithValue("@sact_type", sitesanctiontype);
 
+                    if (type == "edit")
+                    {
+                        cmd.Parameters.AddWithValue("@id", id);
+                    }
                     cmd.ExecuteNonQuery();
                     this.CloseConnection();
                     return 1;
@@ -326,7 +345,7 @@ namespace kd.Models
                         "Site_ID = @site," +
                         " Plot_NO = @plotno," +
                         " Plot_Area = @area," +
-                        " Plot_Status = @tatus where id=@id";
+                        " Plot_Status = @status where id=@id";
                 }
                 else
                 {
@@ -1715,18 +1734,31 @@ namespace kd.Models
                 string query = "";
                 if (site_type == "All")
                 {
-                    query = "SELECT * FROM sites ORDER BY ID DESC";
+                    if(search == "")
+                    {
+                        query = "SELECT * FROM sites ORDER BY ID DESC ";
+                    }
+                    else
+                    {
+                        query = "SELECT * FROM sites where concat(Site_Name, Site_type) LIKE '%" + search + "%' ORDER BY ID DESC ";
+                    }
                 }
                 else
-                {
-                    query = "SELECT * FROM sites where Site_Type = '" + site_type + "' ORDER BY ID DESC";
+                {                    
+                    if(search == "")
+                    {
+                        query = "SELECT * FROM sites where Site_Type = '" + site_type + "' ORDER BY ID DESC ";
+                    }
+                    else
+                    {
+                        query = "SELECT * FROM sites where Site_Type = '" + site_type + "' and concat(Site_Name, Site_type) LIKE '%" + search + "%' ORDER BY ID DESC ";
+                    }
                 }
 
                 if (limit != 0)
                 {
                     query = query + " limit " + limit.ToString();
                 }
-
                 if (offset != 0)
                 {
                     query = query + " offset " + offset.ToString();
@@ -1770,13 +1802,27 @@ namespace kd.Models
             try
             {
                 string query = "";
-                if (search == "")
+                if (site_name == "All")
                 {
-                    query = "SELECT * FROM flats WHERE Site_Id = @site_id ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                    if (search == "")
+                    {
+                        query = "SELECT * FROM flats ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                    }
+                    else
+                    {
+                        query = "SELECT * FROM flats WHERE CONCAT(Status, Flat_No) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                    }
                 }
                 else
                 {
-                    query = "SELECT * FROM flats WHERE Site_Id = @site_id and CONCAT(Status, Flat_No) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                    if (search == "")
+                    {
+                        query = "SELECT * FROM flats WHERE Site_Id = @site_id ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                    }
+                    else
+                    {
+                        query = "SELECT * FROM flats WHERE Site_Id = @site_id and CONCAT(Status, Flat_No) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                    }
                 }
 
                 for (int i = 0; i < 9; i++)
@@ -1813,6 +1859,71 @@ namespace kd.Models
             catch (MySqlException ex)
             {
                 return list_flats_show;
+            }
+        }
+
+        public List<string>[] plots_show(string site_name, int offset, int limit, string search = "")
+        {
+            try
+            {
+                string query = "";
+                if (site_name == "All")
+                {
+                    if (search == "")
+                    {
+                        query = "SELECT * FROM plot ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                    }
+                    else
+                    {
+                        query = "SELECT * FROM plot WHERE CONCAT(Plot_Status, Plot_NO) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                    }
+                }
+                else
+                {
+                    if (search == "")
+                    {
+                        query = "SELECT * FROM plot WHERE Site_ID = @site_id ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                    }
+                    else
+                    {
+                        query = "SELECT * FROM plot WHERE Site_ID = @site_id and CONCAT(Plot_Status, Plot_NO) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                    }
+                }
+
+                for (int i = 0; i < 6; i++)
+                {
+                    list_plots_show[i] = new List<string>();
+                }
+
+                if (this.OpenConnection() == true)
+                {
+                    int id = get_site_id_by_name(site_name);
+
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@site_id", id);
+                    cmd.Parameters.AddWithValue("@offset", offset);
+                    cmd.Parameters.AddWithValue("@limit", limit);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    while (dataReader.Read())
+                    {
+                        for (int i = 0; i < 6; i++)
+                        {
+                            list_plots_show[i].Add(dataReader[i] + "");
+                        }
+                    }
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return list_plots_show;
+                }
+                else
+                {
+                    return list_plots_show;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return list_plots_show;
             }
         }
 

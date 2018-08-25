@@ -99,20 +99,12 @@ namespace kd.Controllers
         {
             ViewBag.total = 0;
             HttpContext.Session.Add("offset", 0);
-            List<string>[] sites = new List<string>[7];
+            List<string>[] sites = new List<string>[9];
             List<string>[] list = new List<string>[9];
-            sites = obj.sites_show();
+            sites = obj.sites_show(site_type:"Flat");
 
-            if (site == "")
-            {
-                site = sites[1][0];
-                list = obj.flats_show(site, Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
-            }
-            else
-            {
-                list = obj.flats_show(site, Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps), search: search);
-            }
-
+            list = obj.flats_show(site, Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps), search: search);
+            
             ViewBag.sites = sites;            
             ViewBag.total_site = sites[0].Count();
             ViewBag.site = site;
@@ -126,23 +118,15 @@ namespace kd.Controllers
         }
 
         [Authorize]
-        public ActionResult Plots(string ps = "10", string site = "", string search = "")
+        public ActionResult Plots(string ps = "10", string site = "All", string search = "")
         {
             ViewBag.total = 0;
             HttpContext.Session.Add("offset", 0);
-            List<string>[] sites = new List<string>[7];
-            List<string>[] list = new List<string>[9];
-            sites = obj.sites_show();
+            List<string>[] sites = new List<string>[6];
+            List<string>[] list = new List<string>[6];
+            sites = obj.sites_show(site_type: "Plot");
 
-            if (site == "")
-            {
-                site = sites[1][0];
-                list = obj.flats_show(sites[1][0], Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps));
-            }
-            else
-            {
-                list = obj.flats_show(site, Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps), search: search);
-            }
+            list = obj.plots_show(site, Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps), search: search);
 
             ViewBag.sites = sites;
             ViewBag.total_site = sites[0].Count();
@@ -373,9 +357,23 @@ namespace kd.Controllers
                         pass = 1;
                     }
                 }
+                else if (page == "Sites")
+                {
+                    if (obj.Delete_Record("sites", id) == 0)
+                    {
+                        pass = 1;
+                    }
+                }
                 else if (page == "Flats")
                 {
                     if (obj.Delete_Record("flats", id) == 0)
+                    {
+                        pass = 1;
+                    }
+                }
+                else if (page == "Plots")
+                {
+                    if (obj.Delete_Record("plot", id) == 0)
                     {
                         pass = 1;
                     }
@@ -498,9 +496,21 @@ namespace kd.Controllers
                     ViewBag.edit_list = edit_list;
                     ViewBag.edit_str = "edit";
                 }
+                else if (page == "Sites")
+                {
+                    edit_list = obj.get_edit_record("sites", id);
+                    ViewBag.edit_list = edit_list;
+                    ViewBag.edit_str = "edit";
+                }
                 else if (page == "Flats")
                 {
                     edit_list = obj.get_edit_record("flats", id);
+                    ViewBag.edit_list = edit_list;
+                    ViewBag.edit_str = "edit";
+                }
+                else if (page == "Plots")
+                {
+                    edit_list = obj.get_edit_record("plot", id);
                     ViewBag.edit_list = edit_list;
                     ViewBag.edit_str = "edit";
                 }
@@ -580,7 +590,7 @@ namespace kd.Controllers
             }
         }
 
-        public ActionResult First(string page, string ps, string filter = "", string search = "", string site = "")
+        public ActionResult First(string page, string ps, string filter = "", string search = "", string site = "All")
         {
             try
             {
@@ -592,11 +602,24 @@ namespace kd.Controllers
                 {
                     list = obj.enquiry_show(0, page_size, search: search);
                 }
+                else if (page == "Sites")
+                {
+                    list = obj.sites_show();
+                }
                 else if (page == "Flats")
                 {
-                    List<string>[] sites = new List<string>[7];
-                    sites = obj.sites_show();
+                    List<string>[] sites = new List<string>[9];
+                    sites = obj.sites_show(site_type: "Flat");
                     list = obj.flats_show(site, 0, page_size, search: search);
+                    ViewBag.sites = sites;
+                    ViewBag.total_site = sites[0].Count();
+                    ViewBag.site = site;
+                }
+                else if (page == "Plots")
+                {
+                    List<string>[] sites = new List<string>[6];
+                    sites = obj.sites_show(site_type: "Plot");
+                    list = obj.plots_show(site, 0, page_size, search: search);
                     ViewBag.sites = sites;
                     ViewBag.total_site = sites[0].Count();
                     ViewBag.site = site;
@@ -659,7 +682,7 @@ namespace kd.Controllers
             }
         }
 
-        public ActionResult Previous(string page, string ps, string filter = "", string search = "", string site = "")
+        public ActionResult Previous(string page, string ps, string filter = "", string search = "", string site = "All")
         {
             try
             {
@@ -676,11 +699,24 @@ namespace kd.Controllers
                 {
                     list = obj.enquiry_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
+                else if (page == "Sites")
+                {
+                    list = obj.sites_show(offset: Int32.Parse(HttpContext.Session["offset"].ToString()), limit:page_size, search: search);
+                }
                 else if (page == "Flats")
                 {
-                    List<string>[] sites = new List<string>[7];
-                    sites = obj.sites_show();
+                    List<string>[] sites = new List<string>[9];
+                    sites = obj.sites_show(site_type: "Flat");
                     list = obj.flats_show(site, Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
+                    ViewBag.sites = sites;
+                    ViewBag.total_site = sites[0].Count();
+                    ViewBag.site = site;
+                }
+                else if (page == "Plots")
+                {
+                    List<string>[] sites = new List<string>[6];
+                    sites = obj.sites_show(site_type: "Plot");
+                    list = obj.plots_show(site, Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                     ViewBag.sites = sites;
                     ViewBag.total_site = sites[0].Count();
                     ViewBag.site = site;
@@ -743,7 +779,7 @@ namespace kd.Controllers
             }
         }
 
-        public ActionResult Next(string page, string ps, string filter = "", string search = "", string site = "")
+        public ActionResult Next(string page, string ps, string filter = "", string search = "", string site = "All")
         {
             try
             {
@@ -764,6 +800,19 @@ namespace kd.Controllers
                     }
                     cnt = obj.get_count(query);
                 }
+                else if (page == "Sites")
+                {
+                    string query = "";
+                    if (search == "")
+                    {
+                        query = "sites";
+                    }
+                    else
+                    {
+                        query = "sites where CONCAT(Site_Name, Site_Type, Sanction_Type) LIKE '%" + search + "%'";
+                    }
+                    cnt = obj.get_count(query);
+                }
                 else if (page == "Flats")
                 {
                     string query = "";
@@ -776,6 +825,21 @@ namespace kd.Controllers
                     else
                     {
                         query = "flats where Site_Id = " + id + " and CONCAT(Status, Flat_No) LIKE '%" + search + "%'";
+                    }
+                    cnt = obj.get_count(query);
+                }
+                else if (page == "Plots")
+                {
+                    string query = "";
+                    int id = obj.get_site_id_by_name(site);
+
+                    if (search == "")
+                    {
+                        query = "plot where Site_ID = " + id;
+                    }
+                    else
+                    {
+                        query = "plot where Site_ID = " + id + " and CONCAT(Plot_Status, Plot_NO) LIKE '%" + search + "%'";
                     }
                     cnt = obj.get_count(query);
                 }
@@ -933,14 +997,27 @@ namespace kd.Controllers
                 {
                     list = obj.enquiry_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
+                else if (page == "Sites")
+                {
+                    list = obj.sites_show(offset: Int32.Parse(HttpContext.Session["offset"].ToString()), limit: page_size, search: search);
+                }                
                 else if (page == "Flats")
                 {
-                    List<string>[] sites = new List<string>[7];
-                    sites = obj.sites_show();
+                    List<string>[] sites = new List<string>[9];
+                    sites = obj.sites_show(site_type: "Flat");
                     list = obj.flats_show(site, Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                     ViewBag.sites = sites;
                     ViewBag.total_site = sites[0].Count();
                     ViewBag.site = site;                    
+                }
+                else if (page == "Plots")
+                {
+                    List<string>[] sites = new List<string>[6];
+                    sites = obj.sites_show(site_type: "Plot");
+                    list = obj.plots_show(site, Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
+                    ViewBag.sites = sites;
+                    ViewBag.total_site = sites[0].Count();
+                    ViewBag.site = site;
                 }
                 else if (page == "Executive")
                 {
@@ -1000,7 +1077,7 @@ namespace kd.Controllers
             }
         }
         
-        public ActionResult Last(string page, string ps, string filter = "", string search = "", string site = "")
+        public ActionResult Last(string page, string ps, string filter = "", string search = "", string site = "All")
         {
             try
             {
@@ -1021,6 +1098,19 @@ namespace kd.Controllers
                     }
                     cnt = obj.get_count(query);
                 }
+                else if (page == "Sites")
+                {
+                    string query = "";
+                    if (search == "")
+                    {
+                        query = "sites";
+                    }
+                    else
+                    {
+                        query = "sites where CONCAT(Site_Name, Site_Type, Sanction_Type) LIKE '%" + search + "%'";
+                    }
+                    cnt = obj.get_count(query);
+                }
                 else if (page == "Flats")
                 {
                     string query = "";
@@ -1032,6 +1122,20 @@ namespace kd.Controllers
                     else
                     {
                         query = "flats where Site_Id = " + id + " and CONCAT(Status, Flat_No) LIKE '%" + search + "%'";
+                    }
+                    cnt = obj.get_count(query);
+                }
+                else if (page == "Plots")
+                {
+                    string query = "";
+                    int id = obj.get_site_id_by_name(site);
+                    if (search == "")
+                    {
+                        query = "plot where Site_ID = " + id;
+                    }
+                    else
+                    {
+                        query = "plot where Site_ID = " + id + " and CONCAT(Plot_Status, Plot_NO) LIKE '%" + search + "%'";
                     }
                     cnt = obj.get_count(query);
                 }
@@ -1195,14 +1299,27 @@ namespace kd.Controllers
                 {
                     list = obj.enquiry_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
+                else if (page == "Sites")
+                {
+                    list = obj.sites_show(offset: Int32.Parse(HttpContext.Session["offset"].ToString()), limit: page_size, search: search);
+                }
                 else if (page == "Flats")
                 {
-                    List<string>[] sites = new List<string>[7];
-                    sites = obj.sites_show();
+                    List<string>[] sites = new List<string>[9];
+                    sites = obj.sites_show(site_type: "Flat");
                     list = obj.flats_show(site, Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                     ViewBag.sites = sites;
                     ViewBag.total_site = sites[0].Count();
                     ViewBag.site = site;                    
+                }
+                else if (page == "Plots")
+                {
+                    List<string>[] sites = new List<string>[6];
+                    sites = obj.sites_show(site_type: "Plot");
+                    list = obj.plots_show(site, Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
+                    ViewBag.sites = sites;
+                    ViewBag.total_site = sites[0].Count();
+                    ViewBag.site = site;
                 }
                 else if (page == "Executive")
                 {
@@ -1385,25 +1502,40 @@ namespace kd.Controllers
             }
         }
 
-        public ActionResult add_sites(string sitename, string sitetype, string siteaddress, string sitephone, string siteemail, string sitestatus, string sitesanctiontype)
+        public ActionResult add_sites(string sitename, string sitetype, string siteaddress, string sitephone, string siteemail, string sitestatus, string sitesanctiontype, string submit_btn, string edit_id = "0")
         {
             try
             {
-                if (obj.insert_sites(sitename, sitetype, siteaddress, sitephone, siteemail, sitestatus, sitesanctiontype) == 1)
+                if (submit_btn == "Save")
                 {
-                    TempData["AlertMessage"] = "All the details saved successfully.";
+                    if (obj.insert_sites(sitename, sitetype, siteaddress, sitephone, siteemail, sitestatus, sitesanctiontype) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details saved successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                    }
                 }
-                else
+                else if (submit_btn == "Update")
                 {
-                    TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                    int id = Int32.Parse(edit_id);
+                    if (obj.insert_sites(sitename, sitetype, siteaddress, sitephone, siteemail, sitestatus, sitesanctiontype, "edit", id) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details updated successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while updating the details please do it again.";
+                    }
                 }
-                return RedirectToAction("Flats", "Home");
+                return RedirectToAction("Sites", "Home");
             }
             catch (Exception ex)
             {
                 TempData["AlertMessage"] = "There is exception while saving the details please do it again.";
                 System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
-                return RedirectToAction("Flats", "Home");
+                return RedirectToAction("Sites", "Home");
             }
         }
 
@@ -1471,13 +1603,13 @@ namespace kd.Controllers
                         TempData["AlertMessage"] = "There is some issue while updating the details please do it again.";
                     }
                 }
-                return RedirectToAction("Flats", "Home");
+                return RedirectToAction("Plots", "Home");
             }
             catch (Exception ex)
             {
                 TempData["AlertMessage"] = "There is exception while saving the details please do it again.";
                 System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
-                return RedirectToAction("Flats", "Home");
+                return RedirectToAction("Plots", "Home");
             }
         }
 
