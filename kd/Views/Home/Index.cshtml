@@ -50,28 +50,28 @@
                             <tbody>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Customer Name</label></td>
-                                    <td><input type="text" name="enqname" id="required" @(edit ? new { value = elist[11] } : null)></td>
+                                    <td><input type="text" name="enqname" id="required" @(edit ? new { value = elist[1] } : null)></td>
                                     <td><label class="control-label">Address</label></td>
-                                    <td> <input type="text" name="enqaddress" id="required" @(edit ? new { value = elist[12] } : null)></td>
+                                    <td> <input type="text" name="enqaddress" id="required" @(edit ? new { value = elist[2] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Mobile No(Whatsapp)</label></td>
-                                    <td><input type="number" name="enqmob" id="required" @(edit ? new { value = elist[13] } : null)></td>
+                                    <td><input type="number" name="enqmob" id="required" @(edit ? new { value = elist[3] } : null)></td>
                                     <td><label class="control-label">Alternate Mobile</label></td>
-                                    <td><input type="number" name="enqaltmob" id="required" @(edit ? new { value = elist[14] } : null)></td>
+                                    <td><input type="number" name="enqaltmob" id="required" @(edit ? new { value = elist[4] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Email Id</label></td>
-                                    <td><input type="email" name="enqemail" id="required" @(edit ? new { value = elist[15] } : null)></td>
+                                    <td><input type="email" name="enqemail" id="required" @(edit ? new { value = elist[5] } : null)></td>
                                     <td><label class="control-label">Requirement</label></td>
                                     <td>
                                         <select multiple name="enqrequirement" id="required">
-                                            <option value="1RK" @(edit ? (elist[16].Contains("1RK") ? "selected" : "") : "selected")>1RK</option>
-                                            <option value="1BHK" @(edit ? (elist[16].Contains("1BHK") ? "selected" : "") : "")>1BHK</option>
-                                            <option value="2BHK" @(edit ? (elist[16].Contains("2BHK") ? "selected" : "") : "")>2BHK</option>
-                                            <option value="3BHK" @(edit ? (elist[16].Contains("3BHK") ? "selected" : "") : "")>3BHK</option>
-                                            <option value="3BHK" @(edit ? (elist[16].Contains("Plot") ? "selected" : "") : "")>Plot</option>
-                                            <option value="Other" @(edit ? (elist[16].Contains("Other") ? "selected" : "") : "")>Other</option>
+                                            <option value="1RK" @(edit ? (elist[6].Contains("1RK") ? "selected" : "") : "selected")>1RK</option>
+                                            <option value="1BHK" @(edit ? (elist[6].Contains("1BHK") ? "selected" : "") : "")>1BHK</option>
+                                            <option value="2BHK" @(edit ? (elist[6].Contains("2BHK") ? "selected" : "") : "")>2BHK</option>
+                                            <option value="3BHK" @(edit ? (elist[6].Contains("3BHK") ? "selected" : "") : "")>3BHK</option>
+                                            <option value="Plot" @(edit ? (elist[6].Contains("Plot") ? "selected" : "") : "")>Plot</option>
+                                            <option value="Other" @(edit ? (elist[6].Contains("Other") ? "selected" : "") : "")>Other</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -79,37 +79,37 @@
                                     <td><label class="control-label">Occupation</label></td>
                                     <td>
                                         <select name="enqoccu" id="required">
-                                            <option value="Salaried" @(edit ? (elist[17].Contains("Salaried") ? "selected" : "") : "selected")>Salaried</option>
-                                            <option value="Business" @(edit ? (elist[17].Contains("Business") ? "selected" : "") : "")>Business</option>
-                                            <option value="Pensioner" @(edit ? (elist[17].Contains("Pensioner") ? "selected" : "") : "")>Pensioner</option>
-                                            <option value="Other" @(edit ? (elist[17].Contains("Other") ? "selected" : "") : "")>Other</option>
+                                            <option value="Salaried" @(edit ? (elist[7].Contains("Salaried") ? "selected" : "") : "selected")>Salaried</option>
+                                            <option value="Business" @(edit ? (elist[7].Contains("Business") ? "selected" : "") : "")>Business</option>
+                                            <option value="Pensioner" @(edit ? (elist[7].Contains("Pensioner") ? "selected" : "") : "")>Pensioner</option>
+                                            <option value="Other" @(edit ? (elist[7].Contains("Other") ? "selected" : "") : "")>Other</option>
                                         </select>
                                     </td>
                                     <td><label class="control-label">Income</label></td>
-                                    <td><input type="number" name="enqincome" id="required" @(edit ? new { value = elist[18] } : null)></td>
+                                    <td><input type="number" name="enqincome" id="required" @(edit ? new { value = elist[8] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Budget</label></td>
-                                    <td><input type="number" name="enqbudget" id="required" @(edit ? new { value = elist[19] } : null)></td>
+                                    <td><input type="number" name="enqbudget" id="required" @(edit ? new { value = elist[9] } : null)></td>
                                     <td><label class="control-label">Down Payment</label></td>
-                                    <td><input type="number" name="enqdown" id="required" @(edit ? new { value = elist[20] } : null)></td>
+                                    <td><input type="number" name="enqdown" id="required" @(edit ? new { value = elist[10] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Current Status</label></td>
                                     <td>
                                         <select name="enqcurstatus" id="required">
-                                            <option value="Interested" @(edit ? (elist[22].Contains("Interested") ? "selected" : "") : "selected")>Interested</option>
-                                            <option value="NotInterested" @(edit ? (elist[22].Contains("Not Interested") ? "selected" : "") : "")>Not Interested</option>
-                                            <option value="InProcess" @(edit ? (elist[22].Contains("In Process") ? "selected" : "") : "")>In Process</option>
-                                            <option value="Booked" @(edit ? (elist[22].Contains("Booked") ? "selected" : "") : "")>Booked</option>
+                                            <option value="Interested" @(edit ? (elist[12].Contains("Interested") ? "selected" : "") : "selected")>Interested</option>
+                                            <option value="NotInterested" @(edit ? (elist[12].Contains("Not Interested") ? "selected" : "") : "")>Not Interested</option>
+                                            <option value="InProcess" @(edit ? (elist[12].Contains("In Process") ? "selected" : "") : "")>In Process</option>
+                                            <option value="Booked" @(edit ? (elist[12].Contains("Booked") ? "selected" : "") : "")>Booked</option>
                                         </select>
                                     </td>
                                     <td><label class="control-label">Visit</label></td>
                                     <td>
                                         <select name="enqvisit" id="required">
-                                            <option value="Visited" @(edit ? (elist[21].Contains("Visited") ? "selected" : "") : "selected")>Visited</option>
-                                            <option value="Enquiry" @(edit ? (elist[21].Contains("Enquiry") ? "selected" : "") : "")>Enquiry</option>
-                                            <option value="Other" @(edit ? (elist[21].Contains("Other") ? "selected" : "") : "")>Other</option>
+                                            <option value="Visited" @(edit ? (elist[11].Contains("Visited") ? "selected" : "") : "selected")>Visited</option>
+                                            <option value="Enquiry" @(edit ? (elist[11].Contains("Enquiry") ? "selected" : "") : "")>Enquiry</option>
+                                            <option value="Other" @(edit ? (elist[11].Contains("Other") ? "selected" : "") : "")>Other</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -117,95 +117,23 @@
                                     <td><label class="control-label">Source</label></td>
                                     <td>
                                         <select name="enqsource" id="enqsource">
-                                            <option value="Reference" @(edit ? (elist[23].Contains("Reference") ? "selected" : "") : "selected")>Reference</option>
-                                            <option value="Advertisement" @(edit ? (elist[23].Contains("Advertisement") ? "selected" : "") : "")>Advertisement</option>
-                                            <option value="Walk In" @(edit ? (elist[23].Contains("Walk In") ? "selected" : "") : "")>Walk In</option>
+                                            <option value="Reference" @(edit ? (elist[13].Contains("Reference") ? "selected" : "") : "selected")>Reference</option>
+                                            <option value="Advertisement" @(edit ? (elist[13].Contains("Advertisement") ? "selected" : "") : "")>Advertisement</option>
+                                            <option value="Walk In" @(edit ? (elist[13].Contains("Walk In") ? "selected" : "") : "")>Walk In</option>
                                         </select>
                                     </td>
                                     <td><label class="control-label">Source Details</label></td>
-                                    <td><input type="text" name="enqsourcedetails" id="required" @(edit ? new { value = elist[24] } : null)></td>
+                                    <td><input type="text" name="enqsourcedetails" id="required" @(edit ? new { value = elist[14] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Sanction Type</label></td>
                                     <td>
                                         <select name="enqsanctiontype" id="required">
-                                            <option value="NATP" @(edit ? (elist[25].Contains("NATP") ? "selected" : "") : "selected")>NATP</option>
-                                            <option value="GP" @(edit ? (elist[25].Contains("GP") ? "selected" : "") : "")>GP</option>
-                                            <option value="Both" @(edit ? (elist[25].Contains("Both") ? "selected" : "") : "")>Both</option>
+                                            <option value="NATP" @(edit ? (elist[15].Contains("NATP") ? "selected" : "") : "selected")>NATP</option>
+                                            <option value="GP" @(edit ? (elist[15].Contains("GP") ? "selected" : "") : "")>GP</option>
+                                            <option value="Both" @(edit ? (elist[15].Contains("Both") ? "selected" : "") : "")>Both</option>
                                         </select>
                                     </td>             
-                                    @if (edit)
-                                    {
-                                        <td><input type="submit" name="submit_btn" value="Update" class="btn btn-success" /></td>
-                                        <td colspan="3"> <input type="submit" name="submit_btn" value="Cancel" class="btn btn-danger" /> </td>
-                                        <td> <input type="hidden" name="edit_id" value=@elist[10] /> </td>
-                                    }
-                                    else
-                                    {
-                                        <td><input type="submit" name="submit_btn" value="Save" class="btn btn-success" /></td>
-                                        <td colspan="3"> <input type="reset" value="Cancel" class="btn btn-danger" /> </td>
-                                    }
-                                </tr>
-                            </tbody>
-                        </table>
-                    </form>
-                </div>
-            </div>
-            <!-- Site visit details-->
-            <div class="widget-box">
-                <div class="widget-title">
-                    <span class="icon"> <i class="icon-info-sign"></i> </span>
-                    <h5>Daily Enquiry - Site Visit Details</h5>
-                </div>
-                <div class="widget-content nopadding">
-                    <form method="post" action="@Url.Action("add_de_sitevisit","Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
-                        <table class="table table-striped">
-                            <tbody>
-                                <tr class="odd gradeX">
-                                    <td><label class="control-label">Customer Name</label></td>
-                                    <td>
-                                        <select name="enqnamevisit" id="enqnamevisit">    </select>
-                                    </td>
-                                    <td><label class="control-label">Site Name</label></td>
-                                    <td>
-                                        <select name="enqsitename" id="enqsitename">    </select>
-                                    </td>
-                                    <!--
-                                    <td><label class="control-label">Type(Flat/Plot)</label></td>
-
-                                    <td>
-                                        <select name="enqtype" id="enqtype">
-                                            <option value="Flat" @(edit ? (elist[3].Contains("Flat") ? "selected" : "") : "selected")>Flat</option>
-                                            <option value="Plot" @(edit ? (elist[3].Contains("Plot") ? "selected" : "") : "")>Plot</option>
-                                        </select>
-                                    </td>
-                                    -->
-                                </tr>
-                                <tr class="odd gradeX">
-                                    <td><label class="control-label">Wing</label></td>
-                                    <td width="200">
-                                        <select name="enqwing" id="enqwing">    </select>
-                                    </td>
-                                    <td><label class="control-label">Flat/Plot No</label></td>
-                                    <td width="200">
-                                        <select name="enqflatno" id="enqflatno">    </select>                                        
-                                    </td>
-                                </tr>
-                                <tr class="odd gradeX">
-                                    <td><label class="control-label">Executive1 Name</label></td>
-                                    <td>
-                                        <select name="enqexename1" id="enqexename1">  </select>
-                                    </td>
-                                    <td><label class="control-label">Executive2 Name</label></td>
-                                    <td>
-                                        <select name="enqexename2" id="enqexename2">  </select>
-                                    </td>
-                                </tr>
-                                <tr class="odd gradeX">
-                                    <td><label class="control-label">Executive3 Name</label></td>
-                                    <td>
-                                        <select name="enqexename3" id="enqexename3">  </select>
-                                    </td>
                                     @if (edit)
                                     {
                                         <td><input type="submit" name="submit_btn" value="Update" class="btn btn-success" /></td>
@@ -223,62 +151,7 @@
                     </form>
                 </div>
             </div>
-            <!-- Customer Follow up details-->
-            <div class="widget-box">
-                <div class="widget-title">
-                    <span class="icon"> <i class="icon-info-sign"></i> </span>
-                    <h5>Daily Enquiry - Customer Follow Up</h5>
-                </div>
-                <div class="widget-content nopadding">
-                    <form method="post" action="@Url.Action("add_de_followup","Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
-                        <table class="table table-striped">
-                            <tbody>
-                                <tr class="odd gradeX">
-                                    <td><label class="control-label">Customer Name</label></td>
-                                    <td>
-                                        <select name="enqnamefollowup" id="enqnamefollowup">    </select>
-                                    </td>
-                                    <td><label class="control-label">Follow up date</label></td>
-                                    <td> <input type="date" name="enqfollow" id="required" @(edit ? new { value = @Convert.ToDateTime(elist[28]).ToString("yyyy-MM-dd") } : null)></td>
-                                </tr>
-                                <tr class="odd gradeX">
-                                    <td><label class="control-label">Next Follow up Date</label></td>
-                                    <td><input type="date" name="enqnextfollow" id="required" @(edit ? new { value = @Convert.ToDateTime(elist[29]).ToString("yyyy-MM-dd") } : null)></td>
-                                    <td><label class="control-label">Follow Details</label></td>
-                                    <td><input type="text" name="enqfollowdetails" id="required" @(edit ? new { value = elist[30] } : null)></td>
-                                </tr>
-                                <tr class="odd gradeX">
-                                    <td><label class="control-label">Executive1 Name</label></td>
-                                    <td>
-                                        <select name="enqexenamefollowup1" id="enqexenamefollowup1">  </select>
-                                    </td>
-                                    <td><label class="control-label">Executive2 Name</label></td>
-                                    <td>
-                                        <select name="enqexenamefollowup2" id="enqexenamefollowup2">  </select>
-                                    </td>
-                                </tr>
-                                <tr class="odd gradeX">
-                                    <td><label class="control-label">Executive3 Name</label></td>
-                                    <td>
-                                        <select name="enqexenamefollowup3" id="enqexenamefollowup3">  </select>
-                                    </td>
-                                    @if (edit)
-                                    {
-                                        <td><input type="submit" name="submit_btn" value="Update" class="btn btn-success" /></td>
-                                        <td colspan="3"> <input type="submit" name="submit_btn" value="Cancel" class="btn btn-danger" /> </td>
-                                        <td> <input type="hidden" name="edit_id" value=@elist[26] /> </td>
-                                    }
-                                    else
-                                    {
-                                        <td><input type="submit" name="submit_btn" value="Save" class="btn btn-success" /></td>
-                                        <td colspan="3"> <input type="reset" value="Cancel" class="btn btn-danger" /> </td>
-                                    }
-                                </tr>
-                            </tbody>
-                        </table>
-                    </form>
-                </div>
-            </div>
+
             <!--All Result details-->
             @if (!edit)
             {
@@ -295,21 +168,20 @@
                                     <th>ID</th>
                                     <th>Customer Name</th>
                                     <th>Address</th>
-                                    <th>Mobile No</th>
-                                    <th>Occupation</th>
-                                    <th>Date</th>
-                                    <th>Site</th>
+                                    <th>Whatsup No</th>
+                                    <th>Alternamte No</th>
+                                    <th>Email</th>
                                     <th>Requirement</th>
-                                    <th>Visit</th>
-                                    <th>Interest</th>
-                                    <th>Down Payment</th>
-                                    <th>Booking</th>
-                                    <th>Remark</th>
+                                    <th>Occupation</th>
+                                    <th>Budget</th>
+                                    <th>Currrent Status</th>
+                                    <th>Source</th>
+                                    <th>Source Details</th>
                                     @if (this.Session["role"].ToString() == "admin")
                                     {
                                         <th>Modify</th>
                                     }
-                                    </tr>
+                                </tr>
                             </thead>
                             <tbody>
                                 @for (var i = 0; i < cnt; i++)
@@ -319,15 +191,14 @@
                                     <td>@results[1][i]</td>
                                     <td>@results[2][i]</td>
                                     <td>@results[3][i]</td>
-                                    <td>@results[7][i]</td>
-                                    <td>@results[1][i]</td>
-                                    <td>@results[16][i]</td>
-                                    <td>@results[6][i]</td>
-                                    <td>@results[11][i]</td>
-                                    <td>@results[10][i]</td>
+                                    <td>@results[4][i]</td>
                                     <td>@results[5][i]</td>
-                                    <td>@results[11][i]</td>
+                                    <td>@results[6][i]</td>
+                                    <td>@results[7][i]</td>
+                                    <td>@results[9][i]</td>
                                     <td>@results[12][i]</td>
+                                    <td>@results[13][i]</td>
+                                    <td>@results[14][i]</td>
                                     @if (this.Session["role"].ToString() == "admin")
                                     {
                                         <td align="center">
@@ -386,185 +257,6 @@
             if (event.keyCode == 13) {
                 window.location = '@Html.Raw(@Url.Action("Index", "Home", new { ps = "id", search = "srch_str" }))'.replace("id", $("#page_size option:selected").text()).replace("srch_str", $('input:text[name=search]').val());
             }
-        });
-    });
-</script>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        $.ajax({
-            type: "GET",
-            url: '@Url.Action("get_daily_customer_name", "Home")',
-            data: {},
-            dataType: 'json',
-            success: function (d) {
-                var list1 = d.id;
-                var list = d.name;
-                $("#enqnamevisit").html("");
-                $.each(list, function (index, value) {
-                    $("#enqnamevisit").append($('<option></option>').val(list1[index]).html(value));
-                });
-                document.getElementById("enqnamevisit").value = @(edit ? elist[1] : 1);
-
-                $("#enqnamefollowup").html("");
-                $.each(list, function (index, value) {
-                    $("#enqnamefollowup").append($('<option></option>').val(list1[index]).html(value));
-                });
-                document.getElementById("enqnamefollowup").value = @(edit ? elist[27] : 1);
-            },
-            error: function (err) {
-                alert(err.responseText);
-            },
-        });
-    });
-</script>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        $.ajax({
-            type: "GET",
-            url: '@Url.Action("get_site", "Home")',
-            data: {},
-            dataType: 'json',
-            success: function (d) {
-                var list1 = d.id;
-                var list = d.name;
-
-                $("#enqsitename").html("");
-                $.each(list, function (index, value) {
-                    $("#enqsitename").append($('<option></option>').val(list1[index]).html(value));
-                });
-                document.getElementById("enqsitename").value = @(edit ? elist[2] : 1);
-            },
-            error: function (err) {
-                alert(err.responseText);
-            },
-        });
-    });
-</script>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        $.ajax({
-            type: "GET",
-            url: '@Url.Action("get_executive", "Home")',
-            data: {},
-            dataType: 'json',
-            success: function (d) {
-                var list1 = d.id;
-                var list = d.name;
-                $("#enqexename1").html("");
-                $.each(list, function (index, value) {
-                    $("#enqexename1").append($('<option></option>').val(list1[index]).html(value));
-                });
-                document.getElementById("enqexename1").value = @(edit ? elist[7] : 1);
-
-                $("#enqexename2").html("");
-                $.each(list, function (index, value) {
-                    $("#enqexename2").append($('<option></option>').val(list1[index]).html(value));
-                });
-                document.getElementById("enqexename2").value = @(edit ? elist[8] : 1);
-
-                 $("#enqexename3").html("");
-                $.each(list, function (index, value) {
-                    $("#enqexename3").append($('<option></option>').val(list1[index]).html(value));
-                });
-                document.getElementById("enqexename3").value = @(edit ? elist[9] : 1);
-
-                $("#enqexenamefollowup1").html("");
-                $.each(list, function (index, value) {
-                    $("#enqexenamefollowup1").append($('<option></option>').val(list1[index]).html(value));
-                });
-                document.getElementById("enqexenamefollowup1").value = @(edit ? elist[31] : 1);
-
-                $("#enqexenamefollowup2").html("");
-                $.each(list, function (index, value) {
-                    $("#enqexenamefollowup2").append($('<option></option>').val(list1[index]).html(value));
-                });
-                document.getElementById("enqexenamefollowup2").value = @(edit ? elist[32] : 1);
-
-                $("#enqexenamefollowup3").html("");
-                $.each(list, function (index, value) {
-                    $("#enqexenamefollowup3").append($('<option></option>').val(list1[index]).html(value));
-                });
-                document.getElementById("enqexenamefollowup3").value = @(edit ? elist[33] : 1);
-            },
-            error: function (err) {
-                alert(err.responseText);
-            },
-        });
-    });
-</script>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        wing_name = "Flat"
-        $('#enqsitename').change(function () {
-            //var ds = $('#enqsitename').val()
-            //alert(ds);
-            var data = JSON.stringify({
-                'site_id': $('#enqsitename').val()
-            });
-            
-            $.ajax({
-                type: "POST",
-                url: '@Url.Action("get_wing_name", "Home")',
-                data: data,
-                dataType: 'json',
-                success: function (d) {
-                    //var list = d.c;
-                    //$('#enqwing').val(list);
-
-                    var list1 = d.id;
-                    var list = d.name;
-                    $("#enqwing").html("");
-                    $.each(list, function (index, value) {
-                        $("#enqwing").append($('<option></option>').val(value).html(value));
-                    });
-                    document.getElementById("enqwing").value = @(edit ? elist[4] : 1);
-                },
-                error: function (err) {
-                    alert(err.responseText);
-                },
-                contentType: 'application/json'
-            });
-        });
-    });
-</script>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        wing_name = "Flat"
-        $('#enqwing').change(function () {
-            //var ds = $('#enqsitename').val()
-            //alert(ds);
-            var data = JSON.stringify({
-                'wing_name': $('#enqwing').val(),
-                'site_id': $('#enqsitename').val()
-            });
-
-            $.ajax({
-                type: "POST",
-                url: '@Url.Action("get_flat_no", "Home")',
-                data: data,
-                dataType: 'json',
-                success: function (d) {
-                    //var list = d.c;
-                    //$('#enqwing').val(list);
-
-                    var list1 = d.id;
-                    var list = d.name;
-                    $("#enqflatno").html("");
-                    $.each(list, function (index, value) {
-                        $("#enqflatno").append($('<option></option>').val(list1[index]).html(value));
-                    });
-                    document.getElementById("enqflatno").value = @(edit ? elist[5] : 1);
-                },
-                error: function (err) {
-                    alert(err.responseText);
-                },
-                contentType: 'application/json'
-            });
         });
     });
 </script>

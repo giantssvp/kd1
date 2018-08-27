@@ -39,7 +39,14 @@
     <div id="sidebar">
         <a href="#" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
         <ul>
-            <li><a href='@Url.Action("Index", "Home")'><i class="icon icon-info-sign"></i> <span>Enquiry</span></a> </li>
+            <li class="submenu">
+                <a href="#"><i class="icon icon-book"></i> <span>Enquiry Details</span></a>
+                <ul>
+                    <li><a href='@Url.Action("Index", "Home")'><i class="icon icon-sitemap"></i><span>Daily Enquiry</span></a></li>
+                    <li><a href='@Url.Action("SiteVisit", "Home")'><i class="icon icon-home"></i><span>Site Visit</span></a></li>
+                    <li><a href='@Url.Action("Followup", "Home")'><i class="icon icon-th"></i><span>Follow Up</span></a></li>
+                </ul>
+            </li>
             <li class="submenu">
                 <a href="#"><i class="icon icon-book"></i> <span>Site Details</span></a>
                 <ul>
@@ -48,7 +55,6 @@
                     <li><a href='@Url.Action("Plots", "Home")'><i class="icon icon-th"></i><span>Plots</span></a></li>
                 </ul>
             </li>
-
             <li><a href='@Url.Action("Executive", "Home")'><i class="icon icon-user"></i> <span>Executive</span></a> </li>
             <li><a href='@Url.Action("Franchies", "Home")'><i class="icon icon-inbox"></i> <span>Franchies</span></a> </li>
 

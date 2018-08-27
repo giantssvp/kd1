@@ -13,7 +13,9 @@ namespace kd.Models
     public class db_connect
     {
         private MySqlConnection connection;
-        public List<string>[] list_enquiry_show = new List<string>[21];
+        public List<string>[] list_enquiry_show = new List<string>[17];
+        public List<string>[] list_sitevisit_show = new List<string>[8];
+        public List<string>[] list_followup_show = new List<string>[8];
         public List<string>[] list_sites_show = new List<string>[10];
         public List<string>[] list_executive_show = new List<string>[10];
         public List<string>[] list_executive_show_name = new List<string>[2];
@@ -93,9 +95,9 @@ namespace kd.Models
                 else
                 {
                     query = "INSERT INTO daily_enquiry (Customer_Name, Address, Mobile_No, Second_Mobile_No, Email_ID, " +
-                        "Requirement, Occupation, Income, Budget, Down_Payment, Visit, Current_Status, Source, Source_Details, Sanction_Type) " +
+                        "Requirement, Occupation, Income, Budget, Down_Payment, Visit, Current_Status, Source, Source_Details, Sanction_Type, Enquiry_Date) " +
                         "VALUES(@name, @addr, @mob, @altmob, @email, @req, @occu, @income, @budget, @down_pay, @visit, " +
-                        "@cur_status, @source, @source_detail, @sanction_type)";
+                        "@cur_status, @source, @source_detail, @sanction_type, NOW())";
                 }
                 if (this.OpenConnection() == true)
                 {
@@ -132,8 +134,8 @@ namespace kd.Models
             }
         }
 
-        public int insert_de_sitevisit(string enqname, string enqsitename, string enqtype, string enqwing, string enqflatno,
-            string enqsize, string enqexename1, string enqexename2, string enqexename3, string type = "insert", int id = 0)
+        public int insert_de_sitevisit(string enqname, string enqsitename, string enqwing, string enqflatno,
+            string enqexename1, string enqexename2, string enqexename3, string type = "insert", int id = 0)
         {
             try
             {
@@ -143,29 +145,25 @@ namespace kd.Models
                     query = "UPDATE daily_sitevisit SET " +
                         " Daily_Customer_ID = @name," +
                         " Site_ID = @site," +
-                        " Type = @enqtype," +
                         " Wing = @wing," +                        
                         " Flat = @flat," +
-                        " Size = @size," +
                         " Executive1_ID = @exe1," +
                         " Executive2_ID = @exe2," +
                         " Executive3_ID = @exe3 where id=@id";
                 }
                 else
                 {
-                    query = "INSERT INTO daily_sitevisit (Daily_Customer_ID, Site_ID, Type, Wing, Flat, Size, Executive1_ID, " +
+                    query = "INSERT INTO daily_sitevisit (Daily_Customer_ID, Site_ID, Wing, Flat, Executive1_ID, " +
                         "Executive2_ID, Executive3_ID) " +
-                        "VALUES(@name, @site, @enqtype, @wing, @flat, @size, @exe1, @exe2, @exe3)";
+                        "VALUES(@name, @site, @wing, @flat, @exe1, @exe2, @exe3)";
                 }
                 if (this.OpenConnection() == true)
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@name", enqname);
                     cmd.Parameters.AddWithValue("@site", enqsitename);
-                    cmd.Parameters.AddWithValue("@enqtype", enqtype);
                     cmd.Parameters.AddWithValue("@wing", enqwing);
                     cmd.Parameters.AddWithValue("@flat", enqflatno);
-                    cmd.Parameters.AddWithValue("@size", enqsize);
                     cmd.Parameters.AddWithValue("@exe1", enqexename1);
                     cmd.Parameters.AddWithValue("@exe2", enqexename2);
                     cmd.Parameters.AddWithValue("@exe3", enqexename3);
@@ -1037,8 +1035,8 @@ namespace kd.Models
                 string query = "";
                 if (search == "")
                 {
-                    //query = "SELECT * FROM daily_enquiry ORDER BY ID DESC LIMIT @lim OFFSET @off";
-                    query = "SELECT * FROM daily ORDER BY ID DESC LIMIT @lim OFFSET @off";
+                    query = "SELECT * FROM daily_enquiry ORDER BY ID DESC LIMIT @lim OFFSET @off";
+                    //query = "SELECT * FROM daily ORDER BY ID DESC LIMIT @lim OFFSET @off";
                     //query = "daily_enquiry_sp";
                 }
                 else
@@ -1046,7 +1044,7 @@ namespace kd.Models
                     query = "SELECT * FROM daily_enquiry where CONCAT(Customer_Name, Requirement) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
 
-                for (int i = 0; i < 21; i++)
+                for (int i = 0; i < 17; i++)
                 {
                     list_enquiry_show[i] = new List<string>();
                 }
@@ -1061,7 +1059,7 @@ namespace kd.Models
 
                     while (dataReader.Read())
                     {
-                        for (int i = 0; i < 21; i++)
+                        for (int i = 0; i < 17; i++)
                         {
                             list_enquiry_show[i].Add(dataReader[i] + "");
                         }
@@ -1078,6 +1076,102 @@ namespace kd.Models
             catch (MySqlException ex)
             {
                 return list_enquiry_show;
+            }
+        }
+
+        public List<string>[] sitevisit_show(int offset, int limit, string search = "")
+        {
+            try
+            {
+                string query = "";
+                if (search == "")
+                {
+                    query = "SELECT * FROM daily_sitevisit ORDER BY ID DESC LIMIT @lim OFFSET @off";
+                }
+                else
+                {
+                    query = "SELECT * FROM daily_sitevisit where CONCAT(Wing, Flat) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                }
+
+                for (int i = 0; i < 8; i++)
+                {
+                    list_sitevisit_show[i] = new List<string>();
+                }
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@off", offset);
+                    cmd.Parameters.AddWithValue("@lim", limit);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    while (dataReader.Read())
+                    {
+                        for (int i = 0; i < 8; i++)
+                        {
+                            list_sitevisit_show[i].Add(dataReader[i] + "");
+                        }
+                    }
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return list_sitevisit_show;
+                }
+                else
+                {
+                    return list_sitevisit_show;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return list_sitevisit_show;
+            }
+        }
+
+        public List<string>[] followup_show(int offset, int limit, string search = "")
+        {
+            try
+            {
+                string query = "";
+                if (search == "")
+                {
+                    query = "SELECT * FROM daily_followup ORDER BY ID DESC LIMIT @lim OFFSET @off";
+                }
+                else
+                {
+                    query = "SELECT * FROM daily_followup where CONCAT(Followup_Details, Followup_Date, Next_Followup_Date) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                }
+
+                for (int i = 0; i < 8; i++)
+                {
+                    list_followup_show[i] = new List<string>();
+                }
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@off", offset);
+                    cmd.Parameters.AddWithValue("@lim", limit);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    while (dataReader.Read())
+                    {
+                        for (int i = 0; i < 8; i++)
+                        {
+                            list_followup_show[i].Add(dataReader[i] + "");
+                        }
+                    }
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return list_followup_show;
+                }
+                else
+                {
+                    return list_followup_show;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return list_followup_show;
             }
         }
 
