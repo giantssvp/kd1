@@ -631,14 +631,6 @@ namespace kd.Controllers
                 {
                     list = obj.followup_show(0, page_size, search: search);
                 }
-                else if (page == "SiteVisit")
-                {
-                    list = obj.sitevisit_show(0, page_size, search: search);
-                }
-                else if (page == "Followup")
-                {
-                    list = obj.followup_show(0, page_size, search: search);
-                }
                 else if (page == "Sites")
                 {
                     list = obj.sites_show();
