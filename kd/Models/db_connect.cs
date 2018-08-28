@@ -1041,7 +1041,7 @@ namespace kd.Models
                 }
                 else
                 {
-                    query = "SELECT * FROM daily_enquiry where CONCAT(Customer_Name, Requirement) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                    query = "SELECT * FROM daily_enquiry where CONCAT(Customer_Name, Requirement) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @lim OFFSET @off";
                 }
 
                 for (int i = 0; i < 17; i++)
@@ -1090,7 +1090,7 @@ namespace kd.Models
                 }
                 else
                 {
-                    query = "SELECT * FROM daily_sitevisit where CONCAT(Wing, Flat) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                    query = "SELECT * FROM daily_sitevisit where CONCAT(Wing, Flat) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @lim OFFSET @off";
                 }
 
                 for (int i = 0; i < 8; i++)
@@ -1138,7 +1138,7 @@ namespace kd.Models
                 }
                 else
                 {
-                    query = "SELECT * FROM daily_followup where CONCAT(Followup_Details, Followup_Date, Next_Followup_Date) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                    query = "SELECT * FROM daily_followup where CONCAT(Folloup_Details, Folloup_Date, Next_Folloup_Date) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @lim OFFSET @off";
                 }
 
                 for (int i = 0; i < 8; i++)
