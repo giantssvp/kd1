@@ -2314,19 +2314,15 @@ namespace kd.Controllers
         }
 
         [Authorize]
-        public ActionResult DisplayDailyReport(DateTime enqStartDate, DateTime enqEndDate,
-                                                string enqName, string enqSite,
-                                                string enqRequirement, string enqOccu,
-                                                string enqVisit, string enqIneterest,
-                                                string enqBudget, string enqDown,
-                                                string enqMob)
+        public ActionResult DisplayDailyReport()
         {
             ViewBag.total = 0;
             HttpContext.Session.Add("offset", 0);
             List<string>[] list = new List<string>[14];
 
-            list = obj.Daily_enquiry_report(enqStartDate, enqEndDate, enqName, enqSite, enqRequirement,
-                                    enqVisit,enqIneterest,enqBudget,enqDown,enqMob);
+            //list = obj.Daily_enquiry_report(enqStartDate, enqEndDate, enqName, enqSite, enqRequirement,
+            //                        enqVisit,enqIneterest,enqBudget,enqDown,enqMob);
+            list = obj.Daily_enquiry_report();
 
             ViewBag.list = list;
             ViewBag.total = list[0].Count();

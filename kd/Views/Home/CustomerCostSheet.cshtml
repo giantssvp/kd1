@@ -49,12 +49,15 @@
                                     </td>
                                     <td><label class="control-label">Type</label></td>
                                     <td> <input type="text" name="type" id="required" @(edit ? new { value = elist[2] } : null)></td>
-                                    <td><label class="control-label">Area</label></td>
-                                    <td><input type="text" name="area" id="required" @(edit ? new { value = elist[14] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
+                                    <td><label class="control-label">Area</label></td>
+                                    <td><input type="text" name="area" id="required" @(edit ? new { value = elist[14] } : null)></td>
+
                                     <td><label class="control-label">RR Rate</label></td>
                                     <td><input type="text" name="rr_rate" id="required" @(edit ? new { value = elist[1] } : null)></td>
+                                </tr>
+                                <tr class="odd gradeX">
                                     <td><label class="control-label">Basic Rate</label></td>
                                     <td> <input type="number" name="basic_rate" id="required" @(edit ? new { value = elist[3] } : null)></td>
                                     <td><label class="control-label">Basic Cost</label></td>
@@ -65,12 +68,21 @@
                                     <td><input type="number" name="legal_charge" id="required" @(edit ? new { value = elist[5] } : null)></td>
                                     <td><label class="control-label">MSEB Charges</label></td>
                                     <td> <input type="number" name="mseb" id="required" @(edit ? new { value = elist[6] } : null)></td>
+                                </tr>
+                                <tr class="odd gradeX">
                                     <td><label class="control-label">Development Charges</label></td>
                                     <td><input type="number" name="devcharge" id="required" @(edit ? new { value = elist[7] } : null)></td>
+
+                                    <td><label class="control-label">Stamp Duty Regsitration %</label></td>
+                                    <td><input type="number" name="stampdutyregpercent" id="required" @(edit ? new { value = elist[15] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Stamp Duty Registration</label></td>
                                     <td><input type="number" name="stampdutyreg" id="required" @(edit ? new { value = elist[8] } : null)></td>
+                                    <td><label class="control-label">GST Percentage %</label></td>
+                                    <td> <input type="number" name="gstpercent" id="required" @(edit ? new { value = elist[16] } : null)></td>
+                                </tr>
+                                <tr class="odd gradeX">
                                     <td><label class="control-label">GST</label></td>
                                     <td> <input type="number" name="gst" id="required" @(edit ? new { value = elist[9] } : null)></td>
                                     <td><label class="control-label">Other Amount</label></td>
@@ -79,6 +91,8 @@
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Grand Total</label></td>
                                     <td><input type="number" name="grandtotal" id="required" @(edit ? new { value = elist[11] } : null)></td>
+                                </tr>
+                                <tr class="odd gradeX">
                                     @if (edit)
                                     {
                                         <td><input type="submit" name="submit_btn" value="Update" class="btn btn-success" /></td>

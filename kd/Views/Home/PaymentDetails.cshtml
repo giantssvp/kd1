@@ -49,12 +49,23 @@
                                     </td>
                                     <td><label class="control-label">Amount</label></td>
                                     <td><input type="number" name="pamt" id="required" @(edit ? new { value = elist[1] } : null)></td>
-                                    <td><label class="control-label">Payment Mode</label></td>
-                                    <td><input type="text" name="pmode" id="required" @(edit ? new { value = elist[3] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
+                                    <td><label class="control-label">Payment Mode</label></td>
+                                    <td>
+                                        <select name="pmode" id="required">
+                                            <option value="Cheque" @(edit ? (elist[3].Contains("Cheque") ? "selected" : "") : "selected")>Cheque</option>
+                                            <option value="Cash" @(edit ? (elist[3].Contains("Cash") ? "selected" : "") : "")>Cash</option>
+                                            <option value="RTGS" @(edit ? (elist[3].Contains("RTGS") ? "selected" : "") : "")>RTGS</option>
+                                            <option value="IMPS" @(edit ? (elist[3].Contains("IMPS") ? "selected" : "") : "")>IMPS</option>
+                                            <option value="NEFT" @(edit ? (elist[3].Contains("NEFT") ? "selected" : "") : "")>NEFT</option>
+                                        </select>
+                                    </td>
+
                                     <td><label class="control-label">Cheque ID</label></td>
                                     <td><input type="text" name="chkid" id="required" @(edit ? new { value = elist[4] } : null)></td>
+                                </tr>
+                                <tr class="odd gradeX">
                                     <td><label class="control-label">Cheque Date</label></td>
                                     <td> <input type="date" name="chkdate" id="required" @(edit ? new { value = @Convert.ToDateTime(elist[5]).ToString("yyyy-MM-dd") } : null)></td>
                                     <td><label class="control-label">Bank Name</label></td>
@@ -79,6 +90,8 @@
                                             <option value="cancel" @(edit ? (elist[8].Contains("cancel") ? "selected" : "") : "")>Cancel</option>
                                         </select>
                                     </td>
+                                </tr>
+                                <tr class="odd gradeX">
                                     <td><label class="control-label">Bank Pay</label></td>
                                     <td>
                                         <select name="bnkpay" id="required">
@@ -87,10 +100,11 @@
                                             <option value="cancel" @(edit ? (elist[9].Contains("cancel") ? "selected" : "") : "")>Cancel</option>
                                         </select>
                                     </td>
-                                </tr>
-                                <tr class="odd gradeX">
+
                                     <td><label class="control-label">Status</label></td>
                                     <td><input type="text" name="sts" id="required" @(edit ? new { value = elist[10] } : null)></td>
+                                </tr>
+                                <tr class="odd gradeX">
                                     @if (edit)
                                     {
                                         <td><input type="submit" name="submit_btn" value="Update" class="btn btn-success" /></td>

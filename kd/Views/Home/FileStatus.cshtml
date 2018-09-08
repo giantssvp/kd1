@@ -44,7 +44,13 @@
                             <tbody>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Service Charge</label></td>
-                                    <td><input type="number" name="chrg" id="required" @(edit ? new { value = elist[1] } : null)></td>
+                                    <td>
+                                        <select name="chrg" id="required">
+                                            <option value="Before" @(edit ? (elist[1].Contains("Before") ? "selected" : "") : "selected")>Before</option>
+                                            <option value="After" @(edit ? (elist[1].Contains("After") ? "selected" : "") : "")>After</option>
+                                            <option value="Other" @(edit ? (elist[1].Contains("Other") ? "selected" : "") : "")>Other</option>
+                                        </select>
+                                    </td>
                                     <td><label class="control-label">Loan Fees Amount</label></td>
                                     <td> <input type="number" name="lfamt" id="required" @(edit ? new { value = elist[2] } : null)></td>
                                 </tr>

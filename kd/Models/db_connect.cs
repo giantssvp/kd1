@@ -1176,32 +1176,27 @@ namespace kd.Models
         }
 
         /* Show Queries */
-        public List<string>[] Daily_enquiry_report(DateTime enqStartDate, DateTime enqEndDate,
-                                                string enqName, string enqSite,
-                                                string enqRequirement,
-                                                string enqVisit, string enqIneterest,
-                                                string enqBudget, string enqDown,
-                                                string enqMob)
+        public List<string>[] Daily_enquiry_report()
         {
             try
             {              
                 if (this.OpenConnection() == true)
                 {
-                    MySqlCommand cmd = new MySqlCommand("usp_daily_enquiry_report", connection);
+                    MySqlCommand cmd = new MySqlCommand("select * from daily_sitevisit_view", connection);
                    
-                    //cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@startDate", enqStartDate);
-                    cmd.Parameters.AddWithValue("@endDate", enqEndDate);
-                    cmd.Parameters.AddWithValue("@mobile", Convert.ToInt64(enqMob));
-                    cmd.Parameters.AddWithValue("@custName", enqName);
-                    cmd.Parameters.AddWithValue("@siteID", enqSite);
-                    cmd.Parameters.AddWithValue("@requirement", enqRequirement);
-                    cmd.Parameters.AddWithValue("@visit", enqVisit);
-                    cmd.Parameters.AddWithValue("@interest", enqIneterest);
-                    cmd.Parameters.AddWithValue("@budget", enqBudget);
-                    cmd.Parameters.AddWithValue("@downPayment", enqDown);
+                    ////cmd.CommandType = CommandType.StoredProcedure;
+                    //cmd.Parameters.AddWithValue("@startDate", enqStartDate);
+                    //cmd.Parameters.AddWithValue("@endDate", enqEndDate);
+                    //cmd.Parameters.AddWithValue("@mobile", Convert.ToInt64(enqMob));
+                    //cmd.Parameters.AddWithValue("@custName", enqName);
+                    //cmd.Parameters.AddWithValue("@siteID", enqSite);
+                    //cmd.Parameters.AddWithValue("@requirement", enqRequirement);
+                    //cmd.Parameters.AddWithValue("@visit", enqVisit);
+                    //cmd.Parameters.AddWithValue("@interest", enqIneterest);
+                    //cmd.Parameters.AddWithValue("@budget", enqBudget);
+                    //cmd.Parameters.AddWithValue("@downPayment", enqDown);
 
-                    cmd.CommandType = CommandType.StoredProcedure;
+                    //cmd.CommandType = CommandType.StoredProcedure;
 
                     MySqlDataReader dataReader = cmd.ExecuteReader();
 
