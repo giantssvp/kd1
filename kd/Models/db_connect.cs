@@ -21,7 +21,8 @@ namespace kd.Models
         public List<string>[] list_executive_show_name = new List<string>[2];
         public List<string>[] list_franchies_show = new List<string>[9];
         public List<string>[] list_franchies_show_name = new List<string>[2];
-        public List<string>[] list_customer_show = new List<string>[17];
+        public List<string>[] list_customer_show = new List<string>[12];
+        public List<string>[] list_customer_sec_show = new List<string>[8];
         public List<string>[] list_customer_show_name= new List<string>[2];
         public List<string>[] list_paycommit_show = new List<string>[7];
         public List<string>[] list_paydetails_show = new List<string>[12];
@@ -154,8 +155,8 @@ namespace kd.Models
                 else
                 {
                     query = "INSERT INTO daily_sitevisit (Daily_Customer_ID, Site_ID, Wing, Flat, Executive1_ID, " +
-                        "Executive2_ID, Executive3_ID) " +
-                        "VALUES(@name, @site, @wing, @flat, @exe1, @exe2, @exe3)";
+                        "Executive2_ID, Executive3_ID, Date) " +
+                        "VALUES(@name, @site, @wing, @flat, @exe1, @exe2, @exe3, NOW())";
                 }
                 if (this.OpenConnection() == true)
                 {
@@ -204,8 +205,8 @@ namespace kd.Models
                 else
                 {
                     query = "INSERT INTO daily_followup (Daily_Customer_ID, Folloup_Date, Next_Folloup_Date, Folloup_Details, " +
-                        "Executive1_ID, Executive2_ID, Executive3_ID) " +
-                        "VALUES(@name, @follow, @nextfollow, @followdetail, @exe1, @exe2, @exe3)";
+                        "Executive1_ID, Executive2_ID, Executive3_ID, Date) " +
+                        "VALUES(@name, @follow, @nextfollow, @followdetail, @exe1, @exe2, @exe3, NOW())";
                 }
                 if (this.OpenConnection() == true)
                 {
@@ -347,8 +348,8 @@ namespace kd.Models
                 }
                 else
                 {
-                    query = "INSERT INTO plot (Site_ID, Plot_NO, Plot_Area, Plot_Status, Wing) " +
-                    "VALUES(@site, @plotno, @area, @status, @wing)";
+                    query = "INSERT INTO plot (Site_ID, Plot_NO, Plot_Area, Plot_Status, Wing, Date) " +
+                    "VALUES(@site, @plotno, @area, @status, @wing, NOW())";
                 }
 
                 if (this.OpenConnection() == true)
@@ -480,8 +481,7 @@ namespace kd.Models
         }        
 
         public int insert_applicant(string applname, string applemail, string applmob, string appladdr, string applpan, string applaadhar,
-            string apploccu, string applbirth, string applage, string coapplname, string coapplpan, string coapplaadhar, string coapploccu, 
-            string coapplbirth, string applstatus, string type = "insert", int id = 0)
+            string apploccu, string applbirth, string applage, string applstatus, string type = "insert", int id = 0)
         {
             try
             {
@@ -498,19 +498,13 @@ namespace kd.Models
                         " Applicant_Occupation = @occu," +
                         " Applicant_DOB = @birth," +
                         " Applicant_Age = @age," +
-                        " Co_Applicant_Name = @cname," +
-                        " Co_Applicant_Pan_No = @cpan," +
-                        " Co_Applicant_Adhar_No = @caadhar," +
-                        " Co_Applicant_Occupation = @coccu," +
-                        " Co_Applicant_DOB = @cbirth," +
                         " Status = @status where id=@id";
                 }
                 else
                 {
                     query = "INSERT INTO applicant (Applicant_Name, Applicant_Email_Id, Applicant_Phone, Applicant_Address, Applicant_Pan_No, " +
-                    "Applicant_Adhar_No, Applicant_Occupation, Applicant_DOB, Applicant_Age, Co_Applicant_Name, Co_Applicant_Pan_No, " +
-                    "Co_Applicant_Adhar_No, Co_Applicant_Occupation, Co_Applicant_DOB, Date, Status) " +
-                    "VALUES(@name, @email, @phone, @addr, @pan, @aadhar, @occu, @birth, @age, @cname, @cpan, @caadhar, @coccu, @cbirth, NOW(), @status)";
+                    "Applicant_Adhar_No, Applicant_Occupation, Applicant_DOB, Applicant_Age, Date, Status) " +
+                    "VALUES(@name, @email, @phone, @addr, @pan, @aadhar, @occu, @birth, @age, NOW(), @status)";
                 }
 
                 if (this.OpenConnection() == true)
@@ -525,13 +519,58 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@occu", apploccu);
                     cmd.Parameters.AddWithValue("@birth", applbirth);
                     cmd.Parameters.AddWithValue("@age", applage);
+                    cmd.Parameters.AddWithValue("@status", applstatus);
 
+                    if (type == "edit")
+                    {
+                        cmd.Parameters.AddWithValue("@id", id);
+                    }
+
+                    cmd.ExecuteNonQuery();
+                    this.CloseConnection();
+                    return 1;
+                }
+                return 0;
+            }
+            catch (MySqlException ex)
+            {
+                return 0;
+            }
+        }
+
+        public int insert_co_applicant(string coapplname, string coapplpan, string coapplaadhar, string coapploccu,
+            string coapplbirth, string applid, string type = "insert", int id = 0)
+        {
+            try
+            {
+                string query = "";
+                if (type == "edit")
+                {
+                    query = "UPDATE co_applicant SET " +
+                        " Co_Applicant_Name = @cname," +
+                        " Co_Applicant_Pan_No = @cpan," +
+                        " Co_Applicant_Adhar_No = @caadhar," +
+                        " Co_Applicant_Occupation = @coccu," +
+                        " Co_Applicant_DOB = @cbirth," +
+                        " Applicant_ID = @appid where id=@id";
+                }
+                else
+                {
+                    query = "INSERT INTO co_applicant (Co_Applicant_Name, Co_Applicant_Pan_No, " +
+                    "Co_Applicant_Adhar_No, Co_Applicant_Occupation, Co_Applicant_DOB, Date, Applicant_ID) " +
+                    "VALUES(@cname, @cpan, @caadhar, @coccu, @cbirth, NOW(), @appid)";
+                }
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    
                     cmd.Parameters.AddWithValue("@cname", coapplname);
                     cmd.Parameters.AddWithValue("@cpan", coapplpan);
                     cmd.Parameters.AddWithValue("@caadhar", coapplaadhar);
                     cmd.Parameters.AddWithValue("@coccu", coapploccu);
                     cmd.Parameters.AddWithValue("@cbirth", coapplbirth);
-                    cmd.Parameters.AddWithValue("@status", applstatus);
+                    cmd.Parameters.AddWithValue("@appid", applid);
 
                     if (type == "edit")
                     {
@@ -567,8 +606,8 @@ namespace kd.Models
                 }
                 else
                 {
-                    query = "INSERT INTO execu_fran_audit (Booking_ID, Executive_ID, Franchies_ID, Total_Incentive, Total_Share, Total_Paid) " +
-                    "VALUES(@bno, @ename, @fname, @incentive, @share, @paidamt)";
+                    query = "INSERT INTO execu_fran_audit (Booking_ID, Executive_ID, Franchies_ID, Total_Incentive, Total_Share, Total_Paid, Date) " +
+                    "VALUES(@bno, @ename, @fname, @incentive, @share, @paidamt, NOW())";
                 }
 
                 if (this.OpenConnection() == true)
@@ -793,8 +832,8 @@ namespace kd.Models
                 }
                 else
                 {
-                    query = "INSERT INTO aggrement (Aggrement_Amount, Aggrement_Date, Aggrement_No, Status, Booking_Id, Notary_Amount, Adjustment_Amount, Extra_Amount, GST_Amount) " +
-                    "VALUES(@aamount, @adate, @ano, @astatus, @bid, @notary, @adjust, @extra, @gst)";
+                    query = "INSERT INTO aggrement (Aggrement_Amount, Aggrement_Date, Aggrement_No, Status, Booking_Id, Notary_Amount, Adjustment_Amount, Extra_Amount, GST_Amount, Date) " +
+                    "VALUES(@aamount, @adate, @ano, @astatus, @bid, @notary, @adjust, @extra, @gst, NOW())";
                 }
 
                 if (this.OpenConnection() == true)
@@ -861,9 +900,9 @@ namespace kd.Models
                     query = "INSERT INTO finance_details (Finance_Type, Finance_Name, Finance_Executive_Name, " +
                     "Finance_Executive_Mobile, Finance_Executive_Email, File_Handover_Date, File_Status, File_Sanction_Date, " +
                     "Required_Loan_Amount, Sanctioned_Loan_Amount, Total_Disbursed_Amount, Actual_Loan_Amount, Received_DD_Amount, " +
-                    "Remaining_DD_Amount, Rate_Of_Interest, EMI_Amount, EMI_Total_Months, Status, Booking_Id) " +
+                    "Remaining_DD_Amount, Rate_Of_Interest, EMI_Amount, EMI_Total_Months, Status, Booking_Id, Date) " +
                     "VALUES(@ftype, @fname, @fexename, @fexemob, @fexemail, @fhdate, @fsts, @fdate, @rlamt, @slamt, @dbrmnt," +
-                    " @alamt, @ramt, @remamt, @rointr, @emiamt, @emimonths, @finstat, @bookid)";
+                    " @alamt, @ramt, @remamt, @rointr, @emiamt, @emimonths, @finstat, @bookid, NOW())";
                 }
 
                 if (this.OpenConnection() == true)
@@ -927,8 +966,8 @@ namespace kd.Models
                 else
                 {
                     query = "INSERT INTO file_details (Service_Charge, Loan_Fees_Amount," +
-                    " Cheque_Id, Cheque_Date, Bank_Name, Loan_fees, status, Finance_Id) " +
-                    "VALUES(@chrg, @lfamt, @chid, @chdate, @bnknm, @lfee, @fstatus, @fid)";
+                    " Cheque_Id, Cheque_Date, Bank_Name, Loan_fees, status, Finance_Id, Date) " +
+                    "VALUES(@chrg, @lfamt, @chid, @chdate, @bnknm, @lfee, @fstatus, @fid, NOW())";
                 }
 
                 if (this.OpenConnection() == true)
@@ -987,9 +1026,9 @@ namespace kd.Models
                 else
                 {
                     query = "INSERT INTO cost_sheet (RR_Rate, Type, Basic_Rate, Basic_Cost, Legal_Charges, MSEB_Charges, " +
-                    "Development_Charges, Stamp_Duty_Registration, GST, Other_Amount, Grand_Total, Cost_Sheet_Type, Site_Id, Area) " +
+                    "Development_Charges, Stamp_Duty_Registration, GST, Other_Amount, Grand_Total, Cost_Sheet_Type, Site_Id, Area, Date) " +
                     "VALUES(@rr_rate, @type, @bas_rate, @bas_cost, @legal_charge, @mseb, @devcharge, @stamp, @gst, @otheramt, @grandtotal, @sheet_type," +
-                    " @site_id, @area)";
+                    " @site_id, @area, NOW())";
                 }
 
                 if (this.OpenConnection() == true)
@@ -1287,10 +1326,10 @@ namespace kd.Models
                 }
                 else
                 {
-                    query = "SELECT * FROM applicant where CONCAT(Applicant_Name, Co_Applicant_Name) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                    query = "SELECT * FROM applicant where CONCAT(Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
 
-                for (int i = 0; i < 17; i++)
+                for (int i = 0; i < 12; i++)
                 {
                     list_customer_show[i] = new List<string>();
                 }
@@ -1304,7 +1343,7 @@ namespace kd.Models
 
                     while (dataReader.Read())
                     {
-                        for (int i = 0; i < 17; i++)
+                        for (int i = 0; i < 12; i++)
                         {
                             list_customer_show[i].Add(dataReader[i] + "");
                         }
@@ -1321,6 +1360,54 @@ namespace kd.Models
             catch (MySqlException ex)
             {
                 return list_customer_show;
+            }
+        }
+
+        public List<string>[] customer_sec_show(int offset, int limit, string search = "")
+        {
+            try
+            {
+                string query = "";
+                if (search == "")
+                {
+                    query = "SELECT * FROM co_applicant ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                }
+                else
+                {
+                    query = "SELECT * FROM co_applicant where CONCAT(Co_Applicant_Name, Co_Applicant_Pan_No, Co_Applicant_Adhar_No) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                }
+
+                for (int i = 0; i < 8; i++)
+                {
+                    list_customer_sec_show[i] = new List<string>();
+                }
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@offset", offset);
+                    cmd.Parameters.AddWithValue("@limit", limit);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    while (dataReader.Read())
+                    {
+                        for (int i = 0; i < 8; i++)
+                        {
+                            list_customer_sec_show[i].Add(dataReader[i] + "");
+                        }
+                    }
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return list_customer_sec_show;
+                }
+                else
+                {
+                    return list_customer_sec_show;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return list_customer_sec_show;
             }
         }
 

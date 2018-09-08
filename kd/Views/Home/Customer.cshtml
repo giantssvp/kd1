@@ -67,22 +67,8 @@
                                     <td><input type="number" name="applage" id="required" @(edit ? new { value = elist[9] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
-                                    <td><label class="control-label">Co - Applicant Name</label></td>
-                                    <td><input type="text" name="coapplname" id="required" @(edit ? new { value = elist[10] } : null)></td>
-                                    <td><label class="control-label">Co - PAN  NO</label></td>
-                                    <td><input type="text" name="coapplpan" id="required" @(edit ? new { value = elist[11] } : null)></td>
-                                    <td><label class="control-label">Co - AADHAR NO</label></td>
-                                    <td><input type="text" name="coapplaadhar" id="required" @(edit ? new { value = elist[12] } : null)></td>
-                                </tr>
-                                <tr class="odd gradeX">
-                                    <td><label class="control-label">Co - Occupation</label></td>
-                                    <td><input type="text" name="coapploccu" id="required" @(edit ? new { value = elist[13] } : null)></td>
-                                    <td><label class="control-label">Co - Birth Date</label></td>
-                                    <td><input type="date" name="coapplbirth" id="required" @(edit ? new { value = @Convert.ToDateTime(elist[14]).ToString("yyyy-MM-dd") } : null)></td>
                                     <td><label class="control-label">Status</label></td>
                                     <td><input type="text" name="applstatus" id="required" @(edit ? new { value = elist[16] } : null)></td>
-                                </tr>
-                                <tr class="odd gradeX">
                                     @if (edit)
                                     {
                                         <td><input type="submit" name="submit_btn" value="Update" class="btn btn-success" /></td>
@@ -115,15 +101,11 @@
                                     <th>ID</th>
                                     <th>Applicant Name</th>
                                     <th>Address</th>
-                                    <th>Email Id</th>
+                                    <th>Email ID</th>
                                     <th>Mobile</th>
                                     <th>PAN NO</th>
                                     <th>AADHAR NO</th>
                                     <th>Occupation</th>
-                                    <th>Co Applicant Name</th>
-                                    <th>Co - PAN NO</th>
-                                    <th>Co - AADHAR NO</th>
-                                    <th>Co - Occupation</th>
                                     @if (this.Session["role"].ToString() == "admin")
                                     {
                                         <th>Modify</th>
@@ -142,10 +124,6 @@
                                     <td>@results[5][i]</td>
                                     <td>@results[6][i]</td>
                                     <td>@results[7][i]</td>
-                                    <td>@results[10][i]</td>
-                                    <td>@results[11][i]</td>
-                                    <td>@results[12][i]</td>
-                                    <td>@results[13][i]</td>
                                     @if (this.Session["role"].ToString() == "admin")
                                     {
                                         <td align="center">

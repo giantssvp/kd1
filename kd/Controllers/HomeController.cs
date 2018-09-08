@@ -213,9 +213,26 @@ namespace kd.Controllers
         {
             ViewBag.total = 0;
             HttpContext.Session.Add("offset", 0);
-            List<string>[] list = new List<string>[14];
+            List<string>[] list = new List<string>[12];
 
             list = obj.customer_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps), search: search);
+
+            ViewBag.list = list;
+            ViewBag.total = list[0].Count();
+            ViewBag.pageSize = Int32.Parse(ps);
+            ViewBag.search = search;
+
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult Customer_Sec(string ps = "10", string filter = "", string search = "")
+        {
+            ViewBag.total = 0;
+            HttpContext.Session.Add("offset", 0);
+            List<string>[] list = new List<string>[8];
+
+            list = obj.customer_sec_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps), search: search);
 
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
@@ -447,6 +464,13 @@ namespace kd.Controllers
                         pass = 1;
                     }
                 }
+                else if (page == "Customer_Sec")
+                {
+                    if (obj.Delete_Record("co_applicant", id) == 0)
+                    {
+                        pass = 1;
+                    }
+                }
                 else if (page == "FileStatus")
                 {
                     if (obj.Delete_Record("file_details", id) == 0)
@@ -566,6 +590,10 @@ namespace kd.Controllers
                 {
                     edit_list = obj.get_edit_record("applicant", id);
                 }
+                else if (page == "Customer_Sec")
+                {
+                    edit_list = obj.get_edit_record("co_applicant", id);
+                }
                 else if (page == "FileStatus")
                 {
                     edit_list = obj.get_edit_record("file_details", id);
@@ -664,6 +692,10 @@ namespace kd.Controllers
                 else if(page == "Customer")
                 {
                     list = obj.customer_show(0, page_size, search: search);
+                }
+                else if (page == "Customer_Sec")
+                {
+                    list = obj.customer_sec_show(0, page_size, search: search);
                 }
                 else if (page == "Booking")
                 {
@@ -769,6 +801,10 @@ namespace kd.Controllers
                 else if (page == "Customer")
                 {
                     list = obj.customer_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
+                }
+                else if (page == "Customer_Sec")
+                {
+                    list = obj.customer_sec_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
                 else if (page == "Booking")
                 {
@@ -941,7 +977,20 @@ namespace kd.Controllers
                     }
                     else
                     {
-                        query = "applicant where CONCAT(Applicant_Name, Co_Applicant_Name) LIKE '%" + search + "%'";
+                        query = "applicant where CONCAT(Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No) LIKE '%" + search + "%'";
+                    }
+                    cnt = obj.get_count(query);
+                }
+                else if (page == "Customer_Sec")
+                {
+                    string query = "";
+                    if (search == "")
+                    {
+                        query = "co_applicant";
+                    }
+                    else
+                    {
+                        query = "co_applicant where CONCAT(Co_Applicant_Name, Co_Applicant_Pan_No, Co_Applicant_Adhar_No) LIKE '%" + search + "%'";
                     }
                     cnt = obj.get_count(query);
                 }
@@ -1101,6 +1150,10 @@ namespace kd.Controllers
                 else if (page == "Customer")
                 {
                     list = obj.customer_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
+                }
+                else if (page == "Customer_Sec")
+                {
+                    list = obj.customer_sec_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
                 else if (page == "Booking")
                 {
@@ -1271,7 +1324,20 @@ namespace kd.Controllers
                     }
                     else
                     {
-                        query = "applicant where CONCAT(Applicant_Name, Co_Applicant_Name) LIKE '%" + search + "%'";
+                        query = "applicant where CONCAT(Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No) LIKE '%" + search + "%'";
+                    }
+                    cnt = obj.get_count(query);
+                }
+                else if (page == "Customer_Sec")
+                {
+                    string query = "";
+                    if (search == "")
+                    {
+                        query = "co_applicant";
+                    }
+                    else
+                    {
+                        query = "co_applicant where CONCAT(Co_Applicant_Name, Co_Applicant_Pan_No, Co_Applicant_Adhar_No) LIKE '%" + search + "%'";
                     }
                     cnt = obj.get_count(query);
                 }
@@ -1437,6 +1503,10 @@ namespace kd.Controllers
                 else if (page == "Customer")
                 {
                     list = obj.customer_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
+                }
+                else if (page == "Customer_Sec")
+                {
+                    list = obj.customer_sec_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
                 else if (page == "Booking")
                 {
@@ -1794,15 +1864,14 @@ namespace kd.Controllers
         }
 
         public ActionResult add_applicant(string applname, string applemail, string applmob, string appladdr, string applpan, string applaadhar,
-            string apploccu, string applbirth, string applage, string coapplname, string coapplpan, string coapplaadhar, string coapploccu, string coapplbirth, string applstatus, string submit_btn, string edit_id = "0")
+            string apploccu, string applbirth, string applage, string applstatus, string submit_btn, string edit_id = "0")
         {
             try
             {
                 if (submit_btn == "Save")
                 {
                     if (obj.insert_applicant(applname, applemail, applmob, appladdr, applpan, applaadhar,
-                                             apploccu, applbirth, applage, coapplname, coapplpan, coapplaadhar, 
-                                             coapploccu, coapplbirth, applstatus) == 1)
+                                             apploccu, applbirth, applage, applstatus) == 1)
                     {
                         TempData["AlertMessage"] = "All the details saved successfully.";
                     }
@@ -1815,8 +1884,7 @@ namespace kd.Controllers
                 {
                     int id = Int32.Parse(edit_id);
                     if (obj.insert_applicant(applname, applemail, applmob, appladdr, applpan, applaadhar,
-                                             apploccu, applbirth, applage, coapplname, coapplpan, coapplaadhar, 
-                                             coapploccu, coapplbirth, applstatus, "edit", id) == 1)
+                                             apploccu, applbirth, applage, applstatus, "edit", id) == 1)
                     {
                         TempData["AlertMessage"] = "All the details updated successfully.";
                     }
@@ -1832,6 +1900,45 @@ namespace kd.Controllers
                 TempData["AlertMessage"] = "There is exception while saving the details please do it again.";
                 System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
                 return RedirectToAction("Customer", "Home");
+            }
+        }
+
+        public ActionResult add_co_applicant(string coapplname, string coapplpan, string coapplaadhar, string coapploccu, string coapplbirth, string applid, string submit_btn, string edit_id = "0")
+        {
+            try
+            {
+                if (submit_btn == "Save")
+                {
+                    if (obj.insert_co_applicant(coapplname, coapplpan, coapplaadhar,
+                                             coapploccu, coapplbirth, applid) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details saved successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                    }
+                }
+                else if (submit_btn == "Update")
+                {
+                    int id = Int32.Parse(edit_id);
+                    if (obj.insert_co_applicant(coapplname, coapplpan, coapplaadhar,
+                                             coapploccu, coapplbirth, applid, "edit", id) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details updated successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while updating the details please do it again.";
+                    }
+                }
+                return RedirectToAction("Customer_Sec", "Home");
+            }
+            catch (Exception ex)
+            {
+                TempData["AlertMessage"] = "There is exception while saving the details please do it again.";
+                System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
+                return RedirectToAction("Customer_Sec", "Home");
             }
         }
 

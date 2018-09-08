@@ -385,6 +385,7 @@
     <Content Include="Views\Home\Plots.cshtml" />
     <Content Include="Views\Home\SiteVisit.cshtml" />
     <Content Include="Views\Home\Followup.cshtml" />
+    <Content Include="Views\Home\Customer_Sec.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
