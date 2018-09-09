@@ -1001,7 +1001,7 @@ namespace kd.Models
             }
         }
 
-        public int insert_cost_sheet(string sheet_type, string site, string type1, string area, string rr_rate, string basic_rate, string basic_cost, string legal_charge, string devcharge, string mseb, string stampdutyreg, string gst, string otheramt, string grandtotal, string type = "insert", int id = 0)
+        public int insert_cost_sheet(string sheet_type, string site, string type1, string area, string rr_rate, string basic_rate, string basic_cost, string legal_charge, string devcharge, string mseb, string stampdutyregpercent, string stampdutyreg, string gst, string gstpercent, string otheramt, string grandtotal, string type = "insert", int id = 0)
         {
             try
             {
@@ -1017,8 +1017,10 @@ namespace kd.Models
                         " Legal_Charges = @legal_charge," +
                         " MSEB_Charges = @mseb," +
                         " Development_Charges = @devcharge," +
+                        " Stamp_Duty_Percent = @stamppercent," +
                         " Stamp_Duty_Registration = @stamp," +
                         " GST = @gst," +
+                        " GST_Percent = @gst_percent," +                        
                         " Other_Amount = @otheramt," +
                         " Grand_Total = @grandtotal," +
                         " Cost_Sheet_Type = @sheet_type," +
@@ -1027,8 +1029,8 @@ namespace kd.Models
                 else
                 {
                     query = "INSERT INTO cost_sheet (RR_Rate, Type, Basic_Rate, Basic_Cost, Legal_Charges, MSEB_Charges, " +
-                    "Development_Charges, Stamp_Duty_Registration, GST, Other_Amount, Grand_Total, Cost_Sheet_Type, Site_Id, Area, Date) " +
-                    "VALUES(@rr_rate, @type, @bas_rate, @bas_cost, @legal_charge, @mseb, @devcharge, @stamp, @gst, @otheramt, @grandtotal, @sheet_type," +
+                    "Development_Charges, Stamp_Duty_Percent, Stamp_Duty_Registration, GST, GST_Percent, Other_Amount, Grand_Total, Cost_Sheet_Type, Site_Id, Area, Date) " +
+                    "VALUES(@rr_rate, @type, @bas_rate, @bas_cost, @legal_charge, @mseb, @devcharge, @stamppercent, @stamp, @gst, @gst_percent, @otheramt, @grandtotal, @sheet_type," +
                     " @site_id, @area, NOW())";
                 }
 
@@ -1044,7 +1046,9 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@legal_charge", legal_charge);
                     cmd.Parameters.AddWithValue("@mseb", mseb);
                     cmd.Parameters.AddWithValue("@gst", gst);
+                    cmd.Parameters.AddWithValue("@gst_percent", gstpercent);
                     cmd.Parameters.AddWithValue("@devcharge", devcharge);
+                    cmd.Parameters.AddWithValue("@stamppercent", stampdutyregpercent);                    
                     cmd.Parameters.AddWithValue("@stamp", stampdutyreg);
                     cmd.Parameters.AddWithValue("@otheramt", otheramt);
                     cmd.Parameters.AddWithValue("@grandtotal", grandtotal);

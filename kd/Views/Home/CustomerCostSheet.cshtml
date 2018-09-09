@@ -52,7 +52,7 @@
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Area</label></td>
-                                    <td><input type="text" name="area" id="required" @(edit ? new { value = elist[14] } : null)></td>
+                                    <td><input type="text" name="area" id="required" @(edit ? new { value = elist[16] } : null)></td>
 
                                     <td><label class="control-label">RR Rate</label></td>
                                     <td><input type="text" name="rr_rate" id="required" @(edit ? new { value = elist[1] } : null)></td>
@@ -74,23 +74,23 @@
                                     <td><input type="number" name="devcharge" id="required" @(edit ? new { value = elist[7] } : null)></td>
 
                                     <td><label class="control-label">Stamp Duty Regsitration %</label></td>
-                                    <td><input type="number" name="stampdutyregpercent" id="required" @(edit ? new { value = elist[15] } : null)></td>
+                                    <td><input type="number" step="0.01" name="stampdutyregpercent" id="required" @(edit ? new { value = elist[8] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Stamp Duty Registration</label></td>
-                                    <td><input type="number" name="stampdutyreg" id="required" @(edit ? new { value = elist[8] } : null)></td>
+                                    <td><input type="number" name="stampdutyreg" id="required" @(edit ? new { value = elist[9] } : null)></td>
                                     <td><label class="control-label">GST Percentage %</label></td>
-                                    <td> <input type="number" name="gstpercent" id="required" @(edit ? new { value = elist[16] } : null)></td>
+                                    <td> <input type="number" step="0.01" name="gstpercent" id="required" @(edit ? new { value = elist[11] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">GST</label></td>
-                                    <td> <input type="number" name="gst" id="required" @(edit ? new { value = elist[9] } : null)></td>
+                                    <td> <input type="number" name="gst" id="required" @(edit ? new { value = elist[10] } : null)></td>
                                     <td><label class="control-label">Other Amount</label></td>
-                                    <td><input type="number" name="otheramt" id="required" @(edit ? new { value = elist[10] } : null)></td>
+                                    <td><input type="number" name="otheramt" id="required" @(edit ? new { value = elist[12] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Grand Total</label></td>
-                                    <td><input type="number" name="grandtotal" id="required" @(edit ? new { value = elist[11] } : null)></td>
+                                    <td><input type="number" name="grandtotal" id="required" @(edit ? new { value = elist[13] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     @if (edit)
@@ -129,8 +129,8 @@
                                     <th>Legal Charges</th>
                                     <th>MSEB Charges</th>
                                     <th>Development Charges</th>
-                                    <th>Stamp duty Reg</th>
-                                    <th>GST</th>
+                                    <th>Stamp duty Reg Percent</th>
+                                    <th>GST Percent</th>
                                     <th>Other Amount</th>
                                     <th>Grand Total</th>
                                     @if (this.Session["role"].ToString() == "admin")
@@ -151,9 +151,9 @@
                                     <td>@results[6][i]</td>
                                     <td>@results[7][i]</td>
                                     <td>@results[8][i]</td>
-                                    <td>@results[9][i]</td>
-                                    <td>@results[10][i]</td>
                                     <td>@results[11][i]</td>
+                                    <td>@results[12][i]</td>
+                                    <td>@results[13][i]</td>
                                     @if (this.Session["role"].ToString() == "admin")
                                     {
                                         <td align="center">
@@ -161,7 +161,7 @@
                                             <button onclick="fun_del(this);" value="@results[0][i]" class="btn btn-danger">Delete</button>
                                         </td>
                                     }
-                                    </tr>
+                                </tr>
                                 }
                             </tbody>
                         </table>
@@ -230,7 +230,7 @@
                 $.each(list, function (index, value) {
                     $("#site").append($('<option></option>').val(list1[index]).html(value));
                 });
-                document.getElementById("site").value = @(edit ? elist[13] : 1);
+                document.getElementById("site").value = @(edit ? elist[15] : 1);
             },
             error: function (err) {
                 alert(err.responseText);

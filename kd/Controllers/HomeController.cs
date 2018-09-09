@@ -2215,13 +2215,13 @@ namespace kd.Controllers
             }
         }
 
-        public ActionResult add_customer_cost_sheet(string site, string type, string area, string rr_rate, string basic_rate, string basic_cost, string legal_charge, string devcharge, string mseb, string stampdutyreg, string gst, string otheramt, string grandtotal, string submit_btn, string edit_id = "0")
+        public ActionResult add_customer_cost_sheet(string site, string type, string area, string rr_rate, string basic_rate, string basic_cost, string legal_charge, string devcharge, string mseb, string stampdutyregpercent, string stampdutyreg, string gst, string gstpercent, string otheramt, string grandtotal, string submit_btn, string edit_id = "0")
         {
             try
             {
                 if (submit_btn == "Save")
                 {
-                    if (obj.insert_cost_sheet("customer", site, type, area, rr_rate, basic_rate, basic_cost, legal_charge, devcharge, mseb, stampdutyreg, gst, otheramt, grandtotal) == 1)
+                    if (obj.insert_cost_sheet("customer", site, type, area, rr_rate, basic_rate, basic_cost, legal_charge, devcharge, mseb, stampdutyregpercent, stampdutyreg, gst, gstpercent, otheramt, grandtotal) == 1)
                     {
                         TempData["AlertMessage"] = "All the details saved successfully.";
                     }
@@ -2233,7 +2233,7 @@ namespace kd.Controllers
                 else if (submit_btn == "Update")
                 {
                     int id = Int32.Parse(edit_id);
-                    if (obj.insert_cost_sheet("customer", site, type, area, rr_rate, basic_rate, basic_cost, legal_charge, devcharge, mseb, stampdutyreg, gst, otheramt, grandtotal, "edit", id) == 1)
+                    if (obj.insert_cost_sheet("customer", site, type, area, rr_rate, basic_rate, basic_cost, legal_charge, devcharge, mseb, stampdutyregpercent, stampdutyreg, gst, gstpercent, otheramt, grandtotal, "edit", id) == 1)
                     {
                         TempData["AlertMessage"] = "All the details updated successfully.";
                     }
@@ -2252,13 +2252,13 @@ namespace kd.Controllers
             }
         }
 
-        public ActionResult add_builder_cost_sheet(string site, string type, string area, string rr_rate, string basic_rate, string basic_cost, string legal_charge, string devcharge, string mseb, string stampdutyreg, string gst, string otheramt, string grandtotal, string submit_btn, string edit_id = "0")
+        public ActionResult add_builder_cost_sheet(string site, string type, string area, string rr_rate, string basic_rate, string basic_cost, string legal_charge, string devcharge, string mseb, string stampdutyregpercent, string stampdutyreg, string gst, string gstpercent, string otheramt, string grandtotal, string submit_btn, string edit_id = "0")
         {
             try
             {
                 if (submit_btn == "Save")
                 {
-                    if (obj.insert_cost_sheet("builder", site, type, area, rr_rate, basic_rate, basic_cost, legal_charge, devcharge, mseb, stampdutyreg, gst, otheramt, grandtotal) == 1)
+                    if (obj.insert_cost_sheet("builder", site, type, area, rr_rate, basic_rate, basic_cost, legal_charge, devcharge, mseb, stampdutyregpercent, stampdutyreg, gst, gstpercent, otheramt, grandtotal) == 1)
                     {
                         TempData["AlertMessage"] = "All the details saved successfully.";
                     }
@@ -2270,7 +2270,7 @@ namespace kd.Controllers
                 else if (submit_btn == "Update")
                 {
                     int id = Int32.Parse(edit_id);
-                    if (obj.insert_cost_sheet("builder", site, type, area, rr_rate, basic_rate, basic_cost, legal_charge, devcharge, mseb, stampdutyreg, gst, otheramt, grandtotal, "edit", id) == 1)
+                    if (obj.insert_cost_sheet("builder", site, type, area, rr_rate, basic_rate, basic_cost, legal_charge, devcharge, mseb, stampdutyregpercent, stampdutyreg, gst, gstpercent, otheramt, grandtotal, "edit", id) == 1)
                     {
                         TempData["AlertMessage"] = "All the details updated successfully.";
                     }
