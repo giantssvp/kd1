@@ -26,15 +26,21 @@
                     <li><a href='@Url.Action("Logout", "Home")'><i class="icon-key"></i>Logout</a></li>
                 </ul>
             </li>
+            <li class="dropdown" id="menu-messages">
+                <a href="#" data-toggle="dropdown" data-target="#menu-messages" class="dropdown-toggle"><i class="icon icon-bell-alt"></i>
+                <span class="text">Alarms</span> <span class="label label-important">5</span> <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a class="sAdd" title="" href="#"><i class="icon-thumbs-up"></i>Follow Up</a></li>
+                    <li class="divider"></li>
+                    <li><a class="sInbox" title="" href="#"><i class="icon-time"></i>Paymet Commit</a></li>
+                    <li class="divider"></li>
+                    <li><a class="sOutbox" title="" href="#"><i class="icon-money"></i>Cheque</a></li>
+                    <li class="divider"></li>
+                </ul>
+            </li>
         </ul>
     </div>
     <!--close-top-Header-menu-->
-    <!--start-top-serch-->
-    <div id="search">
-        <input type="text" placeholder="Search here..." />
-        <button type="submit" class="tip-bottom" title="Search"><i class="icon-search icon-white"></i></button>
-    </div>
-    <!--close-top-serch-->
     <!--sidebar-menu-->
     <div id="sidebar">
         <a href="#" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
