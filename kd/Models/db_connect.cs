@@ -37,6 +37,7 @@ namespace kd.Models
         public List<string>[] list_daily_customer_name_show = new List<string>[2];
         public List<string>[] list_wing_name_show = new List<string>[2];
         public List<string>[] list_flat_no_show = new List<string>[2];
+        public List<string>[] list_enquiry_followup_show = new List<string>[23];
 
         private bool OpenConnection()
         {
@@ -1215,7 +1216,7 @@ namespace kd.Models
         }
 
         /* Show Queries */
-        public List<string>[] Daily_enquiry_report()
+        public List<string>[] Daily_enquiry_sitevisit_report()
         {
             try
             {              
@@ -1223,6 +1224,59 @@ namespace kd.Models
                 {
                     MySqlCommand cmd = new MySqlCommand("select * from daily_sitevisit_view", connection);
                    
+                    ////cmd.CommandType = CommandType.StoredProcedure;
+                    //cmd.Parameters.AddWithValue("@startDate", enqStartDate);
+                    //cmd.Parameters.AddWithValue("@endDate", enqEndDate);
+                    //cmd.Parameters.AddWithValue("@mobile", Convert.ToInt64(enqMob));
+                    //cmd.Parameters.AddWithValue("@custName", enqName);
+                    //cmd.Parameters.AddWithValue("@siteID", enqSite);
+                    //cmd.Parameters.AddWithValue("@requirement", enqRequirement);
+                    //cmd.Parameters.AddWithValue("@visit", enqVisit);
+                    //cmd.Parameters.AddWithValue("@interest", enqIneterest);
+                    //cmd.Parameters.AddWithValue("@budget", enqBudget);
+                    //cmd.Parameters.AddWithValue("@downPayment", enqDown);
+
+                    //cmd.CommandType = CommandType.StoredProcedure;
+
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    bool hasrows = dataReader.HasRows;
+
+                    DataTable dt = new DataTable();
+                    dt.Load(dataReader);
+
+                    while (dataReader.Read())
+                    {
+                        for (int i = 0; i < 22; i++)
+                        {
+                            list_enquiry_followup_show[i].Add(dataReader[i] + "");
+                        }
+                    }
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return list_enquiry_show;
+                }
+                else
+                {
+                    return list_enquiry_show;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return list_enquiry_show;
+            }
+        }
+
+       
+        /* Show daily enquiry followup based on view2 */
+        public List<string>[] Daily_enquiry_followup_report()
+        {
+            try
+            {
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand("select * from daily_enquiry_followup_view2", connection);
+
                     ////cmd.CommandType = CommandType.StoredProcedure;
                     //cmd.Parameters.AddWithValue("@startDate", enqStartDate);
                     //cmd.Parameters.AddWithValue("@endDate", enqEndDate);

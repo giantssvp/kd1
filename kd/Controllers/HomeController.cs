@@ -2425,14 +2425,22 @@ namespace kd.Controllers
         {
             ViewBag.total = 0;
             HttpContext.Session.Add("offset", 0);
-            List<string>[] list = new List<string>[14];
-
+            List<string>[] list = new List<string>[23];
+            List<string>[] list1 = new List<string>[21];
+            List<DailyVM> dailyResult = new List<DailyVM>();
             //list = obj.Daily_enquiry_report(enqStartDate, enqEndDate, enqName, enqSite, enqRequirement,
             //                        enqVisit,enqIneterest,enqBudget,enqDown,enqMob);
-            list = obj.Daily_enquiry_report();
+            
+            list = obj.Daily_enquiry_followup_report();
+            foreach (var i in list)
+            {
+                list1 = obj.Daily_enquiry_sitevisit_report();
+                dailyResult.Add(new DailyVM { dailyFollowup = i, dailySite = list1[0]});
+            }
 
-            ViewBag.list = list;
-            ViewBag.total = list[0].Count();
+            
+            //ViewBag.list = list;
+            //ViewBag.total = list[0].Count();
 
             return View("DailyEnquiryPDF");
         }
