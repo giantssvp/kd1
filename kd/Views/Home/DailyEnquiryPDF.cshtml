@@ -1,18 +1,10 @@
-﻿@model IEnumerable<kd.Models.DailyVM>
+﻿@model IEnumerable<kd.Models.Enquiry>
     @{
+        Layout = null;
         ViewBag.Title = "Daily Enquiry PDF";
-    }
-
-    @{
-        var results = ViewBag.list;
-        int? cnt = new int?();
-        cnt = ViewBag.total;
-        if (cnt == null)
-        {
-            cnt = 0;
-        }
         WebGrid grid = new WebGrid(source: Model, canSort: false);
     }
+
     <style>
     </style>
 
@@ -37,9 +29,12 @@
              WebGrid subGrid = new WebGrid(source: item._DailyVM);
              return subGrid.GetHtml(
                  htmlAttributes: new {id="subT" },
-                 columns:subGrid.Columns(
-                        subGrid.Column("Requirement", "Requirement"),
-                        subGrid.Column("Email_ID", "EmailID")
+                 columns: subGrid.Columns(
+                                            subGrid.Column("ID", "ID"),
+                                            subGrid.Column("Customer_Name", "Name"),
+                                            subGrid.Column("Address", "Address"),
+                                            subGrid.Column("Email_ID", "Email_ID"),
+                                            subGrid.Column("Requirement", "Requirement")
                         )
                      );
                 })
@@ -79,94 +74,5 @@
         });
     </script>
     }
-    <!--
-    <div id="content-header">
-        <div id="breadcrumb"> <a href='@Url.Action("Index", "Home")' title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href='@Url.Action("DailyReportPDF", "Home")'>Daily Report</a></div>
-    </div>
-    <div class="container-fluid">
-        <div class="row-fluid">
-            <div class="span12">
-                <div class="widget-box">
-                    <div class="widget-title">
-                        <span class="icon"> <i class="icon-info-sign"></i> </span>
-                        <h5>Daily Enquiry Report</h5>
-                    </div>
-                    <div>
-                        <form method="post" action="@Url.Action("Generate_pdf","Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
-                            <div id="Grid">
-                                <table cellpadding="2" cellspacing="1" border="1" width="100%">
-                                    <thead>
-                                        <tr>
-                                            <th colspan="12" align="center" valign="middle"> <p style="font-weight:bold;font-size:large;text-align:center">Daily Enquiry </p></th>
-                                        </tr>
-                                        <tr>
-                                            <th>Enquiry Date</th>
-                                            <th>Customer Name</th>
-                                            <th>Address</th>
-                                            <th>Mobile No</th>
-                                            <th>Occupation</th>
-                                            <th>Site</th>
-                                            <th>Requirement</th>
-                                            <th>Visit</th>
-                                            <th>Interest</th>
-                                            <th>Down Payment</th>
-                                            <th>Booking</th>
-                                            <th>Remark</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @for (var i = 0; i < cnt; i++)
-                                        {
-                                        <tr>
-                                            <td>@results[1][i]</td>
-                                            <td>@results[2][i]</td>
-                                            <td>@results[7][i]</td>
-                                            <td>@results[3][i]</td>
-                                            <td>@results[8][i]</td>
-                                            <td>@results[13][i]</td>
-                                            <td>@results[4][i]</td>
-                                            <td>@results[9][i]</td>
-                                            <td>@results[10][i]</td>
-                                            <td>@results[5][i]</td>
-                                            <td>@results[11][i]</td>
-                                            <td>@results[12][i]</td>
-                                        </tr>
-                                        }
-                                    </tbody>
-                                </table>
-
-                                <input type="hidden" name="GridHtml" />
-                                <input type="submit" value="Generate Pdf" id="btnSubmit" class="btn btn-success" />
-
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-        -->
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            $("#btnSubmit").click(function () {
-                $("input[name='GridHtml']").val($("#Grid").html());
-            });
-        });
-    </script>
-
-    <script src="~/Scripts/jquery.min.js"></script>
-    <script src="~/Scripts/jquery.ui.custom.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <script src="~/Scripts/matrix.popover.js"></script>
-    <script src="~/Scripts/jquery.uniform.js"></script>
-    <script src="~/Scripts/select2.min.js"></script>
-    <script src="~/Scripts/jquery.dataTables.min.js"></script>
-    <script src="~/Scripts/matrix.js"></script>
-    <script src="~/Scripts/matrix.tables.js"></script>
-    <script src="~/Scripts/jquery.validate.js"></script>
-    <script src="~/Scripts/matrix.form_validation.js"></script>
-
-
-
+    
 

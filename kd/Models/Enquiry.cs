@@ -5,6 +5,12 @@ using System.Web;
 
 namespace kd.Models
 {
+    public class Enquiry
+    {
+        public DailyFollowup _DailyFollowup { get; set; }
+        public List<DailyVM> _DailyVM { get; set; }
+    }
+
     public class DailyFollowup
     {
         public int ID { get; set; }
@@ -18,5 +24,5 @@ namespace kd.Models
         public string Address { get; set; }
         public string Email_ID { get; set; }
         public string Requirement { get; set; }
-    } 
+    }
 }

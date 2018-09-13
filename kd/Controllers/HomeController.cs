@@ -2423,11 +2423,10 @@ namespace kd.Controllers
         [Authorize]
         public ActionResult DisplayDailyReport()
         {
-            ViewBag.total = 0;
-            HttpContext.Session.Add("offset", 0);
+            
             List<DailyFollowup> list = new List<DailyFollowup>();
             List<DailyVM> list1 = new List<DailyVM>();
-            List<DailyReport> DailyReport = new List<DailyReport>();
+            List<Enquiry> lstDailyEnquiry = new List<Enquiry>();
             //list = obj.Daily_enquiry_report(enqStartDate, enqEndDate, enqName, enqSite, enqRequirement,
             //                        enqVisit,enqIneterest,enqBudget,enqDown,enqMob);
 
@@ -2437,24 +2436,39 @@ namespace kd.Controllers
             {
                 list1 = obj.Daily_enquiry_sitevisit_report();
 
-                DailyReport _DailyReport = new DailyReport();
-                _DailyReport._DailyFollowup = DailyFollowupobj;
-                _DailyReport._DailyVM = list1;
+                Enquiry _Enquiry = new Enquiry();
+                _Enquiry._DailyFollowup = DailyFollowupobj;
+                _Enquiry._DailyVM = list1;
 
-                DailyReport.Add(_DailyReport);
+                lstDailyEnquiry.Add(_Enquiry);
             }
-
             
-            //ViewBag.list = list;
-            //ViewBag.total = list[0].Count();
-
-            return View(DailyReport.AsEnumerable());
+            return View(lstDailyEnquiry); 
         }
         
         [Authorize]
         public ActionResult DailyEnquiryPDF()
         {
-            return View();
+            List<DailyFollowup> list = new List<DailyFollowup>();
+            List<DailyVM> list1 = new List<DailyVM>();
+            List<Enquiry> lstDailyEnquiry = new List<Enquiry>();
+            //list = obj.Daily_enquiry_report(enqStartDate, enqEndDate, enqName, enqSite, enqRequirement,
+            //                        enqVisit,enqIneterest,enqBudget,enqDown,enqMob);
+
+            list = obj.Daily_enquiry_followup_report();
+
+            foreach (DailyFollowup DailyFollowupobj in list)
+            {
+                list1 = obj.Daily_enquiry_sitevisit_report();
+
+                Enquiry _Enquiry = new Enquiry();
+                _Enquiry._DailyFollowup = DailyFollowupobj;
+                _Enquiry._DailyVM = list1;
+
+                lstDailyEnquiry.Add(_Enquiry);
+            }
+
+            return View(lstDailyEnquiry);
         }
 
         [Authorize]
@@ -2508,7 +2522,26 @@ namespace kd.Controllers
         [Authorize]
         public ActionResult CustomerReportPDF()
         {
-            return View();
+            List<DailyFollowup> list = new List<DailyFollowup>();
+            List<DailyVM> list1 = new List<DailyVM>();
+            List<Enquiry> lstDailyEnquiry = new List<Enquiry>();
+            //list = obj.Daily_enquiry_report(enqStartDate, enqEndDate, enqName, enqSite, enqRequirement,
+            //                        enqVisit,enqIneterest,enqBudget,enqDown,enqMob);
+
+            list = obj.Daily_enquiry_followup_report();
+
+            foreach (DailyFollowup DailyFollowupobj in list)
+            {
+                list1 = obj.Daily_enquiry_sitevisit_report();
+
+                Enquiry _Enquiry = new Enquiry();
+                _Enquiry._DailyFollowup = DailyFollowupobj;
+                _Enquiry._DailyVM = list1;
+
+                lstDailyEnquiry.Add(_Enquiry);
+            }
+
+            return View(lstDailyEnquiry);
         }
 
         [Authorize]
