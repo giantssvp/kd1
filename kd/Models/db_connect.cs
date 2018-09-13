@@ -1252,9 +1252,40 @@ namespace kd.Models
                         DailyVM DailyVMObj = new DailyVM();
                         DailyVMObj.ID = (int)dataReader["ID"];
                         DailyVMObj.Customer_Name = dataReader["Customer_Name"].ToString();
-                        DailyVMObj.Address = dataReader["Address"].ToString();
-                        DailyVMObj.Email_ID = dataReader["Email_ID"].ToString();
-                        DailyVMObj.Requirement = dataReader["Requirement"].ToString();
+                        DailyVMObj.Daily_Customer_ID = (int)dataReader["Daily_Customer_ID"];
+                        DailyVMObj.Site_ID = (int)dataReader["Site_ID"];
+                        if (dataReader["Wing"] != DBNull.Value)
+                        {
+                            DailyVMObj.Wing = dataReader["Wing"].ToString();
+                        }
+                        if (dataReader["Flat"] != DBNull.Value)
+                        {
+                            DailyVMObj.Flat = dataReader["Flat"].ToString();
+                        }
+                        if (dataReader["Executive1_ID"] != DBNull.Value)
+                        {
+                            DailyVMObj.Executive1_ID = (int)dataReader["Executive1_ID"];
+                        }
+                        if (dataReader["Executive2_ID"] != DBNull.Value)
+                        {
+                            DailyVMObj.Executive2_ID = (int)dataReader["Executive2_ID"];
+                        }
+                        if (dataReader["Executive3_ID"] != DBNull.Value)
+                        {
+                            DailyVMObj.Executive3_ID = (int)dataReader["Executive3_ID"];
+                        }
+                        if (dataReader["Date"] != DBNull.Value)
+                        {
+                            DailyVMObj.Date = Convert.ToDateTime(dataReader["Date"]);
+                        }
+                        DailyVMObj.Site_Name = dataReader["Site_Name"].ToString();
+                        if (dataReader["Flat_No"] != DBNull.Value)
+                        {
+                            DailyVMObj.Flat_No = (int)dataReader["Flat_No"];
+                        }
+                        DailyVMObj.Executive1_Name = dataReader["Executive1_Name"].ToString();
+                        DailyVMObj.Executive2_Name = dataReader["Executive2_Name"].ToString();
+                        DailyVMObj.Executive3_Name = dataReader["Executive3_Name"].ToString();
 
                         list_followup_show1.Add(DailyVMObj);
                     }
@@ -1293,6 +1324,44 @@ namespace kd.Models
                         DailyFollowupobj.ID = (int)dataReader["ID"];
                         DailyFollowupobj.Customer_Name  = dataReader["Customer_Name"].ToString();
                         DailyFollowupobj.Address  = dataReader["Address"].ToString();
+                        DailyFollowupobj.Mobile_No = dataReader["Mobile_No"].ToString();
+                        DailyFollowupobj.Second_Mobile_No = dataReader["Second_Mobile_No"].ToString();
+                        DailyFollowupobj.Email_ID = dataReader["Email_ID"].ToString();
+                        DailyFollowupobj.Requirement = dataReader["Requirement"].ToString();
+                        DailyFollowupobj.Occupation = dataReader["Occupation"].ToString();
+                        DailyFollowupobj.Income = (int)dataReader["Income"];
+                        DailyFollowupobj.Budget = (double)dataReader["Budget"];
+                        DailyFollowupobj.Down_Payment = (double)dataReader["Down_Payment"];
+                        DailyFollowupobj.Visit = dataReader["Visit"].ToString();
+                        DailyFollowupobj.Current_Status = dataReader["Current_Status"].ToString();
+                        DailyFollowupobj.Source = dataReader["Source"].ToString();
+                        DailyFollowupobj.Source_Details = dataReader["Source_Details"].ToString();
+
+                        if (dataReader["Enquiry_Date"] != DBNull.Value)
+                        {
+                            DailyFollowupobj.Enquiry_Date = Convert.ToDateTime(dataReader["Enquiry_Date"]);
+                        }
+                        if (dataReader["folloup_Date"] != DBNull.Value)
+                        {
+                            DailyFollowupobj.folloup_Date = Convert.ToDateTime(dataReader["folloup_Date"]);
+                        }
+                        if (dataReader["Next_folloup_Date"] != DBNull.Value)
+                        {
+                            DailyFollowupobj.Next_folloup_Date = Convert.ToDateTime(dataReader["Next_folloup_Date"]);
+                        }
+                        DailyFollowupobj.folloup_Details = dataReader["folloup_Details"].ToString();
+                        if (dataReader["Executive1_ID"] != DBNull.Value)
+                        {
+                            DailyFollowupobj.Executive1_ID = (int)dataReader["Executive1_ID"];
+                        }
+                        if (dataReader["Executive2_ID"] != DBNull.Value)
+                        {
+                            DailyFollowupobj.Executive2_ID = (int)dataReader["Executive2_ID"];
+                        }
+                        if (dataReader["Executive3_ID"] != DBNull.Value)
+                        {
+                            DailyFollowupobj.Executive3_ID = (int)dataReader["Executive3_ID"];
+                        }
 
                         list_enquiry_followup_show.Add(DailyFollowupobj);
                     }
