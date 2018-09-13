@@ -23,7 +23,7 @@ namespace kd.Models
         public List<string>[] list_franchies_show_name = new List<string>[2];
         public List<string>[] list_customer_show = new List<string>[12];
         public List<string>[] list_customer_sec_show = new List<string>[8];
-        public List<string>[] list_customer_show_name= new List<string>[2];
+        public List<string>[] list_customer_show_name = new List<string>[2];
         public List<string>[] list_paycommit_show = new List<string>[7];
         public List<string>[] list_paydetails_show = new List<string>[12];
         public List<string>[] list_flats_show = new List<string>[9];
@@ -37,7 +37,7 @@ namespace kd.Models
         public List<string>[] list_daily_customer_name_show = new List<string>[2];
         public List<string>[] list_wing_name_show = new List<string>[2];
         public List<string>[] list_flat_no_show = new List<string>[2];
-        public List<string>[] list_enquiry_followup_show = new List<string>[23];
+        public List<DailyFollowup> list_enquiry_followup_show = new List<DailyFollowup>();
 
         private bool OpenConnection()
         {
@@ -69,8 +69,8 @@ namespace kd.Models
         }
 
         public int insert_enquiry(string enqname, string enqaddress, string enqmob, string enqaltmob, string enqemail,
-            string enqrequirement, string enqoccu, string enqincome, string enqbudget, string enqdown, string enqcurstatus, 
-            string enqvisit, string enqsource, string enqsourcedetails, string enqsanctiontype, string type="insert", int id = 0)
+            string enqrequirement, string enqoccu, string enqincome, string enqbudget, string enqdown, string enqcurstatus,
+            string enqvisit, string enqsource, string enqsourcedetails, string enqsanctiontype, string type = "insert", int id = 0)
         {
             try
             {
@@ -147,7 +147,7 @@ namespace kd.Models
                     query = "UPDATE daily_sitevisit SET " +
                         " Daily_Customer_ID = @name," +
                         " Site_ID = @site," +
-                        " Wing = @wing," +                        
+                        " Wing = @wing," +
                         " Flat = @flat," +
                         " Executive1_ID = @exe1," +
                         " Executive2_ID = @exe2," +
@@ -430,7 +430,7 @@ namespace kd.Models
                 return 0;
             }
         }
-                
+
         public int insert_franchies(string francname, string franccode, string francemail, string francmob, string francadd, string francjoin, string francstatus, string type = "insert", int id = 0)
         {
             try
@@ -479,7 +479,7 @@ namespace kd.Models
             {
                 return 0;
             }
-        }        
+        }
 
         public int insert_applicant(string applname, string applemail, string applmob, string appladdr, string applpan, string applaadhar,
             string apploccu, string applbirth, string applage, string applstatus, string type = "insert", int id = 0)
@@ -565,7 +565,7 @@ namespace kd.Models
                 if (this.OpenConnection() == true)
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
-                    
+
                     cmd.Parameters.AddWithValue("@cname", coapplname);
                     cmd.Parameters.AddWithValue("@cpan", coapplpan);
                     cmd.Parameters.AddWithValue("@caadhar", coapplaadhar);
@@ -981,7 +981,7 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@bnknm", bnknm);
                     cmd.Parameters.AddWithValue("@figst", figst);
                     cmd.Parameters.AddWithValue("@lfamt", lfamt);
-                    cmd.Parameters.AddWithValue("@fid", fid); 
+                    cmd.Parameters.AddWithValue("@fid", fid);
                     cmd.Parameters.AddWithValue("@fstatus", fstatus);
 
                     if (type == "edit")
@@ -1220,108 +1220,92 @@ namespace kd.Models
         }
 
         /* Show Queries */
-        public List<string>[] Daily_enquiry_sitevisit_report()
+        public List<DailyVM> Daily_enquiry_sitevisit_report()
         {
+            List<DailyVM> list_followup_show1 = new List<DailyVM>();
+
             try
-            {              
+            {
+                ////cmd.CommandType = CommandType.StoredProcedure;
+                //cmd.Parameters.AddWithValue("@startDate", enqStartDate);
+                //cmd.Parameters.AddWithValue("@endDate", enqEndDate);
+                //cmd.Parameters.AddWithValue("@mobile", Convert.ToInt64(enqMob));
+                //cmd.Parameters.AddWithValue("@custName", enqName);
+                //cmd.Parameters.AddWithValue("@siteID", enqSite);
+                //cmd.Parameters.AddWithValue("@requirement", enqRequirement);
+                //cmd.Parameters.AddWithValue("@visit", enqVisit);
+                //cmd.Parameters.AddWithValue("@interest", enqIneterest);
+                //cmd.Parameters.AddWithValue("@budget", enqBudget);
+                //cmd.Parameters.AddWithValue("@downPayment", enqDown);
+
+                //cmd.CommandType = CommandType.StoredProcedure;
+                string query = "select * from daily_sitevisit_view";
+
                 if (this.OpenConnection() == true)
                 {
-                    MySqlCommand cmd = new MySqlCommand("select * from daily_sitevisit_view", connection);
-                   
-                    ////cmd.CommandType = CommandType.StoredProcedure;
-                    //cmd.Parameters.AddWithValue("@startDate", enqStartDate);
-                    //cmd.Parameters.AddWithValue("@endDate", enqEndDate);
-                    //cmd.Parameters.AddWithValue("@mobile", Convert.ToInt64(enqMob));
-                    //cmd.Parameters.AddWithValue("@custName", enqName);
-                    //cmd.Parameters.AddWithValue("@siteID", enqSite);
-                    //cmd.Parameters.AddWithValue("@requirement", enqRequirement);
-                    //cmd.Parameters.AddWithValue("@visit", enqVisit);
-                    //cmd.Parameters.AddWithValue("@interest", enqIneterest);
-                    //cmd.Parameters.AddWithValue("@budget", enqBudget);
-                    //cmd.Parameters.AddWithValue("@downPayment", enqDown);
-
-                    //cmd.CommandType = CommandType.StoredProcedure;
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
 
                     MySqlDataReader dataReader = cmd.ExecuteReader();
 
-                    bool hasrows = dataReader.HasRows;
-
-                    DataTable dt = new DataTable();
-                    dt.Load(dataReader);
-
                     while (dataReader.Read())
                     {
-                        for (int i = 0; i < 22; i++)
-                        {
-                            list_enquiry_followup_show[i].Add(dataReader[i] + "");
-                        }
+                        DailyVM DailyVMObj = new DailyVM();
+                        DailyVMObj.ID = (int)dataReader["ID"];
+                        DailyVMObj.Customer_Name = dataReader["Customer_Name"].ToString();
+                        DailyVMObj.Address = dataReader["Address"].ToString();
+                        DailyVMObj.Email_ID = dataReader["Email_ID"].ToString();
+                        DailyVMObj.Requirement = dataReader["Requirement"].ToString();
+
+                        list_followup_show1.Add(DailyVMObj);
                     }
                     dataReader.Close();
                     this.CloseConnection();
-                    return list_enquiry_show;
+                    
                 }
-                else
-                {
-                    return list_enquiry_show;
-                }
+               
             }
             catch (MySqlException ex)
             {
-                return list_enquiry_show;
+              
             }
+            return list_followup_show1;
         }
 
-       
+
         /* Show daily enquiry followup based on view2 */
-        public List<string>[] Daily_enquiry_followup_report()
+        public List<DailyFollowup> Daily_enquiry_followup_report()
         {
             try
             {
+                string query = "select * from daily_enquiry_followup_view2";
+
+                
+
                 if (this.OpenConnection() == true)
                 {
-                    MySqlCommand cmd = new MySqlCommand("select * from daily_enquiry_followup_view2", connection);
-
-                    ////cmd.CommandType = CommandType.StoredProcedure;
-                    //cmd.Parameters.AddWithValue("@startDate", enqStartDate);
-                    //cmd.Parameters.AddWithValue("@endDate", enqEndDate);
-                    //cmd.Parameters.AddWithValue("@mobile", Convert.ToInt64(enqMob));
-                    //cmd.Parameters.AddWithValue("@custName", enqName);
-                    //cmd.Parameters.AddWithValue("@siteID", enqSite);
-                    //cmd.Parameters.AddWithValue("@requirement", enqRequirement);
-                    //cmd.Parameters.AddWithValue("@visit", enqVisit);
-                    //cmd.Parameters.AddWithValue("@interest", enqIneterest);
-                    //cmd.Parameters.AddWithValue("@budget", enqBudget);
-                    //cmd.Parameters.AddWithValue("@downPayment", enqDown);
-
-                    //cmd.CommandType = CommandType.StoredProcedure;
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
 
                     MySqlDataReader dataReader = cmd.ExecuteReader();
 
-                    bool hasrows = dataReader.HasRows;
-
-                    DataTable dt = new DataTable();
-                    dt.Load(dataReader);
-
                     while (dataReader.Read())
                     {
-                        for (int i = 0; i < 21; i++)
-                        {
-                            list_enquiry_show[i].Add(dataReader[i] + "");
-                        }
+                        DailyFollowup DailyFollowupobj = new DailyFollowup();
+                        DailyFollowupobj.ID = (int)dataReader["ID"];
+                        DailyFollowupobj.Customer_Name  = dataReader["Customer_Name"].ToString();
+                        DailyFollowupobj.Address  = dataReader["Address"].ToString();
+
+                        list_enquiry_followup_show.Add(DailyFollowupobj);
                     }
                     dataReader.Close();
                     this.CloseConnection();
-                    return list_enquiry_show;
+                    
                 }
-                else
-                {
-                    return list_enquiry_show;
-                }
+                
             }
             catch (MySqlException ex)
-            {
-                return list_enquiry_show;
+            {  
             }
+            return list_enquiry_followup_show;
         }
 
         public List<string>[] cost_sheet_show(string sheet_type, int offset, int limit, string search = "")
@@ -1342,7 +1326,7 @@ namespace kd.Models
                 {
                     list_cost_sheet_show[i] = new List<string>();
                 }
-                
+
                 if (this.OpenConnection() == true)
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
@@ -1478,7 +1462,7 @@ namespace kd.Models
 
                 list_customer_show_name[0] = new List<string>();
                 list_customer_show_name[1] = new List<string>();
-               
+
                 if (this.OpenConnection() == true)
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
@@ -1658,7 +1642,7 @@ namespace kd.Models
 
                 list_executive_show_name[0] = new List<string>();
                 list_executive_show_name[1] = new List<string>();
-               
+
                 if (this.OpenConnection() == true)
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
@@ -1934,7 +1918,7 @@ namespace kd.Models
 
                 list_franchies_show_name[0] = new List<string>();
                 list_franchies_show_name[1] = new List<string>();
-               
+
                 if (this.OpenConnection() == true)
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
@@ -1960,7 +1944,7 @@ namespace kd.Models
                 return list_franchies_show_name;
             }
         }
-        
+
         public List<string>[] sites_show(string site_type = "All", int offset = 0, int limit = 0, string search = "")
         {
             try
@@ -1968,7 +1952,7 @@ namespace kd.Models
                 string query = "";
                 if (site_type == "All")
                 {
-                    if(search == "")
+                    if (search == "")
                     {
                         query = "SELECT * FROM sites ORDER BY ID DESC ";
                     }
@@ -1978,8 +1962,8 @@ namespace kd.Models
                     }
                 }
                 else
-                {                    
-                    if(search == "")
+                {
+                    if (search == "")
                     {
                         query = "SELECT * FROM sites where Site_Type = '" + site_type + "' ORDER BY ID DESC ";
                     }
@@ -2002,7 +1986,7 @@ namespace kd.Models
                 {
                     list_sites_show[i] = new List<string>();
                 }
-                
+
                 if (this.OpenConnection() == true)
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
@@ -2014,8 +1998,8 @@ namespace kd.Models
                         for (int i = 0; i < 9; i++)
                         {
                             list_sites_show[i].Add(dataReader[i] + "");
-                        }                     
-                    }                    
+                        }
+                    }
                     dataReader.Close();
                     this.CloseConnection();
                     return list_sites_show;
@@ -2172,7 +2156,7 @@ namespace kd.Models
 
                 list_daily_customer_name_show[0] = new List<string>();
                 list_daily_customer_name_show[1] = new List<string>();
-                
+
 
                 if (this.OpenConnection() == true)
                 {
@@ -2208,9 +2192,9 @@ namespace kd.Models
             {
                 string query = "SELECT Site_Type FROM sites where ID = '" + site_id + "'";
 
-                
-                    string site_type = "";
-                
+
+                string site_type = "";
+
 
                 if (this.OpenConnection() == true)
                 {
@@ -2219,8 +2203,8 @@ namespace kd.Models
 
                     while (dataReader.Read())
                     {
-                        site_type = dataReader[0].ToString(); 
-                        
+                        site_type = dataReader[0].ToString();
+
                     }
                     dataReader.Close();
                     this.CloseConnection();
@@ -2250,10 +2234,11 @@ namespace kd.Models
                 {
                     query = "SELECT ID, Wing FROM flats where Site_Id = '" + site_id + "'";
                 }
-                else {
+                else
+                {
                     query = "SELECT ID, Wing FROM plot where Site_ID = '" + site_id + "'";
                 }
-                
+
                 list_wing_name_show[0] = new List<string>();
                 list_wing_name_show[1] = new List<string>();
 
@@ -2266,7 +2251,7 @@ namespace kd.Models
                     {
                         list_wing_name_show[0].Add(dataReader["ID"] + "");
                         list_wing_name_show[1].Add(dataReader["Wing"] + "");
-                        
+
                     }
                     dataReader.Close();
                     this.CloseConnection();
@@ -2294,8 +2279,9 @@ namespace kd.Models
                 if (wing_name == "None")
                 {
                     query = "SELECT ID, Plot_NO as NUM FROM plot where Site_ID = '" + site_id + "' and wing = '" + wing_name + "'";
-                    
-                } else
+
+                }
+                else
                 {
                     query = "SELECT ID, Flat_No as NUM FROM flats where Site_Id = '" + site_id + "' and wing = '" + wing_name + "'";
                 }
@@ -2310,7 +2296,7 @@ namespace kd.Models
 
                     while (dataReader.Read())
                     {
-                        
+
                         list_flat_no_show[0].Add(dataReader["ID"] + "");
                         list_flat_no_show[1].Add(dataReader["NUM"] + "");
 
@@ -2347,7 +2333,7 @@ namespace kd.Models
                 }
             }
             catch (MySqlException ex)
-            {                
+            {
                 return 0;
             }
         }
@@ -2386,7 +2372,7 @@ namespace kd.Models
                 return list_customer_booking_show;
             }
         }
-        
+
         public int get_count(string table)
         {
             try
@@ -2406,13 +2392,13 @@ namespace kd.Models
                 return 0;
             }
         }
-        
+
         public int Delete_Record(string table, int id)
         {
             try
             {
-                string query = "DELETE FROM " + table +" where ID="+id;
-                
+                string query = "DELETE FROM " + table + " where ID=" + id;
+
                 if (this.OpenConnection() == true)
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
@@ -2434,7 +2420,7 @@ namespace kd.Models
             {
                 string query = "select * FROM " + table + " where ID=" + id;
                 List<string> list_edit = new List<string>();
-                
+
                 if (this.OpenConnection() == true)
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
@@ -2443,7 +2429,7 @@ namespace kd.Models
                     int count = dataReader.FieldCount;
                     while (dataReader.Read())
                     {
-                        for(int i=0; i<count; i++)
+                        for (int i = 0; i < count; i++)
                         {
                             list_edit.Add(dataReader.GetValue(i).ToString());
                         }
@@ -2462,7 +2448,7 @@ namespace kd.Models
                 return new List<string>();
             }
         }
-        
+
         /*Password Hashing*/
         private static string getHash(string text)
         {

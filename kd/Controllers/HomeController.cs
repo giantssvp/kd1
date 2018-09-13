@@ -2425,26 +2425,32 @@ namespace kd.Controllers
         {
             ViewBag.total = 0;
             HttpContext.Session.Add("offset", 0);
-            List<string>[] list = new List<string>[23];
-            List<string>[] list1 = new List<string>[21];
-            List<DailyVM> dailyResult = new List<DailyVM>();
+            List<DailyFollowup> list = new List<DailyFollowup>();
+            List<DailyVM> list1 = new List<DailyVM>();
+            List<DailyReport> DailyReport = new List<DailyReport>();
             //list = obj.Daily_enquiry_report(enqStartDate, enqEndDate, enqName, enqSite, enqRequirement,
             //                        enqVisit,enqIneterest,enqBudget,enqDown,enqMob);
-            
+
             list = obj.Daily_enquiry_followup_report();
-            foreach (var i in list)
+
+            foreach (DailyFollowup DailyFollowupobj in list)
             {
                 list1 = obj.Daily_enquiry_sitevisit_report();
-                dailyResult.Add(new DailyVM { dailyFollowup = i, dailySite = list1[0]});
+
+                DailyReport _DailyReport = new DailyReport();
+                _DailyReport._DailyFollowup = DailyFollowupobj;
+                _DailyReport._DailyVM = list1;
+
+                DailyReport.Add(_DailyReport);
             }
 
             
             //ViewBag.list = list;
             //ViewBag.total = list[0].Count();
 
-            return View("DailyEnquiryPDF");
+            return View(DailyReport.AsEnumerable());
         }
-
+        
         [Authorize]
         public ActionResult DailyEnquiryPDF()
         {

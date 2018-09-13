@@ -164,6 +164,7 @@
     <Compile Include="Models\agreement.cs" />
     <Compile Include="Models\booking.cs" />
     <Compile Include="Models\customer.cs" />
+    <Compile Include="Models\DailyReport.cs" />
     <Compile Include="Models\DailyVM.cs" />
     <Compile Include="Models\daily_enquiry.cs" />
     <Compile Include="Models\db_connect.cs" />

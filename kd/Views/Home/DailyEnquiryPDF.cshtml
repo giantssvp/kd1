@@ -29,19 +29,17 @@
         @grid.GetHtml(
          htmlAttributes: new { id = "gridT", width = "700px" },
          columns: grid.Columns(
-             grid.Column("dailFollowup.ID", "Daily FollowupId"),
-             grid.Column("dailFollowup.Customer_Name", "Customer Name"),
-             grid.Column("dailFollowup.Address", "Customer Address"),
+             grid.Column("_DailyFollowup.ID", "Daily FollowupId"),
+             grid.Column("_DailyFollowup.Customer_Name", "Customer Name"),
+             grid.Column("_DailyFollowup.Address", "Customer Address"),
 
              grid.Column(format: (item) => {
-             WebGrid subGrid = new WebGrid(source: item.dailySite);
+             WebGrid subGrid = new WebGrid(source: item._DailyVM);
              return subGrid.GetHtml(
                  htmlAttributes: new {id="subT" },
                  columns:subGrid.Columns(
                         subGrid.Column("Requirement", "Requirement"),
-                        subGrid.Column("Occupation", "Occupation"),
-                        subGrid.Column("Income", "Income"),
-                        subGrid.Column("Budget", "Budget")
+                        subGrid.Column("Email_ID", "EmailID")
                         )
                      );
                 })
