@@ -7,9 +7,11 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @using kd.Controllers
 </head>
 <body>
     @Scripts.Render("~/bundles/jquery")
+    
     <!--Header-part-->
     <div id="header">
         <h1><a href='@Url.Action("Index", "Home")'>Angel Group of companies</a></h1>
@@ -28,7 +30,7 @@
             </li>
             <li class="dropdown" id="menu-messages">
                 <a href="#" data-toggle="dropdown" data-target="#menu-messages" class="dropdown-toggle"><i class="icon icon-bell-alt"></i>
-                <span class="text">Alarms</span> <span class="label label-important">5</span> <b class="caret"></b></a>
+                <span class="text">Alarms</span> <span class="label label-important"> @HomeController.get_alarms() </span> <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a class="sAdd" title="" href="#"><i class="icon-thumbs-up"></i>Follow Up</a></li>
                     <li class="divider"></li>

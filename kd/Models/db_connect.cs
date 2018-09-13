@@ -2393,6 +2393,30 @@ namespace kd.Models
             }
         }
 
+        public int get_alarm_count()
+        {
+            try
+            {
+                int count = 0;
+                string query = "SELECT Sum( a.count ) " +
+                    "FROM (SELECT Count( id ) AS count FROM kolhedeveloper.daily_followup where Folloup_Date = Date(NOW()) or Next_Folloup_Date = Date(NOW()) UNION ALL " +
+                    "SELECT Count( id ) AS count FROM kolhedeveloper.payment_commitment where Commitment_Date = Date(NOW()) UNION ALL  " +
+                    "SELECT Count( id ) AS count FROM kolhedeveloper.payment_details where Cheque_Date = Date(NOW()) ) a;";
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    count = Convert.ToInt32(cmd.ExecuteScalar());
+                    this.CloseConnection();
+                }
+                return count;
+            }
+            catch (MySqlException ex)
+            {
+                return 0;
+            }
+        }
+
         public int Delete_Record(string table, int id)
         {
             try

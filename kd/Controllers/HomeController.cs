@@ -2414,6 +2414,13 @@ namespace kd.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
+        public static int get_alarms()
+        {
+            int cnt = 0;
+            cnt = obj.get_alarm_count();            
+            return cnt;
+        }
+
         [Authorize]
         public ActionResult DailyReport()
         {
