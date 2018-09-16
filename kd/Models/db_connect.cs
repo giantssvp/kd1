@@ -16,6 +16,7 @@ namespace kd.Models
         public List<string>[] list_enquiry_show = new List<string>[17];
         public List<string>[] list_sitevisit_show = new List<string>[8];
         public List<string>[] list_followup_show = new List<string>[8];
+        public List<string>[] list_alarms_show = new List<string>[12];
         public List<string>[] list_sites_show = new List<string>[10];
         public List<string>[] list_executive_show = new List<string>[10];
         public List<string>[] list_executive_show_name = new List<string>[2];
@@ -2483,6 +2484,73 @@ namespace kd.Models
             catch (MySqlException ex)
             {
                 return 0;
+            }
+        }
+
+        public List<string>[] alarms_show(string page)
+        {
+            try
+            {
+                string query = "";
+                if (page == "followup")
+                {
+                    query = "SELECT * FROM daily_followup where Folloup_Date=Date(NOW()) or Next_Folloup_Date=Date(NOW()) ORDER BY ID DESC";
+                }
+                else if (page == "paycommit")
+                {
+                    query = "SELECT * FROM payment_commitment where Commitment_Date=Date(NOW()) ORDER BY ID DESC";
+                }
+                else
+                {
+                    query = "SELECT * FROM payment_details where Cheque_Date=Date(NOW()) ORDER BY ID DESC";
+                }
+
+                for (int i = 0; i < 12; i++)
+                {
+                    list_alarms_show[i] = new List<string>();
+                }
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    while (dataReader.Read())
+                    {                        
+                        if (page == "followup")
+                        {
+                            for (int i = 0; i < 8; i++)
+                            {
+                                list_alarms_show[i].Add(dataReader[i] + "");
+                            }
+                        }
+                        else if (page == "paycommit")
+                        {
+                            for (int i = 0; i < 7; i++)
+                            {
+                                list_alarms_show[i].Add(dataReader[i] + "");
+                            }
+                        }
+                        else
+                        {
+                            for (int i = 0; i < 12; i++)
+                            {
+                                list_alarms_show[i].Add(dataReader[i] + "");
+                            }
+                        }
+                    }
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return list_alarms_show;
+                }
+                else
+                {
+                    return list_alarms_show;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return list_alarms_show;
             }
         }
 

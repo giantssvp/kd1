@@ -32,11 +32,11 @@
                 <a href="#" data-toggle="dropdown" data-target="#menu-messages" class="dropdown-toggle"><i class="icon icon-bell-alt"></i>
                 <span class="text">Alarms</span> <span class="label label-important"> @HomeController.get_alarms() </span> <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a class="sAdd" title="" href="#"><i class="icon-thumbs-up"></i>Follow Up</a></li>
+                    <li><a class="sAdd" title="" href="@Url.Action("Alarms", "Home", new { page = "followup" })"><i class="icon-thumbs-up"></i>Follow Up</a></li>
                     <li class="divider"></li>
-                    <li><a class="sInbox" title="" href="#"><i class="icon-time"></i>Paymet Commit</a></li>
+                    <li><a class="sInbox" title="" href="@Url.Action("Alarms", "Home", new { page = "paycommit" })"><i class="icon-time"></i>Paymet Commit</a></li>
                     <li class="divider"></li>
-                    <li><a class="sOutbox" title="" href="#"><i class="icon-money"></i>Cheque</a></li>
+                    <li><a class="sOutbox" title="" href="@Url.Action("Alarms", "Home", new { page = "Cheque" })"><i class="icon-money"></i>Cheque</a></li>
                     <li class="divider"></li>
                 </ul>
             </li>

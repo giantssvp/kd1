@@ -1,0 +1,127 @@
+﻿@{
+    ViewBag.Title = "Alarms";
+}
+
+@{
+    var results = ViewBag.list;
+    int? cnt = new int?();
+    cnt = ViewBag.total;
+    if (cnt == null)
+    {
+        cnt = 0;
+    }
+    var elist = ViewBag.edit_list;
+    var page = ViewBag.Page;
+}
+
+<link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+<link rel="stylesheet" href="~/Content/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="~/Content/matrix-style.css" />
+<link rel="stylesheet" href="~/Content/matrix-media.css" />
+<link rel="stylesheet" href="~/Content/uniform.css" />
+<link rel="stylesheet" href="~/Content/select2.css" />
+<link href="~/fonts/gst_font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+
+<div id="content-header">
+    <div id="breadcrumb"> <a href='@Url.Action("Index", "Home")' title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href='@Url.Action("Alarms", "Home")'>Alarms</a></div>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">            
+            <div class="widget-box">
+                <div class="widget-title">
+                    <span class="icon"><i class="icon-th"></i></span>
+                    <h5>Alarm details for @page</h5>
+                </div>
+                <div class="widget-content nopadding">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                @if (page == "followup")
+                                {
+                                    <th>ID</th>
+                                    <th>Daily Customer ID</th>
+                                    <th>Followup Details</th>
+                                    <th>Followup Date</th>
+                                    <th>Next Followup Date</th>
+                                    <th>Executive1</th>
+                                }
+                                else if (page == "paycommit")
+                                {
+                                    <th>ID</th>
+                                    <th>Commit Type</th>
+                                    <th>Amount</th>
+                                    <th>Commitment Date</th>
+                                    <th>Remark</th>
+                                    <th>Bkno</th>
+                                }
+                                else
+                                {
+                                    <th>ID</th>
+                                    <th>Payment Mode</th>
+                                    <th>Amount</th>
+                                    <th>Cheque ID</th>
+                                    <th>Bank Name</th>
+                                    <th>Payment Type</th>
+                                    <th>Builder Pay</th>
+                                    <th>Bank Pay</th>
+                                    <th>Booking ID</th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (var i = 0; i < cnt; i++)
+                            {
+                            <tr class="gradeX">
+                                @if (page == "followup")
+                                {
+                                    <td>@results[0][i]</td>
+                                    <td>@results[1][i]</td>
+                                    <td>@results[4][i]</td>
+                                    <td>@results[2][i]</td>
+                                    <td>@results[3][i]</td>
+                                    <td>@results[5][i]</td>
+                                }
+                                else if (page == "paycommit")
+                                {
+                                    <td>@results[0][i]</td>
+                                    <td>@results[1][i]</td>
+                                    <td>@results[2][i]</td>
+                                    <td>@results[4][i]</td>
+                                    <td>@results[5][i]</td>
+                                    <td>@results[6][i]</td>
+                                }
+                                else
+                                {
+                                    <td>@results[0][i]</td>
+                                    <td>@results[3][i]</td>
+                                    <td>@results[1][i]</td>
+                                    <td>@results[4][i]</td>
+                                    <td>@results[6][i]</td>
+                                    <td>@results[7][i]</td>
+                                    <td>@results[8][i]</td>
+                                    <td>@results[9][i]</td>
+                                    <td>@results[11][i]</td>
+                                }
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery.min.js"></script>
+<script src="~/Scripts/jquery.ui.custom.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/matrix.popover.js"></script>
+<script src="~/Scripts/jquery.uniform.js"></script>
+<script src="~/Scripts/select2.min.js"></script>
+<script src="~/Scripts/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/matrix.js"></script>
+<script src="~/Scripts/matrix.tables.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/matrix.form_validation.js"></script>

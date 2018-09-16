@@ -379,6 +379,21 @@ namespace kd.Controllers
         }
 
         [Authorize]
+        public ActionResult Alarms(string page = "followup")
+        {
+            ViewBag.total = 0;
+            List<string>[] list = new List<string>[14];
+
+            list = obj.alarms_show(page);
+
+            ViewBag.list = list;
+            ViewBag.total = list[0].Count();
+            ViewBag.Page = page;
+
+            return View();
+        }
+
+        [Authorize]
         public ActionResult Report()
         {
             return View();

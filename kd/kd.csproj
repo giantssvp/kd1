@@ -387,6 +387,7 @@
     <Content Include="Views\Home\SiteVisit.cshtml" />
     <Content Include="Views\Home\Followup.cshtml" />
     <Content Include="Views\Home\Customer_Sec.cshtml" />
+    <Content Include="Views\Home\Alarms.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
