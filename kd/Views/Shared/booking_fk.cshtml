@@ -1,0 +1,85 @@
+﻿<tr class="odd gradeX">
+    <td><label class="control-label">Applicant</label></td>
+    <td>
+        <select name="bapplicant" id="bapplicant">    </select>
+    </td>
+    <td><label class="control-label">Site</label></td>
+    <td>
+        <select name="bsite" id="bsite">    </select>
+    </td>
+</tr>
+<tr class="odd gradeX">
+    <td><label class="control-label">Wing</label></td>
+    <td>
+        <select name="bwing" id="bwing">    </select>
+    </td>
+    <td><label class="control-label">Flats/Plot</label></td>
+    <td>
+        <select name="bflats" id="bflats">    </select>
+    </td>
+</tr>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("get_customer_booking_name", "Home")',
+            data: {},
+            dataType: 'json',
+            success: function (d) {
+                var list1 = d.id;
+                var list = d.name;
+                $("#bapplicant").html("");
+                $.each(list, function (index, value) {
+                    $("#bapplicant").append($('<option></option>').val(list1[index]).html(value));
+                });                
+            },
+            error: function (err) {
+                alert(err.responseText);
+            },
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#bapplicant').change(function () {
+            var data = JSON.stringify({
+                'applicant_id': $('#bapplicant').val()
+            });
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("get_booking_details", "Home")',
+                data: data,
+                dataType: 'json',
+                success: function (d) {
+                    var list1 = d.applicant_id;
+                    var list2 = d.sites_id;
+                    var list3 = d.flats_id;
+                    var list = d.appl_name;
+                    var list4 = d.site;
+                    var list5 = d.wing;
+                    var list6 = d.flat;
+                    
+                    $("#bsite").html("");
+                    $("#bwing").html("");
+                    $("#bflats").html("");
+                    $.each(list4, function (index, value) {
+                        $("#bsite").append($('<option></option>').val(list1[index]).html(value));
+                    });
+                    $.each(list5, function (index, value) {
+                        $("#bwing").append($('<option></option>').val(value).html(value));
+                    });
+                    $.each(list6, function (index, value) {
+                        $("#bflats").append($('<option></option>').val(list3[index]).html(value));
+                    });
+                },
+                error: function (err) {
+                    alert(err.responseText);
+                },
+                contentType: 'application/json'
+            });
+        });
+    });
+</script>

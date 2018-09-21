@@ -37,6 +37,7 @@ namespace kd.Models
         public List<string>[] list_customer_booking_show = new List<string>[2];
         public List<string>[] list_daily_customer_name_show = new List<string>[2];
         public List<string>[] list_wing_name_show = new List<string>[2];
+        public List<string>[] list_booking_details_show = new List<string>[7];        
         public List<string>[] list_flat_no_show = new List<string>[2];
         public List<DailyFollowup> list_enquiry_followup_show = new List<DailyFollowup>();
 
@@ -757,10 +758,11 @@ namespace kd.Models
         }
 
         public int insert_paymentdetails(string pamt, string pmode, string chkid, string chkdate, string bname,
-            string ptype, string bldpay, string bnkpay, string sts, string bid, string type = "insert", int id = 0)
+            string ptype, string bldpay, string bnkpay, string sts, string bapplicant, string bsite, string bwing, string bflats, string type = "insert", int id = 0)
         {
             try
             {
+                string que = "(select ID from bookings where Applicant_Id=" + bapplicant + " and Flat=" + bflats + " and Wing='" + bwing + "' and Site_Id=" + bsite + ")";
                 string query = "";
                 if (type == "edit")
                 {
@@ -774,17 +776,17 @@ namespace kd.Models
                         " Builder_Pay = @bldpay," +
                         " Bank_Pay = @bnkpay," +
                         " Status = @sts," +
-                        " Booking_Id = @bid where id=@id";
+                        " Booking_Id = " + que + " where id=@id";
                 }
                 else
                 {
                     query = "INSERT INTO payment_details (Amount, Date, Payment_Mode, Cheque_Id, Cheque_Date, Bank_Name, " +
                     "Payment_Type, Builder_Pay, Bank_Pay, Status, Booking_Id) " +
-                    "VALUES(@pamt, NOW(), @pmode, @chkid, @chkdate, @bname, @ptype, @bldpay, @bnkpay, @sts, @bid)";
+                    "VALUES(@pamt, NOW(), @pmode, @chkid, @chkdate, @bname, @ptype, @bldpay, @bnkpay, @sts, "+ que + ")";
                 }
 
                 if (this.OpenConnection() == true)
-                {
+                {                    
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@pamt", pamt);
                     cmd.Parameters.AddWithValue("@pmode", pmode);
@@ -795,7 +797,6 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@bldpay", bldpay);
                     cmd.Parameters.AddWithValue("@bnkpay", bnkpay);
                     cmd.Parameters.AddWithValue("@sts", sts);
-                    cmd.Parameters.AddWithValue("@bid", Int32.Parse(bid));
 
                     if (type == "edit")
                     {
@@ -2334,7 +2335,53 @@ namespace kd.Models
             }
             catch (MySqlException ex)
             {
-                return list_daily_customer_name_show;
+                return list_wing_name_show;
+            }
+        }
+        /**
+         * Show Daily wing name for page load
+         */
+        public List<string>[] booking_details(string applicant_id)
+        {
+            try
+            {
+                string query = "SELECT * FROM booking_details where applicant_ID = '" + applicant_id + "' ORDER BY applicant_ID DESC";
+                
+                list_booking_details_show[0] = new List<string>();
+                list_booking_details_show[1] = new List<string>();
+                list_booking_details_show[2] = new List<string>();
+                list_booking_details_show[3] = new List<string>();
+                list_booking_details_show[4] = new List<string>();
+                list_booking_details_show[5] = new List<string>();
+                list_booking_details_show[6] = new List<string>();
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    while (dataReader.Read())
+                    {
+                        list_booking_details_show[0].Add(dataReader["applicant_ID"] + "");
+                        list_booking_details_show[1].Add(dataReader["sites_ID"] + "");
+                        list_booking_details_show[2].Add(dataReader["flats_ID"] + "");
+                        list_booking_details_show[3].Add(dataReader["Applicant_Name"] + "");                        
+                        list_booking_details_show[4].Add(dataReader["Site_Name"] + "");
+                        list_booking_details_show[5].Add(dataReader["Wing"] + "");                        
+                        list_booking_details_show[6].Add(dataReader["Flat_No"] + "");
+                    }
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return list_booking_details_show;
+                }
+                else
+                {
+                    return list_booking_details_show;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return list_booking_details_show;
             }
         }
 

@@ -388,6 +388,7 @@
     <Content Include="Views\Home\Followup.cshtml" />
     <Content Include="Views\Home\Customer_Sec.cshtml" />
     <Content Include="Views\Home\Alarms.cshtml" />
+    <Content Include="Views\Shared\booking_fk.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

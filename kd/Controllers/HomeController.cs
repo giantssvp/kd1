@@ -2073,13 +2073,13 @@ namespace kd.Controllers
         }
 
         public ActionResult add_paymentdetails(string pamt, string pmode, string chkid, string chkdate, string bname,
-            string ptype, string bldpay, string bnkpay, string sts, string bid, string submit_btn, string edit_id = "0")
+            string ptype, string bldpay, string bnkpay, string sts, string bapplicant, string bsite, string bwing, string bflats, string submit_btn, string edit_id = "0")
         {
             try
             {
                 if (submit_btn == "Save")
                 {
-                    if (obj.insert_paymentdetails(pamt, pmode, chkid, chkdate, bname, ptype, bldpay, bnkpay, sts, bid) == 1)
+                    if (obj.insert_paymentdetails(pamt, pmode, chkid, chkdate, bname, ptype, bldpay, bnkpay, sts, bapplicant, bsite, bwing, bflats) == 1)
                     {
                         TempData["AlertMessage"] = "All the details saved successfully.";
                     }
@@ -2091,7 +2091,7 @@ namespace kd.Controllers
                 else if (submit_btn == "Update")
                 {
                     int id = Int32.Parse(edit_id);
-                    if (obj.insert_paymentdetails(pamt, pmode, chkid, chkdate, bname, ptype, bldpay, bnkpay, sts, bid, "edit", id) == 1)
+                    if (obj.insert_paymentdetails(pamt, pmode, chkid, chkdate, bname, ptype, bldpay, bnkpay, sts, bapplicant, bsite, bwing, bflats, "edit", id) == 1)
                     {
                         TempData["AlertMessage"] = "All the details updated successfully.";
                     }
@@ -2361,6 +2361,27 @@ namespace kd.Controllers
             {
                 id = wing[0],
                 name = wing[1]
+            };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        /** 
+         * Drop Down list for wing name on page load
+         */
+        [HttpPost]
+        public ActionResult get_booking_details(string applicant_id)
+        {
+            List<string>[] bdetails = new List<string>[7];
+            bdetails = obj.booking_details(applicant_id);
+            var result = new
+            {
+                applicant_id = bdetails[0],
+                sites_id = bdetails[1],
+                flats_id = bdetails[2],
+                appl_name = bdetails[3],
+                site = bdetails[4],
+                wing = bdetails[5],
+                flat = bdetails[6]
             };
             return Json(result, JsonRequestBehavior.AllowGet);
         }
