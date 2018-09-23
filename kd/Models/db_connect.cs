@@ -711,10 +711,11 @@ namespace kd.Models
             }
         }
 
-        public int insert_paymentcommit(string ctype, string camount, string cdate, string cremark, string bid, string type = "insert", int id = 0)
+        public int insert_paymentcommit(string ctype, string camount, string cdate, string cremark, string bapplicant, string bsite, string bwing, string bflats, string type = "insert", int id = 0)
         {
             try
             {
+                string que = "(select ID from bookings where Applicant_Id=" + bapplicant + " and Flat=" + bflats + " and Wing='" + bwing + "' and Site_Id=" + bsite + ")";
                 string query = "";
                 if (type == "edit")
                 {
@@ -723,12 +724,12 @@ namespace kd.Models
                         " Amount = @camt," +
                         " Commitment_Date = @cdate," +
                         " Remark = @crmrk," +
-                        " Booking_Id = @bid where id=@id";
+                        " Booking_Id = " + que + " where id=@id";
                 }
                 else
                 {
                     query = "INSERT INTO payment_commitment (Commitment_Type, Amount, Commitment_Date, Date, Remark, Booking_Id) " +
-                    "VALUES(@ctype, @camt, @cdate, NOW(), @crmrk, @bid)";
+                    "VALUES(@ctype, @camt, @cdate, NOW(), @crmrk, " + que + ")";
                 }
 
                 if (this.OpenConnection() == true)
@@ -738,7 +739,6 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@camt", camount);
                     cmd.Parameters.AddWithValue("@cdate", cdate);
                     cmd.Parameters.AddWithValue("@crmrk", cremark);
-                    cmd.Parameters.AddWithValue("@bid", Int32.Parse(bid));
 
                     if (type == "edit")
                     {
@@ -815,10 +815,11 @@ namespace kd.Models
             }
         }
 
-        public int insert_agreement(string ano, string adate, string anotary, string aamount, string aadjustment, string aextra, string gst, string astatus, string bid, string type = "insert", int id = 0)
+        public int insert_agreement(string ano, string adate, string anotary, string aamount, string aadjustment, string aextra, string gst, string astatus, string bapplicant, string bsite, string bwing, string bflats, string type = "insert", int id = 0)
         {
             try
             {
+                string que = "(select ID from bookings where Applicant_Id=" + bapplicant + " and Flat=" + bflats + " and Wing='" + bwing + "' and Site_Id=" + bsite + ")";
                 string query = "";
                 if (type == "edit")
                 {
@@ -831,12 +832,12 @@ namespace kd.Models
                         " Adjustment_Amount = @adjust," +
                         " Extra_Amount = @extra," +
                         " GST_Amount = @gst, " +
-                        " Booking_Id = @bid where id=@id";
+                        " Booking_Id = " + que + " where id=@id";
                 }
                 else
                 {
-                    query = "INSERT INTO aggrement (Aggrement_Amount, Aggrement_Date, Aggrement_No, Status, Booking_Id, Notary_Amount, Adjustment_Amount, Extra_Amount, GST_Amount, Date) " +
-                    "VALUES(@aamount, @adate, @ano, @astatus, @bid, @notary, @adjust, @extra, @gst, NOW())";
+                    query = "INSERT INTO aggrement (Aggrement_Amount, Aggrement_Date, Aggrement_No, Status, Notary_Amount, Adjustment_Amount, Extra_Amount, GST_Amount, Date, Booking_Id) " +
+                    "VALUES(@aamount, @adate, @ano, @astatus, @notary, @adjust, @extra, @gst, NOW(), " + que + ")";
                 }
 
                 if (this.OpenConnection() == true)
@@ -845,7 +846,6 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@ano", ano);
                     cmd.Parameters.AddWithValue("@aamount", aamount);
                     cmd.Parameters.AddWithValue("@astatus", astatus);
-                    cmd.Parameters.AddWithValue("@bid", bid);
                     cmd.Parameters.AddWithValue("@adate", adate);
                     cmd.Parameters.AddWithValue("@notary", anotary);
                     cmd.Parameters.AddWithValue("@adjust", aadjustment);
@@ -870,10 +870,11 @@ namespace kd.Models
         }
 
         public int insert_finance(string fintype, string finname, string finexe, string finexemob, string finexeemail, string filehanddate,
-            string filesta, string filesanctdate, string reqloanamt, string sanctloanamt, string disburseamt, string actloanamt, string recddamt, string remddamt, string rateofinter, string emiamt, string emimonths, string bookid, string finstat, string type = "insert", int id = 0)
+            string filesta, string filesanctdate, string reqloanamt, string sanctloanamt, string disburseamt, string actloanamt, string recddamt, string remddamt, string rateofinter, string emiamt, string emimonths, string finstat, string bapplicant, string bsite, string bwing, string bflats, string type = "insert", int id = 0)
         {
             try
             {
+                string que = "(select ID from bookings where Applicant_Id=" + bapplicant + " and Flat=" + bflats + " and Wing='" + bwing + "' and Site_Id=" + bsite + ")";
                 string query = "";
                 if (type == "edit")
                 {
@@ -896,16 +897,16 @@ namespace kd.Models
                         " EMI_Amount = @emiamt," +
                         " EMI_Total_Months = @emimonths," +
                         " Status = @finstat," +
-                        " Booking_Id = @bookid where id=@id";
+                        " Booking_Id = " + que + " where id=@id";
                 }
                 else
                 {
                     query = "INSERT INTO finance_details (Finance_Type, Finance_Name, Finance_Executive_Name, " +
                     "Finance_Executive_Mobile, Finance_Executive_Email, File_Handover_Date, File_Status, File_Sanction_Date, " +
                     "Required_Loan_Amount, Sanctioned_Loan_Amount, Total_Disbursed_Amount, Actual_Loan_Amount, Received_DD_Amount, " +
-                    "Remaining_DD_Amount, Rate_Of_Interest, EMI_Amount, EMI_Total_Months, Status, Booking_Id, Date) " +
+                    "Remaining_DD_Amount, Rate_Of_Interest, EMI_Amount, EMI_Total_Months, Status, Date, Booking_Id) " +
                     "VALUES(@ftype, @fname, @fexename, @fexemob, @fexemail, @fhdate, @fsts, @fdate, @rlamt, @slamt, @dbrmnt," +
-                    " @alamt, @ramt, @remamt, @rointr, @emiamt, @emimonths, @finstat, @bookid, NOW())";
+                    " @alamt, @ramt, @remamt, @rointr, @emiamt, @emimonths, @finstat, NOW(), " + que + ")";
                 }
 
                 if (this.OpenConnection() == true)
@@ -928,7 +929,6 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@rointr", rateofinter);
                     cmd.Parameters.AddWithValue("@emiamt", emiamt);
                     cmd.Parameters.AddWithValue("@emimonths", emimonths);
-                    cmd.Parameters.AddWithValue("@bookid", bookid);
                     cmd.Parameters.AddWithValue("@finstat", finstat);
 
                     if (type == "edit")

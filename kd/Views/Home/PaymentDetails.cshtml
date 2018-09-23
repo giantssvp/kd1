@@ -217,29 +217,6 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $.ajax({
-            type: "GET",
-            url: '@Url.Action("get_customer_booking_name", "Home")',
-            data: {},
-            dataType: 'json',
-            success: function (d) {
-                var list1 = d.id;
-                var list = d.name;
-                $("#bid").html("");
-                $.each(list, function (index, value) {
-                    $("#bid").append($('<option></option>').val(list1[index]).html(value));
-                });
-                document.getElementById("bid").value = @(edit ? elist[11] : 1);
-            },
-            error: function (err) {
-                alert(err.responseText);
-            },
-        });
-    });
-</script>
-
-<script type="text/javascript">
-    $(document).ready(function () {
         $("#pagination_first").click(function () {
             window.location = '@Html.Raw(@Url.Action("First", "Home", new { page = "PaymentDetails", ps = "id", search = "srch_str" }))'.replace("id", $("#page_size option:selected").text()).replace("srch_str", $('input:text[name=search]').val());
         });

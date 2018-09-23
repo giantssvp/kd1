@@ -23,7 +23,7 @@
     $(document).ready(function () {
         $.ajax({
             type: "GET",
-            url: '@Url.Action("get_customer_booking_name", "Home")',
+            url: '@Url.Action("get_applicant", "Home")',
             data: {},
             dataType: 'json',
             success: function (d) {
@@ -32,7 +32,9 @@
                 $("#bapplicant").html("");
                 $.each(list, function (index, value) {
                     $("#bapplicant").append($('<option></option>').val(list1[index]).html(value));
-                });                
+                });
+                get_booking(list1[list1.length - 1]);
+                document.getElementById("bapplicant").value = list1[list1.length-1];
             },
             error: function (err) {
                 alert(err.responseText);
@@ -44,10 +46,16 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('#bapplicant').change(function () {
-            var data = JSON.stringify({
-                'applicant_id': $('#bapplicant').val()
-            });
+            get_booking($('#bapplicant').val());
+        });
+    });
 
+    function get_booking(appl_id)
+    {
+        var data = JSON.stringify({
+            'applicant_id': appl_id
+            });
+            
             $.ajax({
                 type: "POST",
                 url: '@Url.Action("get_booking_details", "Home")',
@@ -80,6 +88,5 @@
                 },
                 contentType: 'application/json'
             });
-        });
-    });
+    }
 </script>

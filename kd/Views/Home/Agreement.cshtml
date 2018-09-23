@@ -47,12 +47,15 @@
                                     <td><input type="number" name="ano" id="required" @(edit ? new { value = elist[3] } : null)></td>
                                     <td><label class="control-label">Agreement Date</label></td>
                                     <td> <input type="date" name="adate" id="required" @(edit ? new { value = @Convert.ToDateTime(elist[2]).ToString("yyyy-MM-dd") } : null)></td>
-                                    <td><label class="control-label">Agreement Amount</label></td>
-                                    <td><input type="number" name="aamount" id="required" @(edit ? new { value = elist[1] } : null)></td>
+
                                 </tr>
                                 <tr class="odd gradeX">
+                                    <td><label class="control-label">Agreement Amount</label></td>
+                                    <td><input type="number" name="aamount" id="required" @(edit ? new { value = elist[1] } : null)></td>
                                     <td><label class="control-label">Notary Amount</label></td>
                                     <td><input type="number" name="anotary" id="required" @(edit ? new { value = elist[6] } : null)></td>
+                                </tr>
+                                <tr class="odd gradeX">
                                     <td><label class="control-label">Adjustment Amount</label></td>
                                     <td> <input type="number" name="aadjustment" id="required" @(edit ? new { value = elist[7] } : null)></td>
                                     <td><label class="control-label">Extra Amount</label></td>
@@ -63,11 +66,8 @@
                                     <td><input type="number" name="gst" id="required" @(edit ? new { value = elist[9] } : null)></td>
                                     <td><label class="control-label">Agreement Status</label></td>
                                     <td><input type="text" name="astatus" id="required" @(edit ? new { value = elist[4] } : null)></td>
-                                    <td><label class="control-label">Customer Name</label></td>
-                                    <td>
-                                        <select name="bid" id="bid">    </select>
-                                    </td>
                                 </tr>
+                                @Html.Partial("booking_fk")
                                 <tr class="odd gradeX">
                                     @if (edit)
                                     {
@@ -178,28 +178,6 @@
             if (event.keyCode == 13) {
                 window.location = '@Html.Raw(@Url.Action("Agreement", "Home", new { ps = "id", search = "srch_str" }))'.replace("id", $("#page_size option:selected").text()).replace("srch_str", $('input:text[name=search]').val());
             }
-        });
-    });
-</script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $.ajax({
-            type: "GET",
-            url: '@Url.Action("get_customer_booking_name", "Home")',
-            data: {},
-            dataType: 'json',
-            success: function (d) {
-                var list1 = d.id;
-                var list = d.name;
-                $("#bid").html("");
-                $.each(list, function (index, value) {
-                    $("#bid").append($('<option></option>').val(list1[index]).html(value));
-                });
-                document.getElementById("bid").value = @(edit ? elist[5] : 1);
-            },
-            error: function (err) {
-                alert(err.responseText);
-            },
         });
     });
 </script>

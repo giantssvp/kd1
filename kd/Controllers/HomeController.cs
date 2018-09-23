@@ -2035,13 +2035,13 @@ namespace kd.Controllers
             }
         }
 
-        public ActionResult add_paymentcommit(string ctype, string camount, string cdate, string bid, string cremark, string submit_btn, string edit_id = "0")
+        public ActionResult add_paymentcommit(string ctype, string camount, string cdate, string cremark, string bapplicant, string bsite, string bwing, string bflats, string submit_btn, string edit_id = "0")
         {
             try
             {
                 if (submit_btn == "Save")
                 {
-                    if (obj.insert_paymentcommit(ctype, camount, cdate, cremark, bid) == 1)
+                    if (obj.insert_paymentcommit(ctype, camount, cdate, cremark, bapplicant, bsite, bwing, bflats) == 1)
                     {
                         TempData["AlertMessage"] = "All the details saved successfully.";
                     }
@@ -2053,7 +2053,7 @@ namespace kd.Controllers
                 else if (submit_btn == "Update")
                 {
                     int id = Int32.Parse(edit_id);
-                    if (obj.insert_paymentcommit(ctype, camount, cdate, cremark, bid, "edit", id) == 1)
+                    if (obj.insert_paymentcommit(ctype, camount, cdate, cremark, bapplicant, bsite, bwing, bflats, "edit", id) == 1)
                     {
                         TempData["AlertMessage"] = "All the details updated successfully.";
                     }
@@ -2110,13 +2110,13 @@ namespace kd.Controllers
             }
         }
         
-        public ActionResult add_agreement(string ano, string adate, string anotary, string aamount, string aadjustment, string aextra, string gst, string astatus, string bid, string submit_btn, string edit_id = "0")
+        public ActionResult add_agreement(string ano, string adate, string anotary, string aamount, string aadjustment, string aextra, string gst, string astatus, string bapplicant, string bsite, string bwing, string bflats, string submit_btn, string edit_id = "0")
         {
             try
             {
                 if (submit_btn == "Save")
                 {
-                    if (obj.insert_agreement(ano, adate, anotary, aamount, aadjustment, aextra, gst, astatus, bid) == 1)
+                    if (obj.insert_agreement(ano, adate, anotary, aamount, aadjustment, aextra, gst, astatus, bapplicant, bsite, bwing, bflats) == 1)
                     {
                         TempData["AlertMessage"] = "All the details saved successfully.";
                     }
@@ -2128,7 +2128,7 @@ namespace kd.Controllers
                 else if (submit_btn == "Update")
                 {
                     int id = Int32.Parse(edit_id);
-                    if (obj.insert_agreement(ano, adate, anotary, aamount, aadjustment, aextra, gst, astatus, bid, "edit", id) == 1)
+                    if (obj.insert_agreement(ano, adate, anotary, aamount, aadjustment, aextra, gst, astatus, bapplicant, bsite, bwing, bflats, "edit", id) == 1)
                     {
                         TempData["AlertMessage"] = "All the details updated successfully.";
                     }
@@ -2149,7 +2149,7 @@ namespace kd.Controllers
 
         public ActionResult add_finance(string fintype, string finname, string finexe, string finexemob, string finexeemail, string filehanddate,
             string filesta, string filesanctdate, string reqloanamt, string sanctloanamt, string disburseamt, string actloanamt, string recddamt, 
-            string remddamt, string rateofinter, string emiamt, string emimonths, string bid, string finstat, string submit_btn, string edit_id = "0")
+            string remddamt, string rateofinter, string emiamt, string emimonths, string finstat, string bapplicant, string bsite, string bwing, string bflats, string submit_btn, string edit_id = "0")
         {
             try
             {
@@ -2158,7 +2158,7 @@ namespace kd.Controllers
                     if (obj.insert_finance(fintype, finname, finexe, finexemob, finexeemail, filehanddate,
                                            filesta, filesanctdate, reqloanamt, sanctloanamt, disburseamt, 
                                            actloanamt, recddamt, remddamt, rateofinter, emiamt, emimonths, 
-                                           bid, finstat) == 1)
+                                           finstat, bapplicant, bsite, bwing, bflats) == 1)
                     {
                         TempData["AlertMessage"] = "All the details saved successfully.";
                     }
@@ -2173,7 +2173,7 @@ namespace kd.Controllers
                     if (obj.insert_finance(fintype, finname, finexe, finexemob, finexeemail, filehanddate,
                                            filesta, filesanctdate, reqloanamt, sanctloanamt, disburseamt, 
                                            actloanamt, recddamt, remddamt, rateofinter, emiamt, emimonths, 
-                                           bid, finstat, "edit", id) == 1)
+                                           finstat, bapplicant, bsite, bwing, bflats, "edit", id) == 1)
                     {
                         TempData["AlertMessage"] = "All the details updated successfully.";
                     }
