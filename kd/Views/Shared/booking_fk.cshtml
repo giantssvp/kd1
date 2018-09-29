@@ -1,4 +1,20 @@
-﻿<tr class="odd gradeX">
+﻿@{
+    var results = ViewBag.list;
+    int? cnt = new int?();
+    cnt = ViewBag.total;
+    if (cnt == null)
+    {
+        cnt = 0;
+    }
+    var elist = ViewBag.edit_list;
+    bool edit = false;
+    if (ViewBag.edit_str == "edit")
+    {
+        edit = true;
+    }
+}
+
+<tr class="odd gradeX">
     <td><label class="control-label">Applicant</label></td>
     <td>
         <select name="bapplicant" id="bapplicant">    </select>
@@ -33,8 +49,13 @@
                 $.each(list, function (index, value) {
                     $("#bapplicant").append($('<option></option>').val(list1[index]).html(value));
                 });
-                get_booking(list1[list1.length - 1]);
-                document.getElementById("bapplicant").value = list1[list1.length-1];
+                if ("@edit") {
+                    document.getElementById("bapplicant").value = @(edit ? elist[7] : 1);
+                }
+                else {
+                    document.getElementById("bapplicant").selectedIndex = "0";
+                }
+                get_booking($('#bapplicant').val());
             },
             error: function (err) {
                 alert(err.responseText);
@@ -55,7 +76,7 @@
         var data = JSON.stringify({
             'applicant_id': appl_id
             });
-            
+
             $.ajax({
                 type: "POST",
                 url: '@Url.Action("get_booking_details", "Home")',
@@ -69,7 +90,8 @@
                     var list4 = d.site;
                     var list5 = d.wing;
                     var list6 = d.flat;
-                    
+                    var text = "";
+
                     $("#bsite").html("");
                     $("#bwing").html("");
                     $("#bflats").html("");
@@ -80,8 +102,17 @@
                         $("#bwing").append($('<option></option>').val(value).html(value));
                     });
                     $.each(list6, function (index, value) {
-                        $("#bflats").append($('<option></option>').val(list3[index]).html(value));
+                        text = list5[index] + value;
+                        $("#bflats").append($('<option></option>').val(list3[index]).html(text));
                     });
+                    if ("@edit") {
+                        document.getElementById("bsite").value = @(edit ? elist[7] : 1);
+                        document.getElementById("bflats").value = @(edit ? elist[7] : 1);
+                    }
+                    else {
+                        document.getElementById("bsite").selectedIndex = "0";
+                        document.getElementById("bflats").selectedIndex = "0";
+                    }
                 },
                 error: function (err) {
                     alert(err.responseText);

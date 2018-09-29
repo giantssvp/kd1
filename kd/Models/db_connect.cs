@@ -38,7 +38,7 @@ namespace kd.Models
         public List<string>[] list_daily_customer_name_show = new List<string>[2];
         public List<string>[] list_wing_name_show = new List<string>[2];
         public List<string>[] list_booking_details_show = new List<string>[7];        
-        public List<string>[] list_flat_no_show = new List<string>[2];
+        public List<string>[] list_flat_no_show = new List<string>[3];
         public List<DailyFollowup> list_enquiry_followup_show = new List<DailyFollowup>();
 
         private bool OpenConnection()
@@ -2303,11 +2303,11 @@ namespace kd.Models
                 string site_type = show_site_type(site_id);
                 if (site_type == "Flat")
                 {
-                    query = "SELECT ID, Wing FROM flats where Site_Id = '" + site_id + "'";
+                    query = "SELECT ID, Wing FROM flats where Site_Id = '" + site_id + "' order by ID DESC";
                 }
                 else
                 {
-                    query = "SELECT ID, Wing FROM plot where Site_ID = '" + site_id + "'";
+                    query = "SELECT ID, Wing FROM plot where Site_ID = '" + site_id + "' order by ID DESC";
                 }
 
                 list_wing_name_show[0] = new List<string>();
@@ -2388,35 +2388,44 @@ namespace kd.Models
         /**
          * Show Daily flat no for page load
          */
-        public List<string>[] flat_show_no(string wing_name, string site_id)
+        public List<string>[] flat_show_no(string site_id)
         {
             try
             {
                 string query;
-                if (wing_name == "None")
-                {
-                    query = "SELECT ID, Plot_NO as NUM FROM plot where Site_ID = '" + site_id + "' and wing = '" + wing_name + "'";
-
-                }
-                else
-                {
-                    query = "SELECT ID, Flat_No as NUM FROM flats where Site_Id = '" + site_id + "' and wing = '" + wing_name + "'";
-                }
-
-                list_flat_no_show[0] = new List<string>();
-                list_flat_no_show[1] = new List<string>();
-
+                string que = "select Site_Type from sites where ID = " + site_id;
                 if (this.OpenConnection() == true)
                 {
+                    MySqlCommand command = new MySqlCommand(que, connection);
+                    string site_type = command.ExecuteScalar() as string;
+                    if (site_type == "Plot")
+                    {
+                        query = "SELECT ID, Plot_NO as NUM, Wing FROM plot where Site_ID = '" + site_id + "' order by ID DESC";
+                    }
+                    else
+                    {
+                        query = "SELECT ID, Flat_No as NUM, Wing FROM flats where Site_Id = '" + site_id + "' order by ID DESC";
+                    }
+
+                    list_flat_no_show[0] = new List<string>();
+                    list_flat_no_show[1] = new List<string>();
+                    list_flat_no_show[2] = new List<string>();
+                
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     MySqlDataReader dataReader = cmd.ExecuteReader();
 
                     while (dataReader.Read())
                     {
-
                         list_flat_no_show[0].Add(dataReader["ID"] + "");
                         list_flat_no_show[1].Add(dataReader["NUM"] + "");
-
+                        if (site_type == "Flat")
+                        {
+                            list_flat_no_show[2].Add(dataReader["Wing"] + "");
+                        }
+                        else
+                        {
+                            list_flat_no_show[2].Add("");
+                        }
                     }
                     dataReader.Close();
                     this.CloseConnection();
@@ -2429,7 +2438,7 @@ namespace kd.Models
             }
             catch (MySqlException ex)
             {
-                return list_daily_customer_name_show;
+                return list_flat_no_show;
             }
         }
 

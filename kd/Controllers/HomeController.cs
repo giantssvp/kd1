@@ -2390,14 +2390,15 @@ namespace kd.Controllers
          * Drop Down list for flat no on page load
          */
         [HttpPost]
-        public ActionResult get_flat_no(string wing_name, string site_id)
+        public ActionResult get_flat_no(string site_id)
         {
-            List<string>[] flat = new List<string>[2];
-            flat = obj.flat_show_no(wing_name, site_id);
+            List<string>[] flat = new List<string>[3];
+            flat = obj.flat_show_no(site_id);
             var result = new
             {
                 id = flat[0],
-                name = flat[1]
+                name = flat[1],
+                wing = flat[2]
             };
             return Json(result, JsonRequestBehavior.AllowGet);
         }

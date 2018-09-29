@@ -39,7 +39,7 @@
                     <h5>Add Booking Details</h5>
                 </div>
                 <div class="widget-content nopadding">
-                    <form method="post" action="@Url.Action("add_booking","Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
+                    <form method="post" action="@Url.Action("add_booking", "Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
                         <table class="table table-striped">
                             <tbody>
                                 <tr class="odd gradeX">
@@ -242,9 +242,15 @@
                 var list = d.name;
                 $("#bsite").html("");
                 $.each(list, function (index, value) {
-                    $("#bsite").append($('<option></option>').val(list1[index]).html(value));
+                    $("#bsite").append($('<option></option>').val(list1[index]).html(value));                    
                 });
-                document.getElementById("bsite").value = @(edit ? elist[7] : 1);
+                if ("@edit") {
+                    document.getElementById("bsite").value = @(edit ? elist[7] : 1);
+                }
+                else {
+                    document.getElementById("bsite").selectedIndex = "0";
+                }
+                flat($('#bsite').val());
             },
             error: function (err) {
                 alert(err.responseText);
@@ -267,7 +273,12 @@
                 $.each(list, function (index, value) {
                     $("#bapplicant").append($('<option></option>').val(list1[index]).html(value));
                 });
-                document.getElementById("bapplicant").value = @(edit ? elist[3] : 1);
+                if ("@edit") {
+                    document.getElementById("bapplicant").value = @(edit ? elist[3] : 1);
+                }
+                else {
+                    document.getElementById("bapplicant").selectedIndex = "0";
+                }
             },
             error: function (err) {
                 alert(err.responseText);
@@ -279,72 +290,83 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('#bsite').change(function () {
-            //var ds = $('#enqsitename').val()
-            //alert(ds);
-            var data = JSON.stringify({
-                'site_id': $('#bsite').val()
-            });
-
-            $.ajax({
-                type: "POST",
-                url: '@Url.Action("get_wing_name", "Home")',
-                data: data,
-                dataType: 'json',
-                success: function (d) {
-                    //var list = d.c;
-                    //$('#enqwing').val(list);
-                    var list1 = d.id;
-                    var list = d.name;
-                    $("#bwing").html("");
-                    $.each(list, function (index, value) {
-                        $("#bwing").append($('<option></option>').val(value).html(value));
-                    });
-                    document.getElementById("bwing").value = @(edit ? elist[8] : 1);
-                },
-                error: function (err) {
-                    alert(err.responseText);
-                },
-                contentType: 'application/json'
-            });
+            flat($('#bsite').val());
         });
     });
+
+    function wing(site_id)
+    {
+        var data = JSON.stringify({
+            'site_id': site_id
+        });
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("get_wing_name", "Home")',
+            data: data,
+            dataType: 'json',
+            success: function (d) {
+                var list1 = d.id;
+                var list = d.name;
+                
+                $("#bwing").html("");
+                $.each(list, function (index, value) {
+                    $("#bwing").append($('<option></option>').val(value).html(value));
+                });
+                
+                document.getElementById("bwing").value = @(edit ? elist[8] : 1);
+                flat(site_id);                
+            },
+            error: function (err) {
+                alert(err.responseText);
+            },
+            contentType: 'application/json'
+        });
+    }
 </script>
 
 <script type="text/javascript">
     $(document).ready(function () {
         wing_name = "Flat"
-        $('#bwing').change(function () {
-            //var ds = $('#enqsitename').val()
-            //alert(ds);
-            var data = JSON.stringify({
-                'wing_name': $('#bwing').val(),
-                'site_id': $('#bsite').val()
-            });
-
-            $.ajax({
-                type: "POST",
-                url: '@Url.Action("get_flat_no", "Home")',
-                data: data,
-                dataType: 'json',
-                success: function (d) {
-                    //var list = d.c;
-                    //$('#enqwing').val(list);
-
-                    var list1 = d.id;
-                    var list = d.name;
-                    $("#bflats").html("");
-                    $.each(list, function (index, value) {
-                        $("#bflats").append($('<option></option>').val(list1[index]).html(value));
-                    });
-                    document.getElementById("bflats").value = @(edit ? elist[9] : 1);
-                },
-                error: function (err) {
-                    alert(err.responseText);
-                },
-                contentType: 'application/json'
-            });
+        $('#bwing').change(function () {            
+            flat($('#bwing').val());
         });
     });
+
+    function flat(wing_id)
+    {
+        var data = JSON.stringify({
+            'site_id': wing_id
+        });
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("get_flat_no", "Home")',
+            data: data,
+            dataType: 'json',
+            success: function (d) {
+                var list1 = d.id;
+                var list = d.name;
+                var list2 = d.wing;
+                var text = "";
+                $("#bflats").html("");
+                $.each(list, function (index, value) {
+                    text = list2[index] + value;
+                    $("#bflats").append($('<option></option>').val(list1[index]).html(text));
+                });
+                if ("@edit") {
+                    document.getElementById("bflats").value = @(edit ? elist[9] : 1);
+                }
+                else {
+                    document.getElementById("bflats").selectedIndex = "0";
+                }
+            },
+            error: function (err) {
+                alert(err.responseText);
+            },
+            contentType: 'application/json'
+        });
+    }
 </script>
 <script type="text/javascript">
     $(document).ready(function () {
