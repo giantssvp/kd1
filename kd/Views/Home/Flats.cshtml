@@ -127,7 +127,7 @@
                                     <th>Floor</th>
                                     <th>Area</th>
                                     <th>Flat Type</th>
-                                    <th>Wing</th>
+                                    <th>Sanction Type</th>
                                     <th>Status</th>
                                     <th>Site Name</th>
                                     @if (this.Session["role"].ToString() == "admin")
@@ -141,13 +141,13 @@
                                 {
                                 <tr class="gradeX">
                                     <td>@results[0][i]</td>
-                                    <td>@results[1][i]</td>
+                                    <td>@results[5][i]@results[1][i]</td>
                                     <td>@results[2][i]</td>
                                     <td>@results[3][i]</td>
                                     <td>@results[4][i]</td>
-                                    <td>@results[5][i]</td>
+                                    <td>@results[16][i]</td>
                                     <td>@results[7][i]</td>
-                                    <td>@results[8][i]</td>
+                                    <td>@results[9][i]</td>
                                     @if (this.Session["role"].ToString() == "admin")
                                     {
                                         <td align="center">

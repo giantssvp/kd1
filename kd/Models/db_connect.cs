@@ -12,28 +12,13 @@ namespace kd.Models
 {
     public class db_connect
     {
-        private MySqlConnection connection;
-        public List<string>[] list_enquiry_show = new List<string>[17];
-        public List<string>[] list_sitevisit_show = new List<string>[8];
-        public List<string>[] list_followup_show = new List<string>[8];
+        private MySqlConnection connection;        
+        public List<string>[] list_show = new List<string>[70];
+
         public List<string>[] list_alarms_show = new List<string>[12];
-        public List<string>[] list_sites_show = new List<string>[10];
-        public List<string>[] list_executive_show = new List<string>[10];
         public List<string>[] list_executive_show_name = new List<string>[2];
-        public List<string>[] list_franchies_show = new List<string>[9];
         public List<string>[] list_franchies_show_name = new List<string>[2];
-        public List<string>[] list_customer_show = new List<string>[12];
-        public List<string>[] list_customer_sec_show = new List<string>[8];
         public List<string>[] list_customer_show_name = new List<string>[2];
-        public List<string>[] list_paycommit_show = new List<string>[7];
-        public List<string>[] list_paydetails_show = new List<string>[12];
-        public List<string>[] list_flats_show = new List<string>[9];
-        public List<string>[] list_plots_show = new List<string>[6];
-        public List<string>[] list_booking_show = new List<string>[17];
-        public List<string>[] list_finance_show = new List<string>[21];
-        public List<string>[] list_file_status_show = new List<string>[10];
-        public List<string>[] list_agreement_show = new List<string>[9];
-        public List<string>[] list_cost_sheet_show = new List<string>[14];
         public List<string>[] list_customer_booking_show = new List<string>[2];
         public List<string>[] list_daily_customer_name_show = new List<string>[2];
         public List<string>[] list_wing_name_show = new List<string>[2];
@@ -70,7 +55,26 @@ namespace kd.Models
             }
         }
 
-        public int insert_enquiry(string enqname, string enqaddress, string enqmob, string enqaltmob, string enqemail,
+        private void clear_list_show()
+        {
+            for (int i = 0; i < 70; i++)
+            {
+                list_show[i] = new List<string>();
+            }
+        }
+
+        private void get_list_show(MySqlDataReader dataReader)
+        {
+            while (dataReader.Read())
+            {
+                for (int i = 0; i < dataReader.FieldCount; i++)
+                {
+                    list_show[i].Add(dataReader[i] + "");
+                }
+            }
+        }        
+
+public int insert_enquiry(string enqname, string enqaddress, string enqmob, string enqaltmob, string enqemail,
             string enqrequirement, string enqoccu, string enqincome, string enqbudget, string enqdown, string enqcurstatus,
             string enqvisit, string enqsource, string enqsourcedetails, string enqsanctiontype, string type = "insert", int id = 0)
         {
@@ -1078,6 +1082,7 @@ namespace kd.Models
         {
             try
             {
+                clear_list_show();
                 string query = "";
                 if (search == "")
                 {
@@ -1090,11 +1095,6 @@ namespace kd.Models
                     query = "SELECT * FROM daily_enquiry where CONCAT(Customer_Name, Requirement) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @lim OFFSET @off";
                 }
 
-                for (int i = 0; i < 17; i++)
-                {
-                    list_enquiry_show[i] = new List<string>();
-                }
-
                 if (this.OpenConnection() == true)
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
@@ -1103,25 +1103,20 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@lim", limit);
                     MySqlDataReader dataReader = cmd.ExecuteReader();
 
-                    while (dataReader.Read())
-                    {
-                        for (int i = 0; i < 17; i++)
-                        {
-                            list_enquiry_show[i].Add(dataReader[i] + "");
-                        }
-                    }
+                    get_list_show(dataReader);
+                    
                     dataReader.Close();
                     this.CloseConnection();
-                    return list_enquiry_show;
+                    return list_show;
                 }
                 else
                 {
-                    return list_enquiry_show;
+                    return list_show;
                 }
             }
             catch (MySqlException ex)
             {
-                return list_enquiry_show;
+                return list_show;
             }
         }
 
@@ -1129,19 +1124,15 @@ namespace kd.Models
         {
             try
             {
+                clear_list_show();
                 string query = "";
                 if (search == "")
                 {
-                    query = "SELECT * FROM daily_sitevisit ORDER BY ID DESC LIMIT @lim OFFSET @off";
+                    query = "SELECT * FROM v_daily_sitevisit ORDER BY ID DESC LIMIT @lim OFFSET @off";
                 }
                 else
                 {
-                    query = "SELECT * FROM daily_sitevisit where CONCAT(Wing, Flat) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @lim OFFSET @off";
-                }
-
-                for (int i = 0; i < 8; i++)
-                {
-                    list_sitevisit_show[i] = new List<string>();
+                    query = "SELECT * FROM v_daily_sitevisit where CONCAT(Wing, Flat) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @lim OFFSET @off";
                 }
 
                 if (this.OpenConnection() == true)
@@ -1151,25 +1142,20 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@lim", limit);
                     MySqlDataReader dataReader = cmd.ExecuteReader();
 
-                    while (dataReader.Read())
-                    {
-                        for (int i = 0; i < 8; i++)
-                        {
-                            list_sitevisit_show[i].Add(dataReader[i] + "");
-                        }
-                    }
+                    get_list_show(dataReader);
+
                     dataReader.Close();
                     this.CloseConnection();
-                    return list_sitevisit_show;
+                    return list_show;
                 }
                 else
                 {
-                    return list_sitevisit_show;
+                    return list_show;
                 }
             }
             catch (MySqlException ex)
             {
-                return list_sitevisit_show;
+                return list_show;
             }
         }
 
@@ -1177,19 +1163,15 @@ namespace kd.Models
         {
             try
             {
+                clear_list_show();
                 string query = "";
                 if (search == "")
                 {
-                    query = "SELECT * FROM daily_followup ORDER BY ID DESC LIMIT @lim OFFSET @off";
+                    query = "SELECT * FROM v_daily_followup ORDER BY ID DESC LIMIT @lim OFFSET @off";
                 }
                 else
                 {
-                    query = "SELECT * FROM daily_followup where CONCAT(Folloup_Details, Folloup_Date, Next_Folloup_Date) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @lim OFFSET @off";
-                }
-
-                for (int i = 0; i < 8; i++)
-                {
-                    list_followup_show[i] = new List<string>();
+                    query = "SELECT * FROM v_daily_followup where CONCAT(Folloup_Details, Folloup_Date, Next_Folloup_Date) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @lim OFFSET @off";
                 }
 
                 if (this.OpenConnection() == true)
@@ -1199,25 +1181,20 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@lim", limit);
                     MySqlDataReader dataReader = cmd.ExecuteReader();
 
-                    while (dataReader.Read())
-                    {
-                        for (int i = 0; i < 8; i++)
-                        {
-                            list_followup_show[i].Add(dataReader[i] + "");
-                        }
-                    }
+                    get_list_show(dataReader);
+
                     dataReader.Close();
                     this.CloseConnection();
-                    return list_followup_show;
+                    return list_show;
                 }
                 else
                 {
-                    return list_followup_show;
+                    return list_show;
                 }
             }
             catch (MySqlException ex)
             {
-                return list_followup_show;
+                return list_show;
             }
         }
 
@@ -1430,19 +1407,15 @@ namespace kd.Models
         {
             try
             {
+                clear_list_show();
                 string query = "";
                 if (search == "")
                 {
-                    query = "SELECT * FROM cost_sheet where Cost_Sheet_Type = @sheet_type ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                    query = "SELECT * FROM v_cost_sheet where Cost_Sheet_Type = @sheet_type ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
                 else
                 {
-                    query = "SELECT * FROM cost_sheet where Cost_Sheet_Type = @sheet_type and CONCAT(Basic_Rate, Type) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
-                }
-
-                for (int i = 0; i < 14; i++)
-                {
-                    list_cost_sheet_show[i] = new List<string>();
+                    query = "SELECT * FROM v_cost_sheet where Cost_Sheet_Type = @sheet_type and CONCAT(Basic_Rate, Type) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
 
                 if (this.OpenConnection() == true)
@@ -1453,25 +1426,19 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@limit", limit);
                     MySqlDataReader dataReader = cmd.ExecuteReader();
 
-                    while (dataReader.Read())
-                    {
-                        for (int i = 0; i < 14; i++)
-                        {
-                            list_cost_sheet_show[i].Add(dataReader[i] + "");
-                        }
-                    }
+                    get_list_show(dataReader);
                     dataReader.Close();
                     this.CloseConnection();
-                    return list_cost_sheet_show;
+                    return list_show;
                 }
                 else
                 {
-                    return list_cost_sheet_show;
+                    return list_show;
                 }
             }
             catch (MySqlException ex)
             {
-                return list_cost_sheet_show;
+                return list_show;
             }
         }
 
@@ -1479,6 +1446,7 @@ namespace kd.Models
         {
             try
             {
+                clear_list_show();
                 string query = "";
                 if (search == "")
                 {
@@ -1489,11 +1457,6 @@ namespace kd.Models
                     query = "SELECT * FROM applicant where CONCAT(Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
 
-                for (int i = 0; i < 12; i++)
-                {
-                    list_customer_show[i] = new List<string>();
-                }
-
                 if (this.OpenConnection() == true)
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
@@ -1501,25 +1464,19 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@limit", limit);
                     MySqlDataReader dataReader = cmd.ExecuteReader();
 
-                    while (dataReader.Read())
-                    {
-                        for (int i = 0; i < 12; i++)
-                        {
-                            list_customer_show[i].Add(dataReader[i] + "");
-                        }
-                    }
+                    get_list_show(dataReader);
                     dataReader.Close();
                     this.CloseConnection();
-                    return list_customer_show;
+                    return list_show;
                 }
                 else
                 {
-                    return list_customer_show;
+                    return list_show;
                 }
             }
             catch (MySqlException ex)
             {
-                return list_customer_show;
+                return list_show;
             }
         }
 
@@ -1527,19 +1484,15 @@ namespace kd.Models
         {
             try
             {
+                clear_list_show();
                 string query = "";
                 if (search == "")
                 {
-                    query = "SELECT * FROM co_applicant ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                    query = "SELECT * FROM v_co_applicant ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
                 else
                 {
-                    query = "SELECT * FROM co_applicant where CONCAT(Co_Applicant_Name, Co_Applicant_Pan_No, Co_Applicant_Adhar_No) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
-                }
-
-                for (int i = 0; i < 8; i++)
-                {
-                    list_customer_sec_show[i] = new List<string>();
+                    query = "SELECT * FROM v_co_applicant where CONCAT(Co_Applicant_Name, Co_Applicant_Pan_No, Co_Applicant_Adhar_No) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
 
                 if (this.OpenConnection() == true)
@@ -1549,25 +1502,19 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@limit", limit);
                     MySqlDataReader dataReader = cmd.ExecuteReader();
 
-                    while (dataReader.Read())
-                    {
-                        for (int i = 0; i < 8; i++)
-                        {
-                            list_customer_sec_show[i].Add(dataReader[i] + "");
-                        }
-                    }
+                    get_list_show(dataReader);
                     dataReader.Close();
                     this.CloseConnection();
-                    return list_customer_sec_show;
+                    return list_show;
                 }
                 else
                 {
-                    return list_customer_sec_show;
+                    return list_show;
                 }
             }
             catch (MySqlException ex)
             {
-                return list_customer_sec_show;
+                return list_show;
             }
         }
 
@@ -1611,19 +1558,15 @@ namespace kd.Models
         {
             try
             {
+                clear_list_show();
                 string query = "";
                 if (search == "")
                 {
-                    query = "SELECT * FROM finance_details ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                    query = "SELECT * FROM v_finance_details ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
                 else
                 {
-                    query = "SELECT * FROM finance_details where CONCAT(Finance_Name, Finance_Executive_Name) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
-                }
-
-                for (int i = 0; i < 20; i++)
-                {
-                    list_finance_show[i] = new List<string>();
+                    query = "SELECT * FROM v_finance_details where CONCAT(Finance_Name, Finance_Executive_Name) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
 
                 if (this.OpenConnection() == true)
@@ -1633,25 +1576,19 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@limit", limit);
                     MySqlDataReader dataReader = cmd.ExecuteReader();
 
-                    while (dataReader.Read())
-                    {
-                        for (int i = 0; i < 20; i++)
-                        {
-                            list_finance_show[i].Add(dataReader[i] + "");
-                        }
-                    }
+                    get_list_show(dataReader);
                     dataReader.Close();
                     this.CloseConnection();
-                    return list_finance_show;
+                    return list_show;
                 }
                 else
                 {
-                    return list_finance_show;
+                    return list_show;
                 }
             }
             catch (MySqlException ex)
             {
-                return list_finance_show;
+                return list_show;
             }
         }
 
@@ -1659,19 +1596,15 @@ namespace kd.Models
         {
             try
             {
+                clear_list_show();
                 string query = "";
                 if (search == "")
                 {
-                    query = "SELECT * FROM bookings ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                    query = "SELECT * FROM v_bookings ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
                 else
                 {
-                    query = "SELECT * FROM bookings where CONCAT(Booking_No, Referenceby) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
-                }
-
-                for (int i = 0; i < 17; i++)
-                {
-                    list_booking_show[i] = new List<string>();
+                    query = "SELECT * FROM v_bookings where CONCAT(Booking_No, Referenceby) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
 
                 if (this.OpenConnection() == true)
@@ -1681,25 +1614,19 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@limit", limit);
                     MySqlDataReader dataReader = cmd.ExecuteReader();
 
-                    while (dataReader.Read())
-                    {
-                        for (int i = 0; i < 17; i++)
-                        {
-                            list_booking_show[i].Add(dataReader[i] + "");
-                        }
-                    }
+                    get_list_show(dataReader);
                     dataReader.Close();
                     this.CloseConnection();
-                    return list_booking_show;
+                    return list_show;
                 }
                 else
                 {
-                    return list_booking_show;
+                    return list_show;
                 }
             }
             catch (MySqlException ex)
             {
-                return list_booking_show;
+                return list_show;
             }
         }
 
@@ -1707,6 +1634,7 @@ namespace kd.Models
         {
             try
             {
+                clear_list_show();
                 string query = "";
                 if (search == "")
                 {
@@ -1717,11 +1645,6 @@ namespace kd.Models
                     query = "SELECT * FROM executive where CONCAT(Executive_Name, Executive_Code) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
 
-                for (int i = 0; i < 10; i++)
-                {
-                    list_executive_show[i] = new List<string>();
-                }
-
                 if (this.OpenConnection() == true)
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
@@ -1729,25 +1652,19 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@limit", limit);
                     MySqlDataReader dataReader = cmd.ExecuteReader();
 
-                    while (dataReader.Read())
-                    {
-                        for (int i = 0; i < 10; i++)
-                        {
-                            list_executive_show[i].Add(dataReader[i] + "");
-                        }
-                    }
+                    get_list_show(dataReader);
                     dataReader.Close();
                     this.CloseConnection();
-                    return list_executive_show;
+                    return list_show;
                 }
                 else
                 {
-                    return list_executive_show;
+                    return list_show;
                 }
             }
             catch (MySqlException ex)
             {
-                return list_executive_show;
+                return list_show;
             }
         }
 
@@ -1791,19 +1708,15 @@ namespace kd.Models
         {
             try
             {
+                clear_list_show();
                 string query = "";
                 if (search == "")
                 {
-                    query = "SELECT * FROM file_details ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                    query = "SELECT * FROM v_file_details ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
                 else
                 {
-                    query = "SELECT * FROM file_details where CONCAT(Cheque_Id, Bank_Name) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
-                }
-
-                for (int i = 0; i < 9; i++)
-                {
-                    list_file_status_show[i] = new List<string>();
+                    query = "SELECT * FROM v_file_details where CONCAT(Cheque_Id, Bank_Name) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
 
                 if (this.OpenConnection() == true)
@@ -1813,25 +1726,19 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@limit", limit);
                     MySqlDataReader dataReader = cmd.ExecuteReader();
 
-                    while (dataReader.Read())
-                    {
-                        for (int i = 0; i < 9; i++)
-                        {
-                            list_file_status_show[i].Add(dataReader[i] + "");
-                        }
-                    }
+                    get_list_show(dataReader);
                     dataReader.Close();
                     this.CloseConnection();
-                    return list_file_status_show;
+                    return list_show;
                 }
                 else
                 {
-                    return list_file_status_show;
+                    return list_show;
                 }
             }
             catch (MySqlException ex)
             {
-                return list_file_status_show;
+                return list_show;
             }
         }
 
@@ -1839,19 +1746,15 @@ namespace kd.Models
         {
             try
             {
+                clear_list_show();
                 string query = "";
                 if (search == "")
                 {
-                    query = "SELECT * FROM payment_commitment ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                    query = "SELECT * FROM v_payment_commitment ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
                 else
                 {
-                    query = "SELECT * FROM payment_commitment where CONCAT(Commitment_Type, Amount) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
-                }
-
-                for (int i = 0; i < 7; i++)
-                {
-                    list_paycommit_show[i] = new List<string>();
+                    query = "SELECT * FROM v_payment_commitment where CONCAT(Commitment_Type, Amount) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
 
                 if (this.OpenConnection() == true)
@@ -1861,25 +1764,19 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@limit", limit);
                     MySqlDataReader dataReader = cmd.ExecuteReader();
 
-                    while (dataReader.Read())
-                    {
-                        for (int i = 0; i < 7; i++)
-                        {
-                            list_paycommit_show[i].Add(dataReader[i] + "");
-                        }
-                    }
+                    get_list_show(dataReader);
                     dataReader.Close();
                     this.CloseConnection();
-                    return list_paycommit_show;
+                    return list_show;
                 }
                 else
                 {
-                    return list_paycommit_show;
+                    return list_show;
                 }
             }
             catch (MySqlException ex)
             {
-                return list_paycommit_show;
+                return list_show;
             }
         }
 
@@ -1887,19 +1784,15 @@ namespace kd.Models
         {
             try
             {
+                clear_list_show();
                 string query = "";
                 if (search == "")
                 {
-                    query = "SELECT * FROM payment_details ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                    query = "SELECT * FROM v_payment_details ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
                 else
                 {
-                    query = "SELECT * FROM payment_details where CONCAT(Cheque_Id, Payment_Type) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
-                }
-
-                for (int i = 0; i < 12; i++)
-                {
-                    list_paydetails_show[i] = new List<string>();
+                    query = "SELECT * FROM v_payment_details where CONCAT(Cheque_Id, Payment_Type) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
 
                 if (this.OpenConnection() == true)
@@ -1909,25 +1802,19 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@limit", limit);
                     MySqlDataReader dataReader = cmd.ExecuteReader();
 
-                    while (dataReader.Read())
-                    {
-                        for (int i = 0; i < 12; i++)
-                        {
-                            list_paydetails_show[i].Add(dataReader[i] + "");
-                        }
-                    }
+                    get_list_show(dataReader);
                     dataReader.Close();
                     this.CloseConnection();
-                    return list_paydetails_show;
+                    return list_show;
                 }
                 else
                 {
-                    return list_paydetails_show;
+                    return list_show;
                 }
             }
             catch (MySqlException ex)
             {
-                return list_paydetails_show;
+                return list_show;
             }
         }
 
@@ -1935,19 +1822,15 @@ namespace kd.Models
         {
             try
             {
+                clear_list_show();
                 string query = "";
                 if (search == "")
                 {
-                    query = "SELECT * FROM aggrement ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                    query = "SELECT * FROM v_aggrement ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
                 else
                 {
-                    query = "SELECT * FROM aggrement where CONCAT(Aggrement_No, Aggrement_Amount) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
-                }
-
-                for (int i = 0; i < 9; i++)
-                {
-                    list_agreement_show[i] = new List<string>();
+                    query = "SELECT * FROM v_aggrement where CONCAT(Aggrement_No, Aggrement_Amount) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
 
                 if (this.OpenConnection() == true)
@@ -1957,25 +1840,19 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@limit", limit);
                     MySqlDataReader dataReader = cmd.ExecuteReader();
 
-                    while (dataReader.Read())
-                    {
-                        for (int i = 0; i < 9; i++)
-                        {
-                            list_agreement_show[i].Add(dataReader[i] + "");
-                        }
-                    }
+                    get_list_show(dataReader);
                     dataReader.Close();
                     this.CloseConnection();
-                    return list_agreement_show;
+                    return list_show;
                 }
                 else
                 {
-                    return list_agreement_show;
+                    return list_show;
                 }
             }
             catch (MySqlException ex)
             {
-                return list_agreement_show;
+                return list_show;
             }
         }
 
@@ -1983,6 +1860,7 @@ namespace kd.Models
         {
             try
             {
+                clear_list_show();
                 string query = "";
                 if (search == "")
                 {
@@ -1993,11 +1871,6 @@ namespace kd.Models
                     query = "SELECT * FROM franchies where CONCAT(Francies_Name, Address) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
 
-                for (int i = 0; i < 9; i++)
-                {
-                    list_franchies_show[i] = new List<string>();
-                }
-
                 if (this.OpenConnection() == true)
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
@@ -2005,25 +1878,19 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@limit", limit);
                     MySqlDataReader dataReader = cmd.ExecuteReader();
 
-                    while (dataReader.Read())
-                    {
-                        for (int i = 0; i < 9; i++)
-                        {
-                            list_franchies_show[i].Add(dataReader[i] + "");
-                        }
-                    }
+                    get_list_show(dataReader);
                     dataReader.Close();
                     this.CloseConnection();
-                    return list_franchies_show;
+                    return list_show;
                 }
                 else
                 {
-                    return list_franchies_show;
+                    return list_show;
                 }
             }
             catch (MySqlException ex)
             {
-                return list_franchies_show;
+                return list_show;
             }
         }
 
@@ -2067,6 +1934,7 @@ namespace kd.Models
         {
             try
             {
+                clear_list_show();
                 string query = "";
                 if (site_type == "All")
                 {
@@ -2099,37 +1967,25 @@ namespace kd.Models
                 {
                     query = query + " offset " + offset.ToString();
                 }
-
-                for (int i = 0; i < 9; i++)
-                {
-                    list_sites_show[i] = new List<string>();
-                }
-
+                
                 if (this.OpenConnection() == true)
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
-
                     MySqlDataReader dataReader = cmd.ExecuteReader();
 
-                    while (dataReader.Read())
-                    {
-                        for (int i = 0; i < 9; i++)
-                        {
-                            list_sites_show[i].Add(dataReader[i] + "");
-                        }
-                    }
+                    get_list_show(dataReader);
                     dataReader.Close();
                     this.CloseConnection();
-                    return list_sites_show;
+                    return list_show;
                 }
                 else
                 {
-                    return list_sites_show;
+                    return list_show;
                 }
             }
             catch (MySqlException ex)
             {
-                return list_sites_show;
+                return list_show;
             }
         }
 
@@ -2137,33 +1993,29 @@ namespace kd.Models
         {
             try
             {
+                clear_list_show();
                 string query = "";
                 if (site_name == "All")
                 {
                     if (search == "")
                     {
-                        query = "SELECT * FROM flats ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                        query = "SELECT * FROM v_flats ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                     }
                     else
                     {
-                        query = "SELECT * FROM flats WHERE CONCAT(Status, Flat_No) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                        query = "SELECT * FROM v_flats WHERE CONCAT(Status, Flat_No) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                     }
                 }
                 else
                 {
                     if (search == "")
                     {
-                        query = "SELECT * FROM flats WHERE Site_Id = @site_id ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                        query = "SELECT * FROM v_flats WHERE Site_Id = @site_id ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                     }
                     else
                     {
-                        query = "SELECT * FROM flats WHERE Site_Id = @site_id and CONCAT(Status, Flat_No) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                        query = "SELECT * FROM v_flats WHERE Site_Id = @site_id and CONCAT(Status, Flat_No) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                     }
-                }
-
-                for (int i = 0; i < 9; i++)
-                {
-                    list_flats_show[i] = new List<string>();
                 }
 
                 if (this.OpenConnection() == true)
@@ -2176,25 +2028,19 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@limit", limit);
                     MySqlDataReader dataReader = cmd.ExecuteReader();
 
-                    while (dataReader.Read())
-                    {
-                        for (int i = 0; i < 9; i++)
-                        {
-                            list_flats_show[i].Add(dataReader[i] + "");
-                        }
-                    }
+                    get_list_show(dataReader);
                     dataReader.Close();
                     this.CloseConnection();
-                    return list_flats_show;
+                    return list_show;
                 }
                 else
                 {
-                    return list_flats_show;
+                    return list_show;
                 }
             }
             catch (MySqlException ex)
             {
-                return list_flats_show;
+                return list_show;
             }
         }
 
@@ -2202,33 +2048,29 @@ namespace kd.Models
         {
             try
             {
+                clear_list_show();
                 string query = "";
                 if (site_name == "All")
                 {
                     if (search == "")
                     {
-                        query = "SELECT * FROM plot ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                        query = "SELECT * FROM v_plot ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                     }
                     else
                     {
-                        query = "SELECT * FROM plot WHERE CONCAT(Plot_Status, Plot_NO) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                        query = "SELECT * FROM v_plot WHERE CONCAT(Plot_Status, Plot_NO) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                     }
                 }
                 else
                 {
                     if (search == "")
                     {
-                        query = "SELECT * FROM plot WHERE Site_ID = @site_id ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                        query = "SELECT * FROM v_plot WHERE Site_ID = @site_id ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                     }
                     else
                     {
-                        query = "SELECT * FROM plot WHERE Site_ID = @site_id and CONCAT(Plot_Status, Plot_NO) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                        query = "SELECT * FROM v_plot WHERE Site_ID = @site_id and CONCAT(Plot_Status, Plot_NO) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                     }
-                }
-
-                for (int i = 0; i < 6; i++)
-                {
-                    list_plots_show[i] = new List<string>();
                 }
 
                 if (this.OpenConnection() == true)
@@ -2241,25 +2083,19 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@limit", limit);
                     MySqlDataReader dataReader = cmd.ExecuteReader();
 
-                    while (dataReader.Read())
-                    {
-                        for (int i = 0; i < 6; i++)
-                        {
-                            list_plots_show[i].Add(dataReader[i] + "");
-                        }
-                    }
+                    get_list_show(dataReader);
                     dataReader.Close();
                     this.CloseConnection();
-                    return list_plots_show;
+                    return list_show;
                 }
                 else
                 {
-                    return list_plots_show;
+                    return list_show;
                 }
             }
             catch (MySqlException ex)
             {
-                return list_plots_show;
+                return list_show;
             }
         }
 

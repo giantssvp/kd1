@@ -111,21 +111,23 @@
                                     <th>Plot Number</th>
                                     <th>Plot Area</th>
                                     <th>Plot Status</th>
+                                    <th>Sanction Type</th>
                                     @if (this.Session["role"].ToString() == "admin")
                                     {
                                         <th>Modify</th>
                                     }
-                                    </tr>
+                                </tr>
                             </thead>
                             <tbody>
                                 @for (var i = 0; i < cnt; i++)
                                 {
                                 <tr class="gradeX">
                                     <td>@results[0][i]</td>
-                                    <td>@results[1][i]</td>
+                                    <td>@results[7][i]</td>
                                     <td>@results[2][i]</td>
                                     <td>@results[3][i]</td>
                                     <td>@results[4][i]</td>
+                                    <td>@results[14][i]</td>
                                     @if (this.Session["role"].ToString() == "admin")
                                     {
                                         <td align="center">
@@ -133,7 +135,7 @@
                                             <button onclick="fun_del(this);" value="@results[0][i]" class="btn btn-danger">Delete</button>
                                         </td>
                                     }
-                                    </tr>
+                                </tr>
                                 }
                             </tbody>
                         </table>

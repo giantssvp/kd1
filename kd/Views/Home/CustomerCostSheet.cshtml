@@ -133,11 +133,12 @@
                                     <th>GST Percent</th>
                                     <th>Other Amount</th>
                                     <th>Grand Total</th>
+                                    <th>Site Name</th>
                                     @if (this.Session["role"].ToString() == "admin")
                                     {
                                         <th>Action</th>
                                     }
-                                    </tr>
+                                </tr>
                             </thead>
                             <tbody>
                                 @for (var i = 0; i < cnt; i++)
@@ -154,6 +155,7 @@
                                     <td>@results[11][i]</td>
                                     <td>@results[12][i]</td>
                                     <td>@results[13][i]</td>
+                                    <td>@results[18][i]</td>
                                     @if (this.Session["role"].ToString() == "admin")
                                     {
                                         <td align="center">

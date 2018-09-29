@@ -147,12 +147,14 @@
                                     <th>Finance Name</th>
                                     <th>Finance Executive Name</th>
                                     <th>File Status</th>
-                                    <th>Total Disbursed Amount</th>
+                                    <th>Applicant Name</th>
+                                    <th>Site</th>
+                                    <th>Flat</th>
                                     @if (this.Session["role"].ToString() == "admin")
                                     {
                                         <th>Action</th>
                                     }
-                                    </tr>
+                                </tr>
                             </thead>
                             <tbody>
                                 @for (var i = 0; i < cnt; i++)
@@ -163,7 +165,9 @@
                                     <td>@results[2][i]</td>
                                     <td>@results[3][i]</td>
                                     <td>@results[7][i]</td>
-                                    <td>@results[11][i]</td>
+                                    <td>@results[51][i]</td>
+                                    <td>@results[35][i]</td>
+                                    <td>@results[47][i]@results[43][i]</td>
                                     @if (this.Session["role"].ToString() == "admin")
                                     {
                                         <td align="center">
@@ -171,7 +175,7 @@
                                             <button onclick="fun_del(this);" value="@results[0][i]" class="btn btn-danger">Delete</button>
                                         </td>
                                     }
-                                    </tr>
+                                </tr>
                                 }
                             </tbody>
                         </table>
