@@ -2465,7 +2465,10 @@ namespace kd.Controllers
         }
 
         [Authorize]
-        public ActionResult DisplayDailyReport()
+        public ActionResult DisplayDailyReport(DateTime enqStartDate, DateTime enqEndDate,
+                                              string enqName, string enqSite, string enqRequirement,
+                                              string enqVisit, Double enqBudget, Double enqDown,
+                                              string enqCurrentStatus, string enqMob)
         {
             
             List<DailyFollowup> list = new List<DailyFollowup>();
@@ -2474,7 +2477,11 @@ namespace kd.Controllers
             //list = obj.Daily_enquiry_report(enqStartDate, enqEndDate, enqName, enqSite, enqRequirement,
             //                        enqVisit,enqIneterest,enqBudget,enqDown,enqMob);
 
-            list = obj.Daily_enquiry_followup_report();
+            list = obj.Daily_enquiry_followup_report(
+                   enqStartDate, enqEndDate, enqName, enqSite, 
+                   enqRequirement, enqVisit, enqCurrentStatus,
+                   enqBudget, enqDown, enqMob
+                   );
 
             foreach (DailyFollowup DailyFollowupobj in list)
             {
@@ -2491,7 +2498,12 @@ namespace kd.Controllers
         }
         
         [Authorize]
-        public ActionResult DailyEnquiryPDF()
+        public ActionResult DailyEnquiryPDF(
+                                            DateTime enqStartDate, DateTime enqEndDate,
+                                            string enqName, string enqSite, string enqRequirement,
+                                            string enqVisit, Double enqBudget, Double enqDown,
+                                            string enqCurrentStatus, string enqMob
+                                            )
         {
             List<DailyFollowup> list = new List<DailyFollowup>();
             List<DailyVM> list1 = new List<DailyVM>();
@@ -2499,7 +2511,11 @@ namespace kd.Controllers
             //list = obj.Daily_enquiry_report(enqStartDate, enqEndDate, enqName, enqSite, enqRequirement,
             //                        enqVisit,enqIneterest,enqBudget,enqDown,enqMob);
 
-            list = obj.Daily_enquiry_followup_report();
+            list = obj.Daily_enquiry_followup_report(
+                   enqStartDate, enqEndDate, enqName, enqSite,
+                   enqRequirement, enqVisit, enqCurrentStatus,
+                   enqBudget, enqDown, enqMob
+                   );
 
             foreach (DailyFollowup DailyFollowupobj in list)
             {
@@ -2526,7 +2542,7 @@ namespace kd.Controllers
                 Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 100f, 0f);
                 PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
                 pdfDoc.Open();
-                pdfDoc.AddHeader("sdasd","weqweqw");
+                //pdfDoc.AddHeader("sdasd","weqweqw");
                 XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
                 pdfDoc.Close();
                 return File(stream.ToArray(), "application/pdf", "Grid.pdf");
@@ -2571,7 +2587,7 @@ namespace kd.Controllers
             List<Enquiry> lstDailyEnquiry = new List<Enquiry>();
             //list = obj.Daily_enquiry_report(enqStartDate, enqEndDate, enqName, enqSite, enqRequirement,
             //                        enqVisit,enqIneterest,enqBudget,enqDown,enqMob);
-
+            /*
             list = obj.Daily_enquiry_followup_report();
 
             foreach (DailyFollowup DailyFollowupobj in list)
@@ -2585,7 +2601,8 @@ namespace kd.Controllers
                 lstDailyEnquiry.Add(_Enquiry);
             }
 
-            return View(lstDailyEnquiry);
+            return View(lstDailyEnquiry); */
+            return View();
         }
 
         [Authorize]

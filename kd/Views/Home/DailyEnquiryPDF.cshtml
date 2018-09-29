@@ -1,94 +1,110 @@
 ﻿@model IEnumerable<kd.Models.Enquiry>
-    @{
-        Layout = null;
-        ViewBag.Title = "Daily Enquiry PDF";
-        WebGrid grid = new WebGrid(source: Model, canSort: false);
-    }
+@{
+    Layout = null;
+    ViewBag.Title = "Daily Enquiry PDF";
+    WebGrid grid = new WebGrid(source: Model, canSort: false);
+}
 
-    <style>
-    </style>
+<style>
+</style>
 
-    <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/Content/bootstrap-responsive.min.css" />
-    <link rel="stylesheet" href="~/Content/matrix-style.css" />
-    <link rel="stylesheet" href="~/Content/matrix-media.css" />
-    <link rel="stylesheet" href="~/Content/uniform.css" />
-    <link rel="stylesheet" href="~/Content/select2.css" />
-    <link href="~/fonts/gst_font-awesome/css/font-awesome.css" rel="stylesheet" />
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+<link rel="stylesheet" href="~/Content/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="~/Content/matrix-style.css" />
+<link rel="stylesheet" href="~/Content/matrix-media.css" />
+<link rel="stylesheet" href="~/Content/uniform.css" />
+<link rel="stylesheet" href="~/Content/select2.css" />
+<link href="~/fonts/gst_font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+
+<form method="post" action="@Url.Action("Generate_pdf","Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
+    <div id="Grid>"
+<div id="main" style="padding:25px;background-color:white">
+    @grid.GetHtml(
+     htmlAttributes: new { id = "gridT", width = "700px" },
+     columns: grid.Columns(
+         grid.Column("_DailyFollowup.Customer_Name", "Name"),
+         grid.Column("_DailyFollowup.Address", "Address"),
+         grid.Column("_DailyFollowup.Mobile_No", "Mobile No"),
+         grid.Column("_DailyFollowup.Email_ID", "Email Id"),
+         grid.Column("_DailyFollowup.Requirement", "Requirement"),
+         grid.Column("_DailyFollowup.Occupation", "Occupation"),
+         grid.Column("_DailyFollowup.Income", "Income"),
+         grid.Column("_DailyFollowup.Budget", "Budget"),
+         grid.Column("_DailyFollowup.Down_Payment", "Down_Payment"),
+         grid.Column("_DailyFollowup.Visit", "Current_Status"),
+         grid.Column("_DailyFollowup.Source", "Source"),
+         grid.Column("_DailyFollowup.Enquiry_Date", "Enquiry Date"),
+         grid.Column("_DailyFollowup.folloup_Date", "Enquiry Date"),
+         grid.Column("_DailyFollowup.Next_folloup_Date", "Enquiry Date"),
+         grid.Column("_DailyFollowup.folloup_Details", "Followup Details"),
+
+
+         grid.Column(format: (item) => {
+             WebGrid subGrid = new WebGrid(source: item._DailyVM);
+             return subGrid.GetHtml(
+                 htmlAttributes: new {id="subT" },
+                 columns: subGrid.Columns(
+
+                                            subGrid.Column("Site_Name", "Site_Name"),
+                                            subGrid.Column("Flat_No", "Flat Number"),
+                                            subGrid.Column("Executive1_Name", "Executive1 Name"),
+                                            subGrid.Column("Executive2_Name", "Executive2 Name"),
+                                            subGrid.Column("Executive3_Name", "Executive3 Name"),
+                                            subGrid.Column("Date", "Date")
+
+                        )
+                     );
+         })
+
+        )
+     );
+</div>
+</div>
+
+    <input type="hidden" name="GridHtml" />
+    <input type="submit" value="Generate Pdf" id="btnSubmit" class="btn btn-success" />
+</form>
+
     
-    <div id="main" style="padding:25px;background-color:white">
-        @grid.GetHtml(
-         htmlAttributes: new { id = "gridT", width = "700px" },
-         columns: grid.Columns(
-             grid.Column("_DailyFollowup.Customer_Name", "Name"),
-             grid.Column("_DailyFollowup.Address", "Address"),
-             grid.Column("_DailyFollowup.Mobile_No", "Mobile No"),
-             grid.Column("_DailyFollowup.Email_ID", "Email Id"),
-             grid.Column("_DailyFollowup.Requirement", "Requirement"),
-             grid.Column("_DailyFollowup.Occupation", "Occupation"),
-             grid.Column("_DailyFollowup.Income", "Income"),
-             grid.Column("_DailyFollowup.Budget", "Budget"),
-             grid.Column("_DailyFollowup.Down_Payment", "Down_Payment"),
-             grid.Column("_DailyFollowup.Visit", "Current_Status"),
-             grid.Column("_DailyFollowup.Source", "Source"),
-             grid.Column("_DailyFollowup.Enquiry_Date", "Enquiry Date"),
-             grid.Column("_DailyFollowup.folloup_Date", "Enquiry Date"),
-             grid.Column("_DailyFollowup.Next_folloup_Date", "Enquiry Date"),
-             grid.Column("_DailyFollowup.folloup_Details", "Followup Details"),
 
+    @section Scripts{
+        <script>
 
-             grid.Column(format: (item) => {
-                 WebGrid subGrid = new WebGrid(source: item._DailyVM);
-                 return subGrid.GetHtml(
-                     htmlAttributes: new {id="subT" },
-                     columns: subGrid.Columns(
-                                                
-                                                subGrid.Column("Site_Name", "Site_Name"),
-                                                subGrid.Column("Flat_No", "Flat Number"),
-                                                subGrid.Column("Executive1_Name", "Executive1 Name"),
-                                                subGrid.Column("Executive2_Name", "Executive2 Name"),
-                                                subGrid.Column("Executive3_Name", "Executive3 Name"),
-                                                subGrid.Column("Date", "Date")
-                                                
-                            )
-                         );
-             })
-
-            )
-         );
-     </div>
-
-@section Scripts{
-    <script>
-        $(document).ready(function () {
-            var size = $("#main #gridT > thead > tr > th").size();
-            $("#main #gridT > thead > tr > th").last().remove();
-            $("#main #gridT > thead > tr").prepend("<th></th>");
-            $("#main #gridT > thead > tr").each(function (i, el) {
-                $(this).prepend(
-                    $("<td></td>")
-                        .addClass("expand")
-                        .addClass("hoverEff")
-                        .attr('title','click for show/hide')
-                );
-
-                // now get sub table
-                var table = $("table", this).parent.html();
-                $(this).after("<tr><td></td><td style='padding:5px; margin:0px;' colspan='" + (size - 1) + "'>" + table + "</td></tr>");
-                $("table", this).parent().remove();
-                $(".hoverEff", this).live("click", function () {
-                    $(this).parent().closet("tr").next().slideToggle(1000);
-                    $(this).toggleClass("expand collapse");
+            $(function () {
+                $("#btnSubmit").click(function () {
+                    $("input[name='GridHtml']").val($("#Grid").html());
                 });
+            });
 
+            $(document).ready(function () {
+                var size = $("#main #gridT > thead > tr > th").size();
+                $("#main #gridT > thead > tr > th").last().remove();
+                $("#main #gridT > thead > tr").prepend("<th></th>");
+                $("#main #gridT > thead > tr").each(function (i, el) {
+                    $(this).prepend(
+                        $("<td></td>")
+                            .addClass("expand")
+                            .addClass("hoverEff")
+                            .attr('title', 'click for show/hide')
+                    );
+
+                    // now get sub table
+                    var table = $("table", this).parent.html();
+                    $(this).after("<tr><td></td><td style='padding:5px; margin:0px;' colspan='" + (size - 1) + "'>" + table + "</td></tr>");
+                    $("table", this).parent().remove();
+                    $(".hoverEff", this).live("click", function () {
+                        $(this).parent().closet("tr").next().slideToggle(1000);
+                        $(this).toggleClass("expand collapse");
+                    });
+
+                });
+                $("#main #gridT > tbody > tr td.expand").each(function (i, el) {
+                    $(this).toggleClass("expand collapse");
+                    $(this).parent().closet("tr").next().slideToggle(1000);
+                });
             });
-            $("#main #gridT > tbody > tr td.expand").each(function (i, el) {
-                $(this).toggleClass("expand collapse");
-                $(this).parent().closet("tr").next().slideToggle(1000);
-            });
-        });
-    </script>
+        </script>
     }
-    
+
 

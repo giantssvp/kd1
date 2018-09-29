@@ -1306,15 +1306,62 @@ namespace kd.Models
 
 
         /* Show daily enquiry followup based on view2 */
-        public List<DailyFollowup> Daily_enquiry_followup_report()
+        public List<DailyFollowup> Daily_enquiry_followup_report(
+                                    DateTime enqStartDate, DateTime enqEndDate,
+                                    string enqName, string enqSite, string enqRequirement,
+                                    string enqVisit, string enqCurrentStatus, Double enqBudget,
+                                    Double enqDown, string enqMob
+                                   )
         {
             try
             {
-                string query = "select * from daily_enquiry_followup_view2";
+                list_enquiry_followup_show = new List<DailyFollowup>();
 
+                DateTime todayDate = DateTime.Now;
+                DateTime defaulDate = Convert.ToDateTime("1967-01-01");
+                if (enqStartDate == defaulDate) {
+                    enqStartDate = todayDate;
+                }
+                if (enqEndDate == defaulDate)
+                {
+                    enqEndDate = todayDate;
+                }
                 
+                string query = "select * from daily_enquiry_followup_view2 where " +
+                               "( Enquiry_Date between '" + enqStartDate + "' and '" + enqEndDate + "')";
+
+                if (enqName != null && enqName != "")
+                {
+                    query = query + " and (Customer_Name = '" + enqName + "')";
+                }
+
+                if (enqSite != null && enqSite != "" ) {
+                    //query = query + " and (Site_ID = '" + enqSite + "')";
+                }
+
+                if (enqRequirement != null && enqRequirement != "") {
+                    query = query + " and (Requirement LIKE '%" + enqRequirement + "%')";
+                }
+
+                if (enqVisit != null && enqVisit != "") {
+                    query = query + " and (Visit = '" + enqVisit + "')";
+                }
+
+                if (enqBudget > 0.0) {
+                    query = query + " and (Budget = '" + enqBudget + "')";
+                }
+                if (enqDown > 0.0) {
+                    query = query + " and (Down_Payment = '" + enqDown + "')";
+                }
+                if (enqCurrentStatus != null && enqCurrentStatus != "") {
+                    query = query + " and (Current_Status = '" + enqCurrentStatus + "')";
+                }
+                if (enqMob != null && enqMob != "") {
+                    query = query + " and (Mobile_No = '" + enqMob + "')";
+                }
 
                 if (this.OpenConnection() == true)
+
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
 
