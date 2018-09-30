@@ -1,7 +1,107 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "SiteReportPDF";
+    Layout = null;
+
+}
+@{
+
+    var results = ViewBag.list;
+    int? cnt = new int?();
+    cnt = ViewBag.total;
+    if (cnt == null)
+    {
+        cnt = 0;
+    }
 }
 
-<h2>SiteReportPDF</h2>
+<link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+<link rel="stylesheet" href="~/Content/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="~/Content/matrix-style.css" />
+<link rel="stylesheet" href="~/Content/matrix-media.css" />
+<link rel="stylesheet" href="~/Content/uniform.css" />
+<link rel="stylesheet" href="~/Content/select2.css" />
+<link href="~/fonts/gst_font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
 
+<div id="content-header">
+    <div id="breadcrumb"> <a href='@Url.Action("Index", "Home")' title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href='@Url.Action("DailyReportPDF", "Home")'>Daily Report</a></div>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget-box">
+                <div class="widget-title">
+                    <span class="icon"> <i class="icon-info-sign"></i> </span>
+                    <h5>Sitewise Booking Details</h5>
+                </div>
+                <div>
+                    <form method="post" action="@Url.Action("Generate_pdf","Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
+                        <div id="Grid">
+                            <table cellpadding="2" cellspacing="1" border="1" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th colspan="12" align="center" valign="middle"> <p style="font-weight:bold;font-size:large;text-align:center">Daily Enquiry </p></th>
+                                    </tr>
+                                    <tr>
+                                        <th>Booking Date</th>
+                                        <th>Customer Name</th>
+                                        <th>Site Name</th>
+                                        <th>Mobile No</th>
+                                        <th>Flat</th>
+                                        <th>Area</th>
+                                        <th>Package</th>
+                                        <th>Received Amt.</th>
+                                        <th>Remark</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (var i = 0; i < cnt; i++)
+                                    {
+                                        <tr>
+                                            <td>@results[17][i]</td>
+                                            <td>@results[19][i]</td>
+                                            <td>@results[8][i]</td>
+                                            <td>@results[20][i]</td>
+                                            <td>@results[1][i]</td>
+                                            <td>@results[3][i]</td>
+                                            <td>@results[15][i]</td>
+                                            <td>@results[16][i]</td>
+                                            <td>@results[18][i]</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+                            <input type="hidden" id="GridHtml" />
+                            <input type="submit" value="Generate Pdf" id="btnSubmit" class="btn btn-success" />
+
+                        </div>
+                    </form>
+                </>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery.min.js"></script>
+<script src="~/Scripts/jquery.ui.custom.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/matrix.popover.js"></script>
+<script src="~/Scripts/jquery.uniform.js"></script>
+<script src="~/Scripts/select2.min.js"></script>
+<script src="~/Scripts/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/matrix.js"></script>
+<script src="~/Scripts/matrix.tables.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/matrix.form_validation.js"></script>
+
+
+
+<script type="text/javascript">
+    $(function () {
+        $("#btnSubmit").click(function () {
+            alert("Hii");
+            $("input[name='GridHtml']").val($("#Grid").html());
+        });
+    });
+</script>

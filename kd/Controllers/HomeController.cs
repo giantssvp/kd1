@@ -2564,12 +2564,23 @@ namespace kd.Controllers
         [Authorize]
         public ActionResult SiteReport()
         {
+            
+            
             return View();
         }
 
         [Authorize]
-        public ActionResult SiteReportPDF()
+        public ActionResult SiteReportPDF(DateTime startDate, DateTime endDate,
+                                       string siteName, string siteType)
         {
+            ViewBag.total = 0;
+            List<string>[] list = new List<string>[17];
+            list = obj.Sitewise_bookings(
+                   startDate, endDate, siteName, siteType
+                   );
+
+            ViewBag.list = list;
+            ViewBag.total = list[0].Count();
             return View();
         }
 

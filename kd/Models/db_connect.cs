@@ -24,6 +24,7 @@ namespace kd.Models
         public List<string>[] list_wing_name_show = new List<string>[2];
         public List<string>[] list_booking_details_show = new List<string>[7];        
         public List<string>[] list_flat_no_show = new List<string>[3];
+        public List<string>[] list_sitewise_booking_show = new List<string>[21];
         public List<DailyFollowup> list_enquiry_followup_show = new List<DailyFollowup>();
 
         private bool OpenConnection()
@@ -1401,6 +1402,71 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
             {  
             }
             return list_enquiry_followup_show;
+        }
+
+        /* Show sitewise bookingd of flats and plot */
+        public List<string>[] Sitewise_bookings(
+                                    DateTime startDate, DateTime endDate,
+                                    string siteName, string siteType)
+        {
+            try
+            {
+                list_enquiry_followup_show = new List<DailyFollowup>();
+                string query = ""; 
+                DateTime todayDate = DateTime.Now;
+                DateTime defaulDate = Convert.ToDateTime("1967-01-01");
+                if (startDate == defaulDate)
+                {
+                    startDate = todayDate;
+                }
+                if (endDate == defaulDate)
+                {
+                    endDate = todayDate;
+                }
+                if (siteType == "Flat")
+                {
+                     query = "select * from sitewise_booking_flats where " +
+                               "( Booking_Date between '" + startDate + "' and '" + endDate + "')"
+                               + " and Site_Id =  " + siteName;
+
+                }
+                else {
+                     query = "select * from sitewise_booking_plot where " +
+                               "( Booking_Date between '" + startDate + "' and '" + endDate + "')"
+                               + " and Site_Id = " + siteName;
+                }
+                for (int i = 0; i < 21; i++)
+                {
+                    list_sitewise_booking_show[i] = new List<string>();
+                }
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    while (dataReader.Read())
+                    {
+                        for (int i = 0; i < 21; i++)
+                        {
+                            list_sitewise_booking_show[i].Add(dataReader[i] + "");
+                        }
+                    }
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return list_sitewise_booking_show;
+                }
+                else
+                {
+                    return list_sitewise_booking_show;
+                }
+
+            }
+            catch (MySqlException ex)
+            {
+                return list_sitewise_booking_show;
+            }
+            
         }
 
         public List<string>[] cost_sheet_show(string sheet_type, int offset, int limit, string search = "")

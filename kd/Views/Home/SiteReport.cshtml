@@ -24,7 +24,7 @@
                     <h5>Booking Details Site wise</h5>
                 </div>
                 <div class="widget-content nopadding">
-                    <form method="post" action="@Url.Action("Display_pdf","Home")" target="_blank" name="basic_validate" id="basic_validate" novalidate="novalidate">
+                    <form method="post" action="@Url.Action("SiteReportPDF","Home")" target="_blank" name="basic_validate" id="basic_validate" novalidate="novalidate">
                         <table class="table table-striped">
                             <tbody>
                                 <tr class="odd gradeX">
@@ -34,12 +34,23 @@
                                     <td><label class="control-label">End Date</label></td>
                                     <td><input type="date" name="endDate" id="required"></td>
                                 </tr>
-                                <tr class="odd gradeX">                                    
+                                <tr class="odd gradeX">
                                     <td><label class="control-label">Site Name</label></td>
                                     <td>
-                                        <select name="sitename" id="sitename">    </select>
+                                        <select name="siteName" id="siteName">    </select>
                                     </td>
+                                    <td><label class="control-label">Site Type</label></td>
+                                    <td>
+                                        <select name="siteType" id="siteType">
+                                            <option value="Flat" selected>Flat</option>
+                                            <option value="Plot">Plot</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr class="odd gradeX">
+                                    
                                     <td><input type="submit" value="Generate Report" class="btn btn-success" /></td>
+                                    
                                 </tr>
                             </tbody>
                         </table>
@@ -61,3 +72,26 @@
 <script src="~/Scripts/matrix.tables.js"></script>
 <script src="~/Scripts/jquery.validate.js"></script>
 <script src="~/Scripts/matrix.form_validation.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("get_site", "Home")',
+            data: {},
+            dataType: 'json',
+            success: function (d) {
+                var list1 = d.id;
+                var list = d.name;
+
+                $("#sitename").html("");
+                $.each(list, function (index, value) {
+                    $("#siteName").append($('<option></option>').val(list1[index]).html(value));
+                });
+            },
+            error: function (err) {
+                alert(err.responseText);
+            },
+        });
+    });
+</script>
