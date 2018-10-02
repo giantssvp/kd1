@@ -68,17 +68,14 @@
                                     <td>
                                         <select name="bsite" id="bsite">    </select>
                                     </td>
-
-                                    <td><label class="control-label">Wing</label></td>
-                                    <td>
-                                        <select name="bwing" id="bwing">    </select>
-                                    </td>
-                                </tr>
-                                <tr class="odd gradeX">
                                     <td><label class="control-label">Flats/Plot</label></td>
                                     <td>
                                         <select name="bflats" id="bflats">    </select>
                                     </td>
+                                </tr>
+                                <tr class="odd gradeX">
+                                    <td><label class="control-label">Remarks</label></td>
+                                    <td><input type="text" name="bremark" id="required" @(edit ? new { value = elist[14] } : null)></td>
 
                                     <td><label class="control-label">Internal Charges</label></td>
                                     <td>
@@ -114,9 +111,6 @@
                                     </td>
                                 </tr>
                                 <tr class="odd gradeX">
-                                    <td><label class="control-label">Remarks</label></td>
-                                    <td><input type="text" name="bremark" id="required" @(edit ? new { value = elist[14] } : null)></td>
-
                                     @if (edit)
                                     {
                                         <td><input type="submit" name="submit_btn" value="Update" class="btn btn-success" /></td>
@@ -244,11 +238,11 @@
                 $.each(list, function (index, value) {
                     $("#bsite").append($('<option></option>').val(list1[index]).html(value));                    
                 });
-                if ("@edit") {
-                    document.getElementById("bsite").value = @(edit ? elist[7] : 1);
+                @if (edit) {
+                    <text> document.getElementById("bsite").value = @(edit ? elist[7] : 1); </text>
                 }
                 else {
-                    document.getElementById("bsite").selectedIndex = "0";
+                    <text> document.getElementById("bsite").selectedIndex = "0"; </text>
                 }
                 flat($('#bsite').val());
             },

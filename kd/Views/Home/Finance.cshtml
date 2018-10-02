@@ -73,46 +73,46 @@
                                     <td><label class="control-label">File Status</label></td>
                                     <td>
                                         <select name="filesta" id="required">
-                                            <option value="Process" @(edit ? (elist[7].Contains("Process") ? "selected" : "") : "selected")>Process</option>
-                                            <option value="Login" @(edit ? (elist[7].Contains("Login") ? "selected" : "") : "")>Login</option>
-                                            <option value="Sanction" @(edit ? (elist[7].Contains("Sanction") ? "selected" : "") : "")>Saction</option>
-                                            <option value="Disbus" @(edit ? (elist[7].Contains("Disbus") ? "selected" : "") : "")>Disbus</option>
-                                            <option value="Other" @(edit ? (elist[7].Contains("Other") ? "selected" : "") : "")>Other</option>
+                                            <option value="Process" @(edit ? (elist[10].Contains("Process") ? "selected" : "") : "selected")>Process</option>
+                                            <option value="Login" @(edit ? (elist[10].Contains("Login") ? "selected" : "") : "")>Login</option>
+                                            <option value="Sanction" @(edit ? (elist[10].Contains("Sanction") ? "selected" : "") : "")>Saction</option>
+                                            <option value="Disbus" @(edit ? (elist[10].Contains("Disbus") ? "selected" : "") : "")>Disbus</option>
+                                            <option value="Other" @(edit ? (elist[10].Contains("Other") ? "selected" : "") : "")>Other</option>
                                         </select>
                                     </td>
                                     <td><label class="control-label">File Sanction Date</label></td>
-                                    <td> <input type="date" name="filesanctdate" id="required" @(edit ? new { value = @Convert.ToDateTime(elist[8]).ToString("yyyy-MM-dd") } : null)></td>
+                                    <td> <input type="date" name="filesanctdate" id="required" @(edit ? new { value = @Convert.ToDateTime(elist[11]).ToString("yyyy-MM-dd") } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Required Loan Amount</label></td>
-                                    <td><input type="number" name="reqloanamt" id="required" @(edit ? new { value = elist[9] } : null)></td>
+                                    <td><input type="number" name="reqloanamt" id="required" @(edit ? new { value = elist[12] } : null)></td>
 
                                     <td><label class="control-label">Sanction Loan Amount</label></td>
-                                    <td><input type="number" name="sanctloanamt" id="required" @(edit ? new { value = elist[10] } : null)></td>
+                                    <td><input type="number" name="sanctloanamt" id="required" @(edit ? new { value = elist[13] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Actual Loan Amount</label></td>
-                                    <td><input type="number" name="actloanamt" id="required" @(edit ? new { value = elist[12] } : null)></td>
+                                    <td><input type="number" name="actloanamt" id="required" @(edit ? new { value = elist[15] } : null)></td>
                                     <td><label class="control-label">Receiving DD Amount</label></td>
-                                    <td><input type="number" name="recddamt" id="required" @(edit ? new { value = elist[13] } : null)></td>
+                                    <td><input type="number" name="recddamt" id="required" @(edit ? new { value = elist[16] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Remaining DD Amount</label></td>
-                                    <td> <input type="number" name="remddamt" id="required" @(edit ? new { value = elist[14] } : null)></td>
+                                    <td> <input type="number" name="remddamt" id="required" @(edit ? new { value = elist[17] } : null)></td>
                                     <td><label class="control-label">Rate Of Interest</label></td>
-                                    <td><input type="text" name="rateofinter" id="required" @(edit ? new { value = elist[15] } : null)></td>
+                                    <td><input type="text" name="rateofinter" id="required" @(edit ? new { value = elist[18] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">EMI Amount</label></td>
-                                    <td><input type="number" name="emiamt" id="required" @(edit ? new { value = elist[16] } : null)></td>
+                                    <td><input type="number" name="emiamt" id="required" @(edit ? new { value = elist[19] } : null)></td>
 
                                     <td><label class="control-label">EMI Total Months</label></td>
-                                    <td> <input type="number" name="emimonths" id="required" @(edit ? new { value = elist[17] } : null)></td>
+                                    <td> <input type="number" name="emimonths" id="required" @(edit ? new { value = elist[20] } : null)></td>
                                 </tr>
                                 @Html.Partial("booking_fk")
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">File Rejected Finance</label></td>
-                                    <td> <input type="text" name="finstat" id="required" @(edit ? new { value = elist[18] } : null)></td>                                
+                                    <td> <input type="text" name="finstat" id="required" @(edit ? new { value = elist[21] } : null)></td>                                
                                     @if (edit)
                                     {
                                         <td><input type="submit" name="submit_btn" value="Update" class="btn btn-success" /></td>

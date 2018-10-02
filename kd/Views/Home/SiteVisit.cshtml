@@ -47,7 +47,7 @@
                     <h5>Site Visit Details</h5>
                 </div>
                 <div class="widget-content nopadding">
-                    <form method="post" action="@Url.Action("add_de_sitevisit","Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
+                    <form method="post" action="@Url.Action("add_de_sitevisit", "Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
                         <table class="table table-striped">
                             <tbody>
                                 <tr class="odd gradeX">
@@ -61,31 +61,26 @@
                                     </td>
                                 </tr>
                                 <tr class="odd gradeX">
-                                    <td><label class="control-label">Wing</label></td>
-                                    <td width="200">
-                                        <select name="enqwing" id="enqwing">    </select>
-                                    </td>
                                     <td><label class="control-label">Flat/Plot No</label></td>
                                     <td width="200">
                                         <select name="enqflatno" id="enqflatno">    </select>
                                     </td>
-                                </tr>
-                                <tr class="odd gradeX">
                                     <td><label class="control-label">Executive1 Name</label></td>
                                     <td>
                                         <select name="enqexename1" id="enqexename1">  </select>
                                     </td>
+                                </tr>
+                                <tr class="odd gradeX">
                                     <td><label class="control-label">Executive2 Name</label></td>
                                     <td>
                                         <select name="enqexename2" id="enqexename2">  </select>
                                     </td>
-                                </tr>
-                                <tr class="odd gradeX">
                                     <td><label class="control-label">Executive3 Name</label></td>
                                     <td>
                                         <select name="enqexename3" id="enqexename3">  </select>
                                     </td>
-
+                                </tr>
+                                <tr class="odd gradeX">
                                     @if (edit)
                                     {
                                         <td><input type="submit" name="submit_btn" value="Update" class="btn btn-success" /></td>
@@ -243,13 +238,54 @@
                 $.each(list, function (index, value) {
                     $("#enqsitename").append($('<option></option>').val(list1[index]).html(value));
                 });
-                document.getElementById("enqsitename").value = @(edit ? elist[2] : 1);
+                @if (edit) {
+                    <text> document.getElementById("enqsitename").value = @(edit ? elist[2] : 1); </text>
+                }
+                else {
+                    <text> document.getElementById("enqsitename").selectedIndex = "0"; </text>
+                }
+                flat($('#enqsitename').val());
             },
             error: function (err) {
                 alert(err.responseText);
             },
         });
     });
+
+    function flat(wing_id)
+    {
+        var data = JSON.stringify({
+            'site_id': wing_id
+        });
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("get_flat_no", "Home")',
+            data: data,
+            dataType: 'json',
+            success: function (d) {
+                var list1 = d.id;
+                var list = d.name;
+                var list2 = d.wing;
+                var text = "";
+                $("#enqflatno").html("");
+                $.each(list, function (index, value) {
+                    text = list2[index] + value;
+                    $("#enqflatno").append($('<option></option>').val(list1[index]).html(text));
+                });
+                @if (edit) {
+                    <text> document.getElementById("enqflatno").value = @(edit ? elist[4] : 1); </text>
+                }
+                else {
+                    <text> document.getElementById("enqflatno").selectedIndex = "0"; </text>
+                }
+            },
+            error: function (err) {
+                alert(err.responseText);
+            },
+            contentType: 'application/json'
+        });
+    }
 </script>
 
 <script type="text/javascript">
@@ -271,10 +307,20 @@
                     $("#enqexename2").append($('<option></option>').val(list1[index]).html(value));
                     $("#enqexename3").append($('<option></option>').val(list1[index]).html(value));
                 });
-
-                document.getElementById("enqexename1").value = @(edit ? elist[5] : 1);
-                document.getElementById("enqexename2").value = @(edit ? elist[6] : 1);
-                document.getElementById("enqexename3").value = @(edit ? elist[7] : 1);
+                @if (edit) {
+                    <text>
+                        document.getElementById("enqexename1").value = @(edit ? elist[5] : 1);
+                        document.getElementById("enqexename2").value = @(edit ? elist[6] : 1);
+                        document.getElementById("enqexename3").value = @(edit ? elist[7] : 1);
+                    </text>
+                }
+                else {
+                    <text>
+                        document.getElementById("enqexename1").value = @(edit ? elist[5] : 1);
+                        document.getElementById("enqexename2").value = @(edit ? elist[6] : 1);
+                        document.getElementById("enqexename3").value = @(edit ? elist[7] : 1);
+                    </text>
+                }
             },
             error: function (err) {
                 alert(err.responseText);
@@ -285,63 +331,8 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        wing_name = "Flat"
         $('#enqsitename').change(function () {
-            var data = JSON.stringify({
-                'site_id': $('#enqsitename').val()
-            });
-
-            $.ajax({
-                type: "POST",
-                url: '@Url.Action("get_wing_name", "Home")',
-                data: data,
-                dataType: 'json',
-                success: function (d) {
-                    var list1 = d.id;
-                    var list = d.name;
-                    $("#enqwing").html("");
-                    $.each(list, function (index, value) {
-                        $("#enqwing").append($('<option></option>').val(value).html(value));
-                    });
-                    document.getElementById("enqwing").value = @(edit ? elist[3] : 1);
-                },
-                error: function (err) {
-                    alert(err.responseText);
-                },
-                contentType: 'application/json'
-            });
-        });
-    });
-</script>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        wing_name = "Flat"
-        $('#enqwing').change(function () {
-            var data = JSON.stringify({
-                'wing_name': $('#enqwing').val(),
-                'site_id': $('#enqsitename').val()
-            });
-
-            $.ajax({
-                type: "POST",
-                url: '@Url.Action("get_flat_no", "Home")',
-                data: data,
-                dataType: 'json',
-                success: function (d) {
-                    var list1 = d.id;
-                    var list = d.name;
-                    $("#enqflatno").html("");
-                    $.each(list, function (index, value) {
-                        $("#enqflatno").append($('<option></option>').val(list1[index]).html(value));
-                    });
-                    document.getElementById("enqflatno").value = @(edit ? elist[4] : 1);
-                },
-                error: function (err) {
-                    alert(err.responseText);
-                },
-                contentType: 'application/json'
-            });
+            flat($('#enqsitename').val());
         });
     });
 </script>

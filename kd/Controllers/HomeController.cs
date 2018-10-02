@@ -90,6 +90,7 @@ namespace kd.Controllers
             ViewBag.total = list[0].Count();
             ViewBag.pageSize = Int32.Parse(ps);
             ViewBag.search = search;
+            ViewBag.edit_str = "edit1";
 
             return View();
         }
@@ -616,10 +617,20 @@ namespace kd.Controllers
                 else if (page == "Finance")
                 {
                     edit_list = obj.get_edit_record("finance_details", id);
+                    List<string> edit_list1 = new List<string>();
+                    edit_list1 = obj.get_showcase_from_bookingID(Int32.Parse(edit_list[19]));
+                    edit_list.Insert(7, edit_list1[0]);
+                    edit_list.Insert(8, edit_list1[1]);
+                    edit_list.Insert(9, edit_list1[2]);
                 }
                 else if (page == "Agreement")
                 {
                     edit_list = obj.get_edit_record("aggrement", id);
+                    List<string> edit_list1 = new List<string>();
+                    edit_list1 = obj.get_showcase_from_bookingID(Int32.Parse(edit_list[5]));
+                    edit_list.Insert(7, edit_list1[0]);
+                    edit_list.Insert(8, edit_list1[1]);
+                    edit_list.Insert(9, edit_list1[2]);
                 }
                 else if (page == "Booking")
                 {
@@ -628,10 +639,18 @@ namespace kd.Controllers
                 else if (page == "PaymentCommit")
                 {
                     edit_list = obj.get_edit_record("payment_commitment", id);
+                    List<string> edit_list1 = new List<string>();
+                    edit_list1 = obj.get_showcase_from_bookingID(Int32.Parse(edit_list[6]));
+                    edit_list.AddRange(edit_list1);
                 }
                 else if (page == "PaymentDetails")
                 {
                     edit_list = obj.get_edit_record("payment_details", id);
+                    List<string> edit_list1 = new List<string>();
+                    edit_list1 = obj.get_showcase_from_bookingID(Int32.Parse(edit_list[11]));
+                    edit_list.Insert(7, edit_list1[0]);
+                    edit_list.Insert(8, edit_list1[1]);
+                    edit_list.Insert(9, edit_list1[2]);
                 }
                 else if (page == "CustomerCostSheet")
                 {
@@ -2035,13 +2054,13 @@ namespace kd.Controllers
             }
         }
 
-        public ActionResult add_paymentcommit(string ctype, string camount, string cdate, string cremark, string bapplicant, string bsite, string bwing, string bflats, string submit_btn, string edit_id = "0")
+        public ActionResult add_paymentcommit(string ctype, string camount, string cdate, string cremark, string bapplicant, string bsite, string bflats, string submit_btn, string edit_id = "0")
         {
             try
             {
                 if (submit_btn == "Save")
                 {
-                    if (obj.insert_paymentcommit(ctype, camount, cdate, cremark, bapplicant, bsite, bwing, bflats) == 1)
+                    if (obj.insert_paymentcommit(ctype, camount, cdate, cremark, bapplicant, bsite, bflats) == 1)
                     {
                         TempData["AlertMessage"] = "All the details saved successfully.";
                     }
@@ -2053,7 +2072,7 @@ namespace kd.Controllers
                 else if (submit_btn == "Update")
                 {
                     int id = Int32.Parse(edit_id);
-                    if (obj.insert_paymentcommit(ctype, camount, cdate, cremark, bapplicant, bsite, bwing, bflats, "edit", id) == 1)
+                    if (obj.insert_paymentcommit(ctype, camount, cdate, cremark, bapplicant, bsite, bflats, "edit", id) == 1)
                     {
                         TempData["AlertMessage"] = "All the details updated successfully.";
                     }
@@ -2073,13 +2092,13 @@ namespace kd.Controllers
         }
 
         public ActionResult add_paymentdetails(string pamt, string pmode, string chkid, string chkdate, string bname,
-            string ptype, string bldpay, string bnkpay, string sts, string bapplicant, string bsite, string bwing, string bflats, string submit_btn, string edit_id = "0")
+            string ptype, string bldpay, string bnkpay, string sts, string bapplicant, string bsite, string bflats, string submit_btn, string edit_id = "0")
         {
             try
             {
                 if (submit_btn == "Save")
                 {
-                    if (obj.insert_paymentdetails(pamt, pmode, chkid, chkdate, bname, ptype, bldpay, bnkpay, sts, bapplicant, bsite, bwing, bflats) == 1)
+                    if (obj.insert_paymentdetails(pamt, pmode, chkid, chkdate, bname, ptype, bldpay, bnkpay, sts, bapplicant, bsite, bflats) == 1)
                     {
                         TempData["AlertMessage"] = "All the details saved successfully.";
                     }
@@ -2091,7 +2110,7 @@ namespace kd.Controllers
                 else if (submit_btn == "Update")
                 {
                     int id = Int32.Parse(edit_id);
-                    if (obj.insert_paymentdetails(pamt, pmode, chkid, chkdate, bname, ptype, bldpay, bnkpay, sts, bapplicant, bsite, bwing, bflats, "edit", id) == 1)
+                    if (obj.insert_paymentdetails(pamt, pmode, chkid, chkdate, bname, ptype, bldpay, bnkpay, sts, bapplicant, bsite, bflats, "edit", id) == 1)
                     {
                         TempData["AlertMessage"] = "All the details updated successfully.";
                     }
@@ -2110,13 +2129,13 @@ namespace kd.Controllers
             }
         }
         
-        public ActionResult add_agreement(string ano, string adate, string anotary, string aamount, string aadjustment, string aextra, string gst, string astatus, string bapplicant, string bsite, string bwing, string bflats, string submit_btn, string edit_id = "0")
+        public ActionResult add_agreement(string ano, string adate, string anotary, string aamount, string aadjustment, string aextra, string gst, string astatus, string bapplicant, string bsite, string bflats, string submit_btn, string edit_id = "0")
         {
             try
             {
                 if (submit_btn == "Save")
                 {
-                    if (obj.insert_agreement(ano, adate, anotary, aamount, aadjustment, aextra, gst, astatus, bapplicant, bsite, bwing, bflats) == 1)
+                    if (obj.insert_agreement(ano, adate, anotary, aamount, aadjustment, aextra, gst, astatus, bapplicant, bsite, bflats) == 1)
                     {
                         TempData["AlertMessage"] = "All the details saved successfully.";
                     }
@@ -2128,7 +2147,7 @@ namespace kd.Controllers
                 else if (submit_btn == "Update")
                 {
                     int id = Int32.Parse(edit_id);
-                    if (obj.insert_agreement(ano, adate, anotary, aamount, aadjustment, aextra, gst, astatus, bapplicant, bsite, bwing, bflats, "edit", id) == 1)
+                    if (obj.insert_agreement(ano, adate, anotary, aamount, aadjustment, aextra, gst, astatus, bapplicant, bsite, bflats, "edit", id) == 1)
                     {
                         TempData["AlertMessage"] = "All the details updated successfully.";
                     }
@@ -2149,7 +2168,7 @@ namespace kd.Controllers
 
         public ActionResult add_finance(string fintype, string finname, string finexe, string finexemob, string finexeemail, string filehanddate,
             string filesta, string filesanctdate, string reqloanamt, string sanctloanamt, string disburseamt, string actloanamt, string recddamt, 
-            string remddamt, string rateofinter, string emiamt, string emimonths, string finstat, string bapplicant, string bsite, string bwing, string bflats, string submit_btn, string edit_id = "0")
+            string remddamt, string rateofinter, string emiamt, string emimonths, string finstat, string bapplicant, string bsite, string bflats, string submit_btn, string edit_id = "0")
         {
             try
             {
@@ -2158,7 +2177,7 @@ namespace kd.Controllers
                     if (obj.insert_finance(fintype, finname, finexe, finexemob, finexeemail, filehanddate,
                                            filesta, filesanctdate, reqloanamt, sanctloanamt, disburseamt, 
                                            actloanamt, recddamt, remddamt, rateofinter, emiamt, emimonths, 
-                                           finstat, bapplicant, bsite, bwing, bflats) == 1)
+                                           finstat, bapplicant, bsite, bflats) == 1)
                     {
                         TempData["AlertMessage"] = "All the details saved successfully.";
                     }
@@ -2173,7 +2192,7 @@ namespace kd.Controllers
                     if (obj.insert_finance(fintype, finname, finexe, finexemob, finexeemail, filehanddate,
                                            filesta, filesanctdate, reqloanamt, sanctloanamt, disburseamt, 
                                            actloanamt, recddamt, remddamt, rateofinter, emiamt, emimonths, 
-                                           finstat, bapplicant, bsite, bwing, bflats, "edit", id) == 1)
+                                           finstat, bapplicant, bsite, bflats, "edit", id) == 1)
                     {
                         TempData["AlertMessage"] = "All the details updated successfully.";
                     }
@@ -2193,13 +2212,13 @@ namespace kd.Controllers
         }
 
         public ActionResult add_filestatus(string chrg, string lfee, string chid, string chdate, string bnknm, string figst,
-            string lfamt, string fid, string fstatus, string submit_btn, string edit_id = "0")
+            string lfamt, string financename, string fstatus, string submit_btn, string edit_id = "0")
         {
             try
             {
                 if (submit_btn == "Save")
                 {
-                    if (obj.insert_filestatus(chrg, lfee, chid, chdate, bnknm, figst, lfamt, fid, fstatus) == 1)
+                    if (obj.insert_filestatus(chrg, lfee, chid, chdate, bnknm, figst, lfamt, financename, fstatus) == 1)
                     {
                         TempData["AlertMessage"] = "All the details saved successfully.";
                     }
@@ -2211,7 +2230,7 @@ namespace kd.Controllers
                 else if (submit_btn == "Update")
                 {
                     int id = Int32.Parse(edit_id);
-                    if (obj.insert_filestatus(chrg, lfee, chid, chdate, bnknm, figst, lfamt, fid, fstatus, "edit", id) == 1)
+                    if (obj.insert_filestatus(chrg, lfee, chid, chdate, bnknm, figst, lfamt, financename, fstatus, "edit", id) == 1)
                     {
                         TempData["AlertMessage"] = "All the details updated successfully.";
                     }
@@ -2325,6 +2344,22 @@ namespace kd.Controllers
         {
             List<string>[] sites = new List<string>[7];
             sites = obj.customer_show_name();
+            var result = new
+            {
+                id = sites[0],
+                name = sites[1]
+            };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        /**
+         * Drop Down list for applicant name on page load
+         */
+        [HttpGet]
+        public ActionResult get_finance(string data)
+        {
+            List<string>[] sites = new List<string>[2];
+            sites = obj.finance_name();
             var result = new
             {
                 id = sites[0],

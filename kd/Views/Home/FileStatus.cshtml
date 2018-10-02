@@ -75,8 +75,7 @@
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Finance ID</label></td>
                                     <td>
-                                        <select name="financename" id="finacename"  @(edit ? new { value = elist[8] } : null)>  </select>
-                                  
+                                        <select name="financename" id="financename"  @(edit ? new { value = elist[8] } : null)>  </select>                                  
                                     </td>
                                     <td><label class="control-label">Status</label></td>
                                     <td> <textarea class="span11" name="fstatus">@(edit ? elist[7] : null)</textarea></td>
@@ -112,6 +111,7 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
+                                    <th>Finance Name</th>
                                     <th>Service Charge</th>
                                     <th>Loan Fees Amount</th>
                                     <th>Cheque ID</th>
@@ -123,13 +123,14 @@
                                     {
                                         <th>Modify</th>
                                     }
-                                    </tr>
+                                </tr>
                             </thead>
                             <tbody>
                                 @for (var i = 0; i < cnt; i++)
                                 {
                                 <tr class="gradeX">
                                     <td>@results[0][i]</td>
+                                    <td>@results[11][i]</td>
                                     <td>@results[1][i]</td>
                                     <td>@results[2][i]</td>
                                     <td>@results[3][i]</td>
@@ -144,7 +145,7 @@
                                             <button onclick="fun_del(this);" value="@results[0][i]" class="btn btn-danger">Delete</button>
                                         </td>
                                     }
-                                    </tr>
+                                </tr>
                                 }
                             </tbody>
                         </table>
@@ -167,6 +168,34 @@
 <script src="~/Scripts/matrix.tables.js"></script>
 <script src="~/Scripts/jquery.validate.js"></script>
 <script src="~/Scripts/matrix.form_validation.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("get_finance", "Home")',
+            data: {},
+            dataType: 'json',
+            success: function (d) {
+                var list1 = d.id;
+                var list = d.name;
+                $("#financename").html("");
+                $.each(list, function (index, value) {
+                    $("#financename").append($('<option></option>').val(list1[index]).html(value));
+                });
+                @if (edit) {
+                    <text> document.getElementById("financename").value = @(edit ? elist[8] : 1); </text>
+                }
+                else {
+                    <text> document.getElementById("financename").selectedIndex = "0"; </text>
+                }
+            },
+            error: function (err) {
+                alert(err.responseText);
+            },
+        });
+    });
+</script>
 
 <script type="text/javascript">
     function fun_del(obj)

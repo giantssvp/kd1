@@ -13,12 +13,13 @@ namespace kd.Models
     public class db_connect
     {
         private MySqlConnection connection;        
-        public List<string>[] list_show = new List<string>[70];
+        public List<string>[] list_show = new List<string>[75];
 
         public List<string>[] list_alarms_show = new List<string>[12];
         public List<string>[] list_executive_show_name = new List<string>[2];
         public List<string>[] list_franchies_show_name = new List<string>[2];
         public List<string>[] list_customer_show_name = new List<string>[2];
+        public List<string>[] list_finance_name_show = new List<string>[2];
         public List<string>[] list_customer_booking_show = new List<string>[2];
         public List<string>[] list_daily_customer_name_show = new List<string>[2];
         public List<string>[] list_wing_name_show = new List<string>[2];
@@ -26,7 +27,7 @@ namespace kd.Models
         public List<string>[] list_flat_no_show = new List<string>[3];
         public List<string>[] list_sitewise_booking_show = new List<string>[21];
         public List<DailyFollowup> list_enquiry_followup_show = new List<DailyFollowup>();
-
+        
         private bool OpenConnection()
         {
             string connetionString = null;
@@ -58,7 +59,7 @@ namespace kd.Models
 
         private void clear_list_show()
         {
-            for (int i = 0; i < 70; i++)
+            for (int i = 0; i < 75; i++)
             {
                 list_show[i] = new List<string>();
             }
@@ -716,11 +717,11 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
             }
         }
 
-        public int insert_paymentcommit(string ctype, string camount, string cdate, string cremark, string bapplicant, string bsite, string bwing, string bflats, string type = "insert", int id = 0)
+        public int insert_paymentcommit(string ctype, string camount, string cdate, string cremark, string bapplicant, string bsite, string bflats, string type = "insert", int id = 0)
         {
             try
             {
-                string que = "(select ID from bookings where Applicant_Id=" + bapplicant + " and Flat=" + bflats + " and Wing='" + bwing + "' and Site_Id=" + bsite + ")";
+                string que = "(select ID from bookings where Applicant_Id=" + bapplicant + " and Flat=" + bflats + " and Site_Id=" + bsite + ")";
                 string query = "";
                 if (type == "edit")
                 {
@@ -763,11 +764,11 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
         }
 
         public int insert_paymentdetails(string pamt, string pmode, string chkid, string chkdate, string bname,
-            string ptype, string bldpay, string bnkpay, string sts, string bapplicant, string bsite, string bwing, string bflats, string type = "insert", int id = 0)
+            string ptype, string bldpay, string bnkpay, string sts, string bapplicant, string bsite, string bflats, string type = "insert", int id = 0)
         {
             try
             {
-                string que = "(select ID from bookings where Applicant_Id=" + bapplicant + " and Flat=" + bflats + " and Wing='" + bwing + "' and Site_Id=" + bsite + ")";
+                string que = "(select ID from bookings where Applicant_Id=" + bapplicant + " and Flat=" + bflats + " and Site_Id=" + bsite + ")";
                 string query = "";
                 if (type == "edit")
                 {
@@ -820,11 +821,11 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
             }
         }
 
-        public int insert_agreement(string ano, string adate, string anotary, string aamount, string aadjustment, string aextra, string gst, string astatus, string bapplicant, string bsite, string bwing, string bflats, string type = "insert", int id = 0)
+        public int insert_agreement(string ano, string adate, string anotary, string aamount, string aadjustment, string aextra, string gst, string astatus, string bapplicant, string bsite, string bflats, string type = "insert", int id = 0)
         {
             try
             {
-                string que = "(select ID from bookings where Applicant_Id=" + bapplicant + " and Flat=" + bflats + " and Wing='" + bwing + "' and Site_Id=" + bsite + ")";
+                string que = "(select ID from bookings where Applicant_Id=" + bapplicant + " and Flat=" + bflats + " and Site_Id=" + bsite + ")";
                 string query = "";
                 if (type == "edit")
                 {
@@ -875,11 +876,11 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
         }
 
         public int insert_finance(string fintype, string finname, string finexe, string finexemob, string finexeemail, string filehanddate,
-            string filesta, string filesanctdate, string reqloanamt, string sanctloanamt, string disburseamt, string actloanamt, string recddamt, string remddamt, string rateofinter, string emiamt, string emimonths, string finstat, string bapplicant, string bsite, string bwing, string bflats, string type = "insert", int id = 0)
+            string filesta, string filesanctdate, string reqloanamt, string sanctloanamt, string disburseamt, string actloanamt, string recddamt, string remddamt, string rateofinter, string emiamt, string emimonths, string finstat, string bapplicant, string bsite, string bflats, string type = "insert", int id = 0)
         {
             try
             {
-                string que = "(select ID from bookings where Applicant_Id=" + bapplicant + " and Flat=" + bflats + " and Wing='" + bwing + "' and Site_Id=" + bsite + ")";
+                string que = "(select ID from bookings where Applicant_Id=" + bapplicant + " and Flat=" + bflats + " and Site_Id=" + bsite + ")";
                 string query = "";
                 if (type == "edit")
                 {
@@ -988,7 +989,7 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                     cmd.Parameters.AddWithValue("@bnknm", bnknm);
                     cmd.Parameters.AddWithValue("@figst", figst);
                     cmd.Parameters.AddWithValue("@lfamt", lfamt);
-                    cmd.Parameters.AddWithValue("@fid", fid);
+                    cmd.Parameters.AddWithValue("@fid", Int32.Parse(fid));
                     cmd.Parameters.AddWithValue("@fstatus", fstatus);
 
                     if (type == "edit")
@@ -2204,6 +2205,44 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
         }
 
         /**
+         * Show Daily finance name for page load
+         */
+        public List<string>[] finance_name()
+        {
+            try
+            {
+                string query = "select ID, Finance_Name from finance_details ORDER BY ID DESC";
+
+                list_finance_name_show[0] = new List<string>();
+                list_finance_name_show[1] = new List<string>();
+
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    while (dataReader.Read())
+                    {
+                        list_finance_name_show[0].Add(dataReader["ID"] + "");
+                        list_finance_name_show[1].Add(dataReader["Finance_Name"] + "");
+                    }
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return list_finance_name_show;
+                }
+                else
+                {
+                    return list_finance_name_show;
+                }                
+            }
+            catch (MySqlException ex)
+            {
+                return list_finance_name_show;
+            }
+        }
+
+        /**
          * Show site type
          */
         public string show_site_type(string site_id)
@@ -2585,6 +2624,41 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
             try
             {
                 string query = "select * FROM " + table + " where ID=" + id;
+                List<string> list_edit = new List<string>();
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    int count = dataReader.FieldCount;
+                    while (dataReader.Read())
+                    {
+                        for (int i = 0; i < count; i++)
+                        {
+                            list_edit.Add(dataReader.GetValue(i).ToString());
+                        }
+                    }
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return list_edit;
+                }
+                else
+                {
+                    return list_edit;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return new List<string>();
+            }
+        }
+
+        public List<string> get_showcase_from_bookingID(int id)
+        {
+            try
+            {
+                string query = "select Applicant_Id, Site_Id, Flat from kolhedeveloper.v_bookings where ID = " + id;
                 List<string> list_edit = new List<string>();
 
                 if (this.OpenConnection() == true)

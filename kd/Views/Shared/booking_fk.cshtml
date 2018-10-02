@@ -49,11 +49,11 @@
                 $.each(list, function (index, value) {
                     $("#bapplicant").append($('<option></option>').val(list1[index]).html(value));
                 });
-                if ("@edit") {
-                    document.getElementById("bapplicant").value = @(edit ? elist[7] : 1);
+                @if (edit) {
+                    <text> document.getElementById("bapplicant").value = @(edit ? elist[7] : 1); </text>
                 }
                 else {
-                    document.getElementById("bapplicant").selectedIndex = "0";
+                    <text> document.getElementById("bapplicant").selectedIndex = "0"; </text>
                 }
                 get_booking($('#bapplicant').val());
             },
@@ -96,7 +96,7 @@
                     $("#bwing").html("");
                     $("#bflats").html("");
                     $.each(list4, function (index, value) {
-                        $("#bsite").append($('<option></option>').val(list1[index]).html(value));
+                        $("#bsite").append($('<option></option>').val(list2[index]).html(value));
                     });
                     $.each(list5, function (index, value) {
                         $("#bwing").append($('<option></option>').val(value).html(value));
@@ -105,13 +105,13 @@
                         text = list5[index] + value;
                         $("#bflats").append($('<option></option>').val(list3[index]).html(text));
                     });
-                    if ("@edit") {
-                        document.getElementById("bsite").value = @(edit ? elist[7] : 1);
-                        document.getElementById("bflats").value = @(edit ? elist[7] : 1);
+                    @if (edit) {
+                        <text> document.getElementById("bsite").value = @(edit ? elist[8] : 1);
+                        document.getElementById("bflats").value = @(edit ? elist[9] : 1); </text>
                     }
                     else {
-                        document.getElementById("bsite").selectedIndex = "0";
-                        document.getElementById("bflats").selectedIndex = "0";
+                        <text> document.getElementById("bsite").selectedIndex = "0";
+                        document.getElementById("bflats").selectedIndex = "0"; </text>
                     }
                 },
                 error: function (err) {
