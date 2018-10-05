@@ -1,116 +1,111 @@
-﻿
-@{
-    Layout = null;
+﻿@{
     ViewBag.Title = "CustomerReportPDF";
-    WebGrid grid = new WebGrid(source: Model, canSort: false);
+    Layout = null;
+
+}
+@{
+
+    var results = ViewBag.list;
+    int? cnt = new int?();
+    cnt = ViewBag.total;
+    if (cnt == null)
+    {
+        cnt = 0;
+    }
 }
 
-<!DOCTYPE html>
+<link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+<link rel="stylesheet" href="~/Content/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="~/Content/matrix-style.css" />
+<link rel="stylesheet" href="~/Content/matrix-media.css" />
+<link rel="stylesheet" href="~/Content/uniform.css" />
+<link rel="stylesheet" href="~/Content/select2.css" />
+<link href="~/fonts/gst_font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-    <style>
-        #gridT, #gridT tr {
-            border: 1px solid #0D857B;
-        }
+<div id="content-header">
+    <div id="breadcrumb"> <a href='@Url.Action("Index", "Home")' title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href='@Url.Action("CustomerReport", "Home")'>Customer Report</a></div>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget-box">
+                <div class="widget-title">
+                    <span class="icon"> <i class="icon-info-sign"></i> </span>
+                    <h5>Customer Report</h5>
+                </div>
+                <div>
+                    <form method="post" action="@Url.Action("Generate_pdf","Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
+                        <div id="Grid">
+                            <table cellpadding="2" cellspacing="1" border="1" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th colspan="12" align="center" valign="middle"> <p style="font-weight:bold;font-size:large;text-align:center">Daily Enquiry </p></th>
+                                    </tr>
+                                    <tr>
+                                        <th>Applicant Name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Address</th>
+                                        <th>PAN</th>
+                                        <th>AADHAR</th>
+                                        <th>Occupation</th>
+                                        <th>Co- Name</th>
+                                        <th>Co- PAN</th>
+                                        <th>Co- AADHAR</th>
+                                        <th>Co- Occupation</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (var i = 0; i < cnt; i++)
+                                    {
+                                    <tr>
+                                        <td>@results[8][i]</td>
+                                        <td>@results[9][i]</td>
+                                        <td>@results[10][i]</td>
+                                        <td>@results[11][i]</td>
+                                        <td>@results[12][i]</td>
+                                        <td>@results[13][i]</td>
+                                        <td>@results[1][i]</td>
+                                        <td>@results[1][i]</td>
+                                        <td>@results[2][i]</td>
+                                        <td>@results[3][i]</td>
+                                        <td>@results[4][i]</td>
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
 
-        #nestedT, #nestedT tr {
-            border: 1px solid #f3f3f3;
-        }
+                            <input type="hidden" id="GridHtml" />
+                            <input type="submit" value="Generate Pdf" id="btnSubmit" class="btn btn-success" />
 
-        #nestedT {
-            margin: 0px 0px 0px 10px;
-            padding: 5px;
-            width: 95%;
-        }
-
-            #nestedT th {
-                font-size: 14px;
-                font-weight: bold;
-                background-color: green;
-            }
-
-        .recordHoverEffect {
-            cursor: pointer;
-        }
-
-            .recordHoverEffect:hover {
-                background-color: rgb(248, 242, 242);
-            }
-
-        .expandRecordRecord {
-            background-image: url(/Images/ShowHideImage.png);
-            background-position-x: -22px;
-            background-repeat: no-repeat;
-        }
-
-        .collapseRecordRecord {
-            background-image: url(/Images/ShowHideImage.png);
-            background-position-x: -2px;
-            background-repeat: no-repeat;
-        }
-    </style>
-    @section Scripts{
-        <script>
-            $(document).ready(function () {
-                var size = $("#main #gridT > thead > tr > th").size();
-                $("#main #gridT > thead > tr > th").last().remove();
-                $("#main #gridT > thead > tr").prepend("<th></th>");
-                $("#main #gridT > thead > tr").each(function (i, el) {
-                    $(this).prepend(
-                        $("<td></td>")
-                            .addClass("expand")
-                            .addClass("hoverEff")
-                            .attr('title', 'click for show/hide')
-                    );
-
-                    // now get sub table
-                    var table = $("table", this).parent.html();
-                    $(this).after("<tr><td></td><td style='padding:5px; margin:0px;' colspan='" + (size - 1) + "'>" + table + "</td></tr>");
-                    $("table", this).parent().remove();
-                    $(".hoverEff", this).live("click", function () {
-                        $(this).parent().closet("tr").next().slideToggle(1000);
-                        $(this).toggleClass("expand collapse");
-                    });
-
-                });
-                $("#main #gridT > tbody > tr td.expand").each(function (i, el) {
-                    $(this).toggleClass("expand collapse");
-                    $(this).parent().closet("tr").next().slideToggle(1000);
-                });
-            });
-        </script>
-    }
-</head>
-<body>
-
-    <div id="main" style="padding: 25px; background-color: yellow;">
-        @grid.GetHtml(
-                    htmlAttributes: new { id = "gridT", width = "900px", style = "background-color:skyblue; color:blue; font-size:14pt; font-family:TimesNewRoman;" },
-                    columns: grid.Columns(
-                            grid.Column("_DailyFollowup.ID", "ID"),
-                            grid.Column("_DailyFollowup.Customer_Name", "Customer_Name"),
-                            grid.Column("_DailyFollowup.Address", "Address"),
-
-                            grid.Column(format: (item) =>
-                            {
-                                WebGrid subGrid = new WebGrid(source: item._DailyVM);
-                                return subGrid.GetHtml(
-                                    htmlAttributes: new { id = "nestedT", style = "background-color:red; color:white; font-size:12pt; font-family:verdana;" },
-                                    columns: subGrid.Columns(
-                                            subGrid.Column("ID", "ID"),
-                                            subGrid.Column("Customer_Name", "Name"),
-                                            subGrid.Column("Address", "Address"),
-                                            subGrid.Column("Email_ID", "Email_ID"),
-                                            subGrid.Column("Requirement", "Requirement")
-
-                                        )
-                                    );
-                            })
-                        )
-                    )
+                        </div>
+                    </form>
+                    </>
+                </div>
+            </div>
+        </div>
     </div>
-</body>
-</html>
+
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/jquery.ui.custom.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/matrix.popover.js"></script>
+    <script src="~/Scripts/jquery.uniform.js"></script>
+    <script src="~/Scripts/select2.min.js"></script>
+    <script src="~/Scripts/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/matrix.js"></script>
+    <script src="~/Scripts/matrix.tables.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/matrix.form_validation.js"></script>
+
+
+
+    <script type="text/javascript">
+        $(function () {
+            $("#btnSubmit").click(function () {
+                alert("Hii");
+                $("input[name='GridHtml']").val($("#Grid").html());
+            });
+        });
+    </script>

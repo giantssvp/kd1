@@ -1412,7 +1412,7 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
         {
             try
             {
-                list_enquiry_followup_show = new List<DailyFollowup>();
+                //list_enquiry_followup_show = new List<DailyFollowup>();
                 string query = ""; 
                 DateTime todayDate = DateTime.Now;
                 DateTime defaulDate = Convert.ToDateTime("1967-01-01");
@@ -1621,6 +1621,40 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
             }
         }
 
+        /*
+         *Get customer and co-applicant report 
+         * */
+        public List<string>[] customer_report(string customerName)
+        {
+            try
+            {
+                clear_list_show();
+                
+                string query = "SELECT * FROM v_co_applicant where Applicant_ID=@customer";
+                
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@customer", customerName);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    get_list_show(dataReader);
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return list_show;
+                }
+                else
+                {
+                    return list_show;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return list_show;
+            }
+        }
+
         public List<string>[] finance_show(int offset, int limit, string search = "")
         {
             try
@@ -1643,6 +1677,66 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                     cmd.Parameters.AddWithValue("@limit", limit);
                     MySqlDataReader dataReader = cmd.ExecuteReader();
 
+                    get_list_show(dataReader);
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return list_show;
+                }
+                else
+                {
+                    return list_show;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return list_show;
+            }
+        }
+
+        /*
+         * Get Finance report
+         * */
+        public List<string>[] finance_report(DateTime startDate, DateTime endDate,
+                                             string financeName, string siteName,
+                                             string filesta)
+        {
+            try
+            {
+                clear_list_show();
+                string query = "";
+                DateTime todayDate = DateTime.Now;
+                DateTime defaulDate = Convert.ToDateTime("1967-01-01");
+                if (startDate == defaulDate)
+                {
+                    startDate = todayDate;
+                }
+                if (endDate == defaulDate)
+                {
+                    endDate = todayDate;
+                }
+                
+                query = "select * from v_finance_details where " +
+                            "( finance_details_date between '" + startDate + "' and '" + endDate + "')";
+                                   
+                if (financeName != null && financeName != "")
+                {
+                    query = query + " and (Finance_Name = '" + financeName + "')";
+                }
+                
+                if (siteName != null && siteName != "")
+                {
+                    //query = query + " and (Site_Id = '" + siteName + "')";
+                }
+
+                if (filesta != null && filesta != "")
+                {
+                    //query = query + " and (File_Status = '" + filesta + "')";
+                }
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
                     get_list_show(dataReader);
                     dataReader.Close();
                     this.CloseConnection();

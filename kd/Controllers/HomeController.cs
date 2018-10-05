@@ -2591,8 +2591,17 @@ namespace kd.Controllers
         }
 
         [Authorize]
-        public ActionResult FinanceReportPDF()
+        public ActionResult FinanceReportPDF(DateTime startDate, DateTime endDate,
+                                             string financeName, string siteName, 
+                                             string filesta)
         {
+            ViewBag.total = 0;
+            List<string>[] list = new List<string>[62];
+            list = obj.finance_report(startDate, endDate, financeName, siteName,
+                                        filesta);
+
+            ViewBag.list = list;
+            ViewBag.total = list[0].Count();
             return View();
         }
 
@@ -2626,28 +2635,14 @@ namespace kd.Controllers
         }
 
         [Authorize]
-        public ActionResult CustomerReportPDF()
+        public ActionResult CustomerReportPDF(string applid)
         {
-            List<DailyFollowup> list = new List<DailyFollowup>();
-            List<DailyVM> list1 = new List<DailyVM>();
-            List<Enquiry> lstDailyEnquiry = new List<Enquiry>();
-            //list = obj.Daily_enquiry_report(enqStartDate, enqEndDate, enqName, enqSite, enqRequirement,
-            //                        enqVisit,enqIneterest,enqBudget,enqDown,enqMob);
-            /*
-            list = obj.Daily_enquiry_followup_report();
+            ViewBag.total = 0;
+            List<string>[] list = new List<string>[19];
+            list = obj.customer_report(applid);
 
-            foreach (DailyFollowup DailyFollowupobj in list)
-            {
-                list1 = obj.Daily_enquiry_sitevisit_report();
-
-                Enquiry _Enquiry = new Enquiry();
-                _Enquiry._DailyFollowup = DailyFollowupobj;
-                _Enquiry._DailyVM = list1;
-
-                lstDailyEnquiry.Add(_Enquiry);
-            }
-
-            return View(lstDailyEnquiry); */
+            ViewBag.list = list;
+            ViewBag.total = list[0].Count();
             return View();
         }
 
