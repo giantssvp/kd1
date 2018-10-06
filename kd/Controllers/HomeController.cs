@@ -2716,5 +2716,16 @@ namespace kd.Controllers
         {
             return View();
         }
+
+        public ActionResult CostSheetReportPDF(string costSheet, string siteName)
+        {
+            ViewBag.total = 0;
+            List<string>[] list = new List<string>[48];
+            list = obj.costsheet_report(costSheet, siteName);
+
+            ViewBag.list = list;
+            ViewBag.total = list[0].Count();
+            return View();
+        }
     }
 }

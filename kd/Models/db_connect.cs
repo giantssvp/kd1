@@ -2022,6 +2022,39 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
             }
         }
 
+        /*
+         * Get cost sheet report
+         * */
+        public List<string>[] costsheet_report(string costSheet, string siteName)
+        {
+            try
+            {
+                clear_list_show();
+                string query = "";
+                
+
+                query = "select * from v_cost_sheet where Cost_Sheet_Type = '" + costSheet + "' and (Site_Id = '" + siteName + "')";
+                
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+                    get_list_show(dataReader);
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return list_show;
+                }
+                else
+                {
+                    return list_show;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return list_show;
+            }
+        }
+
         public List<string>[] paydetails_show(int offset, int limit, string search = "")
         {
             try

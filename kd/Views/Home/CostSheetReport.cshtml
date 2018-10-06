@@ -30,14 +30,14 @@
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Cost Sheet Name</label></td>
                                     <td>
-                                        <select name="filesta" id="required">
-                                            <option value="Process">Customer</option>
-                                            <option value="Login">Build</option>                                            
+                                        <select name="costSheet" id="required">
+                                            <option value="Customer">Customer</option>
+                                            <option value="Build">Build</option>
                                         </select>
                                     </td>
                                     <td><label class="control-label">Site Name</label></td>                                                                       </td>
                                     <td>
-                                        <select name="sitename" id="sitename">    </select>
+                                        <select name="siteName" id="siteName">    </select>
                                     </td>
                                 </tr>
                                 <tr>
@@ -58,8 +58,31 @@
 <script src="~/Scripts/matrix.popover.js"></script>
 <script src="~/Scripts/jquery.uniform.js"></script>
 <script src="~/Scripts/select2.min.js"></script>
-<!--<script src="~/Scripts/jquery.dataTables.min.js"></script> -->
+<script src="~/Scripts/jquery.dataTables.min.js"></script>
 <script src="~/Scripts/matrix.js"></script>
 <script src="~/Scripts/matrix.tables.js"></script>
 <script src="~/Scripts/jquery.validate.js"></script>
 <script src="~/Scripts/matrix.form_validation.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("get_site", "Home")',
+            data: {},
+            dataType: 'json',
+            success: function (d) {
+                var list1 = d.id;
+                var list = d.name;
+
+                $("#siteName").html("");
+                $.each(list, function (index, value) {
+                    $("#siteName").append($('<option></option>').val(list1[index]).html(value));
+                });
+            },
+            error: function (err) {
+                alert(err.responseText);
+            },
+        });
+    });
+</script>
