@@ -2561,7 +2561,6 @@ namespace kd.Controllers
                 Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 100f, 0f);
                 PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
                 pdfDoc.Open();
-                //pdfDoc.AddHeader("sdasd","weqweqw");
                 XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
                 pdfDoc.Close();
                 return File(stream.ToArray(), "application/pdf", "Grid.pdf");
@@ -2720,7 +2719,12 @@ namespace kd.Controllers
         public ActionResult CostSheetReportPDF(string costSheet, string siteName)
         {
             ViewBag.total = 0;
-            List<string>[] list = new List<string>[48];
+            List<string>[] list = new List<string>[26];
+            for (int i = 0; i < 26; i++)
+            {
+                list[i] = new List<string>();
+            }
+
             list = obj.costsheet_report(costSheet, siteName);
 
             ViewBag.list = list;

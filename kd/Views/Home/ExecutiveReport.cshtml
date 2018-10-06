@@ -21,7 +21,7 @@
             <div class="widget-box">
                 <div class="widget-title">
                     <span class="icon"> <i class="icon-info-sign"></i> </span>
-                    <h5>Finance Report</h5>
+                    <h5>Executive/Franchies Report</h5>
                 </div>
                 <div class="widget-content nopadding">
                     <form method="post" action="@Url.Action("FinanceReportPDF","Home")" target="_blank" name="basic_validate" id="basic_validate" novalidate="novalidate">
@@ -30,19 +30,19 @@
                                 <tr class="odd gradeX">
 
                                     <td><label class="control-label">Start Date</label></td>
-                                    <td><input type="date" name="startDate" id="required"></td>
+                                    <td><input type="date" name="startDate" value="1967-01-01" id="required"></td>
                                     <td><label class="control-label">End Date</label></td>
-                                    <td><input type="date" name="endDate" id="required"></td>
+                                    <td><input type="date" name="endDate" value="1967-01-01" id="required"></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Executive Franchies Name</label></td>
-                                    <td><input type="text" name="exeName" id="required"></td>
+                                    <td><select name="ename" id="ename">  </select></td>
                                     <td><label class="control-label">Site Name</label></td>                                                                       </td>
                                     <td>
-                                        <select name="sitename" id="sitename">    </select>
+                                        <select name="siteName" id="siteName">    </select>
                                     </td>
                                 </tr>
-                                <tr>                              
+                                <tr>
                                     <td><input type="submit" value="Generate Report" class="btn btn-success" /></td>
                                 </tr>
                             </tbody>
@@ -60,8 +60,54 @@
 <script src="~/Scripts/matrix.popover.js"></script>
 <script src="~/Scripts/jquery.uniform.js"></script>
 <script src="~/Scripts/select2.min.js"></script>
-<!--<script src="~/Scripts/jquery.dataTables.min.js"></script> -->
+<script src="~/Scripts/jquery.dataTables.min.js"></script>
 <script src="~/Scripts/matrix.js"></script>
 <script src="~/Scripts/matrix.tables.js"></script>
 <script src="~/Scripts/jquery.validate.js"></script>
 <script src="~/Scripts/matrix.form_validation.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("get_site", "Home")',
+            data: {},
+            dataType: 'json',
+            success: function (d) {
+                var list1 = d.id;
+                var list = d.name;
+
+                $("#sitename").html("");
+                $.each(list, function (index, value) {
+                    $("#siteName").append($('<option></option>').val(list1[index]).html(value));
+                });
+            },
+            error: function (err) {
+                alert(err.responseText);
+            },
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("get_executive", "Home")',
+            data: {},
+            dataType: 'json',
+            success: function (d) {
+                var list1 = d.id;
+                var list = d.name;
+                $("#ename-").html("");
+                $.each(list, function (index, value) {
+                    $("#ename").append($('<option></option>').val(list1[index]).html(value));
+                });
+
+            },
+            error: function (err) {
+                alert(err.responseText);
+            },
+        });
+    });
+</script>

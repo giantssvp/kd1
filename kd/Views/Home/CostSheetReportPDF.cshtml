@@ -1,7 +1,118 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "CostSheetReportPDF";
+    Layout = null;
+
+}
+@{
+
+    var results = ViewBag.list;
+    int? cnt = new int?();
+    cnt = ViewBag.total;
+    if (cnt == null)
+    {
+        cnt = 0;
+    }
 }
 
-<h2>CostSheetReportPDF</h2>
+<link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+<link rel="stylesheet" href="~/Content/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="~/Content/matrix-style.css" />
+<link rel="stylesheet" href="~/Content/matrix-media.css" />
+<link rel="stylesheet" href="~/Content/uniform.css" />
+<link rel="stylesheet" href="~/Content/select2.css" />
+<link href="~/fonts/gst_font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
 
+<div id="content-header">
+    <div id="breadcrumb"> <a href='@Url.Action("Index", "Home")' title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href='@Url.Action("DailyReportPDF", "Home")'>Cost Sheet Report</a></div>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget-box">
+                <div class="widget-title">
+                    <span class="icon"> <i class="icon-info-sign"></i> </span>
+                    <h5>Cost Sheet</h5>
+                </div>
+                <div>
+                    <form method="post" action="@Url.Action("Generate_pdf", "Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
+                        <div id="Grid">
+                            <table cellpadding="2" cellspacing="1" border="1" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th colspan="11" align="center" valign="middle"> <p style="font-weight:bold;font-size:large;text-align:center">Site Report: @if (cnt > 0 ) { @results[14][0]} </ p ></ th >
+</tr>
+                                    <tr>
+                                        <th colspan="11" align="center" valign="middle">  <p style="font-weight:bold;font-size:large;text-align:center">Site Name: @if (cnt > 0) { @results[18][0]} </ p ></ th >
+</tr>
+                                    <tr>
+                                        <th colspan="11" align="center" valign="middle"> <p style="font-weight:bold;font-size:large;text-align:center"> Site ADD: @if (cnt > 0) {@results[22][0]} </p></th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4" align="center" valign="middle">RR Rate: @if (cnt > 0) {@results[1][0]}</th>
+                                        <th colspan="7" align="center" valign="middle">FOR BOOKING CONCAT - 9075090505/9075097878</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Area</th>
+                                        <th>Basic Rate</th>
+                                        <th>Basic Cost</th>
+                                        <th>Legal</th>
+                                        <th>MSEB</th>
+                                        <th>Stamp Duty, Registration 7%</th>
+                                        <th>Development</th>
+                                        <th>Other Amount</th>
+                                        <th>Grand Total</th>
+                                        <th>GST 12%</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (var i = 0; i < cnt; i++)
+                                    {
+                                    <tr>
+                                        <td>@results[2][i]</td>
+                                        <td>@results[16][i]</td>
+                                        <td>@results[3][i]</td>
+                                        <td>@results[4][i]</td>
+                                        <td>@results[5][i]</td>
+                                        <td>@results[6][i]</td>
+                                        <td>@results[7][i]</td>
+                                        <td>@results[7][i]</td>
+                                        <td>@results[12][i]</td>
+                                        <td>@results[13][i]</td>
+                                        <td>@results[11][i]</td>
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+                            <input type="hidden" name="GridHtml" />
+                            <input type="submit" id="btnSubmit" value="Generate pdf" class="btn btn-success" />
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery.min.js"></script>
+<script src="~/Scripts/jquery.ui.custom.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/matrix.popover.js"></script>
+<script src="~/Scripts/jquery.uniform.js"></script>
+<script src="~/Scripts/select2.min.js"></script>
+<script src="~/Scripts/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/matrix.js"></script>
+<script src="~/Scripts/matrix.tables.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/matrix.form_validation.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#btnSubmit").click(function () {
+            $("input[name='GridHtml']").val($("#Grid").html());
+        });
+    });
+</script>

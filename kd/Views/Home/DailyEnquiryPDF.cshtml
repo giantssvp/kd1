@@ -6,25 +6,54 @@
 }
 
 <style>
-    table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-    /* Zebra striping */
-    tr:nth-of-type(odd) {
-        background: #eee;
+    /*Here I will write some css for looks good*/
+
+    th, td {
+        padding: 5px;
     }
 
     th {
-        background: #333;
-        color: white;
-        font-weight: bold;
+        background-color: rgb(248, 248, 248);
     }
 
-    td, th {
-        padding: 6px;
-        border: 1px solid #ccc;
-        text-align: left;
+    #gridT, #gridT tr {
+        border: 1px solid #0D857B;
+    }
+
+    #subT, #subT tr {
+        border: 1px solid #f3f3f3;
+    }
+
+    #subT {
+        margin: 0px 0px 0px 10px;
+        padding: 5px;
+        width: 95%;
+    }
+
+        #subT th {
+            font-size: 12px;
+        }
+
+    .hoverEff {
+        cursor: pointer;
+    }
+
+        .hoverEff:hover {
+            background-color: rgb(248, 242, 242);
+        }
+
+    .expand {
+        background-image: url(/images/pm.png);
+        width:auto;
+        background-position-x: -22px;
+        background-repeat: no-repeat;
+    }
+
+    .collapse {
+        background-image: url(/images/pm.png);
+        width: auto;
+        background-position-x: -2px;
+        background-repeat: no-repeat;
     }
 </style>
 
@@ -37,93 +66,100 @@
 <link href="~/fonts/gst_font-awesome/css/font-awesome.css" rel="stylesheet" />
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
 
-<div id="Grid">
+<div>
     <form method="post" action="@Url.Action("Generate_pdf","Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
 
         <div id="main" style="padding:25px;background-color:white">
-            @grid.GetHtml(
-             htmlAttributes: new { id = "gridT", width = "700px" },
-             columns: grid.Columns(
-                 grid.Column("_DailyFollowup.Customer_Name", "Name"),
-                 grid.Column("_DailyFollowup.Address", "Address"),
-                 grid.Column("_DailyFollowup.Mobile_No", "Mobile No"),
-                 grid.Column("_DailyFollowup.Email_ID", "Email Id"),
-                 grid.Column("_DailyFollowup.Requirement", "Requirement"),
-                 grid.Column("_DailyFollowup.Occupation", "Occupation"),
-                 grid.Column("_DailyFollowup.Income", "Income"),
-                 grid.Column("_DailyFollowup.Budget", "Budget"),
-                 grid.Column("_DailyFollowup.Down_Payment", "Down_Payment"),
-                 grid.Column("_DailyFollowup.Visit", "Current_Status"),
-                 grid.Column("_DailyFollowup.Source", "Source"),
-                 grid.Column("_DailyFollowup.Enquiry_Date", "Enquiry Date"),
-                 grid.Column("_DailyFollowup.folloup_Date", "Enquiry Date"),
-                 grid.Column("_DailyFollowup.Next_folloup_Date", "Enquiry Date"),
-                 grid.Column("_DailyFollowup.folloup_Details", "Followup Details"),
+            <div id="Grid">
+                @grid.GetHtml(
+                 htmlAttributes: new { id = "gridT", width = "700px" },
+                 columns: grid.Columns(
+                     grid.Column("_DailyFollowup.Customer_Name", "Name"),
+                     grid.Column("_DailyFollowup.Address", "Address"),
+                     grid.Column("_DailyFollowup.Mobile_No", "Mobile No"),
+                     grid.Column("_DailyFollowup.Email_ID", "Email Id"),
+                     grid.Column("_DailyFollowup.Requirement", "Requirement"),
+                     grid.Column("_DailyFollowup.Occupation", "Occupation"),
+                     grid.Column("_DailyFollowup.Income", "Income"),
+                     grid.Column("_DailyFollowup.Budget", "Budget"),
+                     grid.Column("_DailyFollowup.Down_Payment", "Down_Payment"),
+                     grid.Column("_DailyFollowup.Visit", "Current_Status"),
+                     grid.Column("_DailyFollowup.Source", "Source"),
+                     grid.Column("_DailyFollowup.Enquiry_Date", "Enquiry Date"),
+                     grid.Column("_DailyFollowup.folloup_Date", "Enquiry Date"),
+                     grid.Column("_DailyFollowup.Next_folloup_Date", "Enquiry Date"),
+                     grid.Column("_DailyFollowup.folloup_Details", "Followup Details"),
 
 
-                 grid.Column(format: (item) => {
-                     WebGrid subGrid = new WebGrid(source: item._DailyVM);
-                     return subGrid.GetHtml(
-                         htmlAttributes: new {id="subT" },
-                         columns: subGrid.Columns(
+                     grid.Column(format: (item) => {
+                         WebGrid subGrid = new WebGrid(source: item._DailyVM);
+                         return subGrid.GetHtml(
+                             htmlAttributes: new {id="subT" },
+                             columns: subGrid.Columns(
 
-                                                    subGrid.Column("Site_Name", "Site_Name"),
-                                                    subGrid.Column("Flat_No", "Flat Number"),
-                                                    subGrid.Column("Executive1_Name", "Executive1 Name"),
-                                                    subGrid.Column("Executive2_Name", "Executive2 Name"),
-                                                    subGrid.Column("Executive3_Name", "Executive3 Name"),
-                                                    subGrid.Column("Date", "Date")
+                                                        subGrid.Column("Site_Name", "Site_Name"),
+                                                        subGrid.Column("Flat_No", "Flat Number"),
+                                                        subGrid.Column("Executive1_Name", "Executive1 Name"),
+                                                        subGrid.Column("Executive2_Name", "Executive2 Name"),
+                                                        subGrid.Column("Executive3_Name", "Executive3 Name"),
+                                                        subGrid.Column("Date", "Date")
 
-                                )
-                             );
-                 })
+                                    )
+                                 );
+                     })
 
-                )
-             );
+                    )
+                 );
+            </div>
         </div>
-    <input type="hidden" name="GridHtml" />
-    <input type="submit" value="Generate Pdf" id="btnSubmit" class="btn btn-success" />
+
+        <input type="hidden" name="GridHtml" />
+        <input type="submit" value="Generate pdf" id="btnSubmit" class="btn btn-success" />
     </form>
 </div>
-    
 
-    @section Scripts{
-        <script>
 
-            $(function () {
-                $("#btnSubmit").click(function () {
-                    $("input[name='GridHtml']").val($("#Grid").html());
-                });
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script>
+
+    $(function () {
+        $("#btnSubmit").click(function () {
+            $("input[name='GridHtml']").val($("#Grid").html());
+        });
+    });
+
+    $(document).ready(function () {
+        var size = $("#main #gridT > thead > tr >th").size(); // get total column
+        $("#main #gridT > thead > tr >th").last().remove(); // remove last column
+        $("#main #gridT > thead > tr").prepend("<th></th>"); // add one column at first for collapsible column
+        $("#main #gridT > tbody > tr").each(function (i, el) {
+            $(this).prepend(
+                $("<td></td>")
+                    .addClass("expand")
+                    .addClass("hoverEff")
+                    .attr('title', "click for show/hide")
+            );
+
+            //Now get sub table from last column and add this to the next new added row
+            var table = $("table", this).parent().html();
+            //add new row with this subtable
+            $(this).after("<tr><td></td><td style='padding:5px; margin:0px;' colspan='" + (size - 1) + "'>" + table + "</td></tr>");
+            $("table", this).parent().remove();
+            // ADD CLICK EVENT FOR MAKE COLLAPSIBLE
+            $(".hoverEff", this).live("click", function () {
+                $(this).parent().closest("tr").next().slideToggle(100);
+                $(this).toggleClass("expand collapse");
             });
+        });
 
-            $(document).ready(function () {
-                var size = $("#main #gridT > thead > tr > th").size();
-                $("#main #gridT > thead > tr > th").last().remove();
-                $("#main #gridT > thead > tr").prepend("<th></th>");
-                $("#main #gridT > thead > tr").each(function (i, el) {
-                    $(this).prepend(
-                        $("<td></td>")
-                            .addClass("expand")
-                            .addClass("hoverEff")
-                            .attr('title', 'click for show/hide')
-                    );
+        //by default make all subgrid in collapse mode
+        $("#main #gridT > tbody > tr td.expand").each(function (i, el) {
+            $(this).toggleClass("expand collapse");
+            $(this).parent().closest("tr").next().slideToggle(100);
+        });
 
-                    // now get sub table
-                    var table = $("table", this).parent.html();
-                    $(this).after("<tr><td></td><td style='padding:5px; margin:0px;' colspan='" + (size - 1) + "'>" + table + "</td></tr>");
-                    $("table", this).parent().remove();
-                    $(".hoverEff", this).live("click", function () {
-                        $(this).parent().closet("tr").next().slideToggle(1000);
-                        $(this).toggleClass("expand collapse");
-                    });
+    });
 
-                });
-                $("#main #gridT > tbody > tr td.expand").each(function (i, el) {
-                    $(this).toggleClass("expand collapse");
-                    $(this).parent().closet("tr").next().slideToggle(1000);
-                });
-            });
-        </script>
-    }
+</script>
 
 
