@@ -1,7 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "FinanceReportPDF";
-    Layout = null;
+    ViewBag.Title = "FileStatusReportPDF";
 }
 
 @{
@@ -25,7 +24,7 @@
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
 
 <div id="content-header">
-    <div id="breadcrumb"> <a href='@Url.Action("Index", "Home")' title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href='@Url.Action("DailyReportPDF", "Home")'>Daily Report</a></div>
+    <div id="breadcrumb"> <a href='@Url.Action("Index", "Home")' title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href='@Url.Action("DailyReportPDF", "Home")'>File Process Report</a></div>
 </div>
 <div class="container-fluid">
     <div class="row-fluid">
@@ -45,34 +44,34 @@
                                     </tr>
                                     <tr>
                                         <th>Customer Name</th>
-                                        <th>Mobile</th>
-                                        <th>Site Name</th>
-                                        <th>Flat</th>
-                                        <th>Package</th>
-                                        <th>Required Loan Amt</th>
-                                        <th>Sanction Loan Amt</th>
-                                        <th>Finance Name</th>
-                                        <th>Executive Name</th>
-                                        <th>Executive No</th>
+                                        <th>Service Charge</th>
+                                        <th>Loan Fees Amount</th>
+                                        <th>Check ID</th>
+                                        <th>Check Date</th>
+                                        <th>Bank Name</th>
                                         <th>Loan Fees</th>
+                                        <th>Status</th>
+                                        <th>Finance Name</th>
+                                        <th>Site Name</th>
+                                        <th>Flat No</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @for (var i = 0; i < cnt; i++)
                                     {
-                                    <tr>
-                                        <td>@results[51][i]</td>
-                                        <td>@results[53][i]</td>
-                                        <td>@results[35][i]</td>
-                                        <td>@results[43][i]</td>
-                                        <td>@results[24][i]</td>
-                                        <td>@results[9][i]</td>
-                                        <td>@results[10][i]</td>
-                                        <td>@results[2][i]</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
+                                        <tr>
+                                            <td>@results[51][i]</td>
+                                            <td>@results[1][i]</td>
+                                            <td>@results[2][i]</td>
+                                            <td>@results[3][i]</td>
+                                            <td>@results[4][i]</td>
+                                            <td>@results[5][i]</td>
+                                            <td>@results[6][i]</td>
+                                            <td>@results[7][i]</td>
+                                            <td>@results[11][i]</td>
+                                            <td>@results[44][i]</td>
+                                            <td>@results[52][i]</td>
+                                        </tr>
                                     }
                                 </tbody>
                             </table>
@@ -110,4 +109,4 @@
         });
     });
     </script>
-    
+   

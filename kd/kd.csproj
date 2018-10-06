@@ -389,6 +389,8 @@
     <Content Include="Views\Home\Customer_Sec.cshtml" />
     <Content Include="Views\Home\Alarms.cshtml" />
     <Content Include="Views\Shared\booking_fk.cshtml" />
+    <Content Include="Views\Home\FileStatusReport.cshtml" />
+    <Content Include="Views\Home\FileStatusReportPDF.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

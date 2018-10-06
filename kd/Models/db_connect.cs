@@ -1753,6 +1753,43 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
             }
         }
 
+        /*
+         * Get File Process report
+         * */
+        public List<string>[] fileprocess_report(string financeName)
+        {
+            try
+            {
+                clear_list_show();
+                string query = "";
+                
+                query = "select * from v_file_details";
+
+                if (financeName != null && financeName != "")
+                {
+                    query = query + " where (Finance_Name LIKE '%" + financeName + "%')";
+                }
+                             
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+                    get_list_show(dataReader);
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return list_show;
+                }
+                else
+                {
+                    return list_show;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return list_show;
+            }
+        }
+
         public List<string>[] booking_show(int offset, int limit, string search = "")
         {
             try

@@ -2653,8 +2653,14 @@ namespace kd.Controllers
         }
 
         [Authorize]
-        public ActionResult FileStatusReportPDF()
+        public ActionResult FileStatusReportPDF(string financeName)
         {
+            ViewBag.total = 0;
+            List<string>[] list = new List<string>[71];
+            list = obj.fileprocess_report(financeName);
+
+            ViewBag.list = list;
+            ViewBag.total = list[0].Count();
             return View();
         }
 
