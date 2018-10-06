@@ -1,0 +1,112 @@
+﻿@{
+    ViewBag.Title = "PaymentCommitReportPDF";
+    Layout = null;
+}
+
+@{
+
+    var results = ViewBag.list;
+    int? cnt = new int?();
+    cnt = ViewBag.total;
+    if (cnt == null)
+    {
+        cnt = 0;
+    }
+}
+
+<link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+<link rel="stylesheet" href="~/Content/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="~/Content/matrix-style.css" />
+<link rel="stylesheet" href="~/Content/matrix-media.css" />
+<link rel="stylesheet" href="~/Content/uniform.css" />
+<link rel="stylesheet" href="~/Content/select2.css" />
+<link href="~/fonts/gst_font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+
+<div id="content-header">
+    <div id="breadcrumb"> <a href='@Url.Action("Index", "Home")' title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href='@Url.Action("DailyReportPDF", "Home")'>Payment Commitment Report</a></div>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget-box">
+                <div class="widget-title">
+                    <span class="icon"> <i class="icon-info-sign"></i> </span>
+                    <h5>Payment Commitment Report</h5>
+                </div>
+                <div>
+                    <form method="post" action="@Url.Action("Generate_pdf","Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
+                        <div id="Grid">
+                            <table cellpadding="2" cellspacing="1" border="1" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th colspan="12" align="center" valign="middle"> <p style="font-weight:bold;font-size:large;text-align:center">Payment Commit Report</p></th>
+                                    </tr>
+                                    <tr>
+                                        <th>Booking Date</th>
+                                        <th>Customer Name</th>
+                                        <th>Site Name</th>
+                                        <th>Mobile</th>
+                                        <th>Flat</th>
+                                        <th>Area</th>
+                                        <th>Package</th>
+                                        <th>Received Amount</th>
+                                        <th>Paycommit Date</th>
+                                        <th>Paycommit Type</th>
+                                        <th>Remark</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (var i = 0; i < cnt; i++)
+                                    {
+                                    <tr>
+                                        <td>@results[20][i]</td>
+                                        <td>@results[37][i]</td>
+                                        <td>@results[21][i]</td>
+                                        <td>@results[39][i]</td>
+                                        <td>@results[29][i]</td>
+                                        <td>@results[31][i]</td>
+                                        <td>@results[10][i]</td>
+                                        <td>@results[11][i]</td>
+                                        <td>@results[4][i]</td>
+                                        <td>@results[1][i]</td>
+                                        <td>@results[12][i]</td>
+                                     </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+                            <input type="hidden" id="GridHtml" />
+                            <input type="submit" value="Generate Pdf" id="btnSubmit" class="btn btn-success" />
+
+                        </div>
+                    </form>
+                    </>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery.min.js"></script>
+<script src="~/Scripts/jquery.ui.custom.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/matrix.popover.js"></script>
+<script src="~/Scripts/jquery.uniform.js"></script>
+<script src="~/Scripts/select2.min.js"></script>
+<script src="~/Scripts/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/matrix.js"></script>
+<script src="~/Scripts/matrix.tables.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/matrix.form_validation.js"></script>
+
+
+
+<script type="text/javascript">
+    $(function () {
+        $("#btnSubmit").click(function () {
+            alert("Hii");
+            $("input[name='GridHtml']").val($("#Grid").html());
+        });
+    });
+</script>
+

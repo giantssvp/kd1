@@ -1978,6 +1978,50 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
             }
         }
 
+        /*
+         * Get Payment Commit report
+         * */
+        public List<string>[] paycommit_report(DateTime startDate, DateTime endDate)
+        {
+            try
+            {
+                clear_list_show();
+                string query = "";
+                DateTime todayDate = DateTime.Now;
+                DateTime defaulDate = Convert.ToDateTime("1967-01-01");
+                if (startDate == defaulDate)
+                {
+                    startDate = todayDate;
+                }
+                if (endDate == defaulDate)
+                {
+                    endDate = todayDate;
+                }
+
+                query = "select * from v_payment_commitment where " +
+                            "( Commitment_Date between '" + startDate + "' and '" + endDate + "')";
+
+                
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+                    get_list_show(dataReader);
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return list_show;
+                }
+                else
+                {
+                    return list_show;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return list_show;
+            }
+        }
+
         public List<string>[] paydetails_show(int offset, int limit, string search = "")
         {
             try

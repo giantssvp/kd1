@@ -394,23 +394,7 @@ namespace kd.Controllers
             return View();
         }
 
-        [Authorize]
-        public ActionResult Report()
-        {
-            return View();
-        }
-
-        public ActionResult PaymentCommitReport()
-        {
-            return View();
-        }
-
-        public ActionResult CostSheetReport()
-        {
-            return View();
-        }
-
-        public ActionResult delete_record(string page, string ps, string del_id, string filter = "", string search = "", string site = "")
+       public ActionResult delete_record(string page, string ps, string del_id, string filter = "", string search = "", string site = "")
         {
             try
             {
@@ -2702,6 +2686,33 @@ namespace kd.Controllers
 
         [Authorize]
         public ActionResult ExecutiveAudits()
+        {
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult Report()
+        {
+            return View();
+        }
+
+        public ActionResult PaymentCommitReport()
+        {
+            return View();
+        }
+
+        public ActionResult PaymentCommitReportPDF(DateTime startDate, DateTime endDate)
+        {
+            ViewBag.total = 0;
+            List<string>[] list = new List<string>[48];
+            list = obj.paycommit_report(startDate, endDate);
+
+            ViewBag.list = list;
+            ViewBag.total = list[0].Count();
+            return View();
+        }
+
+        public ActionResult CostSheetReport()
         {
             return View();
         }

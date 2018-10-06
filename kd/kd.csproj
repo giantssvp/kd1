@@ -391,6 +391,7 @@
     <Content Include="Views\Shared\booking_fk.cshtml" />
     <Content Include="Views\Home\FileStatusReport.cshtml" />
     <Content Include="Views\Home\FileStatusReportPDF.cshtml" />
+    <Content Include="Views\Home\PaymentCommitReportPDF.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
