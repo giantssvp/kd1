@@ -6,11 +6,32 @@
 @{
 
     var results = ViewBag.list;
+    var results1 = ViewBag.list1;
+    var results2 = ViewBag.list2;
+    var results3 = ViewBag.list3;
     int? cnt = new int?();
+    int? cnt1 = new int?();
+    int? cnt2 = new int?();
+    int? cnt3 = new int?();
     cnt = ViewBag.total;
+    cnt1 = ViewBag.total1;
+    cnt2 = ViewBag.total2;
+    cnt3 = ViewBag.total3;
     if (cnt == null)
     {
         cnt = 0;
+    }
+    if (cnt1 == null)
+    {
+        cnt1 = 0;
+    }
+    if (cnt2 == null)
+    {
+        cnt2 = 0;
+    }
+    if (cnt3 == null)
+    {
+        cnt3 = 0;
     }
 }
 
@@ -43,7 +64,9 @@
                                         <th colspan="8" align="center" valign="middle"> <p style="font-weight:bold;font-size:large;text-align:center">Site Report </p></th>
                                     </tr>
                                     <tr>
-                                        <th colspan="4" align="left" valign="middle">Site Name:</th>
+                                        <th colspan="4" align="left" valign="middle">
+                                            Site Name:  @if (cnt > 0){@results[15][0]}
+                                        </th>
                                         <th colspan="2" align="left" valign="middle">Booking Date:</th>
                                         <th colspan="2" align="left" valign="middle">Referenc By:</th>
                                     </tr>

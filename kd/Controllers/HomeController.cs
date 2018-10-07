@@ -2689,16 +2689,35 @@ namespace kd.Controllers
         public ActionResult MasterReportPDF(int applid, int siteName)
         {
             ViewBag.total = 0;
-            List<string>[] list = new List<string>[56];
-            List<string>[] list1 = new List<string>[15];
+            ViewBag.total1 = 0;
+            ViewBag.total2 = 0;
+            ViewBag.total3 = 0;
+
+            List<string>[] list = new List<string>[75];
+            List<string>[] list1 = new List<string>[75];
+            List<string>[] list2 = new List<string>[75];
+            List<string>[] list3 = new List<string>[75];
+
             list = obj.master_report(
                    applid, siteName, 3);
+            ViewBag.list = list;
+            ViewBag.total = list[0].Count();
 
             list1 = obj.master_report1(
                    applid, siteName, 3);
+            ViewBag.list1 = list1;
+            ViewBag.total1 = list1[0].Count();
 
-            ViewBag.list = list;
-            ViewBag.total = list[0].Count();
+            list2 = obj.master_report2(
+                   applid, siteName, 3);
+            ViewBag.list2 = list2;
+            ViewBag.total2 = list2[0].Count();
+
+            list3 = obj.master_report3(
+                   applid, siteName, 3);
+            ViewBag.list3 = list3;
+            ViewBag.total3 = list3[0].Count();
+
             return View();
         }
 

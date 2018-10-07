@@ -27,7 +27,11 @@ namespace kd.Models
         public List<string>[] list_flat_no_show = new List<string>[3];
         public List<string>[] list_sitewise_booking_show = new List<string>[21];
         public List<DailyFollowup> list_enquiry_followup_show = new List<DailyFollowup>();
-        
+        public List<string>[] masterlist = new List<string>[75];
+        public List<string>[] masterlist1 = new List<string>[75];
+        public List<string>[] masterlist2 = new List<string>[75];
+        public List<string>[] masterlist3 = new List<string>[75];
+
         private bool OpenConnection()
         {
             string connetionString = null;
@@ -1813,9 +1817,12 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
          * */
         public List<string>[] master_report(int applid,int siteName, int flatno)
         {
+            //List<string>[] list = new List<string>[75];
+
             try
             {
-                clear_list_show();
+                //clear_list_show();
+
                 string query = "usp_Get_MasterReportDetails";
 
                 if (this.OpenConnection() == true)
@@ -1829,33 +1836,48 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
 
                     MySqlDataReader dataReader = cmd.ExecuteReader();
 
-                    get_list_show(dataReader);
+                    for (int i = 0; i < dataReader.FieldCount; i++)
+                    {
+                        masterlist[i] = new List<string>();
+                    }
+
+                    //get_list_show(dataReader);
+
+                    while (dataReader.Read())
+                    {
+                        for (int i = 0; i < dataReader.FieldCount; i++)
+                        {
+                            masterlist[i].Add(dataReader[i].ToString());
+                        }
+                    }
 
                     dataReader.Close();
 
                     this.CloseConnection();
 
-                    return list_show;
+                    return masterlist;
                 }
                 else
                 {
-                    return list_show;
+                    return masterlist;
                 }
             }
             catch (MySqlException ex)
             {
-                return list_show;
+                return masterlist;
             }
         }
 
         /*
- * Get Master report
- * */
+         * Get Master report
+         * */
         public List<string>[] master_report1(int applid, int siteName, int flatno)
         {
+            //List<string>[] list = new List<string>[75];
+
             try
             {
-                clear_list_show();
+                //clear_list_show();
                 string query = "usp_Get_FranchiseDetails";
 
                 if (this.OpenConnection() == true)
@@ -1869,22 +1891,141 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
 
                     MySqlDataReader dataReader = cmd.ExecuteReader();
 
-                    get_list_show(dataReader);
+                    for (int i = 0; i < dataReader.FieldCount; i++)
+                    {
+                        masterlist1[i] = new List<string>();
+                    }
+
+                    //get_list_show(dataReader);
+                    while (dataReader.Read())
+                    {
+                        for (int i = 0; i < dataReader.FieldCount; i++)
+                        {
+                            masterlist1[i].Add(dataReader[i] + "");
+                        }
+                    }
 
                     dataReader.Close();
 
                     this.CloseConnection();
 
-                    return list_show;
+                    return masterlist1;
                 }
                 else
                 {
-                    return list_show;
+                    return masterlist1;
                 }
             }
             catch (MySqlException ex)
             {
-                return list_show;
+                return masterlist1;
+            }
+        }
+
+        /*
+         * Get Master report
+         * */
+        public List<string>[] master_report2(int applid, int siteName, int flatno)
+        {
+            //List<string>[] list = new List<string>[75];
+
+            try
+            {
+                //clear_list_show();
+                string query = "usp_Get_PaymentCommDetails";
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@Applicant_Id", applid);
+                    cmd.Parameters.AddWithValue("@Site_Id", siteName);
+                    cmd.Parameters.AddWithValue("@Flat_No", flatno);
+
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    for (int i = 0; i < dataReader.FieldCount; i++)
+                    {
+                        masterlist2[i] = new List<string>();
+                    }
+
+                    //get_list_show(dataReader);
+                    while (dataReader.Read())
+                    {
+                        for (int i = 0; i < dataReader.FieldCount; i++)
+                        {
+                            masterlist2[i].Add(dataReader[i] + "");
+                        }
+                    }
+
+                    dataReader.Close();
+
+                    this.CloseConnection();
+
+                    return masterlist2;
+                }
+                else
+                {
+                    return masterlist2;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return masterlist2;
+            }
+        }
+
+        /*
+        * Get Master report
+        * */
+        public List<string>[] master_report3(int applid, int siteName, int flatno)
+        {
+            //List<string>[] list = new List<string>[75];
+            try
+            {
+                //clear_list_show();
+                string query = "usp_Get_PaymentDetails";
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@Applicant_Id", applid);
+                    cmd.Parameters.AddWithValue("@Site_Id", siteName);
+                    cmd.Parameters.AddWithValue("@Flat_No", flatno);
+
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    for (int i = 0; i < dataReader.FieldCount; i++)
+                    {
+                        masterlist3[i] = new List<string>();
+                    }
+
+                    //get_list_show(dataReader);
+                    while (dataReader.Read())
+                    {
+                        for (int i = 0; i < dataReader.FieldCount; i++)
+                        {
+                            masterlist3[i].Add(dataReader[i] + "");
+                        }
+                    }
+
+                    dataReader.Close();
+
+                    this.CloseConnection();
+
+                    return masterlist3;
+                }
+                else
+                {
+                    return masterlist3;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return masterlist3;
             }
         }
 
