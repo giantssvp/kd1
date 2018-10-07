@@ -44,9 +44,9 @@
                             <tbody>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Franchies Name</label></td>
-                                    <td><input type="text" name="francname" id="required" @(edit ? new { value = elist[1] } : null)></td>
+                                    <td><input type="text" name="francname" id="required" @(edit ? new { value = elist[1].Replace(" ", "\u00A0") } : null)></td>
                                     <td><label class="control-label">Franchies Code</label></td>
-                                    <td> <input type="text" name="franccode" id="required" @(edit ? new { value = elist[8] } : null)></td>
+                                    <td> <input type="text" name="franccode" id="required" @(edit ? new { value = elist[8].Replace(" ", "\u00A0") } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Email ID</label></td>
@@ -57,7 +57,7 @@
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Address</label></td>
-                                    <td> <input type="text" name="francadd" id="required" @(edit ? new { value = elist[4] } : null)></td>
+                                    <td> <input type="text" name="francadd" id="required" @(edit ? new { value = elist[4].Replace(" ", "\u00A0") } : null)></td>
                                     <td><label class="control-label">Joining Date</label></td>
                                     <td><input type="date" name="francjoin" id="required" @(edit ? new { value = @Convert.ToDateTime(elist[7]).ToString("yyyy-MM-dd") } : null)></td>
                                 </tr>

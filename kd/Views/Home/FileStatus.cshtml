@@ -56,14 +56,14 @@
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Cheque ID</label></td>
-                                    <td><input type="text" name="chid" id="required" @(edit ? new { value = elist[3] } : null)></td>
+                                    <td><input type="text" name="chid" id="required" @(edit ? new { value = elist[3].Replace(" ", "\u00A0") } : null)></td>
 
                                     <td><label class="control-label">Cheque Date</label></td>
                                     <td><input type="date" name="chdate" id="required" @(edit ? new { value = @Convert.ToDateTime(elist[4]).ToString("yyyy-MM-dd") } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Bank Name</label></td>
-                                    <td> <input type="text" name="bnknm" id="required" @(edit ? new { value = elist[5] } : null)></td>
+                                    <td> <input type="text" name="bnknm" id="required" @(edit ? new { value = elist[5].Replace(" ", "\u00A0") } : null)></td>
                                     <td><label class="control-label">Loan Fees</label></td>
                                     <td>
                                         <select name="lfee" id="required">

@@ -61,7 +61,7 @@
                                     <td><label class="control-label">Next Follow up Date</label></td>
                                     <td><input type="date" name="enqnextfollow" id="required" @(edit ? new { value = @Convert.ToDateTime(elist[3]).ToString("yyyy-MM-dd") } : null)></td>
                                     <td><label class="control-label">Follow Details</label></td>
-                                    <td><input type="text" name="enqfollowdetails" id="required" @(edit ? new { value = elist[4] } : null)></td>
+                                    <td><input type="text" name="enqfollowdetails" id="required" @(edit ? new { value = elist[4].Replace(" ", "\u00A0") } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Executive1 Name</label></td>

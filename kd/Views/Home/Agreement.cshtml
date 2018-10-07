@@ -65,7 +65,7 @@
                                     <td><label class="control-label">GST Amount</label></td>
                                     <td><input type="number" name="gst" id="required" @(edit ? new { value = elist[12] } : null)></td>
                                     <td><label class="control-label">Agreement Status</label></td>
-                                    <td><input type="text" name="astatus" id="required" @(edit ? new { value = elist[4] } : null)></td>
+                                    <td><input type="text" name="astatus" id="required" @(edit ? new { value = elist[4].Replace(" ", "\u00A0") } : null)></td>
                                 </tr>
                                 @Html.Partial("booking_fk")
                                 <tr class="odd gradeX">

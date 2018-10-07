@@ -60,13 +60,13 @@
                                     </td>
 
                                     <td><label class="control-label">Cheque ID</label></td>
-                                    <td><input type="text" name="chkid" id="required" @(edit ? new { value = elist[4] } : null)></td>
+                                    <td><input type="text" name="chkid" id="required" @(edit ? new { value = elist[4].Replace(" ", "\u00A0") } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Cheque Date</label></td>
                                     <td> <input type="date" name="chkdate" id="required" @(edit ? new { value = @Convert.ToDateTime(elist[5]).ToString("yyyy-MM-dd") } : null)></td>
                                     <td><label class="control-label">Bank Name</label></td>
-                                    <td><input type="text" name="bname" id="required" @(edit ? new { value = elist[6] } : null)></td>
+                                    <td><input type="text" name="bname" id="required" @(edit ? new { value = elist[6].Replace(" ", "\u00A0") } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Payment Type</label></td>
@@ -99,7 +99,7 @@
                                     </td>
 
                                     <td><label class="control-label">Status</label></td>
-                                    <td><input type="text" name="sts" id="required" @(edit ? new { value = elist[13] } : null)></td>
+                                    <td><input type="text" name="sts" id="required" @(edit ? new { value = elist[13].Replace(" ", "\u00A0") } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     @if (edit)

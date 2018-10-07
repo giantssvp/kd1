@@ -50,9 +50,9 @@
                             <tbody>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Customer Name</label></td>
-                                    <td><input type="text" name="enqname" id="required" @(edit ? new { value = elist[1] } : null)></td>
+                                    <td><input type="text" name="enqname" id="required" @(edit ? new { value = elist[1].Replace(" ", "\u00A0") } : null)></td>
                                     <td><label class="control-label">Address</label></td>
-                                    <td> <input type="text" name="enqaddress" id="required" @(edit ? new { value = elist[2] } : null)></td>
+                                    <td> <input type="text" name="enqaddress" id="required" @(edit ? new { value = elist[2].Replace(" ", "\u00A0") } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Mobile No(Whatsapp)</label></td>
@@ -123,7 +123,7 @@
                                         </select>
                                     </td>
                                     <td><label class="control-label">Source Details</label></td>
-                                    <td><input type="text" name="enqsourcedetails" id="required" @(edit ? new { value = elist[14] } : null)></td>
+                                    <td><input type="text" name="enqsourcedetails" id="required" @(edit ? new { value = elist[14].Replace(" ", "\u00A0") } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Sanction Type</label></td>

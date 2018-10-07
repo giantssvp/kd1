@@ -54,11 +54,11 @@
                                         </select>
                                     </td>
                                     <td><label class="control-label">Finance Name</label></td>
-                                    <td> <input type="text" name="finname" id="required" @(edit ? new { value = elist[2] } : null)></td>
+                                    <td> <input type="text" name="finname" id="required" @(edit ? new { value = elist[2].Replace(" ", "\u00A0") } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Finance Executive</label></td>
-                                    <td><input type="text" name="finexe" id="required" @(edit ? new { value = elist[3] } : null)></td>
+                                    <td><input type="text" name="finexe" id="required" @(edit ? new { value = elist[3].Replace(" ", "\u00A0") } : null)></td>
 
                                     <td><label class="control-label">Finance Executive Mobile No</label></td>
                                     <td><input type="number" name="finexemob" id="required" @(edit ? new { value = elist[4] } : null)></td>
@@ -100,7 +100,7 @@
                                     <td><label class="control-label">Remaining DD Amount</label></td>
                                     <td> <input type="number" name="remddamt" id="required" @(edit ? new { value = elist[17] } : null)></td>
                                     <td><label class="control-label">Rate Of Interest</label></td>
-                                    <td><input type="text" name="rateofinter" id="required" @(edit ? new { value = elist[18] } : null)></td>
+                                    <td><input type="text" name="rateofinter" id="required" @(edit ? new { value = elist[18].Replace(" ", "\u00A0") } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">EMI Amount</label></td>
@@ -112,7 +112,7 @@
                                 @Html.Partial("booking_fk")
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">File Rejected Finance</label></td>
-                                    <td> <input type="text" name="finstat" id="required" @(edit ? new { value = elist[21] } : null)></td>                                
+                                    <td> <input type="text" name="finstat" id="required" @(edit ? new { value = elist[21].Replace(" ", "\u00A0") } : null)></td>                                
                                     @if (edit)
                                     {
                                         <td><input type="submit" name="submit_btn" value="Update" class="btn btn-success" /></td>

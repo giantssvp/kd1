@@ -41,11 +41,15 @@
                                 @if (page == "followup")
                                 {
                                     <th>ID</th>
-                                    <th>Daily Customer ID</th>
+                                    <th>Daily Customer Name</th>
+                                    <th>Mobile</th>
+                                    <th>Email</th>
                                     <th>Followup Details</th>
-                                    <th>Followup Date</th>
                                     <th>Next Followup Date</th>
+                                    <th>Followup Date</th>
                                     <th>Executive1</th>
+                                    <th>Executive2</th>
+                                    <th>Executive3</th>
                                 }
                                 else if (page == "paycommit")
                                 {
@@ -54,7 +58,11 @@
                                     <th>Amount</th>
                                     <th>Commitment Date</th>
                                     <th>Remark</th>
-                                    <th>Bkno</th>
+                                    <th>Applicant Name</th>
+                                    <th>Mobile</th>
+                                    <th>Email</th>
+                                    <th>Site</th>
+                                    <th>Flat</th>
                                 }
                                 else
                                 {
@@ -66,7 +74,11 @@
                                     <th>Payment Type</th>
                                     <th>Builder Pay</th>
                                     <th>Bank Pay</th>
-                                    <th>Booking ID</th>
+                                    <th>Applicant Name</th>
+                                    <th>Mobile</th>
+                                    <th>Email</th>
+                                    <th>Site</th>
+                                    <th>Flat</th>
                                 }
                             </tr>
                         </thead>
@@ -77,11 +89,15 @@
                                 @if (page == "followup")
                                 {
                                     <td>@results[0][i]</td>
-                                    <td>@results[1][i]</td>
+                                    <td>@results[9][i]</td>
+                                    <td>@results[11][i]</td>
+                                    <td>@results[13][i]</td>
                                     <td>@results[4][i]</td>
                                     <td>@results[2][i]</td>
                                     <td>@results[3][i]</td>
-                                    <td>@results[5][i]</td>
+                                    <td>@results[25][i]</td>
+                                    <td>@results[34][i]</td>
+                                    <td>@results[43][i]</td>
                                 }
                                 else if (page == "paycommit")
                                 {
@@ -90,7 +106,11 @@
                                     <td>@results[2][i]</td>
                                     <td>@results[4][i]</td>
                                     <td>@results[5][i]</td>
-                                    <td>@results[6][i]</td>
+                                    <td>@results[37][i]</td>
+                                    <td>@results[39][i]</td>
+                                    <td>@results[38][i]</td>
+                                    <td>@results[21][i]</td>
+                                    <td>@results[33][i]@results[29][i]</td>
                                 }
                                 else
                                 {
@@ -102,7 +122,11 @@
                                     <td>@results[7][i]</td>
                                     <td>@results[8][i]</td>
                                     <td>@results[9][i]</td>
-                                    <td>@results[11][i]</td>
+                                    <td>@results[42][i]</td>
+                                    <td>@results[44][i]</td>
+                                    <td>@results[43][i]</td>
+                                    <td>@results[27][i]</td>
+                                    <td>@results[39][i]@results[35][i]</td>
                                 }
                             </tr>
                             }

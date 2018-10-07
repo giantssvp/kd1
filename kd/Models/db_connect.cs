@@ -15,7 +15,7 @@ namespace kd.Models
         private MySqlConnection connection;        
         public List<string>[] list_show = new List<string>[75];
 
-        public List<string>[] list_alarms_show = new List<string>[12];
+        public List<string>[] list_alarms_show = new List<string>[75];
         public List<string>[] list_executive_show_name = new List<string>[2];
         public List<string>[] list_franchies_show_name = new List<string>[2];
         public List<string>[] list_customer_show_name = new List<string>[2];
@@ -2746,18 +2746,18 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                 string query = "";
                 if (page == "followup")
                 {
-                    query = "SELECT * FROM daily_followup where Folloup_Date=Date(NOW()) or Next_Folloup_Date=Date(NOW()) ORDER BY ID DESC";
+                    query = "SELECT * FROM v_daily_followup where Folloup_Date=Date(NOW()) or Next_Folloup_Date=Date(NOW()) ORDER BY ID DESC";
                 }
                 else if (page == "paycommit")
                 {
-                    query = "SELECT * FROM payment_commitment where Commitment_Date=Date(NOW()) ORDER BY ID DESC";
+                    query = "SELECT * FROM v_payment_commitment where Commitment_Date=Date(NOW()) ORDER BY ID DESC";
                 }
                 else
                 {
-                    query = "SELECT * FROM payment_details where Cheque_Date=Date(NOW()) ORDER BY ID DESC";
+                    query = "SELECT * FROM v_payment_details where Cheque_Date=Date(NOW()) ORDER BY ID DESC";
                 }
 
-                for (int i = 0; i < 12; i++)
+                for (int i = 0; i < 75; i++)
                 {
                     list_alarms_show[i] = new List<string>();
                 }
@@ -2771,21 +2771,21 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                     {                        
                         if (page == "followup")
                         {
-                            for (int i = 0; i < 8; i++)
+                            for (int i = 0; i < dataReader.FieldCount; i++)
                             {
                                 list_alarms_show[i].Add(dataReader[i] + "");
                             }
                         }
                         else if (page == "paycommit")
                         {
-                            for (int i = 0; i < 7; i++)
+                            for (int i = 0; i < dataReader.FieldCount; i++)
                             {
                                 list_alarms_show[i].Add(dataReader[i] + "");
                             }
                         }
                         else
                         {
-                            for (int i = 0; i < 12; i++)
+                            for (int i = 0; i < dataReader.FieldCount; i++)
                             {
                                 list_alarms_show[i].Add(dataReader[i] + "");
                             }

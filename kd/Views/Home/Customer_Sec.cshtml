@@ -48,15 +48,15 @@
                                         <select name="applid" id="applid">    </select>
                                     </td>
                                     <td><label class="control-label">Co - Applicant Name</label></td>
-                                    <td><input type="text" name="coapplname" id="required" @(edit ? new { value = elist[1] } : null)></td>
+                                    <td><input type="text" name="coapplname" id="required" @(edit ? new { value = elist[1].Replace(" ", "\u00A0") } : null)></td>
                                     <td><label class="control-label">Co - PAN  NO</label></td>
-                                    <td><input type="text" name="coapplpan" id="required" @(edit ? new { value = elist[2] } : null)></td>
+                                    <td><input type="text" name="coapplpan" id="required" @(edit ? new { value = elist[2].Replace(" ", "\u00A0") } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Co - AADHAR NO</label></td>
-                                    <td><input type="text" name="coapplaadhar" id="required" @(edit ? new { value = elist[3] } : null)></td>
+                                    <td><input type="text" name="coapplaadhar" id="required" @(edit ? new { value = elist[3].Replace(" ", "\u00A0") } : null)></td>
                                     <td><label class="control-label">Co - Occupation</label></td>
-                                    <td><input type="text" name="coapploccu" id="required" @(edit ? new { value = elist[4] } : null)></td>
+                                    <td><input type="text" name="coapploccu" id="required" @(edit ? new { value = elist[4].Replace(" ", "\u00A0") } : null)></td>
                                     <td><label class="control-label">Co - Birth Date</label></td>
                                     <td><input type="date" name="coapplbirth" id="required" @(edit ? new { value = @Convert.ToDateTime(elist[5]).ToString("yyyy-MM-dd") } : null)></td>
                                 </tr>

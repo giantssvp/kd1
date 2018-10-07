@@ -46,7 +46,7 @@
                                     <td><label class="control-label">Booking No</label></td>
                                     <td><input type="number" name="bno" id="required" @(edit ? new { value = elist[1] } : null)></td>
                                     <td><label class="control-label">Referred By</label></td>
-                                    <td> <input type="text" name="breferred" id="required" @(edit ? new { value = elist[2] } : null)></td>
+                                    <td> <input type="text" name="breferred" id="required" @(edit ? new { value = elist[2].Replace(" ", "\u00A0") } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Applicant</label></td>
@@ -75,7 +75,7 @@
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Remarks</label></td>
-                                    <td><input type="text" name="bremark" id="required" @(edit ? new { value = elist[14] } : null)></td>
+                                    <td><input type="text" name="bremark" id="required" @(edit ? new { value = elist[14].Replace(" ", "\u00A0") } : null)></td>
 
                                     <td><label class="control-label">Internal Charges</label></td>
                                     <td>
@@ -96,7 +96,7 @@
                                     </td>
 
                                     <td><label class="control-label">Flat Cancelled By</label></td>
-                                    <td> <input type="text" name="bcancel" id="required" @(edit ? new { value = elist[12] } : null)></td>
+                                    <td> <input type="text" name="bcancel" id="required" @(edit ? new { value = elist[12].Replace(" ", "\u00A0") } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Follow Up Date</label></td>

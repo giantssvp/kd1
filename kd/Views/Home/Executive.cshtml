@@ -44,9 +44,9 @@
                             <tbody>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Executive Name</label></td>
-                                    <td><input type="text" name="exename" id="required" @(edit ? new { value = elist[1] } : null)></td>
+                                    <td><input type="text" name="exename" id="required" @(edit ? new { value = elist[1].Replace(" ", "\u00A0") } : null)></td>
                                     <td><label class="control-label">Executive Code</label></td>
-                                    <td> <input type="text" name="execode" id="required" @(edit ? new { value = elist[2] } : null)></td>
+                                    <td> <input type="text" name="execode" id="required" @(edit ? new { value = elist[2].Replace(" ", "\u00A0") } : null)></td>
                                     <td><label class="control-label">Email ID</label></td>
                                     <td><input type="email" name="exeemail" id="required" @(edit ? new { value = elist[3] } : null)></td>
                                 </tr>
@@ -54,7 +54,7 @@
                                     <td><label class="control-label">Mobile No</label></td>
                                     <td><input type="number" name="exemob" id="required" @(edit ? new { value = elist[4] } : null)></td>
                                     <td><label class="control-label">Address</label></td>
-                                    <td> <input type="text" name="exeadd" id="required" @(edit ? new { value = elist[5] } : null)></td>
+                                    <td> <input type="text" name="exeadd" id="required" @(edit ? new { value = elist[5].Replace(" ", "\u00A0") } : null)></td>
                                     <td><label class="control-label">Joining Date</label></td>
                                     <td><input type="date" name="exejoin" id="required" @(edit ? new { value = @Convert.ToDateTime(elist[7]).ToString("yyyy-MM-dd") } : null)></td>
                                 </tr>
