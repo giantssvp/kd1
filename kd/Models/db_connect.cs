@@ -1754,6 +1754,141 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
         }
 
         /*
+         * Get Executive Franchies report
+         * */
+        public List<string>[] execu_fran_report(DateTime startDate, DateTime endDate,
+                                             string siteName, string ename)
+        {
+            try
+            {
+                clear_list_show();
+                string query = "";
+                DateTime todayDate = DateTime.Now;
+                DateTime defaulDate = Convert.ToDateTime("1967-01-01");
+                if (startDate == defaulDate)
+                {
+                    startDate = todayDate;
+                }
+                if (endDate == defaulDate)
+                {
+                    endDate = todayDate;
+                }
+
+                query = "select * from v_exec_fran where " +
+                            "( Date between '" + startDate + "' and '" + endDate + "')";
+
+                if (ename != null && ename != "")
+                {
+                    query = query + " and (E_ID = '" + ename + "')";
+                }
+
+                if (siteName != null && siteName != "")
+                {
+                    //query = query + " and (Site_Id = '" + siteName + "')";
+                }
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+                    get_list_show(dataReader);
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return list_show;
+                }
+                else
+                {
+                    return list_show;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return list_show;
+            }
+        }
+
+
+        /*
+         * Get Master report
+         * */
+        public List<string>[] master_report(int applid,int siteName, int flatno)
+        {
+            try
+            {
+                clear_list_show();
+                string query = "usp_Get_MasterReportDetails";
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@Applicant_Id", applid);
+                    cmd.Parameters.AddWithValue("@Site_Id", siteName);
+                    cmd.Parameters.AddWithValue("@Flat_No", flatno);
+
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    get_list_show(dataReader);
+
+                    dataReader.Close();
+
+                    this.CloseConnection();
+
+                    return list_show;
+                }
+                else
+                {
+                    return list_show;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return list_show;
+            }
+        }
+
+        /*
+ * Get Master report
+ * */
+        public List<string>[] master_report1(int applid, int siteName, int flatno)
+        {
+            try
+            {
+                clear_list_show();
+                string query = "usp_Get_FranchiseDetails";
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@Applicant_Id", applid);
+                    cmd.Parameters.AddWithValue("@Site_Id", siteName);
+                    cmd.Parameters.AddWithValue("@Flat_No", flatno);
+
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    get_list_show(dataReader);
+
+                    dataReader.Close();
+
+                    this.CloseConnection();
+
+                    return list_show;
+                }
+                else
+                {
+                    return list_show;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return list_show;
+            }
+        }
+
+        /*
          * Get File Process report
          * */
         public List<string>[] fileprocess_report(string financeName)

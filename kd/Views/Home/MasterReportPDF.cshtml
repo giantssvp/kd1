@@ -1,7 +1,248 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "MasterReportPDF";
+    Layout = null;
+
+}
+@{
+
+    var results = ViewBag.list;
+    int? cnt = new int?();
+    cnt = ViewBag.total;
+    if (cnt == null)
+    {
+        cnt = 0;
+    }
 }
 
-<h2>MasterReportPDF</h2>
+<link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+<link rel="stylesheet" href="~/Content/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="~/Content/matrix-style.css" />
+<link rel="stylesheet" href="~/Content/matrix-media.css" />
+<link rel="stylesheet" href="~/Content/uniform.css" />
+<link rel="stylesheet" href="~/Content/select2.css" />
+<link href="~/fonts/gst_font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+
+<div id="content-header">
+    <div id="breadcrumb"> <a href='@Url.Action("Index", "Home")' title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href='@Url.Action("DailyReportPDF", "Home")'>Master Report</a></div>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget-box">
+                <div class="widget-title">
+                    <span class="icon"> <i class="icon-info-sign"></i> </span>
+                    <h5>Master Report</h5>
+                </div>
+                <div>
+                    <form method="post" action="@Url.Action("Generate_pdf","Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
+                        <div id="Grid">
+                            <table cellpadding="2" cellspacing="1" border="1" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th colspan="8" align="center" valign="middle"> <p style="font-weight:bold;font-size:large;text-align:center">Site Report </p></th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4" align="left" valign="middle">Site Name:</th>
+                                        <th colspan="2" align="left" valign="middle">Booking Date:</th>
+                                        <th colspan="2" align="left" valign="middle">Referenc By:</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4" align="left" valign="middle">Site Add:</th>
+                                        <th colspan="2" align="left" valign="middle">Booking NO:</th>
+                                        <th colspan="2" align="left" valign="middle">Follup Date:</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4" align="left" valign="middle">Executive Name:</th>
+                                        <th colspan="2" align="left" valign="middle">Incentive:</th>
+                                        <th colspan="2" align="left" valign="middle">Incentive Amt:</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4" align="left" valign="middle">Franchis Name:</th>
+                                        <th colspan="2" align="left" valign="middle">Flat Status:</th>
+                                        <th colspan="2" align="left" valign="middle">Cancel By:</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4" align="left" valign="middle">Applicant Details:</th>
+                                        <th colspan="2" align="left" valign="middle">Flat:</th>
+                                        <th colspan="2" align="left" valign="middle">Floor:</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4" align="left" valign="middle">Name:</th>
+                                        <th colspan="2" align="left" valign="middle">Area:</th>
+                                        <th colspan="2" align="left" valign="middle">Type:</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4" align="left" valign="middle">Address:</th>
+                                        <th colspan="2" align="left" valign="middle">Package:</th>
+                                        <th colspan="2" align="left" valign="middle">Wing:</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2" align="left" valign="middle">Mobile No:</th>
+                                        <th colspan="2" align="left" valign="middle">DOB:</th>
+                                        <th colspan="2" align="left" valign="middle">Total Received:</th>
+                                        <th colspan="2" align="left" valign="middle">Remaining Amount:</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2" align="left" valign="middle">PAN NO:</th>
+                                        <th colspan="2" align="left" valign="middle">AADHAR No:</th>
+                                        <th colspan="2" align="left" valign="middle">Reserved Parking:</th>
+                                        <th colspan="2" align="left" valign="middle">Internal Charges:</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2" align="left" valign="middle">EMAIL:</th>
+                                        <th colspan="2" align="left" valign="middle">Occupation:</th>
+                                        <th colspan="2" align="left" valign="middle">Agreement Done:</th>
+                                        <th colspan="2" align="left" valign="middle">Agreement Date:</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4" align="left" valign="middle">CO Applicant Name:</th>
+                                        <th colspan="2" align="left" valign="middle">Agreement No:</th>
+                                        <th colspan="2" align="left" valign="middle">Agreement Amt:</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2" align="left" valign="middle">CO App PAN:</th>
+                                        <th colspan="2" align="left" valign="middle">CO App AADHAR:</th>
+                                        <th colspan="2" align="left" valign="middle">Agreement Cost:</th>
+                                        <th colspan="2" align="left" valign="middle">Adjust Amt:</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2" align="left" valign="middle">CO Occupation:</th>
+                                        <th colspan="2" align="left" valign="middle">DOB:</th>
+                                        <th colspan="2" align="left" valign="middle">Notary Amt:</th>
+                                        <th colspan="2" align="left" valign="middle">Extra Amt:</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2" align="left" valign="middle"></th>
+                                        <th colspan="2" align="left" valign="middle">Master File charges</th>
+
+                                    </tr>
+                                    <tr>
+                                        <th colspan="8" align="left" valign="middle">Finance Details:</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4" align="left" valign="middle">Finance:</th>
+                                        <th colspan="4" align="left" valign="middle">File handover Date::</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4" align="left" valign="middle">Finance Executive Name:</th>
+                                        <th colspan="4" align="left" valign="middle">Finance Exe Mob No:</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4" align="left" valign="middle">File Status:</th>
+                                        <th colspan="4" align="left" valign="middle">Sanction Date:</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4" align="left" valign="middle">Required Loan Amt:</th>
+                                        <th colspan="4" align="left" valign="middle">Disbursement Amt:</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4" align="left" valign="middle">Sanction Loan Amt:</th>
+                                        <th colspan="4" align="left" valign="middle">Received DD Amount:</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4" align="left" valign="middle">Actual Loan Amt:</th>
+                                        <th colspan="4" align="left" valign="middle">Remaining DD Amt:</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4" align="left" valign="middle">Rate Of Intereset:</th>
+                                        <th colspan="2" align="left" valign="middle">EMI Amount:</th>
+                                        <th colspan="2" align="left" valign="middle">EMI Months:</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="8" align="center" valign="middle">Payment Commitment:</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4" align="left" valign="middle">Date:</th>
+                                        <th colspan="2" align="left" valign="middle">Commitment Type:</th>
+                                        <th colspan="2" align="left" valign="middle">Amount:</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4" align="left" valign="middle">:</th>
+                                        <th colspan="2" align="left" valign="middle">:</th>
+                                        <th colspan="2" align="left" valign="middle">:</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="8" align="center" valign="middle">Payment Details:</th>
+                                    <tr>
+                                        <th colspan="1" align="left" valign="middle">Date</th>
+                                        <th colspan="1" align="left" valign="middle">Amount</th>
+                                        <th colspan="1" align="left" valign="middle">Payment Mode</th>
+                                        <th colspan="1" align="left" valign="middle">Cheque Date</th>
+                                        <th colspan="1" align="left" valign="middle">Bank Name</th>
+                                        <th colspan="1" align="left" valign="middle">Payment Type</th>
+                                        <th colspan="1" align="left" valign="middle">Builder Pay</th>
+                                        <th colspan="1" align="left" valign="middle">Bank Pay</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="1" align="left" valign="middle"></th>
+                                        <th colspan="1" align="left" valign="middle"></th>
+                                        <th colspan="1" align="left" valign="middle"></th>
+                                        <th colspan="1" align="left" valign="middle"></th>
+                                        <th colspan="1" align="left" valign="middle"></th>
+                                        <th colspan="1" align="left" valign="middle"></th>
+                                        <th colspan="1" align="left" valign="middle"></th>
+                                        <th colspan="1" align="left" valign="middle"></th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="8" align="center" valign="middle">File Process:</th>
+                                    <tr>
+                                        <th colspan="1" align="left" valign="middle">Date</th>
+                                        <th colspan="1" align="left" valign="middle">Service Charge</th>
+                                        <th colspan="1" align="left" valign="middle">Loan Fees Amt</th>
+                                        <th colspan="1" align="left" valign="middle">Cheque/Cash</th>
+                                        <th colspan="1" align="left" valign="middle">Cheque Date</th>
+                                        <th colspan="1" align="left" valign="middle">Bank Name</th>
+                                        <th colspan="1" align="left" valign="middle">Loan Fees</th>
+                                        <th colspan="1" align="left" valign="middle">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                      <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                   
+                                </tbody>
+                            </table>
+
+                            <input type="hidden" name="GridHtml" />
+                            <input type="submit" id="btnSubmit" value="Generate pdf" class="btn btn-success" />
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/Scripts/jquery.min.js"></script>
+<script src="~/Scripts/jquery.ui.custom.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/matrix.popover.js"></script>
+<script src="~/Scripts/jquery.uniform.js"></script>
+<script src="~/Scripts/select2.min.js"></script>
+<script src="~/Scripts/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/matrix.js"></script>
+<script src="~/Scripts/matrix.tables.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/matrix.form_validation.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#btnSubmit").click(function () {
+            $("input[name='GridHtml']").val($("#Grid").html());
+        });
+    });
+</script>
+
 

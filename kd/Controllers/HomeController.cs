@@ -2654,8 +2654,16 @@ namespace kd.Controllers
         }
 
         [Authorize]
-        public ActionResult ExecutiveReportPDF()
+        public ActionResult ExecutiveReportPDF(DateTime startDate, DateTime endDate,
+                                       string siteName, string ename)
         {
+            ViewBag.total = 0;
+            List<string>[] list = new List<string>[17];
+            list = obj.execu_fran_report(
+                   startDate, endDate, siteName, ename);
+
+            ViewBag.list = list;
+            ViewBag.total = list[0].Count();
             return View();
         }
 
@@ -2678,8 +2686,19 @@ namespace kd.Controllers
         }
 
         [Authorize]
-        public ActionResult MasterReportPDF()
+        public ActionResult MasterReportPDF(int applid, int siteName)
         {
+            ViewBag.total = 0;
+            List<string>[] list = new List<string>[56];
+            List<string>[] list1 = new List<string>[15];
+            list = obj.master_report(
+                   applid, siteName, 3);
+
+            list1 = obj.master_report1(
+                   applid, siteName, 3);
+
+            ViewBag.list = list;
+            ViewBag.total = list[0].Count();
             return View();
         }
 
