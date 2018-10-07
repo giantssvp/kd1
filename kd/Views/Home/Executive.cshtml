@@ -116,8 +116,8 @@
                                     <td>@results[4][i]</td>
                                     <td>@results[3][i]</td>
                                     <td>@results[5][i]</td>
-                                    <td>@results[6][i]</td>
-                                    <td>@results[7][i]</td>
+                                    <td>@Convert.ToDateTime(results[6][i]).ToString("dd-MM-yyyy")</td>
+                                    <td>@Convert.ToDateTime(results[7][i]).ToString("dd-MM-yyyy")</td>
                                     @if (this.Session["role"].ToString() == "admin")
                                     {
                                         <td align="center">

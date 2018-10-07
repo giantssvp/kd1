@@ -135,6 +135,7 @@
                                     <th>Amount</th>
                                     <th>Payment Mode</th>
                                     <th>Cheque ID</th>
+                                    <th>Cheque Date</th>
                                     <th>Bank Name</th>
                                     <th>Builder Pay</th>
                                     <th>Applicant Name</th>
@@ -154,6 +155,7 @@
                                     <td>@results[1][i]</td>
                                     <td>@results[3][i]</td>
                                     <td>@results[4][i]</td>
+                                    <td>@Convert.ToDateTime(results[5][i]).ToString("dd-MM-yyyy")</td>
                                     <td>@results[6][i]</td>
                                     <td>@results[8][i]</td>
                                     <td>@results[42][i]</td>

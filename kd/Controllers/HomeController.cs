@@ -18,6 +18,20 @@ namespace kd.Controllers
     {
         public static db_connect obj = new db_connect();
 
+        protected bool isUserAuthenticated()
+        {
+            //if (!this.User.Identity.IsAuthenticated)
+            if (!Request.IsAuthenticated)
+            {
+                FormsAuthentication.RedirectToLoginPage();
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         [Authorize]
         public ActionResult Dashboard()
         {
@@ -136,6 +150,9 @@ namespace kd.Controllers
             List<string>[] sites = new List<string>[9];
             List<string>[] list = new List<string>[9];
             sites = obj.sites_show(site_type:"Flat");
+            sites[0].Insert(0, "All");
+            sites[1].Insert(0, "All");
+
             ViewBag.sites = sites.ToList();
             ViewBag.total_site = sites[0].Count();
             ViewBag.site = site;
@@ -158,6 +175,8 @@ namespace kd.Controllers
             List<string>[] sites = new List<string>[6];
             List<string>[] list = new List<string>[6];
             sites = obj.sites_show(site_type: "Plot");
+            sites[0].Insert(0, "All");
+            sites[1].Insert(0, "All");
 
             ViewBag.sites = sites.ToList();
             ViewBag.total_site = sites[0].Count();
@@ -175,7 +194,7 @@ namespace kd.Controllers
 
         [Authorize]
         public ActionResult Executive(string ps = "10", string filter="", string search = "")
-        {
+        {            
             ViewBag.total = 0;
             HttpContext.Session.Add("offset", 0);
             List<string>[] list = new List<string>[14];
@@ -186,7 +205,7 @@ namespace kd.Controllers
             ViewBag.total = list[0].Count();
             ViewBag.pageSize = Int32.Parse(ps);
             ViewBag.search = search;
-
+            
             return View();
         }
 
@@ -399,142 +418,144 @@ namespace kd.Controllers
                 int id = Int32.Parse(del_id);
                 int pass = 0;
 
-                if (page == "Index")
+                if (isUserAuthenticated())
                 {
-                    if(obj.Delete_Record("daily_enquiry", id)  == 0)
+                    if (page == "Index")
                     {
-                        pass = 1;
+                        if (obj.Delete_Record("daily_enquiry", id) == 0)
+                        {
+                            pass = 1;
+                        }
                     }
-                }
-                else if (page == "SiteVisit")
-                {
-                    if (obj.Delete_Record("daily_sitevisit", id) == 0)
+                    else if (page == "SiteVisit")
                     {
-                        pass = 1;
+                        if (obj.Delete_Record("daily_sitevisit", id) == 0)
+                        {
+                            pass = 1;
+                        }
                     }
-                }
-                else if (page == "Followup")
-                {
-                    if (obj.Delete_Record("daily_followup", id) == 0)
+                    else if (page == "Followup")
                     {
-                        pass = 1;
+                        if (obj.Delete_Record("daily_followup", id) == 0)
+                        {
+                            pass = 1;
+                        }
                     }
-                }
-                else if (page == "Sites")
-                {
-                    if (obj.Delete_Record("sites", id) == 0)
+                    else if (page == "Sites")
                     {
-                        pass = 1;
+                        if (obj.Delete_Record("sites", id) == 0)
+                        {
+                            pass = 1;
+                        }
                     }
-                }
-                else if (page == "Flats")
-                {
-                    if (obj.Delete_Record("flats", id) == 0)
+                    else if (page == "Flats")
                     {
-                        pass = 1;
+                        if (obj.Delete_Record("flats", id) == 0)
+                        {
+                            pass = 1;
+                        }
                     }
-                }
-                else if (page == "Plots")
-                {
-                    if (obj.Delete_Record("plot", id) == 0)
+                    else if (page == "Plots")
                     {
-                        pass = 1;
+                        if (obj.Delete_Record("plot", id) == 0)
+                        {
+                            pass = 1;
+                        }
                     }
-                }
-                else if (page == "Executive")
-                {
-                    if (obj.Delete_Record("executive", id) == 0)
+                    else if (page == "Executive")
                     {
-                        pass = 1;
+                        if (obj.Delete_Record("executive", id) == 0)
+                        {
+                            pass = 1;
+                        }
                     }
-                }
-                else if (page == "Franchies")
-                {
-                    if (obj.Delete_Record("franchies", id) == 0)
+                    else if (page == "Franchies")
                     {
-                        pass = 1;
+                        if (obj.Delete_Record("franchies", id) == 0)
+                        {
+                            pass = 1;
+                        }
                     }
-                }
-                else if (page == "Customer")
-                {
-                    if (obj.Delete_Record("applicant", id) == 0)
+                    else if (page == "Customer")
                     {
-                        pass = 1;
+                        if (obj.Delete_Record("applicant", id) == 0)
+                        {
+                            pass = 1;
+                        }
                     }
-                }
-                else if (page == "Customer_Sec")
-                {
-                    if (obj.Delete_Record("co_applicant", id) == 0)
+                    else if (page == "Customer_Sec")
                     {
-                        pass = 1;
+                        if (obj.Delete_Record("co_applicant", id) == 0)
+                        {
+                            pass = 1;
+                        }
                     }
-                }
-                else if (page == "FileStatus")
-                {
-                    if (obj.Delete_Record("file_details", id) == 0)
+                    else if (page == "FileStatus")
                     {
-                        pass = 1;
+                        if (obj.Delete_Record("file_details", id) == 0)
+                        {
+                            pass = 1;
+                        }
                     }
-                }
-                else if (page == "Finance")
-                {
-                    if (obj.Delete_Record("finance_details", id) == 0)
+                    else if (page == "Finance")
                     {
-                        pass = 1;
+                        if (obj.Delete_Record("finance_details", id) == 0)
+                        {
+                            pass = 1;
+                        }
                     }
-                }
-                else if (page == "Agreement")
-                {
-                    if (obj.Delete_Record("aggrement", id) == 0)
+                    else if (page == "Agreement")
                     {
-                        pass = 1;
+                        if (obj.Delete_Record("aggrement", id) == 0)
+                        {
+                            pass = 1;
+                        }
                     }
-                }
-                else if (page == "Booking")
-                {
-                    if (obj.Delete_Record("bookings", id) == 0)
+                    else if (page == "Booking")
                     {
-                        pass = 1;
+                        if (obj.Delete_Record("bookings", id) == 0)
+                        {
+                            pass = 1;
+                        }
                     }
-                }
-                else if (page == "PaymentCommit")
-                {
-                    if (obj.Delete_Record("payment_commitment", id) == 0)
+                    else if (page == "PaymentCommit")
                     {
-                        pass = 1;
+                        if (obj.Delete_Record("payment_commitment", id) == 0)
+                        {
+                            pass = 1;
+                        }
                     }
-                }
-                else if (page == "PaymentDetails")
-                {
-                    if (obj.Delete_Record("payment_details", id) == 0)
+                    else if (page == "PaymentDetails")
                     {
-                        pass = 1;
+                        if (obj.Delete_Record("payment_details", id) == 0)
+                        {
+                            pass = 1;
+                        }
                     }
-                }
-                else if (page == "CustomerCostSheet")
-                {
-                    if (obj.Delete_Record("cost_sheet", id) == 0)
+                    else if (page == "CustomerCostSheet")
                     {
-                        pass = 1;
+                        if (obj.Delete_Record("cost_sheet", id) == 0)
+                        {
+                            pass = 1;
+                        }
                     }
-                }
-                else if (page == "BuilderCostSheet")
-                {
-                    if (obj.Delete_Record("cost_sheet", id) == 0)
+                    else if (page == "BuilderCostSheet")
                     {
-                        pass = 1;
+                        if (obj.Delete_Record("cost_sheet", id) == 0)
+                        {
+                            pass = 1;
+                        }
                     }
-                }
 
-                if (pass == 1)
-                {
-                    TempData["AlertMessage"] = "Record deleted successfully.";
+                    if (pass == 1)
+                    {
+                        TempData["AlertMessage"] = "Record deleted successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while deleting the details please do it again.";
+                    }
                 }
-                else
-                {
-                    TempData["AlertMessage"] = "There is some issue while deleting the details please do it again.";
-                }
-
                 return RedirectToAction(page, "Home", new { ps=ps, search=search, site=site});
             }
             catch (Exception ex)
@@ -551,101 +572,103 @@ namespace kd.Controllers
             {
                 int id = Int32.Parse(edit_id);
                 List<string> edit_list = new List<string>();
-                
-                if (page == "Index")
-                {
-                    edit_list = obj.get_edit_record("daily_enquiry", id);                    
-                }
-                else if (page == "SiteVisit")
-                {
-                    edit_list = obj.get_edit_record("daily_sitevisit", id);
-                }
-                else if (page == "Followup")
-                {
-                    edit_list = obj.get_edit_record("daily_followup", id);
-                }
-                else if (page == "Sites")
-                {
-                    edit_list = obj.get_edit_record("sites", id);
-                }
-                else if (page == "Flats")
-                {
-                    edit_list = obj.get_edit_record("flats", id);
-                }
-                else if (page == "Plots")
-                {
-                    edit_list = obj.get_edit_record("plot", id);
-                }
-                else if (page == "Executive")
-                {
-                    edit_list = obj.get_edit_record("executive", id);
-                }
-                else if (page == "Franchies")
-                {
-                    edit_list = obj.get_edit_record("franchies", id);
-                }
-                else if (page == "Customer")
-                {
-                    edit_list = obj.get_edit_record("applicant", id);
-                }
-                else if (page == "Customer_Sec")
-                {
-                    edit_list = obj.get_edit_record("co_applicant", id);
-                }
-                else if (page == "FileStatus")
-                {
-                    edit_list = obj.get_edit_record("file_details", id);
-                }
-                else if (page == "Finance")
-                {
-                    edit_list = obj.get_edit_record("finance_details", id);
-                    List<string> edit_list1 = new List<string>();
-                    edit_list1 = obj.get_showcase_from_bookingID(Int32.Parse(edit_list[19]));
-                    edit_list.Insert(7, edit_list1[0]);
-                    edit_list.Insert(8, edit_list1[1]);
-                    edit_list.Insert(9, edit_list1[2]);
-                }
-                else if (page == "Agreement")
-                {
-                    edit_list = obj.get_edit_record("aggrement", id);
-                    List<string> edit_list1 = new List<string>();
-                    edit_list1 = obj.get_showcase_from_bookingID(Int32.Parse(edit_list[5]));
-                    edit_list.Insert(7, edit_list1[0]);
-                    edit_list.Insert(8, edit_list1[1]);
-                    edit_list.Insert(9, edit_list1[2]);
-                }
-                else if (page == "Booking")
-                {
-                    edit_list = obj.get_edit_record("bookings", id);
-                }
-                else if (page == "PaymentCommit")
-                {
-                    edit_list = obj.get_edit_record("payment_commitment", id);
-                    List<string> edit_list1 = new List<string>();
-                    edit_list1 = obj.get_showcase_from_bookingID(Int32.Parse(edit_list[6]));
-                    edit_list.AddRange(edit_list1);
-                }
-                else if (page == "PaymentDetails")
-                {
-                    edit_list = obj.get_edit_record("payment_details", id);
-                    List<string> edit_list1 = new List<string>();
-                    edit_list1 = obj.get_showcase_from_bookingID(Int32.Parse(edit_list[11]));
-                    edit_list.Insert(7, edit_list1[0]);
-                    edit_list.Insert(8, edit_list1[1]);
-                    edit_list.Insert(9, edit_list1[2]);
-                }
-                else if (page == "CustomerCostSheet")
-                {
-                    edit_list = obj.get_edit_record("cost_sheet", id);
-                }
-                else if (page == "BuilderCostSheet")
-                {
-                    edit_list = obj.get_edit_record("cost_sheet", id);
-                }
 
-                ViewBag.edit_list = edit_list;
-                ViewBag.edit_str = "edit";
+                if (isUserAuthenticated())
+                {
+                    if (page == "Index")
+                    {
+                        edit_list = obj.get_edit_record("daily_enquiry", id);
+                    }
+                    else if (page == "SiteVisit")
+                    {
+                        edit_list = obj.get_edit_record("daily_sitevisit", id);
+                    }
+                    else if (page == "Followup")
+                    {
+                        edit_list = obj.get_edit_record("daily_followup", id);
+                    }
+                    else if (page == "Sites")
+                    {
+                        edit_list = obj.get_edit_record("sites", id);
+                    }
+                    else if (page == "Flats")
+                    {
+                        edit_list = obj.get_edit_record("flats", id);
+                    }
+                    else if (page == "Plots")
+                    {
+                        edit_list = obj.get_edit_record("plot", id);
+                    }
+                    else if (page == "Executive")
+                    {
+                        edit_list = obj.get_edit_record("executive", id);
+                    }
+                    else if (page == "Franchies")
+                    {
+                        edit_list = obj.get_edit_record("franchies", id);
+                    }
+                    else if (page == "Customer")
+                    {
+                        edit_list = obj.get_edit_record("applicant", id);
+                    }
+                    else if (page == "Customer_Sec")
+                    {
+                        edit_list = obj.get_edit_record("co_applicant", id);
+                    }
+                    else if (page == "FileStatus")
+                    {
+                        edit_list = obj.get_edit_record("file_details", id);
+                    }
+                    else if (page == "Finance")
+                    {
+                        edit_list = obj.get_edit_record("finance_details", id);
+                        List<string> edit_list1 = new List<string>();
+                        edit_list1 = obj.get_showcase_from_bookingID(Int32.Parse(edit_list[19]));
+                        edit_list.Insert(7, edit_list1[0]);
+                        edit_list.Insert(8, edit_list1[1]);
+                        edit_list.Insert(9, edit_list1[2]);
+                    }
+                    else if (page == "Agreement")
+                    {
+                        edit_list = obj.get_edit_record("aggrement", id);
+                        List<string> edit_list1 = new List<string>();
+                        edit_list1 = obj.get_showcase_from_bookingID(Int32.Parse(edit_list[5]));
+                        edit_list.Insert(7, edit_list1[0]);
+                        edit_list.Insert(8, edit_list1[1]);
+                        edit_list.Insert(9, edit_list1[2]);
+                    }
+                    else if (page == "Booking")
+                    {
+                        edit_list = obj.get_edit_record("bookings", id);
+                    }
+                    else if (page == "PaymentCommit")
+                    {
+                        edit_list = obj.get_edit_record("payment_commitment", id);
+                        List<string> edit_list1 = new List<string>();
+                        edit_list1 = obj.get_showcase_from_bookingID(Int32.Parse(edit_list[6]));
+                        edit_list.AddRange(edit_list1);
+                    }
+                    else if (page == "PaymentDetails")
+                    {
+                        edit_list = obj.get_edit_record("payment_details", id);
+                        List<string> edit_list1 = new List<string>();
+                        edit_list1 = obj.get_showcase_from_bookingID(Int32.Parse(edit_list[11]));
+                        edit_list.Insert(7, edit_list1[0]);
+                        edit_list.Insert(8, edit_list1[1]);
+                        edit_list.Insert(9, edit_list1[2]);
+                    }
+                    else if (page == "CustomerCostSheet")
+                    {
+                        edit_list = obj.get_edit_record("cost_sheet", id);
+                    }
+                    else if (page == "BuilderCostSheet")
+                    {
+                        edit_list = obj.get_edit_record("cost_sheet", id);
+                    }
 
+                    ViewBag.edit_list = edit_list;
+                    ViewBag.edit_str = "edit";
+                }
                 return View(page);
             }
             catch (Exception ex)
@@ -683,19 +706,27 @@ namespace kd.Controllers
                 {
                     List<string>[] sites = new List<string>[9];
                     sites = obj.sites_show(site_type: "Flat");
-                    list = obj.flats_show(site, 0, page_size, search: search);
-                    ViewBag.sites = sites;
+                    sites[0].Insert(0, "All");
+                    sites[1].Insert(0, "All");
+
+                    ViewBag.sites = sites.ToList();
                     ViewBag.total_site = sites[0].Count();
                     ViewBag.site = site;
+
+                    list = obj.flats_show(site, 0, page_size, search: search);                    
                 }
                 else if (page == "Plots")
                 {
                     List<string>[] sites = new List<string>[6];
                     sites = obj.sites_show(site_type: "Plot");
-                    list = obj.plots_show(site, 0, page_size, search: search);
-                    ViewBag.sites = sites;
+                    sites[0].Insert(0, "All");
+                    sites[1].Insert(0, "All");
+
+                    ViewBag.sites = sites.ToList();
                     ViewBag.total_site = sites[0].Count();
                     ViewBag.site = site;
+
+                    list = obj.plots_show(site, 0, page_size, search: search);                    
                 }
                 else if(page == "Executive")
                 {                                        
@@ -792,19 +823,27 @@ namespace kd.Controllers
                 {
                     List<string>[] sites = new List<string>[9];
                     sites = obj.sites_show(site_type: "Flat");
-                    list = obj.flats_show(site, Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
-                    ViewBag.sites = sites;
+                    sites[0].Insert(0, "All");
+                    sites[1].Insert(0, "All");
+
+                    ViewBag.sites = sites.ToList();
                     ViewBag.total_site = sites[0].Count();
                     ViewBag.site = site;
+
+                    list = obj.flats_show(site, Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);                    
                 }
                 else if (page == "Plots")
                 {
                     List<string>[] sites = new List<string>[6];
                     sites = obj.sites_show(site_type: "Plot");
-                    list = obj.plots_show(site, Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
-                    ViewBag.sites = sites;
+                    sites[0].Insert(0, "All");
+                    sites[1].Insert(0, "All");
+
+                    ViewBag.sites = sites.ToList();
                     ViewBag.total_site = sites[0].Count();
                     ViewBag.site = site;
+
+                    list = obj.plots_show(site, Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);                    
                 }
                 else if (page == "Executive")
                 {
@@ -1141,19 +1180,26 @@ namespace kd.Controllers
                 {
                     List<string>[] sites = new List<string>[9];
                     sites = obj.sites_show(site_type: "Flat");
-                    list = obj.flats_show(site, Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
-                    ViewBag.sites = sites;
+                    sites[0].Insert(0, "All");
+                    sites[1].Insert(0, "All");
+
+                    ViewBag.sites = sites.ToList();
                     ViewBag.total_site = sites[0].Count();
-                    ViewBag.site = site;                    
+                    ViewBag.site = site;
+
+                    list = obj.flats_show(site, Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);                                      
                 }
                 else if (page == "Plots")
                 {
                     List<string>[] sites = new List<string>[6];
                     sites = obj.sites_show(site_type: "Plot");
-                    list = obj.plots_show(site, Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
-                    ViewBag.sites = sites;
+                    sites[0].Insert(0, "All");
+                    sites[1].Insert(0, "All");
+
+                    ViewBag.sites = sites.ToList();
                     ViewBag.total_site = sites[0].Count();
                     ViewBag.site = site;
+                    list = obj.plots_show(site, Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);                    
                 }
                 else if (page == "Executive")
                 {
@@ -1494,19 +1540,27 @@ namespace kd.Controllers
                 {
                     List<string>[] sites = new List<string>[9];
                     sites = obj.sites_show(site_type: "Flat");
-                    list = obj.flats_show(site, Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
-                    ViewBag.sites = sites;
+                    sites[0].Insert(0, "All");
+                    sites[1].Insert(0, "All");
+
+                    ViewBag.sites = sites.ToList();
                     ViewBag.total_site = sites[0].Count();
-                    ViewBag.site = site;                    
+                    ViewBag.site = site;
+
+                    list = obj.flats_show(site, Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);                                        
                 }
                 else if (page == "Plots")
                 {
                     List<string>[] sites = new List<string>[6];
                     sites = obj.sites_show(site_type: "Plot");
-                    list = obj.plots_show(site, Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
-                    ViewBag.sites = sites;
+                    sites[0].Insert(0, "All");
+                    sites[1].Insert(0, "All");
+
+                    ViewBag.sites = sites.ToList();
                     ViewBag.total_site = sites[0].Count();
                     ViewBag.site = site;
+
+                    list = obj.plots_show(site, Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);                    
                 }
                 else if (page == "Executive")
                 {
@@ -1578,7 +1632,7 @@ namespace kd.Controllers
             try
             {
                 string req = string.Join(" ", enqrequirement);
-                if (submit_btn == "Save")
+                if (submit_btn == "Save" && isUserAuthenticated())
                 {
                     if (obj.insert_enquiry(enqname, enqaddress, enqmob, enqaltmob, enqemail, req, enqoccu, enqincome, 
                         enqbudget, enqdown, enqcurstatus, enqvisit, enqsource, enqsourcedetails, enqsanctiontype) == 1)
@@ -1590,7 +1644,7 @@ namespace kd.Controllers
                         TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
                     }
                 }
-                else if (submit_btn == "Update")
+                else if (submit_btn == "Update" && isUserAuthenticated())
                 {
                     int id = Int32.Parse(edit_id);
 
@@ -1619,7 +1673,7 @@ namespace kd.Controllers
         {
             try
             {
-                if (submit_btn == "Save")
+                if (submit_btn == "Save" && isUserAuthenticated())
                 {
                     if (obj.insert_de_sitevisit(enqnamevisit, enqsitename, enqwing, enqflatno, enqexename1, 
                         enqexename2, enqexename3) == 1)
@@ -1631,7 +1685,7 @@ namespace kd.Controllers
                         TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
                     }
                                                                                                                                                                                                                                                                                             }
-                else if (submit_btn == "Update")
+                else if (submit_btn == "Update" && isUserAuthenticated())
                 {
                     int id = Int32.Parse(edit_id);
                     if (obj.insert_de_sitevisit(enqnamevisit, enqsitename, enqwing, enqflatno, enqexename1,
@@ -1659,7 +1713,7 @@ namespace kd.Controllers
         {
             try
             {
-                if (submit_btn == "Save")
+                if (submit_btn == "Save" && isUserAuthenticated())
                 {
                     if (obj.insert_de_followup(enqnamefollowup, enqfollow, enqnextfollow, enqfollowdetails, enqexenamefollowup1, enqexenamefollowup2,
                         enqexenamefollowup3) == 1)
@@ -1671,7 +1725,7 @@ namespace kd.Controllers
                         TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
                     }
                 }
-                else if (submit_btn == "Update")
+                else if (submit_btn == "Update" && isUserAuthenticated())
                 {
                     int id = Int32.Parse(edit_id);
                     if (obj.insert_de_followup(enqnamefollowup, enqfollow, enqnextfollow, enqfollowdetails, enqexenamefollowup1, enqexenamefollowup2,
@@ -1698,7 +1752,7 @@ namespace kd.Controllers
         {
             try
             {
-                if (submit_btn == "Save")
+                if (submit_btn == "Save" && isUserAuthenticated())
                 {
                     if (obj.insert_sites(sitename, sitetype, siteaddress, sitephone, siteemail, sitestatus, sitesanctiontype) == 1)
                     {
@@ -1709,7 +1763,7 @@ namespace kd.Controllers
                         TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
                     }
                 }
-                else if (submit_btn == "Update")
+                else if (submit_btn == "Update" && isUserAuthenticated())
                 {
                     int id = Int32.Parse(edit_id);
                     if (obj.insert_sites(sitename, sitetype, siteaddress, sitephone, siteemail, sitestatus, sitesanctiontype, "edit", id) == 1)
@@ -1735,7 +1789,7 @@ namespace kd.Controllers
         {
             try
             {
-                if (submit_btn == "Save")
+                if (submit_btn == "Save" && isUserAuthenticated())
                 {
                     if (obj.insert_flats(flatsitename, flatwing, flatfloor, flatno, flattype, flatarea, flatstatus) == 1)
                     {
@@ -1746,7 +1800,7 @@ namespace kd.Controllers
                         TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
                     }
                 }
-                else if (submit_btn == "Update")
+                else if (submit_btn == "Update" && isUserAuthenticated())
                 {
                     int id = Int32.Parse(edit_id);
                     if (obj.insert_flats(flatsitename, flatwing, flatfloor, flatno, flattype, flatarea, flatstatus, "edit", id) == 1)
@@ -1772,7 +1826,7 @@ namespace kd.Controllers
         {
             try
             {
-                if (submit_btn == "Save")
+                if (submit_btn == "Save" && isUserAuthenticated())
                 {
                     if (obj.insert_plots(plotsitename, plotno, plotarea, plotstatus) == 1)
                     {
@@ -1783,7 +1837,7 @@ namespace kd.Controllers
                         TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
                     }
                 }
-                else if (submit_btn == "Update")
+                else if (submit_btn == "Update" && isUserAuthenticated())
                 {
                     int id = Int32.Parse(edit_id);
                     if (obj.insert_plots(plotsitename, plotno, plotarea, plotstatus, "edit", id) == 1)
@@ -1809,7 +1863,8 @@ namespace kd.Controllers
         {
             try
             {
-                if (submit_btn == "Save")
+
+                if (submit_btn == "Save" && isUserAuthenticated())
                 {
                     if (obj.insert_executive(exename, execode, exeemail, exemob, exeadd, exejoin, exebirth, exestatus) == 1)
                     {
@@ -1820,7 +1875,7 @@ namespace kd.Controllers
                         TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
                     }
                 }
-                else if (submit_btn == "Update")
+                else if (submit_btn == "Update" && isUserAuthenticated())
                 {
                     int id = Int32.Parse(edit_id);
                     if (obj.insert_executive(exename, execode, exeemail, exemob, exeadd, exejoin, exebirth, exestatus, "edit", id) == 1)
@@ -1846,7 +1901,7 @@ namespace kd.Controllers
         {
             try
             {
-                if (submit_btn == "Save")
+                if (submit_btn == "Save" && isUserAuthenticated())
                 {
                     if (obj.insert_franchies(francname, franccode, francemail, francmob, francadd, francjoin, francstatus) == 1)
                     {
@@ -1857,7 +1912,7 @@ namespace kd.Controllers
                         TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
                     }
                 }
-                else if (submit_btn == "Update")
+                else if (submit_btn == "Update" && isUserAuthenticated())
                 {
                     int id = Int32.Parse(edit_id);
                     if (obj.insert_franchies(francname, franccode, francemail, francmob, francadd, francjoin, francstatus, "edit", id) == 1)
@@ -1884,7 +1939,7 @@ namespace kd.Controllers
         {
             try
             {
-                if (submit_btn == "Save")
+                if (submit_btn == "Save" && isUserAuthenticated())
                 {
                     if (obj.insert_applicant(applname, applemail, applmob, appladdr, applpan, applaadhar,
                                              apploccu, applbirth, applage, applstatus) == 1)
@@ -1896,7 +1951,7 @@ namespace kd.Controllers
                         TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
                     }
                 }
-                else if (submit_btn == "Update")
+                else if (submit_btn == "Update" && isUserAuthenticated())
                 {
                     int id = Int32.Parse(edit_id);
                     if (obj.insert_applicant(applname, applemail, applmob, appladdr, applpan, applaadhar,
@@ -1923,7 +1978,7 @@ namespace kd.Controllers
         {
             try
             {
-                if (submit_btn == "Save")
+                if (submit_btn == "Save" && isUserAuthenticated())
                 {
                     if (obj.insert_co_applicant(coapplname, coapplpan, coapplaadhar,
                                              coapploccu, coapplbirth, applid) == 1)
@@ -1935,7 +1990,7 @@ namespace kd.Controllers
                         TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
                     }
                 }
-                else if (submit_btn == "Update")
+                else if (submit_btn == "Update" && isUserAuthenticated())
                 {
                     int id = Int32.Parse(edit_id);
                     if (obj.insert_co_applicant(coapplname, coapplpan, coapplaadhar,
@@ -1964,7 +2019,7 @@ namespace kd.Controllers
         {
             try
             {
-                if (submit_btn == "Save")
+                if (submit_btn == "Save" && isUserAuthenticated())
                 {
                     if (obj.insert_booking(bno, breferred, bapplicant, btamount, bramount, bblder, bsite, bwing, bflats, 
                         bcharges, bparking, bcancel, bfollowup, bstatus, bremark) == 1)
@@ -1976,7 +2031,7 @@ namespace kd.Controllers
                         TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
                     }
                 }
-                else if (submit_btn == "Update")
+                else if (submit_btn == "Update" && isUserAuthenticated())
                 {
                     int id = Int32.Parse(edit_id);
                     if (obj.insert_booking(bno, breferred, bapplicant, btamount, bramount, bblder, bsite, bwing, bflats, 
@@ -2003,7 +2058,7 @@ namespace kd.Controllers
         {
             try
             {
-                if (submit_btn == "Save")
+                if (submit_btn == "Save" && isUserAuthenticated())
                 {
                     if (obj.insert_exe_franc_audit(ename, fname, bno, incentive, share, paidamt) == 1)
                     {
@@ -2014,7 +2069,7 @@ namespace kd.Controllers
                         TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
                     }
                 }
-                else if (submit_btn == "Update")
+                else if (submit_btn == "Update" && isUserAuthenticated())
                 {
                     int id = Int32.Parse(edit_id);
                     if (obj.insert_exe_franc_audit(ename, fname, bno, incentive, share, paidamt, "edit", id) == 1)
@@ -2040,7 +2095,7 @@ namespace kd.Controllers
         {
             try
             {
-                if (submit_btn == "Save")
+                if (submit_btn == "Save" && isUserAuthenticated())
                 {
                     if (obj.insert_paymentcommit(ctype, camount, cdate, cremark, bapplicant, bsite, bflats) == 1)
                     {
@@ -2051,7 +2106,7 @@ namespace kd.Controllers
                         TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
                     }
                 }
-                else if (submit_btn == "Update")
+                else if (submit_btn == "Update" && isUserAuthenticated())
                 {
                     int id = Int32.Parse(edit_id);
                     if (obj.insert_paymentcommit(ctype, camount, cdate, cremark, bapplicant, bsite, bflats, "edit", id) == 1)
@@ -2078,7 +2133,7 @@ namespace kd.Controllers
         {
             try
             {
-                if (submit_btn == "Save")
+                if (submit_btn == "Save" && isUserAuthenticated())
                 {
                     if (obj.insert_paymentdetails(pamt, pmode, chkid, chkdate, bname, ptype, bldpay, bnkpay, sts, bapplicant, bsite, bflats) == 1)
                     {
@@ -2089,7 +2144,7 @@ namespace kd.Controllers
                         TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
                     }
                 }
-                else if (submit_btn == "Update")
+                else if (submit_btn == "Update" && isUserAuthenticated())
                 {
                     int id = Int32.Parse(edit_id);
                     if (obj.insert_paymentdetails(pamt, pmode, chkid, chkdate, bname, ptype, bldpay, bnkpay, sts, bapplicant, bsite, bflats, "edit", id) == 1)
@@ -2115,7 +2170,7 @@ namespace kd.Controllers
         {
             try
             {
-                if (submit_btn == "Save")
+                if (submit_btn == "Save" && isUserAuthenticated())
                 {
                     if (obj.insert_agreement(ano, adate, anotary, aamount, aadjustment, aextra, gst, astatus, bapplicant, bsite, bflats) == 1)
                     {
@@ -2126,7 +2181,7 @@ namespace kd.Controllers
                         TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
                     }
                 }
-                else if (submit_btn == "Update")
+                else if (submit_btn == "Update" && isUserAuthenticated())
                 {
                     int id = Int32.Parse(edit_id);
                     if (obj.insert_agreement(ano, adate, anotary, aamount, aadjustment, aextra, gst, astatus, bapplicant, bsite, bflats, "edit", id) == 1)
@@ -2154,7 +2209,7 @@ namespace kd.Controllers
         {
             try
             {
-                if (submit_btn == "Save")
+                if (submit_btn == "Save" && isUserAuthenticated())
                 {
                     if (obj.insert_finance(fintype, finname, finexe, finexemob, finexeemail, filehanddate,
                                            filesta, filesanctdate, reqloanamt, sanctloanamt, disburseamt, 
@@ -2168,7 +2223,7 @@ namespace kd.Controllers
                         TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
                     }
                 }
-                else if (submit_btn == "Update")
+                else if (submit_btn == "Update" && isUserAuthenticated())
                 {
                     int id = Int32.Parse(edit_id);
                     if (obj.insert_finance(fintype, finname, finexe, finexemob, finexeemail, filehanddate,
@@ -2198,7 +2253,7 @@ namespace kd.Controllers
         {
             try
             {
-                if (submit_btn == "Save")
+                if (submit_btn == "Save" && isUserAuthenticated())
                 {
                     if (obj.insert_filestatus(chrg, lfee, chid, chdate, bnknm, figst, lfamt, financename, fstatus) == 1)
                     {
@@ -2209,7 +2264,7 @@ namespace kd.Controllers
                         TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
                     }
                 }
-                else if (submit_btn == "Update")
+                else if (submit_btn == "Update" && isUserAuthenticated())
                 {
                     int id = Int32.Parse(edit_id);
                     if (obj.insert_filestatus(chrg, lfee, chid, chdate, bnknm, figst, lfamt, financename, fstatus, "edit", id) == 1)
@@ -2235,7 +2290,7 @@ namespace kd.Controllers
         {
             try
             {
-                if (submit_btn == "Save")
+                if (submit_btn == "Save" && isUserAuthenticated())
                 {
                     if (obj.insert_cost_sheet("customer", site, type, area, rr_rate, basic_rate, basic_cost, legal_charge, devcharge, mseb, stampdutyregpercent, stampdutyreg, gst, gstpercent, otheramt, grandtotal) == 1)
                     {
@@ -2246,7 +2301,7 @@ namespace kd.Controllers
                         TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
                     }
                 }
-                else if (submit_btn == "Update")
+                else if (submit_btn == "Update" && isUserAuthenticated())
                 {
                     int id = Int32.Parse(edit_id);
                     if (obj.insert_cost_sheet("customer", site, type, area, rr_rate, basic_rate, basic_cost, legal_charge, devcharge, mseb, stampdutyregpercent, stampdutyreg, gst, gstpercent, otheramt, grandtotal, "edit", id) == 1)
@@ -2272,7 +2327,7 @@ namespace kd.Controllers
         {
             try
             {
-                if (submit_btn == "Save")
+                if (submit_btn == "Save" && isUserAuthenticated())
                 {
                     if (obj.insert_cost_sheet("builder", site, type, area, rr_rate, basic_rate, basic_cost, legal_charge, devcharge, mseb, stampdutyregpercent, stampdutyreg, gst, gstpercent, otheramt, grandtotal) == 1)
                     {
@@ -2283,7 +2338,7 @@ namespace kd.Controllers
                         TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
                     }
                 }
-                else if (submit_btn == "Update")
+                else if (submit_btn == "Update" && isUserAuthenticated())
                 {
                     int id = Int32.Parse(edit_id);
                     if (obj.insert_cost_sheet("builder", site, type, area, rr_rate, basic_rate, basic_cost, legal_charge, devcharge, mseb, stampdutyregpercent, stampdutyreg, gst, gstpercent, otheramt, grandtotal, "edit", id) == 1)
@@ -2430,6 +2485,8 @@ namespace kd.Controllers
         {
             List<string>[] sites = new List<string>[7];
             sites = obj.franchies_show_name();
+            sites[0].Insert(0, "");
+            sites[1].Insert(0, "");
             var result = new
             {
                 id = sites[0],
