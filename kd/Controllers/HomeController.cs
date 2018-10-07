@@ -90,7 +90,6 @@ namespace kd.Controllers
             ViewBag.total = list[0].Count();
             ViewBag.pageSize = Int32.Parse(ps);
             ViewBag.search = search;
-            ViewBag.edit_str = "edit1";
 
             return View();
         }
@@ -137,12 +136,11 @@ namespace kd.Controllers
             List<string>[] sites = new List<string>[9];
             List<string>[] list = new List<string>[9];
             sites = obj.sites_show(site_type:"Flat");
-
-            list = obj.flats_show(site, Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps), search: search);
-            
-            ViewBag.sites = sites;            
+            ViewBag.sites = sites.ToList();
             ViewBag.total_site = sites[0].Count();
             ViewBag.site = site;
+
+            list = obj.flats_show(site, Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps), search: search);
             
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
@@ -161,12 +159,12 @@ namespace kd.Controllers
             List<string>[] list = new List<string>[6];
             sites = obj.sites_show(site_type: "Plot");
 
-            list = obj.plots_show(site, Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps), search: search);
-
-            ViewBag.sites = sites;
+            ViewBag.sites = sites.ToList();
             ViewBag.total_site = sites[0].Count();
             ViewBag.site = site;
 
+            list = obj.plots_show(site, Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps), search: search);
+            
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
             ViewBag.pageSize = Int32.Parse(ps);
@@ -2360,6 +2358,8 @@ namespace kd.Controllers
         {
             List<string>[] sites = new List<string>[7];
             sites = obj.executive_show_name();
+            sites[0].Insert(0, "");
+            sites[1].Insert(0, "");
             var result = new
             {
                 id = sites[0],

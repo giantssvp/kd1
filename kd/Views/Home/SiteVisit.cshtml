@@ -50,7 +50,7 @@
                     <form method="post" action="@Url.Action("add_de_sitevisit", "Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
                         <table class="table table-striped">
                             <tbody>
-                                <tr class="odd gradeX">
+                                <tr>
                                     <td><label class="control-label">Customer Name</label></td>
                                     <td>
                                         <select name="enqnamevisit" id="enqnamevisit">    </select>
@@ -298,6 +298,7 @@
             success: function (d) {
                 var list1 = d.id;
                 var list = d.name;
+                
                 $("#enqexename1").html("");
                 $("#enqexename2").html("");
                 $("#enqexename3").html("");
@@ -306,7 +307,7 @@
                     $("#enqexename1").append($('<option></option>').val(list1[index]).html(value));
                     $("#enqexename2").append($('<option></option>').val(list1[index]).html(value));
                     $("#enqexename3").append($('<option></option>').val(list1[index]).html(value));
-                });
+                });                                
                 @if (edit) {
                     <text>
                         document.getElementById("enqexename1").value = @(edit ? elist[5] : 1);

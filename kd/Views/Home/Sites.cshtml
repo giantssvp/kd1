@@ -16,7 +16,7 @@
     if (ViewBag.edit_str == "edit")
     {
         edit = true;
-    }
+    }    
 }
 
 <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
@@ -45,7 +45,7 @@
                             <tbody>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Site Name</label></td>
-                                    <td><input type="text" name="sitename" id="required"  @(edit ? new { value = elist[1] } : null)></td>
+                                    <td><input type="text" name="sitename" id="required"  @(edit ? new { value = elist[1].Replace(" ", "\u00A0") } : null)></td>
                                     <td><label class="control-label">Site Type</label></td>
                                     <td>
                                         <select name="sitetype" id="required">
@@ -53,7 +53,7 @@
                                             <option value="Plot" @(edit ? (elist[2].Contains("Plot") ? "selected" : "") : "")>Plot</option>
                                         </select>
                                     </td>
-                                </tr>
+                                </tr> 
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Site Address</label></td>
                                     <td> <input type="text" name="siteaddress" id="required"  @(edit ? new { value = elist[5] } : null)></td>
