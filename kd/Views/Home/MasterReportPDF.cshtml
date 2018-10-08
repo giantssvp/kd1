@@ -65,46 +65,74 @@
                                     </tr>
                                     <tr>
                                         <th colspan="4" align="left" valign="middle">
-                                            Site Name:  @if (cnt > 0){@results[15][0]}
+                                            Site Name:  @if (cnt > 0){@results[29][0]}
                                         </th>
-                                        <th colspan="2" align="left" valign="middle">Booking Date:</th>
-                                        <th colspan="2" align="left" valign="middle">Referenc By:</th>
+                                        <th colspan="2" align="left" valign="middle">Booking Date: @if (cnt > 0)
+                                        {@results[5][0]}</th>
+                                        <th colspan="2" align="left" valign="middle">Referenc By:@if (cnt > 0)
+                                        {@results[1][0]}</th>
                                     </tr>
                                     <tr>
-                                        <th colspan="4" align="left" valign="middle">Site Add:</th>
-                                        <th colspan="2" align="left" valign="middle">Booking NO:</th>
-                                        <th colspan="2" align="left" valign="middle">Follup Date:</th>
+                                        <th colspan="4" align="left" valign="middle">Site Add:@if (cnt > 0)
+                                        {@results[33][0]}</th>
+                                        <th colspan="2" align="left" valign="middle">Booking NO:@if (cnt > 0)
+                                        {@results[6][0]}</th>
+                                        <th colspan="2" align="left" valign="middle">Follup Date:@if (cnt > 0)
+                                        {@results[8][0]}</th>
                                     </tr>
                                     <tr>
-                                        <th colspan="4" align="left" valign="middle">Executive Name:</th>
+                                        <th colspan="4" align="left" valign="middle">Executive Name:@if (cnt > 0)
+                                        {@results[15][0]}</th>
                                         <th colspan="2" align="left" valign="middle">Incentive:</th>
                                         <th colspan="2" align="left" valign="middle">Incentive Amt:</th>
                                     </tr>
                                     <tr>
                                         <th colspan="4" align="left" valign="middle">Franchis Name:</th>
                                         <th colspan="2" align="left" valign="middle">Flat Status:</th>
-                                        <th colspan="2" align="left" valign="middle">Cancel By:</th>
+                                        <th colspan="2" align="left" valign="middle">Cancel By:@if (cnt > 0)
+                                        {@results[7][0]}</th>
                                     </tr>
                                     <tr>
                                         <th colspan="4" align="left" valign="middle">Applicant Details:</th>
-                                        <th colspan="2" align="left" valign="middle">Flat:</th>
+                                        <th colspan="2" align="left" valign="middle">Flat:@if (cnt > 0)
+                                        {@results[2][0]}</th>
                                         <th colspan="2" align="left" valign="middle">Floor:</th>
                                     </tr>
                                     <tr>
-                                        <th colspan="4" align="left" valign="middle">Name:</th>
+                                        <th colspan="4" align="left" valign="middle">Name:@if (cnt > 0)
+                                        {@results[13][0]}</th>
                                         <th colspan="2" align="left" valign="middle">Area:</th>
                                         <th colspan="2" align="left" valign="middle">Type:</th>
                                     </tr>
                                     <tr>
-                                        <th colspan="4" align="left" valign="middle">Address:</th>
-                                        <th colspan="2" align="left" valign="middle">Package:</th>
-                                        <th colspan="2" align="left" valign="middle">Wing:</th>
+                                        <th colspan="4" align="left" valign="middle">Address:@if (cnt > 0)
+                                        {@results[17][0]}</th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            Package:@if (cnt > 0)
+                                            {@results[4][0]}
+                                        </th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            Wing:@if (cnt > 0)
+                                            {@results[17][0]}
+                                        </th>
                                     </tr>
                                     <tr>
-                                        <th colspan="2" align="left" valign="middle">Mobile No:</th>
-                                        <th colspan="2" align="left" valign="middle">DOB:</th>
-                                        <th colspan="2" align="left" valign="middle">Total Received:</th>
-                                        <th colspan="2" align="left" valign="middle">Remaining Amount:</th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            Mobile No:@if (cnt > 0)
+                                            {@results[16][0]}
+                                        </th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            DOB:@if (cnt > 0)
+                                            {@results[21][0]}
+                                        </th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            Total Received:@if (cnt > 0)
+                                            {@results[11][0]}
+                                        </th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            Remaining Amount:@if (cnt > 0)
+                                            {@results[17][0] - @results[17][0]}
+                                        </th>
                                     </tr>
                                     <tr>
                                         <th colspan="2" align="left" valign="middle">PAN NO:</th>
