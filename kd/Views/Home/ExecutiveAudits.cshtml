@@ -52,23 +52,17 @@
                                     <td>
                                         <select name="fname" id="fname">  </select>
                                     </td>
-                                </tr>
+                                </tr>                                
+                                @Html.Partial("booking_fk")
                                 <tr class="odd gradeX">
-                                    <td><label class="control-label">Customer Name</label></td>
-                                    <td>
-                                        <select name="bno" id="bno">  </select>
-                                   </td>
-
                                     <td><label class="control-label">Total Incentive</label></td>
                                     <td><input type="number" name="incentive" id="required" @(edit ? new { value = elist[4] } : null)></td>
-                                </tr>
-                                <tr class="odd gradeX">
                                     <td><label class="control-label">Total Share</label></td>
                                     <td> <input type="text" name="share" id="required" @(edit ? new { value = elist[5].Replace(" ", "\u00A0") } : null)></td>
-                                    <td><label class="control-label">Total Paid Amount</label></td>
-                                    <td><input type="number" name="paidamt" id="required" @(edit ? new { value = elist[6] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
+                                    <td><label class="control-label">Total Paid Amount</label></td>
+                                    <td><input type="number" name="paidamt" id="required" @(edit ? new { value = elist[6] } : null)></td>
                                     @if (edit)
                                     {
                                         <td><input type="submit" name="submit_btn" value="Update" class="btn btn-success" /></td>
@@ -151,29 +145,6 @@
                 });
                 document.getElementById("fname").value = @(edit ? elist[2] : 1);
 
-            },
-            error: function (err) {
-                alert(err.responseText);
-            },
-        });
-    });
-</script>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        $.ajax({
-            type: "GET",
-            url: '@Url.Action("get_customer_booking_name", "Home")',
-            data: {},
-            dataType: 'json',
-            success: function (d) {
-                var list1 = d.id;
-                var list = d.name;
-                $("#bno").html("");
-                $.each(list, function (index, value) {
-                    $("#bno").append($('<option></option>').val(list1[index]).html(value));
-                });
-                document.getElementById("bno").value = @(edit ? elist[3] : 1);
             },
             error: function (err) {
                 alert(err.responseText);

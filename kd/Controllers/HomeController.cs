@@ -2054,13 +2054,13 @@ namespace kd.Controllers
             }
         }
 
-        public ActionResult add_exe_franc_audit(string ename, string fname, string bno, string incentive, string share, string paidamt, string submit_btn, string edit_id = "0")
+        public ActionResult add_exe_franc_audit(string ename, string fname, string bapplicant, string bsite, string bwing, string bflats, string incentive, string share, string paidamt, string submit_btn, string edit_id = "0")
         {
             try
             {
                 if (submit_btn == "Save" && isUserAuthenticated())
                 {
-                    if (obj.insert_exe_franc_audit(ename, fname, bno, incentive, share, paidamt) == 1)
+                    if (obj.insert_exe_franc_audit(ename, fname, bapplicant, bsite, bwing, bflats, incentive, share, paidamt) == 1)
                     {
                         TempData["AlertMessage"] = "All the details saved successfully.";
                     }
@@ -2072,7 +2072,7 @@ namespace kd.Controllers
                 else if (submit_btn == "Update" && isUserAuthenticated())
                 {
                     int id = Int32.Parse(edit_id);
-                    if (obj.insert_exe_franc_audit(ename, fname, bno, incentive, share, paidamt, "edit", id) == 1)
+                    if (obj.insert_exe_franc_audit(ename, fname, bapplicant, bsite, bwing, bflats, incentive, share, paidamt, "edit", id) == 1)
                     {
                         TempData["AlertMessage"] = "All the details updated successfully.";
                     }

@@ -602,31 +602,32 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
             }
         }
 
-        public int insert_exe_franc_audit(string ename, string fname, string bno, string incentive, string share, string paidamt, string type = "insert", int id = 0)
+        public int insert_exe_franc_audit(string ename, string fname, string bapplicant, string bsite, string bwing, string bflats, string incentive, string share, string paidamt, string type = "insert", int id = 0)
         {
             try
             {
+                string que = "(select ID from bookings where Applicant_Id=" + bapplicant + " and Flat=" + bflats + " and Site_Id=" + bsite + ")";
                 string query = "";
                 if (type == "edit")
                 {
                     query = "UPDATE execu_fran_audit SET " +
-                        "Booking_ID = @bno," +
+                        "Total_Paid = @paidamt," +
                         " Executive_ID = @ename," +
                         " Franchies_ID = @fname," +
                         " Total_Incentive = @incentive," +
                         " Total_Share = @share," +
-                        " Total_Paid = @paidamt where id=@id";
+                        " Booking_ID = " + que + " where id=@id";
                 }
                 else
                 {
-                    query = "INSERT INTO execu_fran_audit (Booking_ID, Executive_ID, Franchies_ID, Total_Incentive, Total_Share, Total_Paid, Date) " +
-                    "VALUES(@bno, @ename, @fname, @incentive, @share, @paidamt, NOW())";
+                    query = "INSERT INTO execu_fran_audit (Executive_ID, Franchies_ID, Total_Incentive, Total_Share, Total_Paid, Date, Booking_ID) " +
+                    "VALUES(@ename, @fname, @incentive, @share, @paidamt, NOW(), " + que + ")";
                 }
 
                 if (this.OpenConnection() == true)
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@bno", bno);
+                    cmd.Parameters.AddWithValue("@bno", bapplicant);
                     cmd.Parameters.AddWithValue("@ename", ename);
                     cmd.Parameters.AddWithValue("@fname", fname);
                     cmd.Parameters.AddWithValue("@incentive", incentive);
