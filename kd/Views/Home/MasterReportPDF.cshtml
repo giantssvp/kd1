@@ -56,7 +56,7 @@
                     <h5>Master Report</h5>
                 </div>
                 <div>
-                    <form method="post" action="@Url.Action("Generate_pdf","Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
+                    <form method="post" action="@Url.Action("Generate_pdf", "Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
                         <div id="Grid">
                             <table cellpadding="2" cellspacing="1" border="1" width="100%">
                                 <thead>
@@ -65,48 +65,69 @@
                                     </tr>
                                     <tr>
                                         <th colspan="4" align="left" valign="middle">
-                                            Site Name:  @if (cnt > 0){@results[29][0]}
+                                            Site Name:  @if (cnt > 0)
+                                            {@results[29][0]}
                                         </th>
-                                        <th colspan="2" align="left" valign="middle">Booking Date: @if (cnt > 0)
-                                        {@results[5][0]}</th>
-                                        <th colspan="2" align="left" valign="middle">Referenc By:@if (cnt > 0)
-                                        {@results[1][0]}</th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            Booking Date: @if (cnt > 0)
+                                            {@results[5][0]}
+                                        </th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            Referenc By:@if (cnt > 0)
+                                            {@results[1][0]}
+                                        </th>
                                     </tr>
                                     <tr>
-                                        <th colspan="4" align="left" valign="middle">Site Add:@if (cnt > 0)
-                                        {@results[33][0]}</th>
-                                        <th colspan="2" align="left" valign="middle">Booking NO:@if (cnt > 0)
-                                        {@results[6][0]}</th>
-                                        <th colspan="2" align="left" valign="middle">Follup Date:@if (cnt > 0)
-                                        {@results[8][0]}</th>
+                                        <th colspan="4" align="left" valign="middle">
+                                            Site Add:@if (cnt > 0)
+                                            {@results[33][0]}
+                                        </th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            Booking NO:@if (cnt > 0)
+                                            {@results[6][0]}
+                                        </th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            Follup Date:@if (cnt > 0)
+                                            {@results[8][0]}
+                                        </th>
                                     </tr>
                                     <tr>
-                                        <th colspan="4" align="left" valign="middle">Executive Name:@if (cnt > 0)
-                                        {@results[15][0]}</th>
+                                        <th colspan="4" align="left" valign="middle">
+                                            Executive Name:@if (cnt > 0)
+                                            {@results[15][0]}
+                                        </th>
                                         <th colspan="2" align="left" valign="middle">Incentive:</th>
                                         <th colspan="2" align="left" valign="middle">Incentive Amt:</th>
                                     </tr>
                                     <tr>
                                         <th colspan="4" align="left" valign="middle">Franchis Name:</th>
                                         <th colspan="2" align="left" valign="middle">Flat Status:</th>
-                                        <th colspan="2" align="left" valign="middle">Cancel By:@if (cnt > 0)
-                                        {@results[7][0]}</th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            Cancel By:@if (cnt > 0)
+                                            {@results[7][0]}
+                                        </th>
                                     </tr>
                                     <tr>
                                         <th colspan="4" align="left" valign="middle">Applicant Details:</th>
-                                        <th colspan="2" align="left" valign="middle">Flat:@if (cnt > 0)
-                                        {@results[2][0]}</th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            Flat:@if (cnt > 0)
+                                            {@results[2][0]}
+                                        </th>
                                         <th colspan="2" align="left" valign="middle">Floor:</th>
                                     </tr>
                                     <tr>
-                                        <th colspan="4" align="left" valign="middle">Name:@if (cnt > 0)
-                                        {@results[13][0]}</th>
+                                        <th colspan="4" align="left" valign="middle">
+                                            Name:@if (cnt > 0)
+                                            {@results[13][0]}
+                                        </th>
                                         <th colspan="2" align="left" valign="middle">Area:</th>
                                         <th colspan="2" align="left" valign="middle">Type:</th>
                                     </tr>
                                     <tr>
-                                        <th colspan="4" align="left" valign="middle">Address:@if (cnt > 0)
-                                        {@results[17][0]}</th>
+                                        <th colspan="4" align="left" valign="middle">
+                                            Address:@if (cnt > 0)
+                                            {@results[17][0]}
+                                        </th>
                                         <th colspan="2" align="left" valign="middle">
                                             Package:@if (cnt > 0)
                                             {@results[4][0]}
@@ -131,37 +152,91 @@
                                         </th>
                                         <th colspan="2" align="left" valign="middle">
                                             Remaining Amount:@if (cnt > 0)
-                                            {@results[17][0] - @results[17][0]}
+                                            {@results[17][0]}
                                         </th>
                                     </tr>
                                     <tr>
-                                        <th colspan="2" align="left" valign="middle">PAN NO:</th>
-                                        <th colspan="2" align="left" valign="middle">AADHAR No:</th>
-                                        <th colspan="2" align="left" valign="middle">Reserved Parking:</th>
-                                        <th colspan="2" align="left" valign="middle">Internal Charges:</th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            PAN NO:@if (cnt > 0)
+                                            {@results[18][0]}
+                                        </th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            AADHAR No:@if (cnt > 0)
+                                            {@results[19][0]}
+                                        </th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            Reserved Parking:@if (cnt > 0)
+                                            {@results[9][0]}
+                                        </th>
+                                        <th colspan="2" align="left" valign="middle">Internal Charges:@results[10][0]</th>
                                     </tr>
                                     <tr>
-                                        <th colspan="2" align="left" valign="middle">EMAIL:</th>
-                                        <th colspan="2" align="left" valign="middle">Occupation:</th>
-                                        <th colspan="2" align="left" valign="middle">Agreement Done:</th>
-                                        <th colspan="2" align="left" valign="middle">Agreement Date:</th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            EMAIL:@if (cnt > 0)
+                                            {@results[15][0]}
+                                        </th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            Occupation:@if (cnt > 0)
+                                            {@results[20][0]}
+                                        </th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            Agreement Done:@if (cnt > 0)
+                                            {@results[39][0]}
+                                        </th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            Agreement Date:@if (cnt > 0)
+                                            {@results[38][0]}
+                                        </th>
                                     </tr>
                                     <tr>
-                                        <th colspan="4" align="left" valign="middle">CO Applicant Name:</th>
-                                        <th colspan="2" align="left" valign="middle">Agreement No:</th>
-                                        <th colspan="2" align="left" valign="middle">Agreement Amt:</th>
+                                        <th colspan="4" align="left" valign="middle">
+                                            CO Applicant Name:@if (cnt > 0)
+                                            {@results[17][0]}
+                                        </th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            Agreement No:@if (cnt > 0)
+                                            {@results[37][0]}
+                                        </th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            Agreement Amt:@if (cnt > 0)
+                                            {@results[44][0]}
+                                        </th>
                                     </tr>
                                     <tr>
-                                        <th colspan="2" align="left" valign="middle">CO App PAN:</th>
-                                        <th colspan="2" align="left" valign="middle">CO App AADHAR:</th>
-                                        <th colspan="2" align="left" valign="middle">Agreement Cost:</th>
-                                        <th colspan="2" align="left" valign="middle">Adjust Amt:</th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            CO App PAN:@if (cnt > 0)
+                                            {@results[24][0]}
+                                        </th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            CO App AADHAR:@if (cnt > 0)
+                                            {@results[25][0]}
+                                        </th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            Agreement Cost:@if (cnt > 0)
+                                            {@results[44][0]}
+                                        </th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            Adjust Amt:@if (cnt > 0)
+                                            {@results[41][0]}
+                                        </th>
                                     </tr>
                                     <tr>
-                                        <th colspan="2" align="left" valign="middle">CO Occupation:</th>
-                                        <th colspan="2" align="left" valign="middle">DOB:</th>
-                                        <th colspan="2" align="left" valign="middle">Notary Amt:</th>
-                                        <th colspan="2" align="left" valign="middle">Extra Amt:</th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            CO Occupation:@if (cnt > 0)
+                                            {@results[26][0]}
+                                        </th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            DOB:@if (cnt > 0)
+                                            {@results[27][0]}
+                                        </th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            Notary Amt:@if (cnt > 0)
+                                            {@results[40][0]}
+                                        </th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            Extra Amt:@if (cnt > 0)
+                                            {@results[42][0]}
+                                        </th>
                                     </tr>
                                     <tr>
                                         <th colspan="2" align="left" valign="middle"></th>
@@ -169,52 +244,104 @@
 
                                     </tr>
                                     <tr>
-                                        <th colspan="8" align="left" valign="middle">Finance Details:</th>
+                                        <th colspan="8" align="left" valign="middle">Finance Details</th>
                                     </tr>
                                     <tr>
-                                        <th colspan="4" align="left" valign="middle">Finance:</th>
-                                        <th colspan="4" align="left" valign="middle">File handover Date::</th>
+                                        <th colspan="4" align="left" valign="middle">
+                                            Finance:@if (cnt > 0)
+                                            {@results[45][0]}
+                                        </th>
+                                        <th colspan="4" align="left" valign="middle">
+                                            File handover Date:@if (cnt > 0)
+                                            {@results[50][0]}
+                                        </th>
                                     </tr>
                                     <tr>
-                                        <th colspan="4" align="left" valign="middle">Finance Executive Name:</th>
-                                        <th colspan="4" align="left" valign="middle">Finance Exe Mob No:</th>
+                                        <th colspan="4" align="left" valign="middle">
+                                            Finance Executive Name:@if (cnt > 0)
+                                            {@results[47][0]}
+                                        </th>
+                                        <th colspan="4" align="left" valign="middle">
+                                            Finance Exe Mob No:@if (cnt > 0)
+                                            {@results[48][0]}
+                                        </th>
                                     </tr>
                                     <tr>
-                                        <th colspan="4" align="left" valign="middle">File Status:</th>
-                                        <th colspan="4" align="left" valign="middle">Sanction Date:</th>
+                                        <th colspan="4" align="left" valign="middle">
+                                            File Status:@if (cnt > 0)
+                                            {@results[51][0]}
+                                        </th>
+                                        <th colspan="4" align="left" valign="middle">
+                                            Sanction Date:@if (cnt > 0)
+                                            {@results[56][0]}
+                                        </th>
                                     </tr>
                                     <tr>
-                                        <th colspan="4" align="left" valign="middle">Required Loan Amt:</th>
-                                        <th colspan="4" align="left" valign="middle">Disbursement Amt:</th>
+                                        <th colspan="4" align="left" valign="middle">
+                                            Required Loan Amt:@if (cnt > 0)
+                                            {@results[52][0]}
+                                        </th>
+                                        <th colspan="4" align="left" valign="middle">
+                                            Disbursement Amt:@if (cnt > 0)
+                                            {@results[55][0]}
+                                        </th>
                                     </tr>
                                     <tr>
-                                        <th colspan="4" align="left" valign="middle">Sanction Loan Amt:</th>
-                                        <th colspan="4" align="left" valign="middle">Received DD Amount:</th>
+                                        <th colspan="4" align="left" valign="middle">
+                                            Sanction Loan Amt:@if (cnt > 0)
+                                            {@results[54][0]}
+                                        </th>
+                                        <th colspan="4" align="left" valign="middle">
+                                            Received DD Amount:@if (cnt > 0)
+                                            {@results[57][0]}
+                                        </th>
                                     </tr>
                                     <tr>
-                                        <th colspan="4" align="left" valign="middle">Actual Loan Amt:</th>
-                                        <th colspan="4" align="left" valign="middle">Remaining DD Amt:</th>
+                                        <th colspan="4" align="left" valign="middle">
+                                            Actual Loan Amt:@if (cnt > 0)
+                                            {@results[56][0]}
+                                        </th>
+                                        <th colspan="4" align="left" valign="middle">
+                                            Remaining DD Amt:@if (cnt > 0)
+                                            {@results[58][0]}
+                                        </th>
                                     </tr>
                                     <tr>
-                                        <th colspan="4" align="left" valign="middle">Rate Of Intereset:</th>
-                                        <th colspan="2" align="left" valign="middle">EMI Amount:</th>
-                                        <th colspan="2" align="left" valign="middle">EMI Months:</th>
+                                        <th colspan="4" align="left" valign="middle">
+                                            Rate Of Intereset:@if (cnt > 0)
+                                            {@results[59][0]}
+                                        </th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            EMI Amount:@if (cnt > 0)
+                                            {@results[60][0]}
+                                        </th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            EMI Months:@if (cnt > 0)
+                                            {@results[61][0]}
+                                        </th>
                                     </tr>
                                     <tr>
-                                        <th colspan="8" align="center" valign="middle">Payment Commitment:</th>
+                                        <th colspan="8" align="center" valign="middle">Payment Commitment</th>
                                     </tr>
                                     <tr>
                                         <th colspan="4" align="left" valign="middle">Date:</th>
                                         <th colspan="2" align="left" valign="middle">Commitment Type:</th>
                                         <th colspan="2" align="left" valign="middle">Amount:</th>
                                     </tr>
+                                    @for (var i = 0; i < cnt2; i++)
+                                    {
+                                        <tr>
+
+                                            {
+                                            <th colspan="4" align="left" valign="middle">@results2[1][0]</th>
+                                            <th colspan="2" align="left" valign="middle">@results2[2][0]</th>
+                                            <th colspan="2" align="left" valign="middle">@results2[4][0]</th>
+
+
+                                        </tr>
+                                    }
                                     <tr>
-                                        <th colspan="4" align="left" valign="middle">:</th>
-                                        <th colspan="2" align="left" valign="middle">:</th>
-                                        <th colspan="2" align="left" valign="middle">:</th>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="8" align="center" valign="middle">Payment Details:</th>
+                                        <th colspan="8" align="center" valign="middle">Payment Details</th>
                                     <tr>
                                         <th colspan="1" align="left" valign="middle">Date</th>
                                         <th colspan="1" align="left" valign="middle">Amount</th>
@@ -225,29 +352,32 @@
                                         <th colspan="1" align="left" valign="middle">Builder Pay</th>
                                         <th colspan="1" align="left" valign="middle">Bank Pay</th>
                                     </tr>
-                                    <tr>
-                                        <th colspan="1" align="left" valign="middle"></th>
-                                        <th colspan="1" align="left" valign="middle"></th>
-                                        <th colspan="1" align="left" valign="middle"></th>
-                                        <th colspan="1" align="left" valign="middle"></th>
-                                        <th colspan="1" align="left" valign="middle"></th>
-                                        <th colspan="1" align="left" valign="middle"></th>
-                                        <th colspan="1" align="left" valign="middle"></th>
-                                        <th colspan="1" align="left" valign="middle"></th>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="8" align="center" valign="middle">File Process:</th>
-                                    <tr>
-                                        <th colspan="1" align="left" valign="middle">Date</th>
-                                        <th colspan="1" align="left" valign="middle">Service Charge</th>
-                                        <th colspan="1" align="left" valign="middle">Loan Fees Amt</th>
-                                        <th colspan="1" align="left" valign="middle">Cheque/Cash</th>
-                                        <th colspan="1" align="left" valign="middle">Cheque Date</th>
-                                        <th colspan="1" align="left" valign="middle">Bank Name</th>
-                                        <th colspan="1" align="left" valign="middle">Loan Fees</th>
-                                        <th colspan="1" align="left" valign="middle">Status</th>
-                                    </tr>
-                                </thead>
+                                    @for (var i = 0; i < cnt3; i++)
+                                    {
+                                        <tr>
+                                            <th colspan="1" align="left" valign="middle">@results3[0][0]</th>
+                                            <th colspan="1" align="left" valign="middle">@results3[1][0]</th>
+                                            <th colspan="1" align="left" valign="middle">@results3[2][0]</th>
+                                            <th colspan="1" align="left" valign="middle">@results3[3][0]</th>
+                                            <th colspan="1" align="left" valign="middle">@results3[4][0]</th>
+                                            <th colspan="1" align="left" valign="middle">@results3[5][0]</th>
+                                            <th colspan="1" align="left" valign="middle">@results3[6][0]</th>
+                                            <th colspan="1" align="left" valign="middle">@results3[7][0]</th>
+                                        </tr>
+                                    }
+                                        <tr>
+                                            <th colspan="8" align="center" valign="middle">File Process:</th>
+                                        <tr>
+                                            <th colspan="1" align="left" valign="middle">Date</th>
+                                            <th colspan="1" align="left" valign="middle">Service Charge</th>
+                                            <th colspan="1" align="left" valign="middle">Loan Fees Amt</th>
+                                            <th colspan="1" align="left" valign="middle">Cheque/Cash</th>
+                                            <th colspan="1" align="left" valign="middle">Cheque Date</th>
+                                            <th colspan="1" align="left" valign="middle">Bank Name</th>
+                                            <th colspan="1" align="left" valign="middle">Loan Fees</th>
+                                            <th colspan="1" align="left" valign="middle">Status</th>
+                                        </tr>
+                                    </thead>
                                 <tbody>
                                       <tr>
                                             <td></td>
