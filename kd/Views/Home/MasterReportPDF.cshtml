@@ -9,14 +9,17 @@
     var results1 = ViewBag.list1;
     var results2 = ViewBag.list2;
     var results3 = ViewBag.list3;
+    var results4 = ViewBag.list4;
     int? cnt = new int?();
     int? cnt1 = new int?();
     int? cnt2 = new int?();
     int? cnt3 = new int?();
+    int? cnt4 = new int?();
     cnt = ViewBag.total;
     cnt1 = ViewBag.total1;
     cnt2 = ViewBag.total2;
     cnt3 = ViewBag.total3;
+    cnt4 = ViewBag.total4;
     if (cnt == null)
     {
         cnt = 0;
@@ -32,6 +35,10 @@
     if (cnt3 == null)
     {
         cnt3 = 0;
+    }
+    if (cnt4 == null)
+    {
+        cnt4 = 0;
     }
 }
 
@@ -93,14 +100,23 @@
                                     </tr>
                                     <tr>
                                         <th colspan="4" align="left" valign="middle">
-                                            Executive Name:@if (cnt > 0)
-                                            {@results[15][0]}
+                                            Executive Name:@if (cnt1 > 0)
+                                            {@results1[13][0]}
                                         </th>
-                                        <th colspan="2" align="left" valign="middle">Incentive:</th>
-                                        <th colspan="2" align="left" valign="middle">Incentive Amt:</th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            Incentive:@if (cnt1 > 0)
+                                            {@results1[11][0]}
+                                        </th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            Incentive Amt:@if (cnt1 > 0)
+                                            {@results1[6][0]}
+                                        </th>
                                     </tr>
                                     <tr>
-                                        <th colspan="4" align="left" valign="middle">Franchis Name:</th>
+                                        <th colspan="4" align="left" valign="middle">
+                                            Franchis Name:@if (cnt1 > 0)
+                                            {@results1[10][0]}
+                                        </th>
                                         <th colspan="2" align="left" valign="middle">Flat Status:</th>
                                         <th colspan="2" align="left" valign="middle">
                                             Cancel By:@if (cnt > 0)
@@ -379,19 +395,20 @@
                                         </tr>
                                     </thead>
                                 <tbody>
-                                      <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                    @for (var i = 0; i < cnt4; i++)
+                                    {
+                                        <tr>
+                                            <td>@results4[9][0]</td>
+                                            <td>@results4[1][0]</td>
+                                            <td>@results4[2][0]</td>
+                                            <td>@results4[3][0]</td>
+                                            <td>@results4[4][0]</td>
+                                            <td>@results4[5][0]</td>
+                                            <td>@results4[6][0]</td>
+                                            <td>@results4[7][0]</td>
                                         </tr>
-                                   
-                                </tbody>
+                                    }
+                                    </tbody>
                             </table>
 
                             <input type="hidden" name="GridHtml" />

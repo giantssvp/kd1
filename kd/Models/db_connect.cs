@@ -31,6 +31,7 @@ namespace kd.Models
         public List<string>[] masterlist1 = new List<string>[75];
         public List<string>[] masterlist2 = new List<string>[75];
         public List<string>[] masterlist3 = new List<string>[75];
+        public List<string>[] masterlist4 = new List<string>[75];
 
         private bool OpenConnection()
         {
@@ -2027,6 +2028,54 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
             catch (MySqlException ex)
             {
                 return masterlist3;
+            }
+        }
+
+        /*
+        * Get Master report
+        **/
+        public List<string>[] master_report4(string financeID)
+        {
+            //List<string>[] list = new List<string>[75];
+            try
+            {
+                //clear_list_show();
+                string query = "SELECT * FROM v_file_details where Finance_Id = @financeid";
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@financeid", financeID);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+                    
+                    for (int i = 0; i < dataReader.FieldCount; i++)
+                    {
+                        masterlist4[i] = new List<string>();
+                    }
+
+                    //get_list_show(dataReader);
+                    while (dataReader.Read())
+                    {
+                        for (int i = 0; i < dataReader.FieldCount; i++)
+                        {
+                            masterlist4[i].Add(dataReader[i] + "");
+                        }
+                    }
+
+                    dataReader.Close();
+
+                    this.CloseConnection();
+
+                    return masterlist4;
+                }
+                else
+                {
+                    return masterlist4;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return masterlist4;
             }
         }
 
