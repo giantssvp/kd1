@@ -27,6 +27,8 @@
                     <form method="post" action="@Url.Action("MasterReportPDF","Home")" target="_blank" name="basic_validate" id="basic_validate" novalidate="novalidate">
                         <table class="table table-striped">
                             <tbody>
+                                @Html.Partial("booking_fk")
+                                <!--
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Coustomer Name</label></td>
                                     <td>
@@ -42,6 +44,7 @@
                                     </td>
 
                                 </tr>
+                                    -->
                                 <tr>
                                     <td><input type="submit" value="Generate Report" class="btn btn-success" /></td>
                                 </tr>

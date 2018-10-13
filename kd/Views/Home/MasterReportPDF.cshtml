@@ -95,7 +95,7 @@
                                         </th>
                                         <th colspan="2" align="left" valign="middle">
                                             Follup Date:@if (cnt > 0)
-                                            {@results[8][0]}
+                                            {@Convert.ToDateTime(results[8][0]).ToString("dd-MM-yyyy")}
                                         </th>
                                     </tr>
                                     <tr>
@@ -160,7 +160,7 @@
                                         </th>
                                         <th colspan="2" align="left" valign="middle">
                                             DOB:@if (cnt > 0)
-                                            {@results[21][0]}
+                                            {@Convert.ToDateTime(results[21][0]).ToString("dd-MM-yyyy")}
                                         </th>
                                         <th colspan="2" align="left" valign="middle">
                                             Total Received:@if (cnt > 0)
@@ -201,7 +201,7 @@
                                         </th>
                                         <th colspan="2" align="left" valign="middle">
                                             Agreement Date:@if (cnt > 0)
-                                            {@results[38][0]}
+                                            {@Convert.ToDateTime(results[38][0]).ToString("dd-MM-yyyy")}
                                         </th>
                                     </tr>
                                     <tr>
@@ -349,7 +349,7 @@
                                         <tr>
 
                                             {
-                                            <th colspan="4" align="left" valign="middle">@results2[1][0]</th>
+                                            <th colspan="4" align="left" valign="middle">@Convert.ToDateTime(results2[1][0]).ToString("dd-MM-yyyy")</th>
                                             <th colspan="2" align="left" valign="middle">@results2[2][0]</th>
                                             <th colspan="2" align="left" valign="middle">@results2[4][0]</th>
 
@@ -371,10 +371,10 @@
                                     @for (var i = 0; i < cnt3; i++)
                                     {
                                         <tr>
-                                            <th colspan="1" align="left" valign="middle">@results3[0][0]</th>
+                                            <th colspan="1" align="left" valign="middle">@Convert.ToDateTime(results3[0][0]).ToString("dd-MM-yyyy")</th>
                                             <th colspan="1" align="left" valign="middle">@results3[1][0]</th>
                                             <th colspan="1" align="left" valign="middle">@results3[2][0]</th>
-                                            <th colspan="1" align="left" valign="middle">@results3[3][0]</th>
+                                            <th colspan="1" align="left" valign="middle">@Convert.ToDateTime(results3[3][0]).ToString("dd-MM-yyyy")</th>
                                             <th colspan="1" align="left" valign="middle">@results3[4][0]</th>
                                             <th colspan="1" align="left" valign="middle">@results3[5][0]</th>
                                             <th colspan="1" align="left" valign="middle">@results3[6][0]</th>
@@ -398,11 +398,11 @@
                                     @for (var i = 0; i < cnt4; i++)
                                     {
                                         <tr>
-                                            <td>@results4[9][0]</td>
+                                            <td>@Convert.ToDateTime(results4[9][0]).ToString("dd-MM-yyyy")</td>
                                             <td>@results4[1][0]</td>
                                             <td>@results4[2][0]</td>
                                             <td>@results4[3][0]</td>
-                                            <td>@results4[4][0]</td>
+                                            <td>@Convert.ToDateTime(results4[4][0]).ToString("dd-MM-yyyy")</td>
                                             <td>@results4[5][0]</td>
                                             <td>@results4[6][0]</td>
                                             <td>@results4[7][0]</td>

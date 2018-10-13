@@ -2743,7 +2743,7 @@ namespace kd.Controllers
         }
 
         [Authorize]
-        public ActionResult MasterReportPDF(int applid, int siteName)
+        public ActionResult MasterReportPDF(int bapplicant, int bsite, string bwing, int bflats)
         {
             ViewBag.total = 0;
             ViewBag.total1 = 0;
@@ -2758,22 +2758,22 @@ namespace kd.Controllers
             List<string>[] list4 = new List<string>[75];
 
             list = obj.master_report(
-                   applid, siteName, 3);
+                   bapplicant, bsite, bflats);
             ViewBag.list = list;
             ViewBag.total = list[0].Count();
 
             list1 = obj.master_report1(
-                   applid, siteName, 3);
+                   bapplicant, bsite, bflats);
             ViewBag.list1 = list1;
             ViewBag.total1 = list1[0].Count();
 
             list2 = obj.master_report2(
-                   applid, siteName, 3);
+                   bapplicant, bsite, bflats);
             ViewBag.list2 = list2;
             ViewBag.total2 = list2[0].Count();
 
             list3 = obj.master_report3(
-                   applid, siteName, 3);
+                   bapplicant, bsite, bflats);
             ViewBag.list3 = list3;
             ViewBag.total3 = list3[0].Count();
 
