@@ -1303,11 +1303,11 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                 list_enquiry_followup_show = new List<DailyFollowup>();
 
                 DateTime todayDate = DateTime.Now;
-                DateTime defaulDate = Convert.ToDateTime("1967-01-01");
-                if (enqStartDate == defaulDate) {
-                    enqStartDate = todayDate;
+                DateTime defaultDate = Convert.ToDateTime("1967-01-01");
+                if (enqStartDate == defaultDate) {
+                    enqStartDate = defaultDate;
                 }
-                if (enqEndDate == defaulDate)
+                if (enqEndDate == defaultDate)
                 {
                     enqEndDate = todayDate;
                 }
@@ -1421,12 +1421,12 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                 //list_enquiry_followup_show = new List<DailyFollowup>();
                 string query = ""; 
                 DateTime todayDate = DateTime.Now;
-                DateTime defaulDate = Convert.ToDateTime("1967-01-01");
-                if (startDate == defaulDate)
+                DateTime defaultDate = Convert.ToDateTime("1967-01-01");
+                if (startDate == defaultDate)
                 {
-                    startDate = todayDate;
+                    startDate = defaultDate;
                 }
-                if (endDate == defaulDate)
+                if (endDate == defaultDate)
                 {
                     endDate = todayDate;
                 }
@@ -1711,12 +1711,12 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                 clear_list_show();
                 string query = "";
                 DateTime todayDate = DateTime.Now;
-                DateTime defaulDate = Convert.ToDateTime("1967-01-01");
-                if (startDate == defaulDate)
+                DateTime defaultDate = Convert.ToDateTime("1967-01-01");
+                if (startDate == defaultDate)
                 {
-                    startDate = todayDate;
+                    startDate = defaultDate;
                 }
-                if (endDate == defaulDate)
+                if (endDate == defaultDate)
                 {
                     endDate = todayDate;
                 }
@@ -1760,6 +1760,56 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
         }
 
         /*
+         * Get Profit Loss report
+         * */
+        public List<string>[] profit_loss_report(DateTime startDate, DateTime endDate,
+                                             string siteName)
+        {
+            try
+            {
+                clear_list_show();
+                string query = "";
+                DateTime todayDate = DateTime.Now;
+                DateTime defaultDate = Convert.ToDateTime("1967-01-01");
+                if (startDate == defaultDate)
+                {
+                    startDate = defaultDate; //todayDate;
+                }
+                if (endDate == defaultDate)
+                {
+                    endDate = todayDate;
+                }
+
+                query = "select * from v_commission where " +
+                            "( Booking_Date between '" + startDate + "' and '" + endDate + "')";
+
+               
+                if (siteName != null && siteName != "")
+                {
+                    query = query + " and (Site_Id = '" + siteName + "')";
+                }
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+                    get_list_show(dataReader);
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return list_show;
+                }
+                else
+                {
+                    return list_show;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return list_show;
+            }
+        }
+
+        /*
          * Get Executive Franchies report
          * */
         public List<string>[] execu_fran_report(DateTime startDate, DateTime endDate,
@@ -1770,12 +1820,12 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                 clear_list_show();
                 string query = "";
                 DateTime todayDate = DateTime.Now;
-                DateTime defaulDate = Convert.ToDateTime("1967-01-01");
-                if (startDate == defaulDate)
+                DateTime defaultDate = Convert.ToDateTime("1967-01-01");
+                if (startDate == defaultDate)
                 {
-                    startDate = todayDate;
+                    startDate = defaultDate;
                 }
-                if (endDate == defaulDate)
+                if (endDate == defaultDate)
                 {
                     endDate = todayDate;
                 }
@@ -2314,12 +2364,12 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                 clear_list_show();
                 string query = "";
                 DateTime todayDate = DateTime.Now;
-                DateTime defaulDate = Convert.ToDateTime("1967-01-01");
-                if (startDate == defaulDate)
+                DateTime defaultDate = Convert.ToDateTime("1967-01-01");
+                if (startDate == defaultDate)
                 {
-                    startDate = todayDate;
+                    startDate = defaultDate;
                 }
-                if (endDate == defaulDate)
+                if (endDate == defaultDate)
                 {
                     endDate = todayDate;
                 }

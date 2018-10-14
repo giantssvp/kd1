@@ -2731,8 +2731,16 @@ namespace kd.Controllers
         }
 
         [Authorize]
-        public ActionResult ProfitLossReportPDF()
+        public ActionResult ProfitLossReportPDF(DateTime startDate, DateTime endDate,
+                                       string siteName)
         {
+            ViewBag.total = 0;
+            List<string>[] list = new List<string>[17];
+            list = obj.profit_loss_report(
+                   startDate, endDate, siteName);
+
+            ViewBag.list = list;
+            ViewBag.total = list[0].Count();
             return View();
         }
 
