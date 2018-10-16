@@ -1873,6 +1873,10 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
 
             try
             {
+                for (int i = 0; i < 75; i++)
+                {
+                    masterlist[i] = new List<string>();
+                }
                 //clear_list_show();
 
                 string query = "usp_Get_MasterReportDetails";
@@ -1932,6 +1936,11 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                 //clear_list_show();
                 string query = "usp_Get_FranchiseDetails";
 
+                for (int i = 0; i < 75; i++)
+                {
+                    masterlist1[i] = new List<string>();
+                }
+
                 if (this.OpenConnection() == true)
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
@@ -1984,6 +1993,10 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
             try
             {
                 //clear_list_show();
+                for (int i = 0; i < 75; i++)
+                {
+                    masterlist2[i] = new List<string>();
+                }
                 string query = "usp_Get_PaymentCommDetails";
 
                 if (this.OpenConnection() == true)
@@ -2037,6 +2050,10 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
             try
             {
                 //clear_list_show();
+                for (int i = 0; i < 75; i++)
+                {
+                    masterlist3[i] = new List<string>();
+                }
                 string query = "usp_Get_PaymentDetails";
 
                 if (this.OpenConnection() == true)
@@ -2090,6 +2107,10 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
             try
             {
                 //clear_list_show();
+                for (int i = 0; i < 75; i++)
+                {
+                    masterlist4[i] = new List<string>();
+                }
                 string query = "SELECT * FROM v_file_details where Finance_Id = @financeid";
 
                 if (this.OpenConnection() == true)

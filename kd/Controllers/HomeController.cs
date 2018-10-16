@@ -2785,13 +2785,22 @@ namespace kd.Controllers
             ViewBag.list3 = list3;
             ViewBag.total3 = list3[0].Count();
 
-            string fid = list[64][0];
-            if (fid != null && fid != "") {
-                list4 = obj.master_report4(fid);
+            if (list[0].Count != 0)
+            {
+                string fid = list[64][0];
+                if (fid != null && fid != "")
+                {
+                    list4 = obj.master_report4(fid);
+                }
+                ViewBag.list4 = list4;
+                ViewBag.total4 = list4[0].Count();
+            }
+            else {
+                ViewBag.list4 = list4;
+                ViewBag.total4 = 0;
             }
 
-            ViewBag.list4 = list4;
-            ViewBag.total4 = list4[0].Count();
+            
             return View();
         }
 
