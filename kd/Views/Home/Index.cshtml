@@ -45,18 +45,18 @@
                     <h5>Daily Enquiry - Customer Details</h5>
                 </div>
                 <div class="widget-content nopadding">
-                    <form method="post" action="@Url.Action("add_enquiry","Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
+                    <form method="post" action="@Url.Action("add_enquiry", "Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
                         <table class="table table-striped">
                             <tbody>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Customer Name</label></td>
-                                    <td><input type="text" name="enqname" id="required" @(edit ? new { value = elist[1].Replace(" ", "\u00A0") } : null)></td>
+                                    <td><input type="text" name="enqname" required @(edit ? new { value = (elist[1] == "" ? elist : elist[1].Replace(" ", "\u00A0")) } : null)></td>
                                     <td><label class="control-label">Address</label></td>
-                                    <td> <input type="text" name="enqaddress" id="required" @(edit ? new { value = elist[2].Replace(" ", "\u00A0") } : null)></td>
+                                    <td> <input type="text" name="enqaddress" required @(edit ? new { value = elist[2].Replace(" ", "\u00A0") } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Mobile No(Whatsapp)</label></td>
-                                    <td><input type="number" name="enqmob" id="required" @(edit ? new { value = elist[3] } : null)></td>
+                                    <td><input type="number" name="enqmob" required @(edit ? new { value = elist[3] } : null)></td>
                                     <td><label class="control-label">Alternate Mobile</label></td>
                                     <td><input type="number" name="enqaltmob" id="required" @(edit ? new { value = elist[4] } : null)></td>
                                 </tr>
@@ -66,7 +66,7 @@
                                     <td><label class="control-label">Requirement</label></td>
                                     <td>
                                         <select multiple name="enqrequirement" id="required">
-                                            <option value="1RK" @(edit ? (elist[6].Contains("1RK") ? "selected" : "") : "selected")>1RK</option>
+                                            <option value="1RK" @(edit ? (elist[6].Contains("1RK") ? "selected" : "") : "")>1RK</option>
                                             <option value="1BHK" @(edit ? (elist[6].Contains("1BHK") ? "selected" : "") : "")>1BHK</option>
                                             <option value="2BHK" @(edit ? (elist[6].Contains("2BHK") ? "selected" : "") : "")>2BHK</option>
                                             <option value="3BHK" @(edit ? (elist[6].Contains("3BHK") ? "selected" : "") : "")>3BHK</option>
@@ -169,14 +169,12 @@
                                     <th>Customer Name</th>
                                     <th>Address</th>
                                     <th>Whatsup No</th>
-                                    <th>Alternamte No</th>
                                     <th>Email</th>
                                     <th>Requirement</th>
                                     <th>Occupation</th>
                                     <th>Budget</th>
                                     <th>Currrent Status</th>
                                     <th>Source</th>
-                                    <th>Source Details</th>
                                     @if (this.Session["role"].ToString() == "admin")
                                     {
                                         <th>Modify</th>
@@ -191,14 +189,12 @@
                                     <td>@results[1][i]</td>
                                     <td>@results[2][i]</td>
                                     <td>@results[3][i]</td>
-                                    <td>@results[4][i]</td>
                                     <td>@results[5][i]</td>
                                     <td>@results[6][i]</td>
                                     <td>@results[7][i]</td>
                                     <td>@results[9][i]</td>
                                     <td>@results[12][i]</td>
                                     <td>@results[13][i]</td>
-                                    <td>@results[14][i]</td>
                                     @if (this.Session["role"].ToString() == "admin")
                                     {
                                         <td align="center">

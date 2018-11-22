@@ -55,34 +55,35 @@
                                     <td>
                                         <select name="flatsitename" id="flatsitename">    </select>
                                     </td>
-                                    <td><label class="control-label">Wing Name</label></td>
+                                    <td><label class="control-label">Wing</label></td>
                                     <td> <input type="text" name="flatwing" id="required" @(edit ? new { value = elist[5].Replace(" ", "\u00A0") } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Floor</label></td>
                                     <td><input type="number" name="flatfloor" id="required" @(edit ? new { value = elist[2] } : null)></td>
-                                    <td><label class="control-label">Flat No</label></td>
-                                    <td><input type="number" name="flatno" id="required" @(edit ? new { value = elist[1] } : null)></td>
+                                    <td><label class="control-label">Number</label></td>
+                                    <td><input type="number" name="flatno" required @(edit ? new { value = elist[1] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Flat Type</label></td>
                                     <td>
                                         <select name="flattype" id="required">
-                                            <option value="1RK" @(edit ? (elist[4].Contains("1RK") ? "selected" : "") : "selected")>1RK</option>
+                                            <option value="" @(edit ? (elist[4].Contains("") ? "selected" : "") : "selected")></option>
+                                            <option value="1RK" @(edit ? (elist[4].Contains("1RK") ? "selected" : "") : "")>1RK</option>
                                             <option value="1BHK" @(edit ? (elist[4].Contains("1BHK") ? "selected" : "") : "")>1BHK</option>
                                             <option value="2BHK" @(edit ? (elist[4].Contains("2BHK") ? "selected" : "") : "")>2BHK</option>
                                             <option value="3BHK" @(edit ? (elist[4].Contains("3BHK") ? "selected" : "") : "")>3BHK</option>
                                             <option value="Other" @(edit ? (elist[4].Contains("Other") ? "selected" : "") : "")>Other</option>
                                         </select>
                                     </td>
-                                    <td><label class="control-label">Flat Area</label></td>
-                                    <td><input type="number" name="flatarea" id="required" @(edit ? new { value = elist[3] } : null)></td>
+                                    <td><label class="control-label">Area</label></td>
+                                    <td><input type="number" name="flatarea" required @(edit ? new { value = elist[3] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
-                                    <td><label class="control-label">Flat Status</label></td>
+                                    <td><label class="control-label">Status</label></td>
                                     <td><input type="text" name="flatstatus" id="required" @(edit ? new { value = elist[7].Replace(" ", "\u00A0") } : null)></td>
                                     @if (edit)
-                                    {
+                                    {                                        
                                         <td><input type="submit" name="submit_btn" value="Update" class="btn btn-success" /></td>
                                         <td colspan="3"> <input type="submit" name="submit_btn" value="Cancel" class="btn btn-danger" /> </td>
                                         <td> <input type="hidden" name="edit_id" value=@elist[0] /> </td>
@@ -220,7 +221,7 @@
     $(document).ready(function () {
         $.ajax({
             type: "GET",
-            url: '@Url.Action("get_site", "Home", new { site_type = "Flat" })',
+            url: '@Url.Action("get_site", "Home", new { site_type = "All" })',
             data: {},
             dataType: 'json',
             success: function (d) {
@@ -230,7 +231,7 @@
                 $.each(list, function (index, value) {
                     $("#flatsitename").append($('<option></option>').val(list1[index]).html(value));
                 });
-                document.getElementById("flatsitename").value = @(edit ? elist[8] : 1);
+                @if (edit){ <text> document.getElementById("flatsitename").value = @(elist[8]); </text> }
             },
             error: function (err) {
                 alert(err.responseText);

@@ -115,8 +115,9 @@
                                     <th>ID</th>
                                     <th>Customer Name</th>
                                     <th>Site Name</th>
+                                    <th>Site Type</th>
                                     <th>Requirement</th>
-                                    <th>Flat</th>
+                                    <th>Flat/Plot Number</th>
                                     <th>Executive1</th>
                                     <th>Executive2</th>
                                     <th>Executive3</th>
@@ -129,23 +130,24 @@
                             <tbody>
                                 @for (var i = 0; i < cnt; i++)
                                 {
-                                    <tr class="gradeX">
-                                        <td>@results[0][i]</td>
-                                        <td>@results[7][i]</td>
-                                        <td>@results[23][i]</td>
-                                        <td>@results[12][i]</td>
-                                        <td>@results[35][i]@results[31][i]</td>
-                                        <td>@results[39][i]</td>
-                                        <td>@results[48][i]</td>
-                                        <td>@results[57][i]</td>
-                                        @if (this.Session["role"].ToString() == "admin")
-                                        {
-                                            <td align="center">
-                                                <button onclick="fun_edit(this);" value="@results[0][i]" class="btn btn-primary">Edit</button>
-                                                <button onclick="fun_del(this);" value="@results[0][i]" class="btn btn-danger">Delete</button>
-                                            </td>
-                                        }
-                                    </tr>
+                                <tr class="gradeX">
+                                    <td>@results[0][i]</td>
+                                    <td>@results[7][i]</td>
+                                    <td>@results[23][i]</td>
+                                    <td>@results[24][i]</td>
+                                    <td>@results[12][i]</td>
+                                    <td>@results[35][i]@results[31][i]</td>
+                                    <td>@results[39][i]</td>
+                                    <td>@results[49][i]</td>
+                                    <td>@results[59][i]</td>
+                                    @if (this.Session["role"].ToString() == "admin")
+                                    {
+                                        <td align="center">
+                                            <button onclick="fun_edit(this);" value="@results[0][i]" class="btn btn-primary">Edit</button>
+                                            <button onclick="fun_del(this);" value="@results[0][i]" class="btn btn-danger">Delete</button>
+                                        </td>
+                                    }
+                                </tr>
                                 }
                             </tbody>
                         </table>
@@ -214,7 +216,7 @@
                 $.each(list, function (index, value) {
                     $("#enqnamevisit").append($('<option></option>').val(list1[index]).html(value));
                 });
-                document.getElementById("enqnamevisit").value = @(edit ? elist[1] : 1);
+                @if (edit){ <text> document.getElementById("enqnamevisit").value = @(elist[1]); </text> }
             },
             error: function (err) {
                 alert(err.responseText);
@@ -238,12 +240,7 @@
                 $.each(list, function (index, value) {
                     $("#enqsitename").append($('<option></option>').val(list1[index]).html(value));
                 });
-                @if (edit) {
-                    <text> document.getElementById("enqsitename").value = @(edit ? elist[2] : 1); </text>
-                }
-                else {
-                    <text> document.getElementById("enqsitename").selectedIndex = "0"; </text>
-                }
+                @if (edit){ <text> document.getElementById("enqsitename").value = @(elist[2]); </text> }
                 flat($('#enqsitename').val());
             },
             error: function (err) {
@@ -273,12 +270,7 @@
                     text = list2[index] + value;
                     $("#enqflatno").append($('<option></option>').val(list1[index]).html(text));
                 });
-                @if (edit) {
-                    <text> document.getElementById("enqflatno").value = @(edit ? elist[4] : 1); </text>
-                }
-                else {
-                    <text> document.getElementById("enqflatno").selectedIndex = "0"; </text>
-                }
+                @if (edit){ <text> document.getElementById("enqflatno").value = @(elist[4]); </text> }
             },
             error: function (err) {
                 alert(err.responseText);
@@ -308,20 +300,14 @@
                     $("#enqexename2").append($('<option></option>').val(list1[index]).html(value));
                     $("#enqexename3").append($('<option></option>').val(list1[index]).html(value));
                 });
-                @if (edit) {
-                    <text>
-                        document.getElementById("enqexename1").value = @(edit ? elist[5] : 1);
-                        document.getElementById("enqexename2").value = @(edit ? elist[6] : 1);
-                        document.getElementById("enqexename3").value = @(edit ? elist[7] : 1);
-                    </text>
-                }
-                else {
-                    <text>
-                        document.getElementById("enqexename1").value = @(edit ? elist[5] : 1);
-                        document.getElementById("enqexename2").value = @(edit ? elist[6] : 1);
-                        document.getElementById("enqexename3").value = @(edit ? elist[7] : 1);
-                    </text>
-                }
+                
+                @if (edit){ 
+                    <text> 
+                        document.getElementById("enqexename1").value = @(elist[5] != "" ? elist[5] : 0);
+                        document.getElementById("enqexename2").value = @(elist[6] != "" ? elist[6] : 0);
+                        document.getElementById("enqexename3").value = @(elist[7] != "" ? elist[7] : 0);
+                    </text> 
+                }                           
             },
             error: function (err) {
                 alert(err.responseText);

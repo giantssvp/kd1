@@ -43,12 +43,12 @@
                         <table class="table table-striped">
                             <tbody>                                
                                 <tr class="odd gradeX">
-                                    <td><label class="control-label">Customer Name</label></td>
+                                    <td><label class="control-label">Applicant Name</label></td>
                                     <td>
                                         <select name="applid" id="applid">    </select>
                                     </td>
                                     <td><label class="control-label">Co - Applicant Name</label></td>
-                                    <td><input type="text" name="coapplname" id="required" @(edit ? new { value = elist[1].Replace(" ", "\u00A0") } : null)></td>
+                                    <td><input type="text" name="coapplname" required @(edit ? new { value = elist[1].Replace(" ", "\u00A0") } : null)></td>
                                     <td><label class="control-label">Co - PAN  NO</label></td>
                                     <td><input type="text" name="coapplpan" id="required" @(edit ? new { value = elist[2].Replace(" ", "\u00A0") } : null)></td>
                                 </tr>
@@ -58,7 +58,7 @@
                                     <td><label class="control-label">Co - Occupation</label></td>
                                     <td><input type="text" name="coapploccu" id="required" @(edit ? new { value = elist[4].Replace(" ", "\u00A0") } : null)></td>
                                     <td><label class="control-label">Co - Birth Date</label></td>
-                                    <td><input type="date" name="coapplbirth" id="required" @(edit ? new { value = @Convert.ToDateTime(elist[5]).ToString("yyyy-MM-dd") } : null)></td>
+                                    <td><input type="date" name="coapplbirth" required @(edit ? new { value = @Convert.ToDateTime(elist[5]).ToString("yyyy-MM-dd") } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     @if (edit)
@@ -157,7 +157,7 @@
                 $.each(list, function (index, value) {
                     $("#applid").append($('<option></option>').val(list1[index]).html(value));
                 });
-                document.getElementById("applid").value = @(edit ? elist[6] : 1);
+                @if (edit){ <text> document.getElementById("applid").value = @(elist[6]); </text> }
             },
             error: function (err) {
                 alert(err.responseText);

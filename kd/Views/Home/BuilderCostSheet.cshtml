@@ -57,7 +57,7 @@
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Area</label></td>
-                                    <td><input type="text" name="area" id="required" @(edit ? new { value = elist[16].Replace(" ", "\u00A0") } : null)></td>
+                                    <td><input type="text" name="area" required @(edit ? new { value = elist[16].Replace(" ", "\u00A0") } : null)></td>
 
                                     <td><label class="control-label">RR Rate</label></td>
                                     <td><input type="text" name="rr_rate" id="required" @(edit ? new { value = elist[1].Replace(" ", "\u00A0") } : null)></td>
@@ -237,7 +237,7 @@
                 $.each(list, function (index, value) {
                     $("#site").append($('<option></option>').val(list1[index]).html(value));
                 });
-                document.getElementById("site").value = @(edit ? elist[15] : 1);
+                @if (edit){ <text> document.getElementById("site").value = @(elist[15]); </text> }
             },
             error: function (err) {
                 alert(err.responseText);

@@ -56,10 +56,10 @@
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Cheque ID</label></td>
-                                    <td><input type="text" name="chid" id="required" @(edit ? new { value = elist[3].Replace(" ", "\u00A0") } : null)></td>
+                                    <td><input type="text" name="chid" required @(edit ? new { value = elist[3].Replace(" ", "\u00A0") } : null)></td>
 
                                     <td><label class="control-label">Cheque Date</label></td>
-                                    <td><input type="date" name="chdate" id="required" @(edit ? new { value = @Convert.ToDateTime(elist[4]).ToString("yyyy-MM-dd") } : null)></td>
+                                    <td><input type="date" name="chdate" required @(edit ? new { value = @Convert.ToDateTime(elist[4]).ToString("yyyy-MM-dd") } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Bank Name</label></td>
@@ -73,7 +73,7 @@
                                     </td>
                                 </tr>
                                 <tr class="odd gradeX">
-                                    <td><label class="control-label">Finance ID</label></td>
+                                    <td><label class="control-label">Finance Name</label></td>
                                     <td>
                                         <select name="financename" id="financename"  @(edit ? new { value = elist[8] } : null)>  </select>                                  
                                     </td>
@@ -183,12 +183,7 @@
                 $.each(list, function (index, value) {
                     $("#financename").append($('<option></option>').val(list1[index]).html(value));
                 });
-                @if (edit) {
-                    <text> document.getElementById("financename").value = @(edit ? elist[8] : 1); </text>
-                }
-                else {
-                    <text> document.getElementById("financename").selectedIndex = "0"; </text>
-                }
+                @if (edit){ <text> document.getElementById("financename").value = @(elist[8]); </text> }
             },
             error: function (err) {
                 alert(err.responseText);

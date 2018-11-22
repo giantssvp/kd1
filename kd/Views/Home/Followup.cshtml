@@ -55,11 +55,11 @@
                                         <select name="enqnamefollowup" id="enqnamefollowup">    </select>
                                     </td>
                                     <td><label class="control-label">Follow up date</label></td>
-                                    <td> <input type="date" name="enqfollow" id="required" @(edit ? new { value = @Convert.ToDateTime(elist[2]).ToString("yyyy-MM-dd") } : null)></td>
+                                    <td> <input type="date" name="enqfollow" required @(edit ? new { value = @Convert.ToDateTime(elist[2]).ToString("yyyy-MM-dd") } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Next Follow up Date</label></td>
-                                    <td><input type="date" name="enqnextfollow" id="required" @(edit ? new { value = @Convert.ToDateTime(elist[3]).ToString("yyyy-MM-dd") } : null)></td>
+                                    <td><input type="date" name="enqnextfollow" required @(edit ? new { value = @Convert.ToDateTime(elist[3]).ToString("yyyy-MM-dd") } : null)></td>
                                     <td><label class="control-label">Follow Details</label></td>
                                     <td><input type="text" name="enqfollowdetails" id="required" @(edit ? new { value = elist[4].Replace(" ", "\u00A0") } : null)></td>
                                 </tr>
@@ -132,8 +132,8 @@
                                     <td>@Convert.ToDateTime(results[3][i]).ToString("dd-MM-yyyy")</td>
                                     <td>@results[4][i]</td>
                                     <td>@results[25][i]</td>
-                                    <td>@results[34][i]</td>
-                                    <td>@results[43][i]</td>
+                                    <td>@results[35][i]</td>
+                                    <td>@results[45][i]</td>
                                     @if (this.Session["role"].ToString() == "admin")
                                     {
                                         <td align="center">
@@ -211,7 +211,7 @@
                 $.each(list, function (index, value) {
                     $("#enqnamefollowup").append($('<option></option>').val(list1[index]).html(value));
                 });
-                document.getElementById("enqnamefollowup").value = @(edit ? elist[1] : 1);
+                @if (edit){ <text> document.getElementById("enqnamefollowup").value = @(elist[1]); </text> }
             },
             error: function (err) {
                 alert(err.responseText);
@@ -240,10 +240,14 @@
                     $("#enqexenamefollowup2").append($('<option></option>').val(list1[index]).html(value));
                     $("#enqexenamefollowup3").append($('<option></option>').val(list1[index]).html(value));
                 });
-
-                document.getElementById("enqexenamefollowup1").value = @(edit ? elist[5] : 1);
-                document.getElementById("enqexenamefollowup2").value = @(edit ? elist[6] : 1);
-                document.getElementById("enqexenamefollowup3").value = @(edit ? elist[7] : 1);
+                
+                @if (edit){ 
+                    <text> 
+                        document.getElementById("enqexenamefollowup1").value = @(elist[5] != "" ? elist[5] : 0);
+                        document.getElementById("enqexenamefollowup2").value = @(elist[6] != "" ? elist[6] : 0);
+                        document.getElementById("enqexenamefollowup3").value = @(elist[7] != "" ? elist[7] : 0);
+                    </text> 
+                }
             },
             error: function (err) {
                 alert(err.responseText);

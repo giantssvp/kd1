@@ -44,14 +44,14 @@
                             <tbody>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Agreement No</label></td>
-                                    <td><input type="number" name="ano" id="required" @(edit ? new { value = elist[3] } : null)></td>
+                                    <td><input type="text" name="ano" required @(edit ? new { value = elist[3] } : null)></td>
                                     <td><label class="control-label">Agreement Date</label></td>
-                                    <td> <input type="date" name="adate" id="required" @(edit ? new { value = @Convert.ToDateTime(elist[2]).ToString("yyyy-MM-dd") } : null)></td>
+                                    <td> <input type="date" name="adate" required @(edit ? new { value = @Convert.ToDateTime(elist[2]).ToString("yyyy-MM-dd") } : null)></td>
 
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Agreement Amount</label></td>
-                                    <td><input type="number" name="aamount" id="required" @(edit ? new { value = elist[1] } : null)></td>
+                                    <td><input type="number" name="aamount" required @(edit ? new { value = elist[1] } : null)></td>
                                     <td><label class="control-label">Notary Amount</label></td>
                                     <td><input type="number" name="anotary" id="required" @(edit ? new { value = elist[6] } : null)></td>
                                 </tr>

@@ -37,32 +37,28 @@
             <div class="widget-box">
                 <div class="widget-title">
                     <span class="icon"> <i class="icon-info-sign"></i> </span>
-                    <h5>Execute/Finance Booking Details</h5>
+                    <h5>Executive/Franchies Booking Details</h5>
                 </div>
                 <div class="widget-content nopadding">
                     <form method="post" action="@Url.Action("add_exe_franc_audit","Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
                         <table class="table table-striped">
                             <tbody>
                                 <tr class="odd gradeX">
-                                    <td><label class="control-label">Executive Name</label></td>
+                                    <td><label class="control-label">Executive/Franchies Name</label></td>
                                     <td>
                                         <select name="ename" id="ename">  </select>
                                     </td>
-                                    <td><label class="control-label">Franchies Name</label></td>
-                                    <td>
-                                        <select name="fname" id="fname">  </select>
-                                    </td>
+                                    <td><label class="control-label">Total Incentive</label></td>
+                                    <td><input type="number" name="incentive" id="required" @(edit ? new { value = elist[4] } : null)></td>
                                 </tr>                                
                                 @Html.Partial("booking_fk")
                                 <tr class="odd gradeX">
-                                    <td><label class="control-label">Total Incentive</label></td>
-                                    <td><input type="number" name="incentive" id="required" @(edit ? new { value = elist[4] } : null)></td>
                                     <td><label class="control-label">Total Share</label></td>
                                     <td> <input type="text" name="share" id="required" @(edit ? new { value = elist[5].Replace(" ", "\u00A0") } : null)></td>
-                                </tr>
-                                <tr class="odd gradeX">
                                     <td><label class="control-label">Total Paid Amount</label></td>
                                     <td><input type="number" name="paidamt" id="required" @(edit ? new { value = elist[6] } : null)></td>
+                                </tr>
+                                <tr class="odd gradeX">                                    
                                     @if (edit)
                                     {
                                         <td><input type="submit" name="submit_btn" value="Update" class="btn btn-success" /></td>
@@ -115,36 +111,11 @@
             success: function (d) {
                 var list1 = d.id;
                 var list = d.name;
-                $("#ename-").html("");
+                $("#ename").html("");
                 $.each(list, function (index, value) {
                     $("#ename").append($('<option></option>').val(list1[index]).html(value));
                 });
-                document.getElementById("ename").value = @(edit ? elist[1] : 1);
-
-            },
-            error: function (err) {
-                alert(err.responseText);
-            },
-        });
-    });
-</script>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        $.ajax({
-            type: "GET",
-            url: '@Url.Action("get_franchies", "Home")',
-            data: {},
-            dataType: 'json',
-            success: function (d) {
-                var list1 = d.id;
-                var list = d.name;
-                $("#fname-").html("");
-                $.each(list, function (index, value) {
-                    $("#fname").append($('<option></option>').val(list1[index]).html(value));
-                });
-                document.getElementById("fname").value = @(edit ? elist[2] : 1);
-
+                @if (edit){ <text> document.getElementById("ename").value = @(elist[1]); </text> }
             },
             error: function (err) {
                 alert(err.responseText);

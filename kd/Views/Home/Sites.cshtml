@@ -45,7 +45,7 @@
                             <tbody>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Site Name</label></td>
-                                    <td><input type="text" name="sitename" id="required"  @(edit ? new { value = elist[1].Replace(" ", "\u00A0") } : null)></td>
+                                    <td><input type="text" name="sitename" required @(edit ? new { value = elist[1].Replace(" ", "\u00A0") } : null)></td>
                                     <td><label class="control-label">Site Type</label></td>
                                     <td>
                                         <select name="sitetype" id="required">
@@ -213,7 +213,7 @@
                 $.each(list, function (index, value) {
                     $("#flatsitename").append($('<option></option>').val(list1[index]).html(value));
                 });
-                document.getElementById("flatsitename").value = @(edit ? elist[8] : 1);
+                @if (edit){ <text> document.getElementById("flatsitename").value = @(elist[8]); </text> }
             },
             error: function (err) {
                 alert(err.responseText);
@@ -234,7 +234,7 @@
                 $.each(list, function (index, value) {
                     $("#plotsitename").append($('<option></option>').val(list1[index]).html(value));
                 });
-                document.getElementById("plotsitename").value = @(edit ? elist[1] : 1);
+                @if (edit){ <text> document.getElementById("plotsitename").value = @(elist[1]); </text> }
             },
             error: function (err) {
                 alert(err.responseText);

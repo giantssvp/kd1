@@ -18,6 +18,23 @@ namespace kd.Controllers
     {
         public static db_connect obj = new db_connect();
 
+        //Column names for search in table
+        public string daily_customer_column = "Customer_Name, Current_Status, Sanction_Type, Enquiry_Date";
+        public string daily_sitevisit_column = "Customer_Name, Site_Name, Site_Type, Exe_franc1_Name, Exe_franc2_Name, Exe_franc3_Name";
+        public string daily_followup_column = "Customer_Name, Followup_Date, Next_Followup_Date, Exe_franc1_Name, Exe_franc2_Name, Exe_franc3_Name";
+        public string sites_column = "Site_Name, Site_Type, Address, Sanction_Type";
+        public string flat_plot_column = "Site_Name, Site_Type, Address, Sanction_Type, Number, Area";
+        public string executive_franchies_column = "Name, Code, Joining_Date, Executive_Type";
+        public string applicant_column = "Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No, Applicant_Address";
+        public string co_applicant_column = "Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No, Co_Applicant_Name, Co_Applicant_Pan_No, Co_Applicant_Adhar_No";
+        public string bookings_column = "Booking_No, Referenceby, bookings_date, Site_Name, Site_Type, Number, Type, Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No";
+        public string payment_commitment_column = "Commitment_Type, Commitment_Date, Booking_No, bookings_date, Site_Name, Site_Type, Number, Type, Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No";
+        public string payment_details_column = "Payment_Mode, Cheque_Date, Cheque_Id, Bank_Name, Payment_Type, Booking_No, Referenceby, bookings_date, Site_Name, Site_Type, Number, Type, Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No";
+        public string agreement_column = "Agreement_date, Agreement_No, agreement_record_date, Booking_No, Referenceby, bookings_date, Site_Name, Site_Type, Number, Type, Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No";
+        public string finanace_column = "Finance_Type, Finance_Name, Finance_Executive_Name, File_Handover_Date, Booking_No, Referenceby, bookings_date, Site_Name, Site_Type, Number, Type, Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No";
+        public string file_column = "Cheque_Date, Cheque_Id, Bank_Name, Finance_Type, Finance_Name, Finance_Executive_Name, File_Handover_Date, Booking_No, Referenceby, bookings_date, Site_Name, Site_Type, Number, Type, Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No";
+        public string cost_sheet_column = "Basic_Rate, Type, Cost_Sheet_Type, Site_Name, Site_Type, Sanction_Type";
+
         protected bool isUserAuthenticated()
         {
             //if (!this.User.Identity.IsAuthenticated)
@@ -149,7 +166,12 @@ namespace kd.Controllers
             HttpContext.Session.Add("offset", 0);
             List<string>[] sites = new List<string>[9];
             List<string>[] list = new List<string>[9];
-            sites = obj.sites_show(site_type:"Flat");
+            sites = obj.sites_show(site_type:"All");
+            
+            sites[0].Insert(0, "AllPlots");
+            sites[1].Insert(0, "All Plots");
+            sites[0].Insert(0, "AllFlats");
+            sites[1].Insert(0, "All Flats");
             sites[0].Insert(0, "All");
             sites[1].Insert(0, "All");
 
@@ -175,6 +197,10 @@ namespace kd.Controllers
             List<string>[] sites = new List<string>[6];
             List<string>[] list = new List<string>[6];
             sites = obj.sites_show(site_type: "Plot");
+            sites[0].Insert(0, "AllPlots");
+            sites[1].Insert(0, "All Plots");
+            sites[0].Insert(0, "AllFlats");
+            sites[1].Insert(0, "All Flats");
             sites[0].Insert(0, "All");
             sites[1].Insert(0, "All");
 
@@ -422,7 +448,7 @@ namespace kd.Controllers
                 {
                     if (page == "Index")
                     {
-                        if (obj.Delete_Record("daily_enquiry", id) == 0)
+                        if (obj.Delete_Record("daily_customer", id) == 0)
                         {
                             pass = 1;
                         }
@@ -450,28 +476,14 @@ namespace kd.Controllers
                     }
                     else if (page == "Flats")
                     {
-                        if (obj.Delete_Record("flats", id) == 0)
-                        {
-                            pass = 1;
-                        }
-                    }
-                    else if (page == "Plots")
-                    {
-                        if (obj.Delete_Record("plot", id) == 0)
+                        if (obj.Delete_Record("flat_plot", id) == 0)
                         {
                             pass = 1;
                         }
                     }
                     else if (page == "Executive")
                     {
-                        if (obj.Delete_Record("executive", id) == 0)
-                        {
-                            pass = 1;
-                        }
-                    }
-                    else if (page == "Franchies")
-                    {
-                        if (obj.Delete_Record("franchies", id) == 0)
+                        if (obj.Delete_Record("executive_franchies", id) == 0)
                         {
                             pass = 1;
                         }
@@ -506,7 +518,7 @@ namespace kd.Controllers
                     }
                     else if (page == "Agreement")
                     {
-                        if (obj.Delete_Record("aggrement", id) == 0)
+                        if (obj.Delete_Record("agreement", id) == 0)
                         {
                             pass = 1;
                         }
@@ -577,7 +589,7 @@ namespace kd.Controllers
                 {
                     if (page == "Index")
                     {
-                        edit_list = obj.get_edit_record("daily_enquiry", id);
+                        edit_list = obj.get_edit_record("daily_customer", id);
                     }
                     else if (page == "SiteVisit")
                     {
@@ -593,19 +605,11 @@ namespace kd.Controllers
                     }
                     else if (page == "Flats")
                     {
-                        edit_list = obj.get_edit_record("flats", id);
-                    }
-                    else if (page == "Plots")
-                    {
-                        edit_list = obj.get_edit_record("plot", id);
+                        edit_list = obj.get_edit_record("flat_plot", id);
                     }
                     else if (page == "Executive")
                     {
-                        edit_list = obj.get_edit_record("executive", id);
-                    }
-                    else if (page == "Franchies")
-                    {
-                        edit_list = obj.get_edit_record("franchies", id);
+                        edit_list = obj.get_edit_record("executive_franchies", id);
                     }
                     else if (page == "Customer")
                     {
@@ -630,7 +634,7 @@ namespace kd.Controllers
                     }
                     else if (page == "Agreement")
                     {
-                        edit_list = obj.get_edit_record("aggrement", id);
+                        edit_list = obj.get_edit_record("agreement", id);
                         List<string> edit_list1 = new List<string>();
                         edit_list1 = obj.get_showcase_from_bookingID(Int32.Parse(edit_list[5]));
                         edit_list.Insert(7, edit_list1[0]);
@@ -666,6 +670,7 @@ namespace kd.Controllers
                         edit_list = obj.get_edit_record("cost_sheet", id);
                     }
 
+                    edit_list = edit_list.ToList().ConvertAll(s => s.Replace(" ", "\u00A0"));
                     ViewBag.edit_list = edit_list;
                     ViewBag.edit_str = "edit";
                 }
@@ -700,12 +705,16 @@ namespace kd.Controllers
                 }
                 else if (page == "Sites")
                 {
-                    list = obj.sites_show();
+                    list = obj.sites_show(offset: 0, limit: page_size, search: search);
                 }
                 else if (page == "Flats")
                 {
                     List<string>[] sites = new List<string>[9];
-                    sites = obj.sites_show(site_type: "Flat");
+                    sites = obj.sites_show(site_type: "All");
+                    sites[0].Insert(0, "AllPlots");
+                    sites[1].Insert(0, "All Plots");
+                    sites[0].Insert(0, "AllFlats");
+                    sites[1].Insert(0, "All Flats");
                     sites[0].Insert(0, "All");
                     sites[1].Insert(0, "All");
 
@@ -715,26 +724,9 @@ namespace kd.Controllers
 
                     list = obj.flats_show(site, 0, page_size, search: search);                    
                 }
-                else if (page == "Plots")
-                {
-                    List<string>[] sites = new List<string>[6];
-                    sites = obj.sites_show(site_type: "Plot");
-                    sites[0].Insert(0, "All");
-                    sites[1].Insert(0, "All");
-
-                    ViewBag.sites = sites.ToList();
-                    ViewBag.total_site = sites[0].Count();
-                    ViewBag.site = site;
-
-                    list = obj.plots_show(site, 0, page_size, search: search);                    
-                }
                 else if(page == "Executive")
                 {                                        
                     list = obj.executive_show(0, page_size, search: search);
-                }
-                else if(page == "Franchies")
-                {
-                    list = obj.franchies_show(0, page_size, search: search);
                 }
                 else if(page == "Customer")
                 {
@@ -822,7 +814,11 @@ namespace kd.Controllers
                 else if (page == "Flats")
                 {
                     List<string>[] sites = new List<string>[9];
-                    sites = obj.sites_show(site_type: "Flat");
+                    sites = obj.sites_show(site_type: "All");
+                    sites[0].Insert(0, "AllPlots");
+                    sites[1].Insert(0, "All Plots");
+                    sites[0].Insert(0, "AllFlats");
+                    sites[1].Insert(0, "All Flats");
                     sites[0].Insert(0, "All");
                     sites[1].Insert(0, "All");
 
@@ -832,26 +828,9 @@ namespace kd.Controllers
 
                     list = obj.flats_show(site, Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);                    
                 }
-                else if (page == "Plots")
-                {
-                    List<string>[] sites = new List<string>[6];
-                    sites = obj.sites_show(site_type: "Plot");
-                    sites[0].Insert(0, "All");
-                    sites[1].Insert(0, "All");
-
-                    ViewBag.sites = sites.ToList();
-                    ViewBag.total_site = sites[0].Count();
-                    ViewBag.site = site;
-
-                    list = obj.plots_show(site, Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);                    
-                }
                 else if (page == "Executive")
                 {
                     list = obj.executive_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
-                }
-                else if (page == "Franchies")
-                {
-                    list = obj.franchies_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
                 else if (page == "Customer")
                 {
@@ -920,11 +899,11 @@ namespace kd.Controllers
                     string query = "";
                     if (search == "")
                     {
-                        query = "daily_enquiry";
+                        query = "daily_customer";
                     }
                     else
                     {
-                        query = "daily_enquiry where CONCAT(Customer_Name, Requirement) LIKE '%" + search + "%'";
+                        query = "daily_customer where CONCAT(" + daily_customer_column + ") LIKE '%" + search + "%'";
                     }
                     cnt = obj.get_count(query);
                 }
@@ -933,11 +912,11 @@ namespace kd.Controllers
                     string query = "";
                     if (search == "")
                     {
-                        query = "daily_sitevisit";
+                        query = "v_daily_sitevisit";
                     }
                     else
                     {
-                        query = "daily_sitevisit where CONCAT(Wing, Flat) LIKE '%" + search + "%'";
+                        query = "v_daily_sitevisit where CONCAT(" + daily_sitevisit_column +") LIKE '%" + search + "%'";
                     }
                     cnt = obj.get_count(query);
                 }
@@ -946,11 +925,11 @@ namespace kd.Controllers
                     string query = "";
                     if (search == "")
                     {
-                        query = "daily_followup";
+                        query = "v_daily_followup";
                     }
                     else
                     {
-                        query = "daily_followup where CONCAT(Followup_Details, Followup_Date, Next_Followup_Date) LIKE '%" + search + "%'";
+                        query = "v_daily_followup where CONCAT(" + daily_followup_column + ") LIKE '%" + search + "%'";
                     }
                     cnt = obj.get_count(query);
                 }
@@ -963,38 +942,59 @@ namespace kd.Controllers
                     }
                     else
                     {
-                        query = "sites where CONCAT(Site_Name, Site_Type, Sanction_Type) LIKE '%" + search + "%'";
+                        query = "sites where CONCAT(" + sites_column + ") LIKE '%" + search + "%'";
                     }
                     cnt = obj.get_count(query);
                 }
                 else if (page == "Flats")
                 {
                     string query = "";
-                    int id = obj.get_site_id_by_name(site);
-                    
-                    if (search == "")
+                    if (site == "All")
                     {
-                        query = "flats where Site_Id = " + id;
+                        if (search == "")
+                        {
+                            query = "v_flat_plot";
+                        }
+                        else
+                        {
+                            query = "v_flat_plot where CONCAT(" + flat_plot_column + ") LIKE '%" + search + "%'";
+                        }
+                    }
+                    else if (site == "AllFlats")
+                    {
+                        if (search == "")
+                        {
+                            query = "v_flat_plot where Site_Type = 'Flat'";
+                        }
+                        else
+                        {
+                            query = "v_flat_plot where Site_Type = 'Flat' and CONCAT(" + flat_plot_column + ") LIKE '%" + search + "%'";
+                        }
+                    }
+                    else if (site == "AllPlots")
+                    {
+                        if (search == "")
+                        {
+                            query = "v_flat_plot where Site_Type = 'Plot'";
+                        }
+                        else
+                        {
+                            query = "v_flat_plot where Site_Type = 'Plot' and CONCAT(" + flat_plot_column + ") LIKE '%" + search + "%'";
+                        }
                     }
                     else
                     {
-                        query = "flats where Site_Id = " + id + " and CONCAT(Status, Flat_No) LIKE '%" + search + "%'";
+                        //int id = obj.get_site_id_by_name(site);
+                        if (search == "")
+                        {
+                            query = "v_flat_plot where Site_Name = " + site;
+                        }
+                        else
+                        {
+                            query = "v_flat_plot where Site_Name = " + site + " and CONCAT(" + flat_plot_column + ") LIKE '%" + search + "%'";
+                        }
                     }
-                    cnt = obj.get_count(query);
-                }
-                else if (page == "Plots")
-                {
-                    string query = "";
-                    int id = obj.get_site_id_by_name(site);
 
-                    if (search == "")
-                    {
-                        query = "plot where Site_ID = " + id;
-                    }
-                    else
-                    {
-                        query = "plot where Site_ID = " + id + " and CONCAT(Plot_Status, Plot_NO) LIKE '%" + search + "%'";
-                    }
                     cnt = obj.get_count(query);
                 }
                 else if (page == "Executive")
@@ -1002,24 +1002,11 @@ namespace kd.Controllers
                     string query = "";
                     if (search == "")
                     {
-                        query = "executive";
+                        query = "executive_franchies";
                     }
                     else
                     {
-                        query = "executive where CONCAT(Executive_Name, Executive_Code) LIKE '%" + search + "%'";
-                    }
-                    cnt = obj.get_count(query);
-                }
-                else if (page == "Franchies")
-                {
-                    string query = "";
-                    if (search == "")
-                    {
-                        query = "franchies";
-                    }
-                    else
-                    {
-                        query = "franchies where CONCAT(Francies_Name, Address) LIKE '%" + search + "%'";
+                        query = "executive_franchies where CONCAT(" + executive_franchies_column + ") LIKE '%" + search + "%'";
                     }
                     cnt = obj.get_count(query);
                 }
@@ -1032,7 +1019,7 @@ namespace kd.Controllers
                     }
                     else
                     {
-                        query = "applicant where CONCAT(Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No) LIKE '%" + search + "%'";
+                        query = "applicant where CONCAT(" + applicant_column + ") LIKE '%" + search + "%'";
                     }
                     cnt = obj.get_count(query);
                 }
@@ -1041,11 +1028,11 @@ namespace kd.Controllers
                     string query = "";
                     if (search == "")
                     {
-                        query = "co_applicant";
+                        query = "v_co_applicant";
                     }
                     else
                     {
-                        query = "co_applicant where CONCAT(Co_Applicant_Name, Co_Applicant_Pan_No, Co_Applicant_Adhar_No) LIKE '%" + search + "%'";
+                        query = "v_co_applicant where CONCAT(" + co_applicant_column + ") LIKE '%" + search + "%'";
                     }
                     cnt = obj.get_count(query);
                 }
@@ -1054,11 +1041,11 @@ namespace kd.Controllers
                     string query = "";
                     if (search == "")
                     {
-                        query = "bookings";
+                        query = "v_bookings";
                     }
                     else
                     {
-                        query = "bookings where CONCAT(Booking_No, Referenceby) LIKE '%" + search + "%'";
+                        query = "v_bookings where CONCAT(" + bookings_column + ") LIKE '%" + search + "%'";
                     }
                     cnt = obj.get_count(query);
                 }
@@ -1067,11 +1054,11 @@ namespace kd.Controllers
                     string query = "";
                     if (search == "")
                     {
-                        query = "payment_commitment";
+                        query = "v_payment_commitment";
                     }
                     else
                     {
-                        query = "payment_commitment where CONCAT(Commitment_Type, Amount) LIKE '%" + search + "%'";
+                        query = "v_payment_commitment where CONCAT(" + payment_commitment_column + ") LIKE '%" + search + "%'";
                     }
                     cnt = obj.get_count(query);
                 }
@@ -1080,11 +1067,11 @@ namespace kd.Controllers
                     string query = "";
                     if (search == "")
                     {
-                        query = "payment_details";
+                        query = "v_payment_details";
                     }
                     else
                     {
-                        query = "payment_details where CONCAT(Cheque_Id, Payment_Type) LIKE '%" + search + "%'";
+                        query = "v_payment_details where CONCAT(" + payment_details_column + ") LIKE '%" + search + "%'";
                     }
                     cnt = obj.get_count(query);
                 }
@@ -1093,11 +1080,11 @@ namespace kd.Controllers
                     string query = "";
                     if (search == "")
                     {
-                        query = "aggrement";
+                        query = "v_agreement";
                     }
                     else
                     {
-                        query = "aggrement where CONCAT(Aggrement_No, Aggrement_Amount) LIKE '%" + search + "%'";
+                        query = "v_agreement where CONCAT(" + agreement_column + ") LIKE '%" + search + "%'";
                     }
                     cnt = obj.get_count(query);
                 }
@@ -1106,11 +1093,11 @@ namespace kd.Controllers
                     string query = "";
                     if (search == "")
                     {
-                        query = "finance_details";
+                        query = "v_finance_details";
                     }
                     else
                     {
-                        query = "finance_details where CONCAT(Finance_Name, Finance_Executive_Name) LIKE '%" + search + "%'";
+                        query = "v_finance_details where CONCAT(" + finanace_column + ") LIKE '%" + search + "%'";
                     }
                     cnt = obj.get_count(query);
                 }
@@ -1119,11 +1106,11 @@ namespace kd.Controllers
                     string query = "";
                     if (search == "")
                     {
-                        query = "file_details";
+                        query = "v_file_details";
                     }
                     else
                     {
-                        query = "file_details where CONCAT(Cheque_Id, Bank_Name) LIKE '%" + search + "%'";
+                        query = "v_file_details where CONCAT(" + file_column + ") LIKE '%" + search + "%'";
                     }
                     cnt = obj.get_count(query);
                 }
@@ -1132,11 +1119,11 @@ namespace kd.Controllers
                     string query = "";
                     if (search == "")
                     {
-                        query = "cost_sheet where Cost_Sheet_Type = 'customer'";
+                        query = "v_cost_sheet where Cost_Sheet_Type = 'customer'";
                     }
                     else
                     {
-                        query = "cost_sheet where Cost_Sheet_Type = 'customer' and CONCAT(Basic_Rate, Type) LIKE '%" + search + "%'";
+                        query = "v_cost_sheet where Cost_Sheet_Type = 'customer' and CONCAT(" + cost_sheet_column + ") LIKE '%" + search + "%'";
                     }
                     cnt = obj.get_count(query);
                 }
@@ -1145,11 +1132,11 @@ namespace kd.Controllers
                     string query = "";
                     if (search == "")
                     {
-                        query = "cost_sheet where Cost_Sheet_Type = 'builder'";
+                        query = "v_cost_sheet where Cost_Sheet_Type = 'builder'";
                     }
                     else
                     {
-                        query = "cost_sheet where Cost_Sheet_Type = 'builder' and CONCAT(Basic_Rate, Type) LIKE '%" + search + "%'";
+                        query = "v_cost_sheet where Cost_Sheet_Type = 'builder' and CONCAT(" + cost_sheet_column + ") LIKE '%" + search + "%'";
                     }
                     cnt = obj.get_count(query);
                 }
@@ -1179,7 +1166,11 @@ namespace kd.Controllers
                 else if (page == "Flats")
                 {
                     List<string>[] sites = new List<string>[9];
-                    sites = obj.sites_show(site_type: "Flat");
+                    sites = obj.sites_show(site_type: "All");
+                    sites[0].Insert(0, "AllPlots");
+                    sites[1].Insert(0, "All Plots");
+                    sites[0].Insert(0, "AllFlats");
+                    sites[1].Insert(0, "All Flats");
                     sites[0].Insert(0, "All");
                     sites[1].Insert(0, "All");
 
@@ -1189,25 +1180,9 @@ namespace kd.Controllers
 
                     list = obj.flats_show(site, Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);                                      
                 }
-                else if (page == "Plots")
-                {
-                    List<string>[] sites = new List<string>[6];
-                    sites = obj.sites_show(site_type: "Plot");
-                    sites[0].Insert(0, "All");
-                    sites[1].Insert(0, "All");
-
-                    ViewBag.sites = sites.ToList();
-                    ViewBag.total_site = sites[0].Count();
-                    ViewBag.site = site;
-                    list = obj.plots_show(site, Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);                    
-                }
                 else if (page == "Executive")
                 {
                     list = obj.executive_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
-                }
-                else if (page == "Franchies")
-                {
-                    list = obj.franchies_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
                 else if (page == "Customer")
                 {
@@ -1276,11 +1251,11 @@ namespace kd.Controllers
                     string query = "";
                     if (search == "")
                     {
-                        query = "daily_enquiry";
+                        query = "daily_customer";
                     }
                     else
                     {
-                        query = "daily_enquiry where CONCAT(Customer_Name, Requirement) LIKE '%" + search + "%'";
+                        query = "daily_customer where CONCAT(" + daily_customer_column + ") LIKE '%" + search + "%'";
                     }
                     cnt = obj.get_count(query);
                 }
@@ -1289,11 +1264,11 @@ namespace kd.Controllers
                     string query = "";
                     if (search == "")
                     {
-                        query = "daily_sitevisit";
+                        query = "v_daily_sitevisit";
                     }
                     else
                     {
-                        query = "daily_sitevisit where CONCAT(Wing, Flat) LIKE '%" + search + "%'";
+                        query = "v_daily_sitevisit where CONCAT(" + daily_sitevisit_column + ") LIKE '%" + search + "%'";
                     }
                     cnt = obj.get_count(query);
                 }
@@ -1302,11 +1277,11 @@ namespace kd.Controllers
                     string query = "";
                     if (search == "")
                     {
-                        query = "daily_followup";
+                        query = "v_daily_followup";
                     }
                     else
                     {
-                        query = "daily_followup where CONCAT(Followup_Details, Followup_Date, Next_Followup_Date) LIKE '%" + search + "%'";
+                        query = "v_daily_followup where CONCAT(" + daily_followup_column + ") LIKE '%" + search + "%'";
                     }
                     cnt = obj.get_count(query);
                 }
@@ -1319,36 +1294,59 @@ namespace kd.Controllers
                     }
                     else
                     {
-                        query = "sites where CONCAT(Site_Name, Site_Type, Sanction_Type) LIKE '%" + search + "%'";
+                        query = "sites where CONCAT(" + sites_column + ") LIKE '%" + search + "%'";
                     }
                     cnt = obj.get_count(query);
                 }
                 else if (page == "Flats")
                 {
                     string query = "";
-                    int id = obj.get_site_id_by_name(site);
-                    if (search == "")
+                    if (site == "All")
                     {
-                        query = "flats where Site_Id = " + id;
+                        if (search == "")
+                        {
+                            query = "v_flat_plot";
+                        }
+                        else
+                        {
+                            query = "v_flat_plot where CONCAT(" + flat_plot_column + ") LIKE '%" + search + "%'";
+                        }
+                    }
+                    else if (site == "AllFlats")
+                    {
+                        if (search == "")
+                        {
+                            query = "v_flat_plot where Site_Type = 'Flat'";
+                        }
+                        else
+                        {
+                            query = "v_flat_plot where Site_Type = 'Flat' and CONCAT(" + flat_plot_column + ") LIKE '%" + search + "%'";
+                        }
+                    }
+                    else if (site == "AllPlots")
+                    {
+                        if (search == "")
+                        {
+                            query = "v_flat_plot where Site_Type = 'Plot'";
+                        }
+                        else
+                        {
+                            query = "v_flat_plot where Site_Type = 'Plot' and CONCAT(" + flat_plot_column + ") LIKE '%" + search + "%'";
+                        }
                     }
                     else
                     {
-                        query = "flats where Site_Id = " + id + " and CONCAT(Status, Flat_No) LIKE '%" + search + "%'";
-                    }
-                    cnt = obj.get_count(query);
-                }
-                else if (page == "Plots")
-                {
-                    string query = "";
-                    int id = obj.get_site_id_by_name(site);
-                    if (search == "")
-                    {
-                        query = "plot where Site_ID = " + id;
-                    }
-                    else
-                    {
-                        query = "plot where Site_ID = " + id + " and CONCAT(Plot_Status, Plot_NO) LIKE '%" + search + "%'";
-                    }
+                        //int id = obj.get_site_id_by_name(site);
+                        if (search == "")
+                        {
+                            query = "v_flat_plot where Site_Name = " + site;
+                        }
+                        else
+                        {
+                            query = "v_flat_plot where Site_Name = " + site + " and CONCAT(" + flat_plot_column + ") LIKE '%" + search + "%'";
+                        }
+                    }                    
+                    
                     cnt = obj.get_count(query);
                 }
                 else if (page == "Executive")
@@ -1356,24 +1354,11 @@ namespace kd.Controllers
                     string query = "";
                     if (search == "")
                     {
-                        query = "executive";
+                        query = "executive_franchies";
                     }
                     else
                     {
-                        query = "executive where CONCAT(Executive_Name, Executive_Code) LIKE '%" + search + "%'";
-                    }
-                    cnt = obj.get_count(query);
-                }
-                else if (page == "Franchies")
-                {
-                    string query = "";
-                    if (search == "")
-                    {
-                        query = "franchies";
-                    }
-                    else
-                    {
-                        query = "franchies where CONCAT(Francies_Name, Address) LIKE '%" + search + "%'";
+                        query = "executive_franchies where CONCAT(" + executive_franchies_column + ") LIKE '%" + search + "%'";
                     }
                     cnt = obj.get_count(query);
                 }
@@ -1386,7 +1371,7 @@ namespace kd.Controllers
                     }
                     else
                     {
-                        query = "applicant where CONCAT(Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No) LIKE '%" + search + "%'";
+                        query = "applicant where CONCAT(" + applicant_column + ") LIKE '%" + search + "%'";
                     }
                     cnt = obj.get_count(query);
                 }
@@ -1395,11 +1380,11 @@ namespace kd.Controllers
                     string query = "";
                     if (search == "")
                     {
-                        query = "co_applicant";
+                        query = "v_co_applicant";
                     }
                     else
                     {
-                        query = "co_applicant where CONCAT(Co_Applicant_Name, Co_Applicant_Pan_No, Co_Applicant_Adhar_No) LIKE '%" + search + "%'";
+                        query = "v_co_applicant where CONCAT(" + co_applicant_column + ") LIKE '%" + search + "%'";
                     }
                     cnt = obj.get_count(query);
                 }
@@ -1408,11 +1393,11 @@ namespace kd.Controllers
                     string query = "";
                     if (search == "")
                     {
-                        query = "bookings";
+                        query = "v_bookings";
                     }
                     else
                     {
-                        query = "bookings where CONCAT(Booking_No, Referenceby) LIKE '%" + search + "%'";
+                        query = "v_bookings where CONCAT(" + bookings_column + ") LIKE '%" + search + "%'";
                     }
                     cnt = obj.get_count(query);
                 }
@@ -1421,11 +1406,11 @@ namespace kd.Controllers
                     string query = "";
                     if (search == "")
                     {
-                        query = "payment_commitment";
+                        query = "v_payment_commitment";
                     }
                     else
                     {
-                        query = "payment_commitment where CONCAT(Commitment_Type, Amount) LIKE '%" + search + "%'";
+                        query = "v_payment_commitment where CONCAT(" + payment_commitment_column + ") LIKE '%" + search + "%'";
                     }
                     cnt = obj.get_count(query);
                 }
@@ -1434,11 +1419,11 @@ namespace kd.Controllers
                     string query = "";
                     if (search == "")
                     {
-                        query = "payment_details";
+                        query = "v_payment_details";
                     }
                     else
                     {
-                        query = "payment_details where CONCAT(Cheque_Id, Payment_Type) LIKE '%" + search + "%'";
+                        query = "v_payment_details where CONCAT(" + payment_details_column + ") LIKE '%" + search + "%'";
                     }
                     cnt = obj.get_count(query);
                 }
@@ -1447,11 +1432,11 @@ namespace kd.Controllers
                     string query = "";
                     if (search == "")
                     {
-                        query = "aggrement";
+                        query = "v_agreement";
                     }
                     else
                     {
-                        query = "aggrement where CONCAT(Aggrement_No, Aggrement_Amount) LIKE '%" + search + "%'";
+                        query = "v_agreement where CONCAT(" + agreement_column + ") LIKE '%" + search + "%'";
                     }
                     cnt = obj.get_count(query);
                 }
@@ -1460,11 +1445,11 @@ namespace kd.Controllers
                     string query = "";
                     if (search == "")
                     {
-                        query = "finance_details";
+                        query = "v_finance_details";
                     }
                     else
                     {
-                        query = "finance_details where CONCAT(Finance_Name, Finance_Executive_Name) LIKE '%" + search + "%'";
+                        query = "v_finance_details where CONCAT(" + finanace_column + ") LIKE '%" + search + "%'";
                     }
                     cnt = obj.get_count(query);
                 }
@@ -1473,11 +1458,11 @@ namespace kd.Controllers
                     string query = "";
                     if (search == "")
                     {
-                        query = "file_details";
+                        query = "v_file_details";
                     }
                     else
                     {
-                        query = "file_details where CONCAT(Cheque_Id, Bank_Name) LIKE '%" + search + "%'";
+                        query = "v_file_details where CONCAT(" + file_column + ") LIKE '%" + search + "%'";
                     }
                     cnt = obj.get_count(query);
                 }
@@ -1486,11 +1471,11 @@ namespace kd.Controllers
                     string query = "";
                     if (search == "")
                     {
-                        query = "cost_sheet where Cost_Sheet_Type = 'customer'";
+                        query = "v_cost_sheet where Cost_Sheet_Type = 'customer'";
                     }
                     else
                     {
-                        query = "cost_sheet where Cost_Sheet_Type = 'customer' and CONCAT(Basic_Rate, Type) LIKE '%" + search + "%'";
+                        query = "v_cost_sheet where Cost_Sheet_Type = 'customer' and CONCAT(" + cost_sheet_column + ") LIKE '%" + search + "%'";
                     }
                     cnt = obj.get_count(query);
                 }
@@ -1499,11 +1484,11 @@ namespace kd.Controllers
                     string query = "";
                     if (search == "")
                     {
-                        query = "cost_sheet where Cost_Sheet_Type = 'builder'";
+                        query = "v_cost_sheet where Cost_Sheet_Type = 'builder'";
                     }
                     else
                     {
-                        query = "cost_sheet where Cost_Sheet_Type = 'builder' and CONCAT(Basic_Rate, Type) LIKE '%" + search + "%'";
+                        query = "v_cost_sheet where Cost_Sheet_Type = 'builder' and CONCAT(" + cost_sheet_column + ") LIKE '%" + search + "%'";
                     }
                     cnt = obj.get_count(query);
                 }
@@ -1539,7 +1524,11 @@ namespace kd.Controllers
                 else if (page == "Flats")
                 {
                     List<string>[] sites = new List<string>[9];
-                    sites = obj.sites_show(site_type: "Flat");
+                    sites = obj.sites_show(site_type: "All");
+                    sites[0].Insert(0, "AllPlots");
+                    sites[1].Insert(0, "All Plots");
+                    sites[0].Insert(0, "AllFlats");
+                    sites[1].Insert(0, "All Flats");
                     sites[0].Insert(0, "All");
                     sites[1].Insert(0, "All");
 
@@ -1549,26 +1538,9 @@ namespace kd.Controllers
 
                     list = obj.flats_show(site, Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);                                        
                 }
-                else if (page == "Plots")
-                {
-                    List<string>[] sites = new List<string>[6];
-                    sites = obj.sites_show(site_type: "Plot");
-                    sites[0].Insert(0, "All");
-                    sites[1].Insert(0, "All");
-
-                    ViewBag.sites = sites.ToList();
-                    ViewBag.total_site = sites[0].Count();
-                    ViewBag.site = site;
-
-                    list = obj.plots_show(site, Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);                    
-                }
                 else if (page == "Executive")
                 {
                     list = obj.executive_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
-                }
-                else if (page == "Franchies")
-                {
-                    list = obj.franchies_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
                 else if (page == "Customer")
                 {
@@ -1631,7 +1603,11 @@ namespace kd.Controllers
         {
             try
             {
-                string req = string.Join(" ", enqrequirement);
+                string req = null;
+                if (enqrequirement != null)
+                {
+                    req = string.Join(" ", enqrequirement);
+                }
                 if (submit_btn == "Save" && isUserAuthenticated())
                 {
                     if (obj.insert_enquiry(enqname, enqaddress, enqmob, enqaltmob, enqemail, req, enqoccu, enqincome, 
@@ -1859,14 +1835,14 @@ namespace kd.Controllers
             }
         }
 
-        public ActionResult add_executive(string exename, string execode, string exeemail, string exemob, string exeadd, string exejoin, string exebirth, string exestatus, string submit_btn, string edit_id = "0")
+        public ActionResult add_executive(string exetype, string exename, string execode, string exeemail, string exemob, string exeadd, string exejoin, string exebirth, string exestatus, string submit_btn, string edit_id = "0")
         {
             try
             {
 
                 if (submit_btn == "Save" && isUserAuthenticated())
                 {
-                    if (obj.insert_executive(exename, execode, exeemail, exemob, exeadd, exejoin, exebirth, exestatus) == 1)
+                    if (obj.insert_executive(exetype, exename, execode, exeemail, exemob, exeadd, exejoin, exebirth, exestatus) == 1)
                     {
                         TempData["AlertMessage"] = "All the details saved successfully.";
                     }
@@ -1878,7 +1854,7 @@ namespace kd.Controllers
                 else if (submit_btn == "Update" && isUserAuthenticated())
                 {
                     int id = Int32.Parse(edit_id);
-                    if (obj.insert_executive(exename, execode, exeemail, exemob, exeadd, exejoin, exebirth, exestatus, "edit", id) == 1)
+                    if (obj.insert_executive(exetype, exename, execode, exeemail, exemob, exeadd, exejoin, exebirth, exestatus, "edit", id) == 1)
                     {
                         TempData["AlertMessage"] = "All the details updated successfully.";
                     }
@@ -1935,14 +1911,14 @@ namespace kd.Controllers
         }
 
         public ActionResult add_applicant(string applname, string applemail, string applmob, string appladdr, string applpan, string applaadhar,
-            string apploccu, string applbirth, string applage, string applstatus, string submit_btn, string edit_id = "0")
+            string apploccu, string applbirth, string applstatus, string submit_btn, string edit_id = "0")
         {
             try
             {
                 if (submit_btn == "Save" && isUserAuthenticated())
                 {
                     if (obj.insert_applicant(applname, applemail, applmob, appladdr, applpan, applaadhar,
-                                             apploccu, applbirth, applage, applstatus) == 1)
+                                             apploccu, applbirth, applstatus) == 1)
                     {
                         TempData["AlertMessage"] = "All the details saved successfully.";
                     }
@@ -1955,7 +1931,7 @@ namespace kd.Controllers
                 {
                     int id = Int32.Parse(edit_id);
                     if (obj.insert_applicant(applname, applemail, applmob, appladdr, applpan, applaadhar,
-                                             apploccu, applbirth, applage, applstatus, "edit", id) == 1)
+                                             apploccu, applbirth, applstatus, "edit", id) == 1)
                     {
                         TempData["AlertMessage"] = "All the details updated successfully.";
                     }
@@ -2475,25 +2451,7 @@ namespace kd.Controllers
                 wing = flat[2]
             };
             return Json(result, JsonRequestBehavior.AllowGet);
-        }
-
-        /** 
-         * Drop Down list for franchies name on page load
-         */
-        [HttpGet]
-        public ActionResult get_franchies(string data)
-        {
-            List<string>[] sites = new List<string>[7];
-            sites = obj.franchies_show_name();
-            sites[0].Insert(0, "");
-            sites[1].Insert(0, "");
-            var result = new
-            {
-                id = sites[0],
-                name = sites[1]
-            };
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
+        }        
 
         /** 
          * Drop Down list for booking wise customer name on page load

@@ -57,12 +57,12 @@
                                         </select>
                                     </td>
                                     <td><label class="control-label">Amount</label></td>
-                                    <td> <input type="number" name="camount" id="required" @(edit ? new { value = elist[2] } : null)></td>
+                                    <td> <input type="number" name="camount" required @(edit ? new { value = elist[2] } : null)></td>
                                 </tr>
                                 @Html.Partial("booking_fk")
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Commitment Date</label></td>
-                                    <td><input type="date" name="cdate" id="required" @(edit ? new { value = @Convert.ToDateTime(elist[3]).ToString("yyyy-MM-dd") } : null)></td>
+                                    <td><input type="date" name="cdate" required @(edit ? new { value = @Convert.ToDateTime(elist[3]).ToString("yyyy-MM-dd") } : null)></td>
                                     <td><label class="control-label">Remark</label></td>
                                     <td> <textarea class="cremark" name="cremark"> @(edit ? elist[5] : null)</textarea></td>
                                 </tr>

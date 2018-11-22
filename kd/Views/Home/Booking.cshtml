@@ -44,7 +44,7 @@
                             <tbody>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Booking No</label></td>
-                                    <td><input type="number" name="bno" id="required" @(edit ? new { value = elist[1] } : null)></td>
+                                    <td><input type="number" name="bno" required @(edit ? new { value = elist[1] } : null)></td>
                                     <td><label class="control-label">Referred By</label></td>
                                     <td> <input type="text" name="breferred" id="required" @(edit ? new { value = elist[2].Replace(" ", "\u00A0") } : null)></td>
                                 </tr>
@@ -54,7 +54,7 @@
                                         <select name="bapplicant" id="bapplicant">    </select>
                                     </td>
                                     <td><label class="control-label">Total Flat Amount</label></td>
-                                    <td><input type="number" name="btamount" id="required" @(edit ? new { value = elist[4] } : null)></td>
+                                    <td><input type="number" name="btamount" required @(edit ? new { value = elist[4] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Received Amount</label></td>
@@ -100,7 +100,7 @@
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Follow Up Date</label></td>
-                                    <td> <input type="date" name="bfollowup" id="required" @(edit ? new { value = @Convert.ToDateTime(elist[13]).ToString("yyyy-MM-dd") } : null)></td>
+                                    <td> <input type="date" name="bfollowup" required @(edit ? new { value = @Convert.ToDateTime(elist[13]).ToString("yyyy-MM-dd") } : null)></td>
 
                                     <td><label class="control-label">Status</label></td>
                                     <td>
@@ -144,7 +144,7 @@
                                     <th>Booking No</th>
                                     <th>Applicant Name</th>
                                     <th>Site</th>
-                                    <th>Flat</th>
+                                    <th>Flat/Plot Number</th>
                                     <th>Amount</th>
                                     @if (this.Session["role"].ToString() == "admin")
                                     {
@@ -238,12 +238,7 @@
                 $.each(list, function (index, value) {
                     $("#bsite").append($('<option></option>').val(list1[index]).html(value));                    
                 });
-                @if (edit) {
-                    <text> document.getElementById("bsite").value = @(edit ? elist[7] : 1); </text>
-                }
-                else {
-                    <text> document.getElementById("bsite").selectedIndex = "0"; </text>
-                }
+                @if (edit){ <text> document.getElementById("bsite").value = @(elist[7]); </text> }
                 flat($('#bsite').val());
             },
             error: function (err) {
@@ -267,12 +262,7 @@
                 $.each(list, function (index, value) {
                     $("#bapplicant").append($('<option></option>').val(list1[index]).html(value));
                 });
-                if ("@edit") {
-                    document.getElementById("bapplicant").value = @(edit ? elist[3] : 1);
-                }
-                else {
-                    document.getElementById("bapplicant").selectedIndex = "0";
-                }
+                @if (edit){ <text> document.getElementById("bapplicant").value = @(elist[3]); </text> }
             },
             error: function (err) {
                 alert(err.responseText);
@@ -307,8 +297,7 @@
                 $.each(list, function (index, value) {
                     $("#bwing").append($('<option></option>').val(value).html(value));
                 });
-                
-                document.getElementById("bwing").value = @(edit ? elist[8] : 1);
+                @if (edit){ <text> document.getElementById("bwing").value = @(elist[8]); </text> }
                 flat(site_id);                
             },
             error: function (err) {
@@ -348,12 +337,7 @@
                     text = list2[index] + value;
                     $("#bflats").append($('<option></option>').val(list1[index]).html(text));
                 });
-                if ("@edit") {
-                    document.getElementById("bflats").value = @(edit ? elist[9] : 1);
-                }
-                else {
-                    document.getElementById("bflats").selectedIndex = "0";
-                }
+                @if (edit){ <text> document.getElementById("bflats").value = @(elist[9]); </text> }
             },
             error: function (err) {
                 alert(err.responseText);

@@ -102,11 +102,12 @@
                                     <th>Email</th>
                                     <th>Address</th>
                                     <th>Joining Date</th>
+                                    <th>Type</th>
                                     @if (this.Session["role"].ToString() == "admin")
                                     {
                                         <th>Modify</th>
                                     }
-                                    </tr>
+                                </tr>
                             </thead>
                             <tbody>
                                 @for (var i = 0; i < cnt; i++)
@@ -119,6 +120,7 @@
                                     <td>@results[2][i]</td>
                                     <td>@results[4][i]</td>
                                     <td>@Convert.ToDateTime(results[7][i]).ToString("dd-MM-yyyy")</td>
+                                    <td>@results[10][i]</td>
                                     @if (this.Session["role"].ToString() == "admin")
                                     {
                                         <td align="center">

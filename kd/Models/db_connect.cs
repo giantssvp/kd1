@@ -17,7 +17,6 @@ namespace kd.Models
 
         public List<string>[] list_alarms_show = new List<string>[75];
         public List<string>[] list_executive_show_name = new List<string>[2];
-        public List<string>[] list_franchies_show_name = new List<string>[2];
         public List<string>[] list_customer_show_name = new List<string>[2];
         public List<string>[] list_finance_name_show = new List<string>[2];
         public List<string>[] list_customer_booking_show = new List<string>[2];
@@ -33,10 +32,27 @@ namespace kd.Models
         public List<string>[] masterlist3 = new List<string>[75];
         public List<string>[] masterlist4 = new List<string>[75];
 
+        //Column names for search in table
+        public string daily_customer_column = "Customer_Name, Current_Status, Sanction_Type, Enquiry_Date";
+        public string daily_sitevisit_column = "Customer_Name, Site_Name, Site_Type, Exe_franc1_Name, Exe_franc2_Name, Exe_franc3_Name";
+        public string daily_followup_column = "Customer_Name, Followup_Date, Next_Followup_Date, Exe_franc1_Name, Exe_franc2_Name, Exe_franc3_Name";
+        public string sites_column = "Site_Name, Site_Type, Address, Sanction_Type";
+        public string flat_plot_column = "Site_Name, Site_Type, Address, Sanction_Type, Number, Area";
+        public string executive_franchies_column = "Name, Code, Joining_Date, Executive_Type";
+        public string applicant_column = "Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No, Applicant_Address";
+        public string co_applicant_column = "Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No, Co_Applicant_Name, Co_Applicant_Pan_No, Co_Applicant_Adhar_No";
+        public string bookings_column = "Booking_No, Referenceby, bookings_date, Site_Name, Site_Type, Number, Type, Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No";
+        public string payment_commitment_column = "Commitment_Type, Commitment_Date, Booking_No, bookings_date, Site_Name, Site_Type, Number, Type, Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No";
+        public string payment_details_column = "Payment_Mode, Cheque_Date, Cheque_Id, Bank_Name, Payment_Type, Booking_No, Referenceby, bookings_date, Site_Name, Site_Type, Number, Type, Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No";
+        public string agreement_column = "Agreement_date, Agreement_No, agreement_record_date, Booking_No, Referenceby, bookings_date, Site_Name, Site_Type, Number, Type, Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No";
+        public string finanace_column = "Finance_Type, Finance_Name, Finance_Executive_Name, File_Handover_Date, Booking_No, Referenceby, bookings_date, Site_Name, Site_Type, Number, Type, Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No";
+        public string file_column = "Cheque_Date, Cheque_Id, Bank_Name, Finance_Type, Finance_Name, Finance_Executive_Name, File_Handover_Date, Booking_No, Referenceby, bookings_date, Site_Name, Site_Type, Number, Type, Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No";
+        public string cost_sheet_column = "Basic_Rate, Type, Cost_Sheet_Type, Site_Name, Site_Type, Sanction_Type";        
+
         private bool OpenConnection()
         {
             string connetionString = null;
-            connetionString = "server=182.50.133.77;database=kolhedeveloper;uid=kolheadmin;pwd=Kolhe@123;Allow User Variables=True;SslMode=none";
+            connetionString = "server=182.50.133.77;database=kolhedeveloper1;uid=kolheadmin1;pwd=Kolhe@123;Allow User Variables=True;SslMode=none";
             connection = new MySqlConnection(connetionString);
             try
             {
@@ -81,7 +97,7 @@ namespace kd.Models
             }
         }        
 
-public int insert_enquiry(string enqname, string enqaddress, string enqmob, string enqaltmob, string enqemail,
+        public int insert_enquiry(string enqname, string enqaddress, string enqmob, string enqaltmob, string enqemail,
             string enqrequirement, string enqoccu, string enqincome, string enqbudget, string enqdown, string enqcurstatus,
             string enqvisit, string enqsource, string enqsourcedetails, string enqsanctiontype, string type = "insert", int id = 0)
         {
@@ -90,7 +106,7 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                 string query = "";
                 if (type == "edit")
                 {
-                    query = "UPDATE daily_enquiry SET " +
+                    query = "UPDATE daily_customer SET " +
                         " Customer_Name = @name," +
                         " Address = @addr," +
                         " Mobile_No = @mob," +
@@ -109,7 +125,7 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                 }
                 else
                 {
-                    query = "INSERT INTO daily_enquiry (Customer_Name, Address, Mobile_No, Second_Mobile_No, Email_ID, " +
+                    query = "INSERT INTO daily_customer (Customer_Name, Address, Mobile_No, Second_Mobile_No, Email_ID, " +
                         "Requirement, Occupation, Income, Budget, Down_Payment, Visit, Current_Status, Source, Source_Details, Sanction_Type, Enquiry_Date) " +
                         "VALUES(@name, @addr, @mob, @altmob, @email, @req, @occu, @income, @budget, @down_pay, @visit, " +
                         "@cur_status, @source, @source_detail, @sanction_type, NOW())";
@@ -179,9 +195,9 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                     cmd.Parameters.AddWithValue("@site", enqsitename);
                     cmd.Parameters.AddWithValue("@wing", enqwing);
                     cmd.Parameters.AddWithValue("@flat", enqflatno);
-                    cmd.Parameters.AddWithValue("@exe1", enqexename1);
-                    cmd.Parameters.AddWithValue("@exe2", enqexename2);
-                    cmd.Parameters.AddWithValue("@exe3", enqexename3);
+                    cmd.Parameters.AddWithValue("@exe1", (enqexename1 != "" ? enqexename1 : null));
+                    cmd.Parameters.AddWithValue("@exe2", (enqexename2 != "" ? enqexename2 : null));
+                    cmd.Parameters.AddWithValue("@exe3", (enqexename3 != "" ? enqexename3 : null));
 
                     if (type == "edit")
                     {
@@ -209,16 +225,16 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                 {
                     query = "UPDATE daily_followup SET " +
                         " Daily_Customer_ID = @name," +
-                        " Folloup_Date = @follow," +
-                        " Next_Folloup_Date = @nextfollow," +
-                        " Folloup_Details = @followdetail," +
+                        " Followup_Date = @follow," +
+                        " Next_Followup_Date = @nextfollow," +
+                        " Followup_Details = @followdetail," +
                         " Executive1_ID = @exe1," +
                         " Executive2_ID = @exe2," +
                         " Executive3_ID = @exe3 where id=@id";
                 }
                 else
                 {
-                    query = "INSERT INTO daily_followup (Daily_Customer_ID, Folloup_Date, Next_Folloup_Date, Folloup_Details, " +
+                    query = "INSERT INTO daily_followup (Daily_Customer_ID, Followup_Date, Next_Followup_Date, Followup_Details, " +
                         "Executive1_ID, Executive2_ID, Executive3_ID, Date) " +
                         "VALUES(@name, @follow, @nextfollow, @followdetail, @exe1, @exe2, @exe3, NOW())";
                 }
@@ -229,9 +245,9 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                     cmd.Parameters.AddWithValue("@follow", enqfollow);
                     cmd.Parameters.AddWithValue("@nextfollow", enqnextfollow);
                     cmd.Parameters.AddWithValue("@followdetail", enqfollowdetails);
-                    cmd.Parameters.AddWithValue("@exe1", enqexename1);
-                    cmd.Parameters.AddWithValue("@exe2", enqexename2);
-                    cmd.Parameters.AddWithValue("@exe3", enqexename3);
+                    cmd.Parameters.AddWithValue("@exe1", (enqexename1 != "" ? enqexename1 : null));
+                    cmd.Parameters.AddWithValue("@exe2", (enqexename2 != "" ? enqexename2 : null));
+                    cmd.Parameters.AddWithValue("@exe3", (enqexename3 != "" ? enqexename3 : null));
 
                     if (type == "edit")
                     {
@@ -304,21 +320,24 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                 string query = "";
                 if (type == "edit")
                 {
-                    query = "UPDATE flats SET " +
-                        "Flat_No = @flatno," +
+                    query = "UPDATE flat_plot SET " +
+                        "Number = @flatno," +
                         " Floor = @floor," +
                         " Area = @area," +
-                        " Flat_Type = @flat_type," +
+                        " Type = @flat_type," +
                         " Wing = @wing," +
                         " Status = @status," +
                         " Site_Id = @siteid where id=@id";
                 }
                 else
                 {
-                    query = "INSERT INTO flats (Flat_No, Floor, Area, Flat_Type, Wing, Date, Status, Site_Id) " +
+                    query = "INSERT INTO flat_plot (Number, Floor, Area, Type, Wing, Date, Status, Site_Id) " +
                     "VALUES(@flatno, @floor, @area, @flat_type, @wing, NOW(), @status, @siteid)";
                 }
-
+                if (flatfloor == "")
+                {
+                    flatfloor = "0";
+                }
                 if (this.OpenConnection() == true)
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
@@ -392,40 +411,47 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
             }
         }
 
-        public int insert_executive(string exename, string execode, string exeemail, string exemob, string exeadd, string exejoin, string exebirth, string exestatus, string type = "insert", int id = 0)
+        public int insert_executive(string exetype, string exename, string execode, string exeemail, string exemob, string exeadd, string exejoin, string exebirth, string exestatus, string type = "insert", int id = 0)
         {
             try
             {
                 string query = "";
                 if (type == "edit")
                 {
-                    query = "UPDATE executive SET " +
-                        "Executive_Name = @name," +
-                        " Executive_Code = @code," +
+                    query = "UPDATE executive_franchies SET " +
+                        "Name = @name," +
+                        " Code = @code," +
                         " Email_Id = @email," +
                         " Phone = @phone," +
                         " Address = @addr," +
                         " Birth_Date = @birth," +
                         " Joining_Date = @join," +
+                        " Executive_type = @type," +
                         " Status = @status where id=@id";
                 }
                 else
                 {
-                    query = "INSERT INTO executive (Executive_Name, Executive_Code, Email_Id, Phone, Address, Birth_Date, Joining_Date, Date, Status) " +
-                    "VALUES(@name, @code, @email, @phone, @addr, @birth, @join, NOW(), @status)";
+                    query = "INSERT INTO executive_franchies (Name, Code, Email_Id, Phone, Address, Birth_Date, Joining_Date, Date, Status, Executive_type) " +
+                    "VALUES(@name, @code, @email, @phone, @addr, @birth, @join, NOW(), @status, @type)";
                 }
 
                 if (this.OpenConnection() == true)
                 {
+                    string birthdate = exebirth;
+                    if (exebirth == "" || exebirth == null)
+                    {
+                        birthdate = null;
+                    }
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@name", exename);
                     cmd.Parameters.AddWithValue("@code", execode);
                     cmd.Parameters.AddWithValue("@email", exeemail);
                     cmd.Parameters.AddWithValue("@phone", exemob);
                     cmd.Parameters.AddWithValue("@addr", exeadd);
-                    cmd.Parameters.AddWithValue("@birth", exebirth);
+                    cmd.Parameters.AddWithValue("@birth", birthdate);
                     cmd.Parameters.AddWithValue("@join", exejoin);
                     cmd.Parameters.AddWithValue("@status", exestatus);
+                    cmd.Parameters.AddWithValue("@type", exetype);
 
                     if (type == "edit")
                     {
@@ -451,7 +477,7 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                 string query = "";
                 if (type == "edit")
                 {
-                    query = "UPDATE franchies SET " +
+                    query = "UPDATE executive_franchies SET " +
                         "Francies_Name = @name," +
                         " Email_Id = @email," +
                         " Phone = @phone," +
@@ -462,8 +488,8 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                 }
                 else
                 {
-                    query = "INSERT INTO franchies (Francies_Name, Email_Id, Phone, Address, Date, Status, Joining_Date, Francies_Code) " +
-                    "VALUES(@name, @email, @phone, @addr, NOW(), @status, @join, @code)";
+                    query = "INSERT INTO executive_franchies (Name, Code, Email_Id, Phone, Address, Joining_Date, Date, Status, Executive_type) " +
+                    "VALUES(@name, @code, @email, @phone, @addr, @join, NOW(), @status, 'Franchies')";
                 }
 
                 if (this.OpenConnection() == true)
@@ -495,7 +521,7 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
         }
 
         public int insert_applicant(string applname, string applemail, string applmob, string appladdr, string applpan, string applaadhar,
-            string apploccu, string applbirth, string applage, string applstatus, string type = "insert", int id = 0)
+            string apploccu, string applbirth, string applstatus, string type = "insert", int id = 0)
         {
             try
             {
@@ -511,14 +537,13 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                         " Applicant_Adhar_No = @aadhar," +
                         " Applicant_Occupation = @occu," +
                         " Applicant_DOB = @birth," +
-                        " Applicant_Age = @age," +
                         " Status = @status where id=@id";
                 }
                 else
                 {
                     query = "INSERT INTO applicant (Applicant_Name, Applicant_Email_Id, Applicant_Phone, Applicant_Address, Applicant_Pan_No, " +
-                    "Applicant_Adhar_No, Applicant_Occupation, Applicant_DOB, Applicant_Age, Date, Status) " +
-                    "VALUES(@name, @email, @phone, @addr, @pan, @aadhar, @occu, @birth, @age, NOW(), @status)";
+                    "Applicant_Adhar_No, Applicant_Occupation, Applicant_DOB, Date, Status) " +
+                    "VALUES(@name, @email, @phone, @addr, @pan, @aadhar, @occu, @birth, NOW(), @status)";
                 }
 
                 if (this.OpenConnection() == true)
@@ -532,7 +557,6 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                     cmd.Parameters.AddWithValue("@aadhar", applaadhar);
                     cmd.Parameters.AddWithValue("@occu", apploccu);
                     cmd.Parameters.AddWithValue("@birth", applbirth);
-                    cmd.Parameters.AddWithValue("@age", applage);
                     cmd.Parameters.AddWithValue("@status", applstatus);
 
                     if (type == "edit")
@@ -835,10 +859,10 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                 string query = "";
                 if (type == "edit")
                 {
-                    query = "UPDATE aggrement SET " +
-                        "Aggrement_Amount = @aamount," +
-                        " Aggrement_Date = @adate," +
-                        " Aggrement_No = @ano," +
+                    query = "UPDATE agreement SET " +
+                        "Agreement_Amount = @aamount," +
+                        " Agreement_Date = @adate," +
+                        " Agreement_No = @ano," +
                         " Status = @astatus," +
                         " Notary_Amount = @notary," +
                         " Adjustment_Amount = @adjust," +
@@ -848,7 +872,7 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                 }
                 else
                 {
-                    query = "INSERT INTO aggrement (Aggrement_Amount, Aggrement_Date, Aggrement_No, Status, Notary_Amount, Adjustment_Amount, Extra_Amount, GST_Amount, Date, Booking_Id) " +
+                    query = "INSERT INTO agreement (Agreement_Amount, Agreement_Date, Agreement_No, Status, Notary_Amount, Adjustment_Amount, Extra_Amount, GST_Amount, Date, Booking_Id) " +
                     "VALUES(@aamount, @adate, @ano, @astatus, @notary, @adjust, @extra, @gst, NOW(), " + que + ")";
                 }
 
@@ -1094,13 +1118,13 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                 string query = "";
                 if (search == "")
                 {
-                    query = "SELECT * FROM daily_enquiry ORDER BY ID DESC LIMIT @lim OFFSET @off";
+                    query = "SELECT * FROM daily_customer ORDER BY ID DESC LIMIT @lim OFFSET @off";
                     //query = "SELECT * FROM daily ORDER BY ID DESC LIMIT @lim OFFSET @off";
                     //query = "daily_enquiry_sp";
                 }
                 else
                 {
-                    query = "SELECT * FROM daily_enquiry where CONCAT(Customer_Name, Requirement) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @lim OFFSET @off";
+                    query = "SELECT * FROM daily_customer where CONCAT(" + daily_customer_column + ") LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @lim OFFSET @off";
                 }
 
                 if (this.OpenConnection() == true)
@@ -1140,7 +1164,7 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                 }
                 else
                 {
-                    query = "SELECT * FROM v_daily_sitevisit where CONCAT(Wing, Flat) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @lim OFFSET @off";
+                    query = "SELECT * FROM v_daily_sitevisit where CONCAT(" + daily_sitevisit_column + ") LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @lim OFFSET @off";
                 }
 
                 if (this.OpenConnection() == true)
@@ -1179,7 +1203,7 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                 }
                 else
                 {
-                    query = "SELECT * FROM v_daily_followup where CONCAT(Folloup_Details, Folloup_Date, Next_Folloup_Date) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @lim OFFSET @off";
+                    query = "SELECT * FROM v_daily_followup where CONCAT(" + daily_followup_column + ") LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @lim OFFSET @off";
                 }
 
                 if (this.OpenConnection() == true)
@@ -1312,7 +1336,7 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                     enqEndDate = todayDate;
                 }
                 
-                string query = "select * from daily_enquiry_followup_view2 where " +
+                string query = "select * from daily_customer_followup_view2 where " +
                                "( Enquiry_Date between '" + enqStartDate + "' and '" + enqEndDate + "')";
 
                 if (enqName != null && enqName != "")
@@ -1375,13 +1399,13 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                         {
                             DailyFollowupobj.Enquiry_Date = Convert.ToDateTime(dataReader["Enquiry_Date"]);
                         }
-                        if (dataReader["folloup_Date"] != DBNull.Value)
+                        if (dataReader["followup_Date"] != DBNull.Value)
                         {
-                            DailyFollowupobj.folloup_Date = Convert.ToDateTime(dataReader["folloup_Date"]);
+                            DailyFollowupobj.folloup_Date = Convert.ToDateTime(dataReader["followup_Date"]);
                         }
-                        if (dataReader["Next_folloup_Date"] != DBNull.Value)
+                        if (dataReader["Next_followup_Date"] != DBNull.Value)
                         {
-                            DailyFollowupobj.Next_folloup_Date = Convert.ToDateTime(dataReader["Next_folloup_Date"]);
+                            DailyFollowupobj.Next_folloup_Date = Convert.ToDateTime(dataReader["Next_followup_Date"]);
                         }
                         DailyFollowupobj.folloup_Details = dataReader["folloup_Details"].ToString();
                         if (dataReader["Executive1_ID"] != DBNull.Value)
@@ -1430,18 +1454,11 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                 {
                     endDate = todayDate;
                 }
-                if (siteType == "Flat")
-                {
-                     query = "select * from sitewise_booking_flats where " +
+
+                query = "select * from sitewise_booking_flat_plot where " +
                                "( Booking_Date between '" + startDate + "' and '" + endDate + "')"
                                + " and Site_Id =  " + siteName;
-
-                }
-                else {
-                     query = "select * from sitewise_booking_plot where " +
-                               "( Booking_Date between '" + startDate + "' and '" + endDate + "')"
-                               + " and Site_Id = " + siteName;
-                }
+                
                 for (int i = 0; i < 21; i++)
                 {
                     list_sitewise_booking_show[i] = new List<string>();
@@ -1488,7 +1505,7 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                 }
                 else
                 {
-                    query = "SELECT * FROM v_cost_sheet where Cost_Sheet_Type = @sheet_type and CONCAT(Basic_Rate, Type) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                    query = "SELECT * FROM v_cost_sheet where Cost_Sheet_Type = @sheet_type and CONCAT(" + cost_sheet_column + ") LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
 
                 if (this.OpenConnection() == true)
@@ -1527,7 +1544,7 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                 }
                 else
                 {
-                    query = "SELECT * FROM applicant where CONCAT(Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                    query = "SELECT * FROM applicant where CONCAT(" + applicant_column + ") LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
 
                 if (this.OpenConnection() == true)
@@ -1565,7 +1582,7 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                 }
                 else
                 {
-                    query = "SELECT * FROM v_co_applicant where CONCAT(Co_Applicant_Name, Co_Applicant_Pan_No, Co_Applicant_Adhar_No) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                    query = "SELECT * FROM v_co_applicant where CONCAT(" + co_applicant_column +") LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
 
                 if (this.OpenConnection() == true)
@@ -1673,7 +1690,7 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                 }
                 else
                 {
-                    query = "SELECT * FROM v_finance_details where CONCAT(Finance_Name, Finance_Executive_Name) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                    query = "SELECT * FROM v_finance_details where CONCAT(" + finanace_column +") LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
 
                 if (this.OpenConnection() == true)
@@ -2199,7 +2216,7 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                 }
                 else
                 {
-                    query = "SELECT * FROM v_bookings where CONCAT(Booking_No, Referenceby) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                    query = "SELECT * FROM v_bookings where CONCAT(" + bookings_column +") LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
 
                 if (this.OpenConnection() == true)
@@ -2233,11 +2250,11 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                 string query = "";
                 if (search == "")
                 {
-                    query = "SELECT * FROM executive ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                    query = "SELECT * FROM executive_franchies ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
                 else
                 {
-                    query = "SELECT * FROM executive where CONCAT(Executive_Name, Executive_Code) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                    query = "SELECT * FROM executive_franchies where CONCAT(" + executive_franchies_column +") LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
 
                 if (this.OpenConnection() == true)
@@ -2268,7 +2285,7 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
         {
             try
             {
-                string query = "SELECT ID,Executive_Name FROM executive ORDER BY ID DESC";
+                string query = "SELECT ID, Name FROM executive_franchies ORDER BY ID DESC";
 
                 list_executive_show_name[0] = new List<string>();
                 list_executive_show_name[1] = new List<string>();
@@ -2281,7 +2298,7 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                     while (dataReader.Read())
                     {
                         list_executive_show_name[0].Add(dataReader["ID"] + "");
-                        list_executive_show_name[1].Add(dataReader["Executive_Name"] + "");
+                        list_executive_show_name[1].Add(dataReader["Name"] + "");
                     }
 
                     dataReader.Close();
@@ -2311,7 +2328,7 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                 }
                 else
                 {
-                    query = "SELECT * FROM v_file_details where CONCAT(Cheque_Id, Bank_Name) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                    query = "SELECT * FROM v_file_details where CONCAT(" + file_column + ") LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
 
                 if (this.OpenConnection() == true)
@@ -2349,7 +2366,7 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                 }
                 else
                 {
-                    query = "SELECT * FROM v_payment_commitment where CONCAT(Commitment_Type, Amount) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                    query = "SELECT * FROM v_payment_commitment where CONCAT(" + payment_commitment_column + ") LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
 
                 if (this.OpenConnection() == true)
@@ -2464,7 +2481,7 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                 }
                 else
                 {
-                    query = "SELECT * FROM v_payment_details where CONCAT(Cheque_Id, Payment_Type) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                    query = "SELECT * FROM v_payment_details where CONCAT(" + payment_details_column +") LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
 
                 if (this.OpenConnection() == true)
@@ -2498,11 +2515,11 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                 string query = "";
                 if (search == "")
                 {
-                    query = "SELECT * FROM v_aggrement ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                    query = "SELECT * FROM v_agreement ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
                 else
                 {
-                    query = "SELECT * FROM v_aggrement where CONCAT(Aggrement_No, Aggrement_Amount) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                    query = "SELECT * FROM v_agreement where CONCAT(" + agreement_column +") LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
 
                 if (this.OpenConnection() == true)
@@ -2536,11 +2553,11 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                 string query = "";
                 if (search == "")
                 {
-                    query = "SELECT * FROM franchies ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                    query = "SELECT * FROM executive_franchies ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
                 else
                 {
-                    query = "SELECT * FROM franchies where CONCAT(Francies_Name, Address) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                    query = "SELECT * FROM executive_franchies where CONCAT(" + executive_franchies_column + ") LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                 }
 
                 if (this.OpenConnection() == true)
@@ -2566,42 +2583,6 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
             }
         }
 
-        /* Get Franchies name */
-        public List<string>[] franchies_show_name()
-        {
-            try
-            {
-                string query = "SELECT ID,Francies_Name FROM franchies ORDER BY ID DESC";
-
-                list_franchies_show_name[0] = new List<string>();
-                list_franchies_show_name[1] = new List<string>();
-
-                if (this.OpenConnection() == true)
-                {
-                    MySqlCommand cmd = new MySqlCommand(query, connection);
-                    MySqlDataReader dataReader = cmd.ExecuteReader();
-
-                    while (dataReader.Read())
-                    {
-                        list_franchies_show_name[0].Add(dataReader["ID"] + "");
-                        list_franchies_show_name[1].Add(dataReader["Francies_Name"] + "");
-                    }
-
-                    dataReader.Close();
-                    this.CloseConnection();
-                    return list_franchies_show_name;
-                }
-                else
-                {
-                    return list_franchies_show_name;
-                }
-            }
-            catch (MySqlException ex)
-            {
-                return list_franchies_show_name;
-            }
-        }
-
         public List<string>[] sites_show(string site_type = "All", int offset = 0, int limit = 0, string search = "")
         {
             try
@@ -2616,7 +2597,7 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                     }
                     else
                     {
-                        query = "SELECT * FROM sites where concat(Site_Name, Site_type) LIKE '%" + search + "%' ORDER BY ID DESC ";
+                        query = "SELECT * FROM sites where concat(" + sites_column + ") LIKE '%" + search + "%' ORDER BY ID DESC ";
                     }
                 }
                 else
@@ -2627,7 +2608,7 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                     }
                     else
                     {
-                        query = "SELECT * FROM sites where Site_Type = '" + site_type + "' and concat(Site_Name, Site_type) LIKE '%" + search + "%' ORDER BY ID DESC ";
+                        query = "SELECT * FROM sites where Site_Type = '" + site_type + "' and concat(" + sites_column + ") LIKE '%" + search + "%' ORDER BY ID DESC ";
                     }
                 }
 
@@ -2671,31 +2652,52 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                 {
                     if (search == "")
                     {
-                        query = "SELECT * FROM v_flats ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                        query = "SELECT * FROM v_flat_plot ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                     }
                     else
                     {
-                        query = "SELECT * FROM v_flats WHERE CONCAT(Status, Flat_No) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                        query = "SELECT * FROM v_flat_plot WHERE CONCAT(" + flat_plot_column + ") LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                    }
+                }
+                else if (site_name == "All Flats")
+                {
+                    if (search == "")
+                    {
+                        query = "SELECT * FROM v_flat_plot where Site_Type='Flat' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                    }
+                    else
+                    {
+                        query = "SELECT * FROM v_flat_plot WHERE Site_Type='Flat' and CONCAT(" + flat_plot_column + ") LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                    }
+                }
+                else if (site_name == "All Plots")
+                {
+                    if (search == "")
+                    {
+                        query = "SELECT * FROM v_flat_plot where Site_Type='Plot' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                    }
+                    else
+                    {
+                        query = "SELECT * FROM v_flat_plot WHERE Site_Type='Plot' and CONCAT(" + flat_plot_column + ") LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                     }
                 }
                 else
                 {
                     if (search == "")
                     {
-                        query = "SELECT * FROM v_flats WHERE Site_Id = @site_id ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                        query = "SELECT * FROM v_flat_plot WHERE Site_Name = @site_name ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                     }
                     else
                     {
-                        query = "SELECT * FROM v_flats WHERE Site_Id = @site_id and CONCAT(Status, Flat_No) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                        query = "SELECT * FROM v_flat_plot WHERE Site_Name = @site_name and CONCAT(" + flat_plot_column + ") LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                     }
                 }
 
                 if (this.OpenConnection() == true)
                 {
-                    int id = get_site_id_by_name(site_name);
-
                     MySqlCommand cmd = new MySqlCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@site_id", id);
+
+                    cmd.Parameters.AddWithValue("@site_name", site_name);
                     cmd.Parameters.AddWithValue("@offset", offset);
                     cmd.Parameters.AddWithValue("@limit", limit);
                     MySqlDataReader dataReader = cmd.ExecuteReader();
@@ -2730,7 +2732,7 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                     }
                     else
                     {
-                        query = "SELECT * FROM v_plot WHERE CONCAT(Plot_Status, Plot_NO) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                        query = "SELECT * FROM v_plot WHERE CONCAT(" + flat_plot_column +") LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                     }
                 }
                 else
@@ -2741,7 +2743,7 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                     }
                     else
                     {
-                        query = "SELECT * FROM v_plot WHERE Site_ID = @site_id and CONCAT(Plot_Status, Plot_NO) LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                        query = "SELECT * FROM v_plot WHERE Site_ID = @site_id and CONCAT(" + flat_plot_column + ") LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
                     }
                 }
 
@@ -2778,7 +2780,7 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
         {
             try
             {
-                string query = "SELECT ID, Customer_Name FROM daily_enquiry ORDER BY ID DESC";
+                string query = "SELECT ID, Customer_Name FROM daily_customer ORDER BY ID DESC";
 
                 list_daily_customer_name_show[0] = new List<string>();
                 list_daily_customer_name_show[1] = new List<string>();
@@ -2894,15 +2896,9 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
             {
                 string query = "";
                 string site_type = show_site_type(site_id);
-                if (site_type == "Flat")
-                {
-                    query = "SELECT ID, Wing FROM flats where Site_Id = '" + site_id + "' order by ID DESC";
-                }
-                else
-                {
-                    query = "SELECT ID, Wing FROM plot where Site_ID = '" + site_id + "' order by ID DESC";
-                }
 
+                query = "SELECT ID, Wing FROM flat_plot where Site_Id = '" + site_id + "' order by ID DESC";
+                
                 list_wing_name_show[0] = new List<string>();
                 list_wing_name_show[1] = new List<string>();
 
@@ -2938,7 +2934,7 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
         {
             try
             {
-                string query = "SELECT * FROM booking_details where applicant_ID = '" + applicant_id + "' ORDER BY applicant_ID DESC";
+                string query = "SELECT * FROM v_bookings where Applicant_Id = '" + applicant_id + "' ORDER BY Applicant_Id DESC";
                 
                 list_booking_details_show[0] = new List<string>();
                 list_booking_details_show[1] = new List<string>();
@@ -2955,13 +2951,13 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
 
                     while (dataReader.Read())
                     {
-                        list_booking_details_show[0].Add(dataReader["applicant_ID"] + "");
-                        list_booking_details_show[1].Add(dataReader["sites_ID"] + "");
-                        list_booking_details_show[2].Add(dataReader["flats_ID"] + "");
+                        list_booking_details_show[0].Add(dataReader["Applicant_Id"] + "");
+                        list_booking_details_show[1].Add(dataReader["Site_Id"] + "");
+                        list_booking_details_show[2].Add(dataReader["Flat"] + "");
                         list_booking_details_show[3].Add(dataReader["Applicant_Name"] + "");                        
                         list_booking_details_show[4].Add(dataReader["Site_Name"] + "");
                         list_booking_details_show[5].Add(dataReader["Wing"] + "");                        
-                        list_booking_details_show[6].Add(dataReader["Flat_No"] + "");
+                        list_booking_details_show[6].Add(dataReader["Number"] + "");
                     }
                     dataReader.Close();
                     this.CloseConnection();
@@ -2991,15 +2987,9 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                 {
                     MySqlCommand command = new MySqlCommand(que, connection);
                     string site_type = command.ExecuteScalar() as string;
-                    if (site_type == "Plot")
-                    {
-                        query = "SELECT ID, Plot_NO as NUM, Wing FROM plot where Site_ID = '" + site_id + "' order by ID DESC";
-                    }
-                    else
-                    {
-                        query = "SELECT ID, Flat_No as NUM, Wing FROM flats where Site_Id = '" + site_id + "' order by ID DESC";
-                    }
 
+                    query = "SELECT ID, Number as NUM, Wing FROM flat_plot where Site_Id = '" + site_id + "' order by ID DESC";
+                    
                     list_flat_no_show[0] = new List<string>();
                     list_flat_no_show[1] = new List<string>();
                     list_flat_no_show[2] = new List<string>();
@@ -3118,9 +3108,9 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
             {
                 int count = 0;
                 string query = "SELECT Sum( a.count ) " +
-                    "FROM (SELECT Count( id ) AS count FROM kolhedeveloper.daily_followup where Folloup_Date = Date(NOW()) or Next_Folloup_Date = Date(NOW()) UNION ALL " +
-                    "SELECT Count( id ) AS count FROM kolhedeveloper.payment_commitment where Commitment_Date = Date(NOW()) UNION ALL  " +
-                    "SELECT Count( id ) AS count FROM kolhedeveloper.payment_details where Cheque_Date = Date(NOW()) ) a;";
+                    "FROM (SELECT Count( id ) AS count FROM daily_followup where Followup_Date = Date(NOW()) or Next_Followup_Date = Date(NOW()) UNION ALL " +
+                    "SELECT Count( id ) AS count FROM payment_commitment where Commitment_Date = Date(NOW()) UNION ALL  " +
+                    "SELECT Count( id ) AS count FROM payment_details where Cheque_Date = Date(NOW()) ) a;";
 
                 if (this.OpenConnection() == true)
                 {
@@ -3143,7 +3133,7 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
                 string query = "";
                 if (page == "followup")
                 {
-                    query = "SELECT * FROM v_daily_followup where Folloup_Date=Date(NOW()) or Next_Folloup_Date=Date(NOW()) ORDER BY ID DESC";
+                    query = "SELECT * FROM v_daily_followup where Followup_Date=Date(NOW()) or Next_Followup_Date=Date(NOW()) ORDER BY ID DESC";
                 }
                 else if (page == "paycommit")
                 {
@@ -3263,7 +3253,7 @@ public int insert_enquiry(string enqname, string enqaddress, string enqmob, stri
         {
             try
             {
-                string query = "select Applicant_Id, Site_Id, Flat from kolhedeveloper.v_bookings where ID = " + id;
+                string query = "select Applicant_Id, Site_Id, Flat from v_bookings where ID = " + id;
                 List<string> list_edit = new List<string>();
 
                 if (this.OpenConnection() == true)

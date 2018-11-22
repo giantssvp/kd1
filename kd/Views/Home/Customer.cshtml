@@ -44,31 +44,29 @@
                             <tbody>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Applicant Name</label></td>
-                                    <td><input type="text" name="applname" id="required" @(edit ? new { value = elist[1].Replace(" ", "\u00A0") } : null)></td>
+                                    <td><input type="text" name="applname" required @(edit ? new { value = elist[1].Replace(" ", "\u00A0") } : null)></td>
                                     <td><label class="control-label">Email ID</label></td>
                                     <td><input type="email" name="applemail" id="required" @(edit ? new { value = elist[2] } : null)></td>
                                     <td><label class="control-label">Phone</label></td>
-                                    <td><input type="number" name="applmob" id="required" @(edit ? new { value = elist[3] } : null)></td>
+                                    <td><input type="number" name="applmob" required @(edit ? new { value = elist[3] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Address</label></td>
                                     <td><input type="text" name="appladdr" id="required" @(edit ? new { value = elist[4].Replace(" ", "\u00A0") } : null)></td>
                                     <td><label class="control-label">PAN NO</label></td>
-                                    <td><input type="text" name="applpan" id="required" @(edit ? new { value = elist[5].Replace(" ", "\u00A0") } : null)></td>
+                                    <td><input type="text" name="applpan" required @(edit ? new { value = elist[5].Replace(" ", "\u00A0") } : null)></td>
                                     <td><label class="control-label">AADHAR NO</label></td>
-                                    <td><input type="text" name="applaadhar" id="required" @(edit ? new { value = elist[6].Replace(" ", "\u00A0") } : null)></td>
+                                    <td><input type="text" name="applaadhar" required @(edit ? new { value = elist[6].Replace(" ", "\u00A0") } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Occupation</label></td>
                                     <td><input type="text" name="apploccu" id="required" @(edit ? new { value = elist[7].Replace(" ", "\u00A0") } : null)></td>
                                     <td><label class="control-label">Birth Date</label></td>
-                                    <td><input type="date" name="applbirth" id="required" @(edit ? new { value = @Convert.ToDateTime(elist[8]).ToString("yyyy-MM-dd") } : null)></td>
-                                    <td><label class="control-label">Age</label></td>
-                                    <td><input type="number" name="applage" id="required" @(edit ? new { value = elist[9] } : null)></td>
-                                </tr>
-                                <tr class="odd gradeX">
+                                    <td><input type="date" name="applbirth" required @(edit ? new { value = @Convert.ToDateTime(elist[8]).ToString("yyyy-MM-dd") } : null)></td>
                                     <td><label class="control-label">Status</label></td>
-                                    <td><input type="text" name="applstatus" id="required" @(edit ? new { value = elist[11].Replace(" ", "\u00A0") } : null)></td>
+                                    <td><input type="text" name="applstatus" id="required" @(edit ? new { value = elist[10].Replace(" ", "\u00A0") } : null)></td>
+                                </tr>
+                                <tr class="odd gradeX">                                    
                                     @if (edit)
                                     {
                                         <td><input type="submit" name="submit_btn" value="Update" class="btn btn-success" /></td>

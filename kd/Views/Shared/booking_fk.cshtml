@@ -49,12 +49,8 @@
                 $.each(list, function (index, value) {
                     $("#bapplicant").append($('<option></option>').val(list1[index]).html(value));
                 });
-                @if (edit) {
-                    <text> document.getElementById("bapplicant").value = @(edit ? elist[7] : 1); </text>
-                }
-                else {
-                    <text> document.getElementById("bapplicant").selectedIndex = "0"; </text>
-                }
+                
+                @if (edit){ <text> document.getElementById("bapplicant").value = @(elist[7]); </text> }
                 get_booking($('#bapplicant').val());
             },
             error: function (err) {
@@ -105,13 +101,13 @@
                         text = list5[index] + value;
                         $("#bflats").append($('<option></option>').val(list3[index]).html(text));
                     });
-                    @if (edit) {
-                        <text> document.getElementById("bsite").value = @(edit ? elist[8] : 1);
-                        document.getElementById("bflats").value = @(edit ? elist[9] : 1); </text>
-                    }
-                    else {
-                        <text> document.getElementById("bsite").selectedIndex = "0";
-                        document.getElementById("bflats").selectedIndex = "0"; </text>
+
+                    @if (edit)
+                    {
+                        <text> 
+                            document.getElementById("bsite").value = @(elist[8]);
+                            document.getElementById("bflats").value = @(elist[9]);
+                        </text> 
                     }
                 },
                 error: function (err) {

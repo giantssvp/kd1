@@ -45,7 +45,7 @@
                                 @Html.Partial("booking_fk")
                                 <tr class="odd gradeX">                                    
                                     <td><label class="control-label">Amount</label></td>
-                                    <td><input type="number" name="pamt" id="required" @(edit ? new { value = elist[1] } : null)></td>
+                                    <td><input type="number" name="pamt" required @(edit ? new { value = elist[1] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Payment Mode</label></td>
@@ -60,11 +60,11 @@
                                     </td>
 
                                     <td><label class="control-label">Cheque ID</label></td>
-                                    <td><input type="text" name="chkid" id="required" @(edit ? new { value = elist[4].Replace(" ", "\u00A0") } : null)></td>
+                                    <td><input type="text" name="chkid" required @(edit ? new { value = elist[4].Replace(" ", "\u00A0") } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Cheque Date</label></td>
-                                    <td> <input type="date" name="chkdate" id="required" @(edit ? new { value = @Convert.ToDateTime(elist[5]).ToString("yyyy-MM-dd") } : null)></td>
+                                    <td> <input type="date" name="chkdate" required @(edit ? new { value = @Convert.ToDateTime(elist[5]).ToString("yyyy-MM-dd") } : null)></td>
                                     <td><label class="control-label">Bank Name</label></td>
                                     <td><input type="text" name="bname" id="required" @(edit ? new { value = elist[6].Replace(" ", "\u00A0") } : null)></td>
                                 </tr>
