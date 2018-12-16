@@ -45,7 +45,7 @@
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Finance Type</label></td>
                                     <td>
-                                        <select name="fintype" required>
+                                        <select name="fintype" required style="max-width:65%;">
                                             <option value="Self" @(edit ? (elist[1].Contains("Self") ? "selected" : "") : "selected")>Self</option>
                                             <option value="Cash" @(edit ? (elist[1].Contains("Cash") ? "selected" : "") : "")>Cash</option>
                                             <option value="Pending" @(edit ? (elist[1].Contains("Pending") ? "selected" : "") : "")>Pending</option>
@@ -72,7 +72,7 @@
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">File Status</label></td>
                                     <td>
-                                        <select name="filesta" required>
+                                        <select name="filesta" required style="max-width:65%;">
                                             <option value="Process" @(edit ? (elist[10].Contains("Process") ? "selected" : "") : "selected")>Process</option>
                                             <option value="Login" @(edit ? (elist[10].Contains("Login") ? "selected" : "") : "")>Login</option>
                                             <option value="Sanction" @(edit ? (elist[10].Contains("Sanction") ? "selected" : "") : "")>Saction</option>

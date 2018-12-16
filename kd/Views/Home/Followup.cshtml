@@ -52,7 +52,7 @@
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Customer Name</label></td>
                                     <td>
-                                        <select name="enqnamefollowup" id="enqnamefollowup">    </select>
+                                        <select name="enqnamefollowup" id="enqnamefollowup" style="max-width:65%;">    </select>
                                     </td>
                                     <td><label class="control-label">Follow up date</label></td>
                                     <td> <input type="date" name="enqfollow" id="enqfollow" required @(edit ? new { value = @Convert.ToDateTime(elist[2]).ToString("yyyy-MM-dd") } : null)></td>
@@ -66,17 +66,17 @@
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Executive1 Name</label></td>
                                     <td>
-                                        <select name="enqexenamefollowup1" id="enqexenamefollowup1">  </select>
+                                        <select name="enqexenamefollowup1" id="enqexenamefollowup1" style="max-width:65%;">  </select>
                                     </td>
                                     <td><label class="control-label">Executive2 Name</label></td>
                                     <td>
-                                        <select name="enqexenamefollowup2" id="enqexenamefollowup2">  </select>
+                                        <select name="enqexenamefollowup2" id="enqexenamefollowup2" style="max-width:65%;">  </select>
                                     </td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Executive3 Name</label></td>
                                     <td>
-                                        <select name="enqexenamefollowup3" id="enqexenamefollowup3">  </select>
+                                        <select name="enqexenamefollowup3" id="enqexenamefollowup3" style="max-width:65%;">  </select>
                                     </td>
                                     @if (edit)
                                     {

@@ -45,7 +45,7 @@
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Commitment Type</label></td>
                                     <td>
-                                        <select name="ctype" id="required">
+                                        <select name="ctype" id="required" style="max-width:65%;">
                                             <option value="token" @(edit ? (elist[1].Contains("token") ? "selected" : "") : "selected")>Token Amount</option>
                                             <option value="booking" @(edit ? (elist[1].Contains("booking") ? "selected" : "") : "")>Booking Amount</option>
                                             <option value="agreement" @(edit ? (elist[1].Contains("agreement") ? "selected" : "") : "")>Agreement Amount</option>

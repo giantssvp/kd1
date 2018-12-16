@@ -45,7 +45,7 @@
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Applicant</label></td>
                                     <td>
-                                        <select name="bapplicant" id="bapplicant">    </select>
+                                        <select name="bapplicant" id="bapplicant" style="max-width:65%;">    </select>
                                     </td>
                                     <td><label class="control-label">Referred By</label></td>
                                     <td> <input type="text" name="breferred" id="required" @(edit ? new { value = elist[2].Replace(" ", "\u00A0") } : null)></td>
@@ -61,7 +61,7 @@
                                     <td> <input type="number" name="bblder" id="required" @(edit ? new { value = elist[6] } : null)></td>
                                     <td><label class="control-label">Internal Charges</label></td>
                                     <td>
-                                        <select name="bcharges" id="bcharges" style="max-width:90%;" onchange="showfield(this.options[this.selectedIndex].value)">
+                                        <select name="bcharges" id="bcharges" style="max-width:65%;" onchange="showfield(this.options[this.selectedIndex].value)">
                                             <option value="Yes" @(edit ? (elist[10].Contains("Yes") ? "selected" : "") : "")>Yes</option>
                                             <option value="No" @(edit ? (elist[10].Contains("No") ? "selected" : "") : "selected")> No</option>
                                         </select> <br />
@@ -71,11 +71,11 @@
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Site</label></td>
                                     <td>
-                                        <select name="bsite" id="bsite">    </select>
+                                        <select name="bsite" id="bsite" style="max-width:65%;">    </select>
                                     </td>
                                     <td><label class="control-label">Flats/Plot</label></td>
                                     <td>
-                                        <select name="bflats" id="bflats">    </select>
+                                        <select name="bflats" id="bflats" style="max-width:65%;">    </select>
                                     </td>
                                 </tr>
                                 <tr class="odd gradeX">
@@ -83,7 +83,7 @@
                                     <td><input type="text" name="bremark" id="required" @(edit ? new { value = elist[14].Replace(" ", "\u00A0") } : null)></td>
                                     <td><label class="control-label">Status</label></td>
                                     <td>
-                                        <select name="bstatus" id="bstatus" style="max-width:90%;">
+                                        <select name="bstatus" id="bstatus" style="max-width:65%;">
                                             <option value="Active" @(edit ? (elist[15].Contains("Active") ? "selected" : "") : "selected")>Active</option>
                                             <option value="Cancel" @(edit ? (elist[15].Contains("Cancel") ? "selected" : "") : "")>Cancel</option>
                                         </select>
@@ -92,7 +92,7 @@
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Reserved Parking</label></td>
                                     <td>
-                                        <select name="bparking" id="bparking" style="max-width:90%;">
+                                        <select name="bparking" id="bparking" style="max-width:65%;">
                                             <option value="Covered" @(edit ? (elist[11].Contains("Covered") ? "selected" : "") : "selected")>Covered</option>
                                             <option value="Open" @(edit ? (elist[11].Contains("Open") ? "selected" : "") : "")> Open</option>
                                             <option value="No" @(edit ? (elist[11].Contains("No") ? "selected" : "") : "")> No</option>

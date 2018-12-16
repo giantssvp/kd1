@@ -45,7 +45,7 @@
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Service Charge</label></td>
                                     <td>
-                                        <select name="chrg" id="required">
+                                        <select name="chrg" id="required" style="max-width:65%;">
                                             <option value="Before" @(edit ? (elist[1].Contains("Before") ? "selected" : "") : "selected")>Before</option>
                                             <option value="After" @(edit ? (elist[1].Contains("After") ? "selected" : "") : "")>After</option>
                                             <option value="Other" @(edit ? (elist[1].Contains("Other") ? "selected" : "") : "")>Other</option>
@@ -66,7 +66,7 @@
                                     <td> <input type="text" name="bnknm" id="required" @(edit ? new { value = elist[5].Replace(" ", "\u00A0") } : null)></td>
                                     <td><label class="control-label">Loan Fees</label></td>
                                     <td>
-                                        <select name="lfee" id="required">
+                                        <select name="lfee" id="required" style="max-width:65%;">
                                             <option value="Paid" @(edit ? (elist[6].Contains("Paid") ? "selected" : "") : "selected")>Paid</option>
                                             <option value="Unpaid" @(edit ? (elist[6].Contains("Unpaid") ? "selected" : "") : "")>Unpaid</option>
                                         </select>
@@ -75,10 +75,10 @@
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Finance Name</label></td>
                                     <td>
-                                        <select name="financename" id="financename" @(edit ? new { value = elist[8] } : null)>  </select>
+                                        <select name="financename" id="financename" @(edit ? new { value = elist[8] } : null) style="max-width:65%;">  </select>
                                     </td>
                                     <td><label class="control-label">Status</label></td>
-                                    <td> <textarea class="span11" name="fstatus">@(edit ? elist[7] : null)</textarea></td>
+                                    <td> <textarea class="span11" style="max-width:65%;" name="fstatus" @(edit ? elist[7] : null)> </textarea></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     @if (edit)
