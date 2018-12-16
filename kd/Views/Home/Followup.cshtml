@@ -55,11 +55,11 @@
                                         <select name="enqnamefollowup" id="enqnamefollowup">    </select>
                                     </td>
                                     <td><label class="control-label">Follow up date</label></td>
-                                    <td> <input type="date" name="enqfollow" required @(edit ? new { value = @Convert.ToDateTime(elist[2]).ToString("yyyy-MM-dd") } : null)></td>
+                                    <td> <input type="date" name="enqfollow" id="enqfollow" required @(edit ? new { value = @Convert.ToDateTime(elist[2]).ToString("yyyy-MM-dd") } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Next Follow up Date</label></td>
-                                    <td><input type="date" name="enqnextfollow" required @(edit ? new { value = @Convert.ToDateTime(elist[3]).ToString("yyyy-MM-dd") } : null)></td>
+                                    <td><input type="date" name="enqnextfollow" id="enqnextfollow" required @(edit ? new { value = @Convert.ToDateTime(elist[3]).ToString("yyyy-MM-dd") } : null)></td>
                                     <td><label class="control-label">Follow Details</label></td>
                                     <td><input type="text" name="enqfollowdetails" id="required" @(edit ? new { value = elist[4].Replace(" ", "\u00A0") } : null)></td>
                                 </tr>
@@ -166,6 +166,32 @@
 <script src="~/Scripts/matrix.form_validation.js"></script>
 
 <script type="text/javascript">
+    $(document).ready(function () {
+        $("#enqfollow").change(function () {
+            check_date();
+        });
+
+        $("#enqnextfollow").change(function () {
+            check_date();
+        });
+
+        function check_date() {
+            var startDate = document.getElementById("enqfollow").value;
+            var today = new Date();
+            if ((Date.parse(startDate) < Date.parse(today))) {
+                alert("Follow up date should be greater than todays date.");
+                document.getElementById("enqfollow").value = "";
+            }
+
+            var endDate = document.getElementById("enqnextfollow").value;
+
+            if ((Date.parse(startDate) > Date.parse(endDate))) {
+                alert("Next follow up date should be greater than follow up date.");
+                document.getElementById("enqnextfollow").value = "";
+            }
+        }
+    });
+
     function fun_del(obj)
     {
         if (confirm('Are you sure you want to delete this record?'))

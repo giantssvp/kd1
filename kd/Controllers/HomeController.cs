@@ -27,7 +27,7 @@ namespace kd.Controllers
         public string executive_franchies_column = "Name, Code, Joining_Date, Executive_Type";
         public string applicant_column = "Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No, Applicant_Address";
         public string co_applicant_column = "Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No, Co_Applicant_Name, Co_Applicant_Pan_No, Co_Applicant_Adhar_No";
-        public string bookings_column = "Booking_No, Referenceby, bookings_date, Site_Name, Site_Type, Number, Type, Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No";
+        public string bookings_column = "Referenceby, bookings_date, Site_Name, Site_Type, Number, Type, Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No";
         public string payment_commitment_column = "Commitment_Type, Commitment_Date, Booking_No, bookings_date, Site_Name, Site_Type, Number, Type, Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No";
         public string payment_details_column = "Payment_Mode, Cheque_Date, Cheque_Id, Bank_Name, Payment_Type, Booking_No, Referenceby, bookings_date, Site_Name, Site_Type, Number, Type, Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No";
         public string agreement_column = "Agreement_date, Agreement_No, agreement_record_date, Booking_No, Referenceby, bookings_date, Site_Name, Site_Type, Number, Type, Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No";
@@ -627,7 +627,7 @@ namespace kd.Controllers
                     {
                         edit_list = obj.get_edit_record("finance_details", id);
                         List<string> edit_list1 = new List<string>();
-                        edit_list1 = obj.get_showcase_from_bookingID(Int32.Parse(edit_list[19]));
+                        edit_list1 = obj.get_showcase_from_bookingID(Int32.Parse(edit_list[20]));
                         edit_list.Insert(7, edit_list1[0]);
                         edit_list.Insert(8, edit_list1[1]);
                         edit_list.Insert(9, edit_list1[2]);
@@ -1989,16 +1989,16 @@ namespace kd.Controllers
             }
         }
 
-        public ActionResult add_booking(string bno, string breferred, string bapplicant, string btamount, string bramount, string bblder,
-            string bsite, string bwing, string bflats, string bcharges, string bparking, string bcancel,
+        public ActionResult add_booking(string breferred, string bapplicant, string btamount, string bramount, string bblder,
+            string bsite, string bwing, string bflats, string bcharges, string other, string bparking, string bcancel,
             string bfollowup, string bstatus, string bremark, string submit_btn, string edit_id = "0")
         {
             try
             {
                 if (submit_btn == "Save" && isUserAuthenticated())
                 {
-                    if (obj.insert_booking(bno, breferred, bapplicant, btamount, bramount, bblder, bsite, bwing, bflats, 
-                        bcharges, bparking, bcancel, bfollowup, bstatus, bremark) == 1)
+                    if (obj.insert_booking(breferred, bapplicant, btamount, bramount, bblder, bsite, bwing, bflats, 
+                        bcharges, other, bparking, bcancel, bfollowup, bstatus, bremark) == 1)
                     {
                         TempData["AlertMessage"] = "All the details saved successfully.";
                     }
@@ -2010,8 +2010,8 @@ namespace kd.Controllers
                 else if (submit_btn == "Update" && isUserAuthenticated())
                 {
                     int id = Int32.Parse(edit_id);
-                    if (obj.insert_booking(bno, breferred, bapplicant, btamount, bramount, bblder, bsite, bwing, bflats, 
-                        bcharges, bparking, bcancel, bfollowup, bstatus, bremark, "edit", id) == 1)
+                    if (obj.insert_booking(breferred, bapplicant, btamount, bramount, bblder, bsite, bwing, bflats, 
+                        bcharges, other, bparking, bcancel, bfollowup, bstatus, bremark, "edit", id) == 1)
                     {
                         TempData["AlertMessage"] = "All the details updated successfully.";
                     }
@@ -2180,7 +2180,7 @@ namespace kd.Controllers
         }
 
         public ActionResult add_finance(string fintype, string finname, string finexe, string finexemob, string finexeemail, string filehanddate,
-            string filesta, string filesanctdate, string reqloanamt, string sanctloanamt, string disburseamt, string actloanamt, string recddamt, 
+            string filesta, string filesanctdate, string reqloanamt, string sanctloanamt, string disburseamt, string actloanamt, string diffloanamt, string recddamt, 
             string remddamt, string rateofinter, string emiamt, string emimonths, string finstat, string bapplicant, string bsite, string bflats, string submit_btn, string edit_id = "0")
         {
             try
@@ -2189,7 +2189,7 @@ namespace kd.Controllers
                 {
                     if (obj.insert_finance(fintype, finname, finexe, finexemob, finexeemail, filehanddate,
                                            filesta, filesanctdate, reqloanamt, sanctloanamt, disburseamt, 
-                                           actloanamt, recddamt, remddamt, rateofinter, emiamt, emimonths, 
+                                           actloanamt, diffloanamt, recddamt, remddamt, rateofinter, emiamt, emimonths, 
                                            finstat, bapplicant, bsite, bflats) == 1)
                     {
                         TempData["AlertMessage"] = "All the details saved successfully.";
@@ -2204,7 +2204,7 @@ namespace kd.Controllers
                     int id = Int32.Parse(edit_id);
                     if (obj.insert_finance(fintype, finname, finexe, finexemob, finexeemail, filehanddate,
                                            filesta, filesanctdate, reqloanamt, sanctloanamt, disburseamt, 
-                                           actloanamt, recddamt, remddamt, rateofinter, emiamt, emimonths, 
+                                           actloanamt, diffloanamt, recddamt, remddamt, rateofinter, emiamt, emimonths, 
                                            finstat, bapplicant, bsite, bflats, "edit", id) == 1)
                     {
                         TempData["AlertMessage"] = "All the details updated successfully.";

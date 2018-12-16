@@ -67,7 +67,7 @@
                                     <td><label class="control-label">Finance Executive Email Id</label></td>
                                     <td> <input type="email" name="finexeemail" id="required" @(edit ? new { value = elist[5] } : null)></td>
                                     <td><label class="control-label">File Handover Date</label></td>
-                                    <td><input type="date" name="filehanddate" required @(edit ? new { value = @Convert.ToDateTime(elist[6]).ToString("yyyy-MM-dd") } : null)></td>
+                                    <td><input type="date" name="filehanddate" id="filehanddate" required @(edit ? new { value = @Convert.ToDateTime(elist[6]).ToString("yyyy-MM-dd") } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">File Status</label></td>
@@ -81,38 +81,40 @@
                                         </select>
                                     </td>
                                     <td><label class="control-label">File Sanction Date</label></td>
-                                    <td> <input type="date" name="filesanctdate" required @(edit ? new { value = @Convert.ToDateTime(elist[11]).ToString("yyyy-MM-dd") } : null)></td>
+                                    <td> <input type="date" name="filesanctdate" id="filesanctdate" required @(edit ? new { value = @Convert.ToDateTime(elist[11]).ToString("yyyy-MM-dd") } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Required Loan Amount</label></td>
-                                    <td><input type="number" name="reqloanamt" id="required" @(edit ? new { value = elist[12] } : null)></td>
-
+                                    <td><input type="number" name="reqloanamt" id="reqloanamt" @(edit ? new { value = elist[12] } : null) onkeyup="diff();"></td>
                                     <td><label class="control-label">Sanction Loan Amount</label></td>
                                     <td><input type="number" name="sanctloanamt" id="required" @(edit ? new { value = elist[13] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Actual Loan Amount</label></td>
-                                    <td><input type="number" name="actloanamt" id="required" @(edit ? new { value = elist[15] } : null)></td>
-                                    <td><label class="control-label">Receiving DD Amount</label></td>
-                                    <td><input type="number" name="recddamt" id="required" @(edit ? new { value = elist[16] } : null)></td>
+                                    <td><input type="number" name="actloanamt" id="actloanamt" @(edit ? new { value = elist[15] } : null) onkeyup="diff();"></td>
+                                    <td><label class="control-label">Received DD Amount</label></td>
+                                    <td><input type="number" name="recddamt" id="recddamt" @(edit ? new { value = elist[17] } : null) onkeyup="diff();"></td>
                                 </tr>
                                 <tr class="odd gradeX">
+                                    <td><label class="control-label">Diff Loan Amount</label></td>
+                                    <td><input type="number" readonly name="diffloanamt" id="diffloanamt" @(edit ? new { value = elist[16] } : null)></td>
                                     <td><label class="control-label">Remaining DD Amount</label></td>
-                                    <td> <input type="number" name="remddamt" id="required" @(edit ? new { value = elist[17] } : null)></td>
+                                    <td> <input type="number" readonly name="remddamt" id="remddamt" @(edit ? new { value = elist[18] } : null)></td>                                    
+                                </tr>
+                                <tr class="odd gradeX">
+                                    <td><label class="control-label">File Rejected Finance</label></td>
+                                    <td> <input type="text" name="finstat" id="required" @(edit ? new { value = elist[22].Replace(" ", "\u00A0") } : null)></td>
                                     <td><label class="control-label">Rate Of Interest</label></td>
-                                    <td><input type="text" name="rateofinter" id="required" @(edit ? new { value = elist[18].Replace(" ", "\u00A0") } : null)></td>
+                                    <td><input type="text" name="rateofinter" id="required" @(edit ? new { value = elist[19].Replace(" ", "\u00A0") } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">EMI Amount</label></td>
-                                    <td><input type="number" name="emiamt" id="required" @(edit ? new { value = elist[19] } : null)></td>
-
+                                    <td><input type="number" name="emiamt" id="required" @(edit ? new { value = elist[20] } : null)></td>
                                     <td><label class="control-label">EMI Total Months</label></td>
-                                    <td> <input type="number" name="emimonths" id="required" @(edit ? new { value = elist[20] } : null)></td>
+                                    <td> <input type="number" name="emimonths" id="required" @(edit ? new { value = elist[21] } : null)></td>
                                 </tr>
                                 @Html.Partial("booking_fk")
-                                <tr class="odd gradeX">
-                                    <td><label class="control-label">File Rejected Finance</label></td>
-                                    <td> <input type="text" name="finstat" id="required" @(edit ? new { value = elist[21].Replace(" ", "\u00A0") } : null)></td>                                
+                                <tr class="odd gradeX">                                    
                                     @if (edit)
                                     {
                                         <td><input type="submit" name="submit_btn" value="Update" class="btn btn-success" /></td>
@@ -159,23 +161,23 @@
                             <tbody>
                                 @for (var i = 0; i < cnt; i++)
                                 {
-                                <tr class="gradeX">
-                                    <td>@results[0][i]</td>
-                                    <td>@results[1][i]</td>
-                                    <td>@results[2][i]</td>
-                                    <td>@results[3][i]</td>
-                                    <td>@results[7][i]</td>
-                                    <td>@results[51][i]</td>
-                                    <td>@results[35][i]</td>
-                                    <td>@results[47][i]@results[43][i]</td>
-                                    @if (this.Session["role"].ToString() == "admin")
-                                    {
-                                        <td align="center">
-                                            <button onclick="fun_edit(this);" value="@results[0][i]" class="btn btn-primary">Edit</button>
-                                            <button onclick="fun_del(this);" value="@results[0][i]" class="btn btn-danger">Delete</button>
-                                        </td>
-                                    }
-                                </tr>
+                                    <tr class="gradeX">
+                                        <td>@results[0][i]</td>
+                                        <td>@results[1][i]</td>
+                                        <td>@results[2][i]</td>
+                                        <td>@results[3][i]</td>
+                                        <td>@results[7][i]</td>
+                                        <td>@results[51][i]</td>
+                                        <td>@results[35][i]</td>
+                                        <td>@results[47][i]@results[43][i]</td>
+                                        @if (this.Session["role"].ToString() == "admin")
+                                        {
+                                            <td align="center">
+                                                <button onclick="fun_edit(this);" value="@results[0][i]" class="btn btn-primary">Edit</button>
+                                                <button onclick="fun_del(this);" value="@results[0][i]" class="btn btn-danger">Delete</button>
+                                            </td>
+                                        }
+                                    </tr>
                                 }
                             </tbody>
                         </table>
@@ -183,7 +185,7 @@
                     @Html.Partial("pagination")
                 </div>
             }
-            </div>
+        </div>
     </div>
 </div>
 
@@ -208,10 +210,58 @@
         }
     }
 
-
     function fun_edit(obj)
     {
         window.location = '@Html.Raw(@Url.Action("edit_record", "Home", new { page = "Finance", ps = "id", search = "srch_str", edit_id = "editid" }))'.replace("id", $("#page_size option:selected").text()).replace("srch_str", $('input:text[name=search]').val()).replace("editid", obj.value);
+    }
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#filehanddate").change(function () {
+            check_date();
+        });
+
+        $("#filesanctdate").change(function () {
+            check_date();
+        });
+
+        function check_date() {
+            var startDate = document.getElementById("filehanddate").value;
+            var endDate = document.getElementById("filesanctdate").value;
+
+            if ((Date.parse(startDate) > Date.parse(endDate))) {
+                alert("File sanction date should be greater than file handover date.");
+                document.getElementById("filesanctdate").value = "";
+            }
+        }
+    });
+
+    function diff() {
+        var required_loan_amt = parseInt(document.getElementById('reqloanamt').value);
+        var actual_loan_amt = parseInt(document.getElementById('actloanamt').value);
+        var received_dd_amt = parseInt(document.getElementById('recddamt').value);
+        
+        if (required_loan_amt < actual_loan_amt) {
+            alert("Required loan amount can not be less than the actual loan amount.");
+            document.getElementById('actloanamt').value = 0;
+        }
+        else {
+            var result = required_loan_amt - actual_loan_amt;
+            if (!isNaN(result)) {
+                document.getElementById('diffloanamt').value = result;
+            }            
+        }
+        if (actual_loan_amt < received_dd_amt) {
+            alert("Received DD amount can not be greater than the actual loan amount.");
+            document.getElementById('recddamt').value = 0;
+        }
+        else {
+            var result1 = actual_loan_amt - received_dd_amt;
+            if (!isNaN(result1)) {
+                document.getElementById('remddamt').value = result1;
+            }
+        }
     }
 </script>
 

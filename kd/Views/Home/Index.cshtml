@@ -52,7 +52,7 @@
                                     <td><label class="control-label">Customer Name</label></td>
                                     <td><input type="text" name="enqname" required @(edit ? new { value = (elist[1] == "" ? elist : elist[1].Replace(" ", "\u00A0")) } : null)></td>
                                     <td><label class="control-label">Address</label></td>
-                                    <td> <input type="text" name="enqaddress" required @(edit ? new { value = elist[2].Replace(" ", "\u00A0") } : null)></td>
+                                    <td> <input type="text" name="enqaddress" required @(edit ? new { value = elist[2].Replace(" ", "\u00A0") } : null)> </td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Mobile No(Whatsapp)</label></td>

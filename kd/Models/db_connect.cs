@@ -41,7 +41,7 @@ namespace kd.Models
         public string executive_franchies_column = "Name, Code, Joining_Date, Executive_Type";
         public string applicant_column = "Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No, Applicant_Address";
         public string co_applicant_column = "Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No, Co_Applicant_Name, Co_Applicant_Pan_No, Co_Applicant_Adhar_No";
-        public string bookings_column = "Booking_No, Referenceby, bookings_date, Site_Name, Site_Type, Number, Type, Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No";
+        public string bookings_column = "Referenceby, bookings_date, Site_Name, Site_Type, Number, Type, Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No";
         public string payment_commitment_column = "Commitment_Type, Commitment_Date, Booking_No, bookings_date, Site_Name, Site_Type, Number, Type, Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No";
         public string payment_details_column = "Payment_Mode, Cheque_Date, Cheque_Id, Bank_Name, Payment_Type, Booking_No, Referenceby, bookings_date, Site_Name, Site_Type, Number, Type, Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No";
         public string agreement_column = "Agreement_date, Agreement_No, agreement_record_date, Booking_No, Referenceby, bookings_date, Site_Name, Site_Type, Number, Type, Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No";
@@ -676,8 +676,8 @@ namespace kd.Models
             }
         }
 
-        public int insert_booking(string bno, string breferred, string bapplicant, string btamount, string bramount, string bblder,
-            string bsite, string bwing, string bflats, string bcharges, string bparking, string bcancel,
+        public int insert_booking(string breferred, string bapplicant, string btamount, string bramount, string bblder,
+            string bsite, string bwing, string bflats, string bcharges, string other, string bparking, string bcancel,
             string bfollowup, string bstatus, string bremark, string type = "insert", int id = 0)
         {
             try
@@ -686,7 +686,6 @@ namespace kd.Models
                 if (type == "edit")
                 {
                     query = "UPDATE bookings SET " +
-                        "Booking_No = @bno," +
                         " Referenceby = @bref," +
                         " Applicant_Id = @bappl," +
                         " Total_Flat_Amount = @btamt," +
@@ -696,6 +695,7 @@ namespace kd.Models
                         " Wing = @bwing," +
                         " Flat = @bflat," +
                         " Internal_Charges = @bchrg," +
+                        " Other = @other," +
                         " Reserved_Parking = @bpark," +
                         " Flat_Cancled_By = @bcan," +
                         " Follow_Up_Date = @bflp," +
@@ -704,17 +704,16 @@ namespace kd.Models
                 }
                 else
                 {
-                    query = "INSERT INTO bookings (Booking_No, Referenceby, Applicant_Id, Total_Flat_Amount, " +
-                        "Received_Amount, Total_Builder_Received, Site_Id, Wing, Flat, Internal_Charges, Reserved_Parking, " +
+                    query = "INSERT INTO bookings (Referenceby, Applicant_Id, Total_Flat_Amount, " +
+                        "Received_Amount, Total_Builder_Received, Site_Id, Wing, Flat, Internal_Charges, Other, Reserved_Parking, " +
                         "Flat_Cancled_By, Follow_Up_Date, Remark, Status, Date) " +
-                    "VALUES(@bno, @bref, @bappl, @btamt, @bramt, @bbldr, @bsite, @bwing, @bflat, @bchrg, @bpark, @bcan," +
+                    "VALUES(@bref, @bappl, @btamt, @bramt, @bbldr, @bsite, @bwing, @bflat, @bchrg, @other, @bpark, @bcan," +
                     " @bflp, @bremark, @bsts, NOW())";
                 }
 
                 if (this.OpenConnection() == true)
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@bno", bno);
                     cmd.Parameters.AddWithValue("@bref", breferred);
                     cmd.Parameters.AddWithValue("@bappl", bapplicant);
                     cmd.Parameters.AddWithValue("@btamt", btamount);
@@ -724,6 +723,7 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@bwing", bwing);
                     cmd.Parameters.AddWithValue("@bflat", bflats);
                     cmd.Parameters.AddWithValue("@bchrg", bcharges);
+                    cmd.Parameters.AddWithValue("@other", other);
                     cmd.Parameters.AddWithValue("@bpark", bparking);
                     cmd.Parameters.AddWithValue("@bcan", bcancel);
                     cmd.Parameters.AddWithValue("@bflp", bfollowup);
@@ -906,7 +906,7 @@ namespace kd.Models
         }
 
         public int insert_finance(string fintype, string finname, string finexe, string finexemob, string finexeemail, string filehanddate,
-            string filesta, string filesanctdate, string reqloanamt, string sanctloanamt, string disburseamt, string actloanamt, string recddamt, string remddamt, string rateofinter, string emiamt, string emimonths, string finstat, string bapplicant, string bsite, string bflats, string type = "insert", int id = 0)
+            string filesta, string filesanctdate, string reqloanamt, string sanctloanamt, string disburseamt, string actloanamt, string diffloanamt, string recddamt, string remddamt, string rateofinter, string emiamt, string emimonths, string finstat, string bapplicant, string bsite, string bflats, string type = "insert", int id = 0)
         {
             try
             {
@@ -927,6 +927,7 @@ namespace kd.Models
                         " Sanctioned_Loan_Amount = @slamt," +
                         " Total_Disbursed_Amount = @dbrmnt," +
                         " Actual_Loan_Amount = @alamt," +
+                        " Difference_Loan_Amount = @dlamt," +
                         " Received_DD_Amount = @ramt," +
                         " Remaining_DD_Amount = @remamt," +
                         " Rate_Of_Interest = @rointr," +
@@ -939,10 +940,10 @@ namespace kd.Models
                 {
                     query = "INSERT INTO finance_details (Finance_Type, Finance_Name, Finance_Executive_Name, " +
                     "Finance_Executive_Mobile, Finance_Executive_Email, File_Handover_Date, File_Status, File_Sanction_Date, " +
-                    "Required_Loan_Amount, Sanctioned_Loan_Amount, Total_Disbursed_Amount, Actual_Loan_Amount, Received_DD_Amount, " +
+                    "Required_Loan_Amount, Sanctioned_Loan_Amount, Total_Disbursed_Amount, Actual_Loan_Amount, Difference_Loan_Amount, Received_DD_Amount, " +
                     "Remaining_DD_Amount, Rate_Of_Interest, EMI_Amount, EMI_Total_Months, Status, Date, Booking_Id) " +
                     "VALUES(@ftype, @fname, @fexename, @fexemob, @fexemail, @fhdate, @fsts, @fdate, @rlamt, @slamt, @dbrmnt," +
-                    " @alamt, @ramt, @remamt, @rointr, @emiamt, @emimonths, @finstat, NOW(), " + que + ")";
+                    " @alamt, @dlamt, @ramt, @remamt, @rointr, @emiamt, @emimonths, @finstat, NOW(), " + que + ")";
                 }
 
                 if (this.OpenConnection() == true)
@@ -960,6 +961,7 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@slamt", sanctloanamt);
                     cmd.Parameters.AddWithValue("@dbrmnt", disburseamt);
                     cmd.Parameters.AddWithValue("@alamt", actloanamt);
+                    cmd.Parameters.AddWithValue("@dlamt", diffloanamt);
                     cmd.Parameters.AddWithValue("@ramt", recddamt);
                     cmd.Parameters.AddWithValue("@remamt", remddamt);
                     cmd.Parameters.AddWithValue("@rointr", rateofinter);

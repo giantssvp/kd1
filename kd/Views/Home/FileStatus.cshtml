@@ -75,7 +75,7 @@
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Finance Name</label></td>
                                     <td>
-                                        <select name="financename" id="financename"  @(edit ? new { value = elist[8] } : null)>  </select>                                  
+                                        <select name="financename" id="financename" @(edit ? new { value = elist[8] } : null)>  </select>
                                     </td>
                                     <td><label class="control-label">Status</label></td>
                                     <td> <textarea class="span11" name="fstatus">@(edit ? elist[7] : null)</textarea></td>
@@ -128,24 +128,24 @@
                             <tbody>
                                 @for (var i = 0; i < cnt; i++)
                                 {
-                                <tr class="gradeX">
-                                    <td>@results[0][i]</td>
-                                    <td>@results[11][i]</td>
-                                    <td>@results[1][i]</td>
-                                    <td>@results[2][i]</td>
-                                    <td>@results[3][i]</td>
-                                    <td>@Convert.ToDateTime(results[4][i]).ToString("dd-MM-yyyy")</td>
-                                    <td>@results[5][i]</td>
-                                    <td>@results[6][i]</td>
-                                    <td>@results[7][i]</td>
-                                    @if (this.Session["role"].ToString() == "admin")
-                                    {
-                                        <td align="center">
-                                            <button onclick="fun_edit(this);" value="@results[0][i]" class="btn btn-primary">Edit</button>
-                                            <button onclick="fun_del(this);" value="@results[0][i]" class="btn btn-danger">Delete</button>
-                                        </td>
-                                    }
-                                </tr>
+                                    <tr class="gradeX">
+                                        <td>@results[0][i]</td>
+                                        <td>@results[11][i]</td>
+                                        <td>@results[1][i]</td>
+                                        <td>@results[2][i]</td>
+                                        <td>@results[3][i]</td>
+                                        <td>@Convert.ToDateTime(results[4][i]).ToString("dd-MM-yyyy")</td>
+                                        <td>@results[5][i]</td>
+                                        <td>@results[6][i]</td>
+                                        <td>@results[7][i]</td>
+                                        @if (this.Session["role"].ToString() == "admin")
+                                        {
+                                            <td align="center">
+                                                <button onclick="fun_edit(this);" value="@results[0][i]" class="btn btn-primary">Edit</button>
+                                                <button onclick="fun_del(this);" value="@results[0][i]" class="btn btn-danger">Delete</button>
+                                            </td>
+                                        }
+                                    </tr>
                                 }
                             </tbody>
                         </table>
@@ -153,7 +153,7 @@
                     @Html.Partial("pagination")
                 </div>
             }
-            </div>
+        </div>
     </div>
 </div>
 
