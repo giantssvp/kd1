@@ -52,18 +52,18 @@
                                         </select>
                                     </td>
                                     <td><label class="control-label">Loan Fees Amount</label></td>
-                                    <td> <input type="number" name="lfamt" id="required" @(edit ? new { value = elist[2] } : null)></td>
+                                    <td> <input type="number" name="lfamt" value="" id="required" @(edit ? new { value = elist[2] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Cheque ID</label></td>
-                                    <td><input type="text" name="chid" required @(edit ? new { value = elist[3].Replace(" ", "\u00A0") } : null)></td>
+                                    <td><input type="text" name="chid" value="" required @(edit ? new { value = elist[3].Replace(" ", "\u00A0") } : null)></td>
 
                                     <td><label class="control-label">Cheque Date</label></td>
-                                    <td><input type="date" name="chdate" required @(edit ? new { value = @Convert.ToDateTime(elist[4]).ToString("yyyy-MM-dd") } : null)></td>
+                                    <td><input type="date" name="chdate" value="" required @(edit ? new { value = @Convert.ToDateTime(elist[4]).ToString("yyyy-MM-dd") } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Bank Name</label></td>
-                                    <td> <input type="text" name="bnknm" id="required" @(edit ? new { value = elist[5].Replace(" ", "\u00A0") } : null)></td>
+                                    <td> <input type="text" name="bnknm" value="" id="required" @(edit ? new { value = elist[5].Replace(" ", "\u00A0") } : null)></td>
                                     <td><label class="control-label">Loan Fees</label></td>
                                     <td>
                                         <select name="lfee" id="required" style="max-width:65%;">
@@ -75,10 +75,10 @@
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Finance Name</label></td>
                                     <td>
-                                        <select name="financename" id="financename" @(edit ? new { value = elist[8] } : null) style="max-width:65%;">  </select>
+                                        <select name="financename" value="" id="financename" @(edit ? new { value = elist[8] } : null) style="max-width:65%;">  </select>
                                     </td>
                                     <td><label class="control-label">Status</label></td>
-                                    <td> <textarea class="span11" style="max-width:65%;" name="fstatus" @(edit ? elist[7] : null)> </textarea></td>
+                                    <td> <textarea class="span11" style="max-width:65%;" value="" name="fstatus" @(edit ? elist[7] : null)> </textarea></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     @if (edit)

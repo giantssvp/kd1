@@ -48,17 +48,17 @@
                                         <select name="bapplicant" id="bapplicant" style="max-width:65%;">    </select>
                                     </td>
                                     <td><label class="control-label">Referred By</label></td>
-                                    <td> <input type="text" name="breferred" id="required" @(edit ? new { value = elist[2].Replace(" ", "\u00A0") } : null)></td>
+                                    <td> <input type="text" name="breferred" value="" id="required" @(edit ? new { value = elist[2].Replace(" ", "\u00A0") } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Total Flat Amount</label></td>
                                     <td><input type="number" name="btamount" required @(edit ? new { value = elist[4] } : null)></td>
                                     <td><label class="control-label">Received Amount</label></td>
-                                    <td><input type="number" name="bramount" id="required" @(edit ? new { value = elist[5] } : null)></td>
+                                    <td><input type="number" name="bramount" value="" id="required" @(edit ? new { value = elist[5] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Total Builder Received</label></td>
-                                    <td> <input type="number" name="bblder" id="required" @(edit ? new { value = elist[6] } : null)></td>
+                                    <td> <input type="number" name="bblder" value="" id="required" @(edit ? new { value = elist[6] } : null)></td>
                                     <td><label class="control-label">Internal Charges</label></td>
                                     <td>
                                         <select name="bcharges" id="bcharges" style="max-width:65%;" onchange="showfield(this.options[this.selectedIndex].value)">
@@ -80,7 +80,7 @@
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Remarks</label></td>
-                                    <td><input type="text" name="bremark" id="required" @(edit ? new { value = elist[14].Replace(" ", "\u00A0") } : null)></td>
+                                    <td><input type="text" name="bremark" value="" id="required" @(edit ? new { value = elist[14].Replace(" ", "\u00A0") } : null)></td>
                                     <td><label class="control-label">Status</label></td>
                                     <td>
                                         <select name="bstatus" id="bstatus" style="max-width:65%;">
@@ -99,16 +99,16 @@
                                         </select>
                                     </td>
                                     <td><label class="control-label">Flat Cancelled By</label></td>
-                                    <td> <input type="text" name="bcancel" id="required" @(edit ? new { value = elist[12].Replace(" ", "\u00A0") } : null)></td>
+                                    <td> <input type="text" name="bcancel" value="" id="required" @(edit ? new { value = elist[12].Replace(" ", "\u00A0") } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Follow Up Date</label></td>
-                                    <td> <input type="date" name="bfollowup" required @(edit ? new { value = @Convert.ToDateTime(elist[13]).ToString("yyyy-MM-dd") } : null)></td>
+                                    <td> <input type="date" name="bfollowup" value="" required @(edit ? new { value = @Convert.ToDateTime(elist[13]).ToString("yyyy-MM-dd") } : null)></td>
                                     @if (edit)
                                     {
                                         <td><input type="submit" name="submit_btn" value="Update" class="btn btn-success" /></td>
                                         <td colspan="3"> <input type="submit" name="submit_btn" value="Cancel" class="btn btn-danger" /> </td>
-                                        <td> <input type="hidden" name="edit_id" value=@elist[0] /> </td>
+                                        <td> <input type="hidden" value="" name="edit_id" value=@elist[0] /> </td>
                                     }
                                     else
                                     {

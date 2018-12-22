@@ -55,13 +55,13 @@
                                         <select name="enqnamefollowup" id="enqnamefollowup" style="max-width:65%;">    </select>
                                     </td>
                                     <td><label class="control-label">Follow up date</label></td>
-                                    <td> <input type="date" name="enqfollow" id="enqfollow" required @(edit ? new { value = @Convert.ToDateTime(elist[2]).ToString("yyyy-MM-dd") } : null)></td>
+                                    <td> <input type="date" name="enqfollow" id="enqfollow" value="" required @(edit ? new { value = @Convert.ToDateTime(elist[2]).ToString("yyyy-MM-dd") } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Next Follow up Date</label></td>
-                                    <td><input type="date" name="enqnextfollow" id="enqnextfollow" required @(edit ? new { value = @Convert.ToDateTime(elist[3]).ToString("yyyy-MM-dd") } : null)></td>
+                                    <td><input type="date" name="enqnextfollow" value="" id="enqnextfollow" required @(edit ? new { value = @Convert.ToDateTime(elist[3]).ToString("yyyy-MM-dd") } : null)></td>
                                     <td><label class="control-label">Follow Details</label></td>
-                                    <td><input type="text" name="enqfollowdetails" id="required" @(edit ? new { value = elist[4].Replace(" ", "\u00A0") } : null)></td>
+                                    <td><input type="text" name="enqfollowdetails" value="" id="required" @(edit ? new { value = elist[4].Replace(" ", "\u00A0") } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Executive1 Name</label></td>

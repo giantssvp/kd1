@@ -48,19 +48,19 @@
                                         <select name="applid" id="applid" style="max-width:65%;">    </select>
                                     </td>
                                     <td><label class="control-label">Co - Applicant Name</label></td>
-                                    <td><input type="text" name="coapplname" required @(edit ? new { value = elist[1].Replace(" ", "\u00A0") } : null)></td>                                    
+                                    <td><input type="text" name="coapplname" value="" required @(edit ? new { value = elist[1].Replace(" ", "\u00A0") } : null)></td>                                    
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Co - PAN  NO</label></td>
-                                    <td><input type="text" name="coapplpan" id="required" @(edit ? new { value = elist[2].Replace(" ", "\u00A0") } : null)></td>
+                                    <td><input type="text" name="coapplpan" value="" id="required" @(edit ? new { value = elist[2].Replace(" ", "\u00A0") } : null)></td>
                                     <td><label class="control-label">Co - AADHAR NO</label></td>
-                                    <td><input type="text" name="coapplaadhar" id="required" @(edit ? new { value = elist[3].Replace(" ", "\u00A0") } : null)></td>
+                                    <td><input type="text" name="coapplaadhar" value="" id="required" @(edit ? new { value = elist[3].Replace(" ", "\u00A0") } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Co - Occupation</label></td>
-                                    <td><input type="text" name="coapploccu" id="required" @(edit ? new { value = elist[4].Replace(" ", "\u00A0") } : null)></td>
+                                    <td><input type="text" name="coapploccu" value="" id="required" @(edit ? new { value = elist[4].Replace(" ", "\u00A0") } : null)></td>
                                     <td><label class="control-label">Co - Birth Date</label></td>
-                                    <td><input type="date" name="coapplbirth" required @(edit ? new { value = @Convert.ToDateTime(elist[5]).ToString("yyyy-MM-dd") } : null)></td>
+                                    <td><input type="date" name="coapplbirth" value="" required @(edit ? new { value = @Convert.ToDateTime(elist[5]).ToString("yyyy-MM-dd") } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     @if (edit)

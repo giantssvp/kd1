@@ -53,49 +53,48 @@
                                         <select name="site" id="site" style="max-width:70%;">    </select>
                                     </td>
                                     <td><label class="control-label">Type</label></td>
-                                    <td> <input type="text" name="type" id="required" @(edit ? new { value = elist[2].Replace(" ", "\u00A0") } : null)></td>
+                                    <td> <input type="text" name="type" value="" id="required" @(edit ? new { value = elist[2].Replace(" ", "\u00A0") } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Area</label></td>
-                                    <td><input type="text" name="area" required @(edit ? new { value = elist[16].Replace(" ", "\u00A0") } : null)></td>
-
+                                    <td><input type="text" name="area" value="" required @(edit ? new { value = elist[16].Replace(" ", "\u00A0") } : null)></td>
                                     <td><label class="control-label">RR Rate</label></td>
-                                    <td><input type="text" name="rr_rate" id="required" @(edit ? new { value = elist[1].Replace(" ", "\u00A0") } : null)></td>
+                                    <td><input type="text" name="rr_rate" value="" id="required" @(edit ? new { value = elist[1].Replace(" ", "\u00A0") } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Basic Rate</label></td>
-                                    <td> <input type="number" name="basic_rate" id="required" @(edit ? new { value = elist[3] } : null)></td>
+                                    <td> <input type="number" name="basic_rate" value="" id="required" @(edit ? new { value = elist[3] } : null)></td>
                                     <td><label class="control-label">Basic Cost</label></td>
-                                    <td><input type="number" name="basic_cost" id="required" @(edit ? new { value = elist[4] } : null)></td>
+                                    <td><input type="number" name="basic_cost" value="" id="required" @(edit ? new { value = elist[4] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Legal Charges</label></td>
-                                    <td><input type="number" name="legal_charge" id="required" @(edit ? new { value = elist[5] } : null)></td>
+                                    <td><input type="number" name="legal_charge" value="" id="required" @(edit ? new { value = elist[5] } : null)></td>
                                     <td><label class="control-label">MSEB Charges</label></td>
-                                    <td> <input type="number" name="mseb" id="required" @(edit ? new { value = elist[6] } : null)></td>
+                                    <td> <input type="number" name="mseb" value="" id="required" @(edit ? new { value = elist[6] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Development Charges</label></td>
-                                    <td><input type="number" name="devcharge" id="required" @(edit ? new { value = elist[7] } : null)></td>
+                                    <td><input type="number" name="devcharge" value="" id="required" @(edit ? new { value = elist[7] } : null)></td>
 
                                     <td><label class="control-label">Stamp Duty Regsitration %</label></td>
-                                    <td><input type="number" step="0.01" name="stampdutyregpercent" id="required" @(edit ? new { value = elist[8] } : null)></td>
+                                    <td><input type="number" step="0.01" name="stampdutyregpercent" value="" id="required" @(edit ? new { value = elist[8] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Stamp Duty Registration</label></td>
-                                    <td><input type="number" name="stampdutyreg" id="required" @(edit ? new { value = elist[9] } : null)></td>
+                                    <td><input type="number" name="stampdutyreg" value="" id="required" @(edit ? new { value = elist[9] } : null)></td>
                                     <td><label class="control-label">GST Percentage %</label></td>
-                                    <td> <input type="number" step="0.01" name="gstpercent" id="required" @(edit ? new { value = elist[11] } : null)></td>
+                                    <td> <input type="number" step="0.01" name="gstpercent" value="" id="required" @(edit ? new { value = elist[11] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">GST</label></td>
-                                    <td> <input type="number" name="gst" id="required" @(edit ? new { value = elist[10] } : null)></td>
+                                    <td> <input type="number" name="gst" id="required" value="" @(edit ? new { value = elist[10] } : null)></td>
                                     <td><label class="control-label">Other Amount</label></td>
-                                    <td><input type="number" name="otheramt" id="required" @(edit ? new { value = elist[12] } : null)></td>
+                                    <td><input type="number" name="otheramt" id="required" value="" @(edit ? new { value = elist[12] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Grand Total</label></td>
-                                    <td><input type="number" name="grandtotal" id="required" @(edit ? new { value = elist[13] } : null)></td>
+                                    <td><input type="number" name="grandtotal" value="" id="required" @(edit ? new { value = elist[13] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     @if (edit)
