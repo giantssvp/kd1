@@ -42,6 +42,7 @@
                     <form method="post" action="@Url.Action("add_filestatus","Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
                         <table class="table table-striped">
                             <tbody>
+                                @Html.Partial("booking_fk")
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Service Charge</label></td>
                                     <td>
@@ -171,23 +172,25 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $.ajax({
-            type: "GET",
-            url: '@Url.Action("get_finance", "Home")',
-            data: {},
-            dataType: 'json',
-            success: function (d) {
-                var list1 = d.id;
-                var list = d.name;
-                $("#financename").html("");
-                $.each(list, function (index, value) {
-                    $("#financename").append($('<option></option>').val(list1[index]).html(value));
-                });
-                @if (edit){ <text> document.getElementById("financename").value = @(elist[8]); </text> }
-            },
-            error: function (err) {
-                alert(err.responseText);
-            },
+        $('#bflats').change(function () {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("get_finance", "Home")',
+                data: {},
+                dataType: 'json',
+                success: function (d) {
+                    var list1 = d.id;
+                    var list = d.name;
+                    $("#financename").html("");
+                    $.each(list, function (index, value) {
+                        $("#financename").append($('<option></option>').val(list1[index]).html(value));
+                    });
+                    @if (edit){ <text> document.getElementById("financename").value = @(elist[8]); </text> }
+                },
+                error: function (err) {
+                    alert(err.responseText);
+                },
+            });
         });
     });
 </script>
