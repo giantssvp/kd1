@@ -55,10 +55,7 @@
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Total Share</label></td>
                                     <td> <input type="text" name="share" value="" id="required" @(edit ? new { value = elist[5].Replace(" ", "\u00A0") } : null)></td>
-                                    <td><label class="control-label">Total Paid Amount</label></td>
-                                    <td><input type="number" name="paidamt" value="" id="required" @(edit ? new { value = elist[6] } : null)></td>
-                                </tr>
-                                <tr class="odd gradeX">                                    
+
                                     @if (edit)
                                     {
                                         <td><input type="submit" name="submit_btn" value="Update" class="btn btn-success" /></td>

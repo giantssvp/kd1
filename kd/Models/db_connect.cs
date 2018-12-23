@@ -38,7 +38,9 @@ namespace kd.Models
         public string daily_followup_column = "Customer_Name, Followup_Date, Next_Followup_Date, Exe_franc1_Name, Exe_franc2_Name, Exe_franc3_Name";
         public string sites_column = "Site_Name, Site_Type, Address, Sanction_Type";
         public string flat_plot_column = "Site_Name, Site_Type, Address, Sanction_Type, Number, Area";
+        public string notes_column = "Note_Summary, Note_Details, Date";
         public string executive_franchies_column = "Name, Code, Joining_Date, Executive_Type";
+        public string executive_audit_column = "efi_date, efa_date, Exe_franc1_Name, Exe_franc1_Code, Exe_franc1_Phone, Site_Name, Site_Type, Number, Wing, Applicant_Name";
         public string applicant_column = "Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No, Applicant_Address";
         public string co_applicant_column = "Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No, Co_Applicant_Name, Co_Applicant_Pan_No, Co_Applicant_Adhar_No";
         public string bookings_column = "Referenceby, bookings_date, Site_Name, Site_Type, Number, Type, Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No";
@@ -627,7 +629,91 @@ namespace kd.Models
             }
         }
 
-        public int insert_exe_franc_audit(string ename, string fname, string bapplicant, string bsite, string bwing, string bflats, string incentive, string share, string paidamt, string type = "insert", int id = 0)
+        public int insert_notes(string notesummary, string notedesc, string notedate, string type = "insert", int id = 0)
+        {
+            try
+            {
+                string query = "";
+                if (type == "edit")
+                {
+                    query = "UPDATE notes SET " +
+                        " Note_Summary = @summary," +
+                        " Note_Details = @desc," +
+                        " Date = @date where id=@id";
+                }
+                else
+                {
+                    query = "INSERT INTO notes (Note_Summary, Note_Details, Date) " +
+                    "VALUES(@summary, @desc, @date)";
+                }
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+
+                    cmd.Parameters.AddWithValue("@summary", notesummary);
+                    cmd.Parameters.AddWithValue("@desc", notedesc);
+                    cmd.Parameters.AddWithValue("@date", notedate);
+
+                    if (type == "edit")
+                    {
+                        cmd.Parameters.AddWithValue("@id", id);
+                    }
+
+                    cmd.ExecuteNonQuery();
+                    this.CloseConnection();
+                    return 1;
+                }
+                return 0;
+            }
+            catch (MySqlException ex)
+            {
+                return 0;
+            }
+        }
+
+        public int insert_exe_franc_incentive(string ename, string bapplicant, string bsite, string bwing, string bflats,string paidamt, string type = "insert", int id = 0)
+        {
+            try
+            {
+                //string que = "(select ID from bookings where Applicant_Id=" + bapplicant + " and Flat=" + bflats + " and Site_Id=" + bsite + ")";
+                string que = "(select ID from execu_fran_audit where Booking_ID = (select ID from bookings where Applicant_Id = " + bapplicant  + " and Flat = " + bflats + " and Site_Id = " + bsite + ")" + " and Executive_ID = " + ename + ")";
+                string query = "";
+                if (type == "edit")
+                {
+                    query = "UPDATE execu_fran_incentive SET " +
+                        "Total_Paid_Amount = @paidamt," +
+                        " Exe_Fran_Audit_ID = " + que + " where id=@id";
+                }
+                else
+                {
+                    query = "INSERT INTO execu_fran_incentive (Total_Paid_Amount, Date, Exe_Fran_Audit_ID) " +
+                    "VALUES(@paidamt, NOW(), " + que + ")";
+                }
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);                    
+                    cmd.Parameters.AddWithValue("@paidamt", paidamt);
+
+                    if (type == "edit")
+                    {
+                        cmd.Parameters.AddWithValue("@id", id);
+                    }
+
+                    cmd.ExecuteNonQuery();
+                    this.CloseConnection();
+                    return 1;
+                }
+                return 0;
+            }
+            catch (MySqlException ex)
+            {
+                return 0;
+            }
+        }
+
+        public int insert_exe_franc_audit(string ename, string bapplicant, string bsite, string bwing, string bflats, string incentive, string share, string type = "insert", int id = 0)
         {
             try
             {
@@ -635,18 +721,16 @@ namespace kd.Models
                 string query = "";
                 if (type == "edit")
                 {
-                    query = "UPDATE execu_fran_audit SET " +
-                        "Total_Paid = @paidamt," +
+                    query = "UPDATE execu_fran_audit SET " +                        
                         " Executive_ID = @ename," +
-                        " Franchies_ID = @fname," +
                         " Total_Incentive = @incentive," +
                         " Total_Share = @share," +
                         " Booking_ID = " + que + " where id=@id";
                 }
                 else
                 {
-                    query = "INSERT INTO execu_fran_audit (Executive_ID, Franchies_ID, Total_Incentive, Total_Share, Total_Paid, Date, Booking_ID) " +
-                    "VALUES(@ename, @fname, @incentive, @share, @paidamt, NOW(), " + que + ")";
+                    query = "INSERT INTO execu_fran_audit (Executive_ID, Total_Incentive, Total_Share, Date, Booking_ID) " +
+                    "VALUES(@ename, @incentive, @share, NOW(), " + que + ")";
                 }
 
                 if (this.OpenConnection() == true)
@@ -654,10 +738,8 @@ namespace kd.Models
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@bno", bapplicant);
                     cmd.Parameters.AddWithValue("@ename", ename);
-                    cmd.Parameters.AddWithValue("@fname", fname);
                     cmd.Parameters.AddWithValue("@incentive", incentive);
-                    cmd.Parameters.AddWithValue("@share", share);
-                    cmd.Parameters.AddWithValue("@paidamt", paidamt);
+                    cmd.Parameters.AddWithValue("@share", share);                    
 
                     if (type == "edit")
                     {
@@ -1211,6 +1293,46 @@ namespace kd.Models
                 if (this.OpenConnection() == true)
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@off", offset);
+                    cmd.Parameters.AddWithValue("@lim", limit);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    get_list_show(dataReader);
+
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return list_show;
+                }
+                else
+                {
+                    return list_show;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return list_show;
+            }
+        }
+
+        public List<string>[] notes_show(int offset, int limit, string search = "")
+        {
+            try
+            {
+                clear_list_show();
+                string query = "";
+                if (search == "")
+                {
+                    query = "SELECT * FROM notes ORDER BY ID DESC LIMIT @lim OFFSET @off";
+                }
+                else
+                {
+                    query = "SELECT * FROM notes where CONCAT(" + notes_column + ") LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @lim OFFSET @off";
+                }
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    //cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@off", offset);
                     cmd.Parameters.AddWithValue("@lim", limit);
                     MySqlDataReader dataReader = cmd.ExecuteReader();
@@ -2282,6 +2404,44 @@ namespace kd.Models
             }
         }
 
+        public List<string>[] executive_incentive_show(int offset, int limit, string search = "")
+        {
+            try
+            {
+                clear_list_show();
+                string query = "";
+                if (search == "")
+                {
+                    query = "SELECT * FROM v_ef_audit_incentive ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                }
+                else
+                {
+                    query = "SELECT * FROM v_ef_audit_incentive where CONCAT(" + executive_audit_column + ") LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                }
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@offset", offset);
+                    cmd.Parameters.AddWithValue("@limit", limit);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    get_list_show(dataReader);
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return list_show;
+                }
+                else
+                {
+                    return list_show;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return list_show;
+            }
+        }
+
         /* Get the executive name */
         public List<string>[] executive_show_name()
         {
@@ -3273,6 +3433,47 @@ namespace kd.Models
                     }
                     dataReader.Close();
                     this.CloseConnection();
+                    return list_edit;
+                }
+                else
+                {
+                    return list_edit;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return new List<string>();
+            }
+        }
+
+        public List<string> get_showcase_from_efaID(int id)
+        {
+            try
+            {
+                string query = "select Executive_ID, Booking_ID FROM execu_fran_audit where ID = " + id;
+                List<string> list_edit = new List<string>();
+                List<string> list_edit1 = new List<string>();
+                List<string> list_edit2 = new List<string>();
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    int count = dataReader.FieldCount;
+                    while (dataReader.Read())
+                    {
+                        for (int i = 0; i < count; i++)
+                        {
+                            list_edit1.Add(dataReader.GetValue(i).ToString());
+                        }
+                    }
+                    dataReader.Close();
+                    this.CloseConnection();
+                    list_edit2 = get_showcase_from_bookingID(Int32.Parse(list_edit1[1]));
+                    list_edit1.RemoveAt(1);
+                    list_edit.AddRange(list_edit1);
+                    list_edit.AddRange(list_edit2);
                     return list_edit;
                 }
                 else

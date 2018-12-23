@@ -24,7 +24,9 @@ namespace kd.Controllers
         public string daily_followup_column = "Customer_Name, Followup_Date, Next_Followup_Date, Exe_franc1_Name, Exe_franc2_Name, Exe_franc3_Name";
         public string sites_column = "Site_Name, Site_Type, Address, Sanction_Type";
         public string flat_plot_column = "Site_Name, Site_Type, Address, Sanction_Type, Number, Area";
+        public string notes_column = "Note_Summary, Note_Details, Date";
         public string executive_franchies_column = "Name, Code, Joining_Date, Executive_Type";
+        public string executive_audit_column = "efi_date, efa_date, Exe_franc1_Name, Exe_franc1_Code, Exe_franc1_Phone, Site_Name, Site_Type, Number, Wing, Applicant_Name";
         public string applicant_column = "Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No, Applicant_Address";
         public string co_applicant_column = "Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No, Co_Applicant_Name, Co_Applicant_Pan_No, Co_Applicant_Adhar_No";
         public string bookings_column = "Referenceby, bookings_date, Site_Name, Site_Type, Number, Type, Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No";
@@ -437,7 +439,41 @@ namespace kd.Controllers
             return View();
         }
 
-       public ActionResult delete_record(string page, string ps, string del_id, string filter = "", string search = "", string site = "")
+        [Authorize]
+        public ActionResult Notes(string ps = "10", string filter = "", string search = "")
+        {
+            ViewBag.total = 0;
+            HttpContext.Session.Add("offset", 0);
+            List<string>[] list = new List<string>[14];
+
+            list = obj.notes_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps), search: search);
+
+            ViewBag.list = list;
+            ViewBag.total = list[0].Count();
+            ViewBag.pageSize = Int32.Parse(ps);
+            ViewBag.search = search;
+
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult ExecutiveIncentives(string ps = "10", string filter = "", string search = "")
+        {
+            ViewBag.total = 0;
+            HttpContext.Session.Add("offset", 0);
+            List<string>[] list = new List<string>[8];
+
+            list = obj.executive_incentive_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps), search: search);
+
+            ViewBag.list = list;
+            ViewBag.total = list[0].Count();
+            ViewBag.pageSize = Int32.Parse(ps);
+            ViewBag.search = search;
+
+            return View();
+        }
+
+        public ActionResult delete_record(string page, string ps, string del_id, string filter = "", string search = "", string site = "")
         {
             try
             {
@@ -558,6 +594,20 @@ namespace kd.Controllers
                             pass = 1;
                         }
                     }
+                    else if (page == "Notes")
+                    {
+                        if (obj.Delete_Record("notes", id) == 0)
+                        {
+                            pass = 1;
+                        }
+                    }
+                    else if (page == "ExecutiveIncentives")
+                    {
+                        if (obj.Delete_Record("execu_fran_incentive", id) == 0)
+                        {
+                            pass = 1;
+                        }
+                    }
 
                     if (pass == 1)
                     {
@@ -661,6 +711,22 @@ namespace kd.Controllers
                         edit_list.Insert(8, edit_list1[1]);
                         edit_list.Insert(9, edit_list1[2]);
                     }
+                    else if (page == "ExecutiveIncentives")
+                    {
+                        edit_list = obj.get_edit_record("execu_fran_incentive", id);
+                        List<string> edit_list1 = new List<string>();
+                        edit_list1 = obj.get_showcase_from_efaID(Int32.Parse(edit_list[1]));
+                        edit_list.Insert(4, edit_list1[0]); //Executive ID This is just to align applicant ID and other values at index 7,8,9.
+                        edit_list.Insert(5, edit_list1[0]); //Executive ID
+                        edit_list.Insert(6, edit_list1[0]); //Executive ID
+                        edit_list.Insert(7, edit_list1[1]); //Applicant ID
+                        edit_list.Insert(8, edit_list1[2]); //Site ID
+                        edit_list.Insert(9, edit_list1[3]); //Flat ID
+                    }
+                    else if (page == "Notes")
+                    {
+                        edit_list = obj.get_edit_record("notes", id);
+                    }                    
                     else if (page == "CustomerCostSheet")
                     {
                         edit_list = obj.get_edit_record("cost_sheet", id);
@@ -768,6 +834,14 @@ namespace kd.Controllers
                 {
                     list = obj.cost_sheet_show("builder", 0, page_size, search: search);
                 }
+                else if (page == "Notes")
+                {
+                    list = obj.notes_show(0, page_size, search: search);
+                }
+                else if (page == "ExecutiveIncentives")
+                {
+                    list = obj.executive_incentive_show(0, page_size, search: search);
+                }
 
                 ViewBag.list = list;
                 ViewBag.total = list[0].Count();
@@ -871,6 +945,14 @@ namespace kd.Controllers
                 else if (page == "BuilderCostSheet")
                 {
                     list = obj.cost_sheet_show("builder", Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
+                }
+                else if (page == "Notes")
+                {
+                    list = obj.notes_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
+                }
+                else if (page == "ExecutiveIncentives")
+                {
+                    list = obj.executive_incentive_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
 
                 ViewBag.list = list;
@@ -1140,6 +1222,32 @@ namespace kd.Controllers
                     }
                     cnt = obj.get_count(query);
                 }
+                else if (page == "Notes")
+                {
+                    string query = "";
+                    if (search == "")
+                    {
+                        query = "notes";
+                    }
+                    else
+                    {
+                        query = "notes where CONCAT(" + notes_column + ") LIKE '%" + search + "%'";
+                    }
+                    cnt = obj.get_count(query);
+                }
+                else if (page == "ExecutiveIncentives")
+                {
+                    string query = "";
+                    if (search == "")
+                    {
+                        query = "v_ef_audit_incentive";
+                    }
+                    else
+                    {
+                        query = "v_ef_audit_incentive where CONCAT(" + executive_audit_column + ") LIKE '%" + search + "%'";
+                    }
+                    cnt = obj.get_count(query);
+                }
 
                 HttpContext.Session.Add("offset", (Int32.Parse(HttpContext.Session["offset"].ToString()) + page_size));
                 if (Int32.Parse(HttpContext.Session["offset"].ToString()) > cnt)
@@ -1223,6 +1331,14 @@ namespace kd.Controllers
                 else if (page == "BuilderCostSheet")
                 {
                     list = obj.cost_sheet_show("builder", Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
+                }
+                else if (page == "Notes")
+                {
+                    list = obj.notes_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
+                }
+                else if (page == "ExecutiveIncentives")
+                {
+                    list = obj.executive_incentive_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
 
                 ViewBag.list = list;
@@ -1492,6 +1608,32 @@ namespace kd.Controllers
                     }
                     cnt = obj.get_count(query);
                 }
+                else if (page == "Notes")
+                {
+                    string query = "";
+                    if (search == "")
+                    {
+                        query = "notes";
+                    }
+                    else
+                    {
+                        query = "notes where CONCAT(" + notes_column + ") LIKE '%" + search + "%'";
+                    }
+                    cnt = obj.get_count(query);
+                }
+                else if (page == "ExecutiveIncentives")
+                {
+                    string query = "";
+                    if (search == "")
+                    {
+                        query = "v_ef_audit_incentive";
+                    }
+                    else
+                    {
+                        query = "v_ef_audit_incentive where CONCAT(" + executive_audit_column + ") LIKE '%" + search + "%'";
+                    }
+                    cnt = obj.get_count(query);
+                }
 
                 if (cnt > 0)
                 {
@@ -1581,6 +1723,14 @@ namespace kd.Controllers
                 else if (page == "BuilderCostSheet")
                 {
                     list = obj.cost_sheet_show("builder", Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
+                }
+                else if (page == "Notes")
+                {
+                    list = obj.notes_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
+                }
+                else if (page == "ExecutiveIncentives")
+                {
+                    list = obj.executive_incentive_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
 
                 ViewBag.list = list;
@@ -2030,13 +2180,13 @@ namespace kd.Controllers
             }
         }
 
-        public ActionResult add_exe_franc_audit(string ename, string fname, string bapplicant, string bsite, string bwing, string bflats, string incentive, string share, string paidamt, string submit_btn, string edit_id = "0")
+        public ActionResult add_exe_franc_audit(string ename, string bapplicant, string bsite, string bwing, string bflats, string incentive, string share, string submit_btn, string edit_id = "0")
         {
             try
             {
                 if (submit_btn == "Save" && isUserAuthenticated())
                 {
-                    if (obj.insert_exe_franc_audit(ename, fname, bapplicant, bsite, bwing, bflats, incentive, share, paidamt) == 1)
+                    if (obj.insert_exe_franc_audit(ename, bapplicant, bsite, bwing, bflats, incentive, share) == 1)
                     {
                         TempData["AlertMessage"] = "All the details saved successfully.";
                     }
@@ -2048,7 +2198,7 @@ namespace kd.Controllers
                 else if (submit_btn == "Update" && isUserAuthenticated())
                 {
                     int id = Int32.Parse(edit_id);
-                    if (obj.insert_exe_franc_audit(ename, fname, bapplicant, bsite, bwing, bflats, incentive, share, paidamt, "edit", id) == 1)
+                    if (obj.insert_exe_franc_audit(ename, bapplicant, bsite, bwing, bflats, incentive, share, "edit", id) == 1)
                     {
                         TempData["AlertMessage"] = "All the details updated successfully.";
                     }
@@ -2064,6 +2214,80 @@ namespace kd.Controllers
                 TempData["AlertMessage"] = "There is exception while saving the details please do it again.";
                 System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
                 return RedirectToAction("ExecutiveAudits", "Home");
+            }
+        }
+
+        public ActionResult add_exe_franc_incentive(string ename, string bapplicant, string bsite, string bwing, string bflats, string paidamt, string submit_btn, string edit_id = "0")
+        {
+            try
+            {
+                if (submit_btn == "Save" && isUserAuthenticated())
+                {
+                    if (obj.insert_exe_franc_incentive(ename, bapplicant, bsite, bwing, bflats, paidamt) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details saved successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                    }
+                }
+                else if (submit_btn == "Update" && isUserAuthenticated())
+                {
+                    int id = Int32.Parse(edit_id);
+                    if (obj.insert_exe_franc_incentive(ename, bapplicant, bsite, bwing, bflats, paidamt, "edit", id) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details updated successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while updating the details please do it again.";
+                    }
+                }
+                return RedirectToAction("ExecutiveIncentives", "Home");
+            }
+            catch (Exception ex)
+            {
+                TempData["AlertMessage"] = "There is exception while saving the details please do it again.";
+                System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
+                return RedirectToAction("ExecutiveIncentives", "Home");
+            }
+        }
+
+        public ActionResult add_notes(string notesummary, string notedesc, string notedate, string submit_btn, string edit_id = "0")
+        {
+            try
+            {
+                if (submit_btn == "Save" && isUserAuthenticated())
+                {
+                    if (obj.insert_notes(notesummary, notedesc, notedate) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details saved successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                    }
+                }
+                else if (submit_btn == "Update" && isUserAuthenticated())
+                {
+                    int id = Int32.Parse(edit_id);
+                    if (obj.insert_notes(notesummary, notedesc, notedate, "edit", id) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details updated successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while updating the details please do it again.";
+                    }
+                }
+                return RedirectToAction("Notes", "Home");
+            }
+            catch (Exception ex)
+            {
+                TempData["AlertMessage"] = "There is exception while saving the details please do it again.";
+                System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
+                return RedirectToAction("Notes", "Home");
             }
         }
 
