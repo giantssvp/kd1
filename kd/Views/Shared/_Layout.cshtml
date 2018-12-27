@@ -115,7 +115,11 @@
                 </ul>
             </li>
             <li><a href='@Url.Action("Dashboard", "Home")'><i class="icon icon-pencil"></i> <span>Backup</span></a></li>
-        </ul>
+            @if (this.Session["role"].ToString() == "admin")
+            {
+                <li><a href='@Url.Action("Users", "Home")'><i class="icon icon-pencil"></i> <span>Users</span></a></li>
+            }
+            </ul>
     </div>
     <!--sidebar-menu-->
     <!--main-container-part-->

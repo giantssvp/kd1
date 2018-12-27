@@ -32,6 +32,7 @@ namespace kd.Models
         public List<string>[] masterlist3 = new List<string>[75];
         public List<string>[] masterlist4 = new List<string>[75];
 
+        public string cipher_text = "4804";
         //Column names for search in table
         public string daily_customer_column = "Customer_Name, Current_Status, Sanction_Type, Enquiry_Date";
         public string daily_sitevisit_column = "Customer_Name, Site_Name, Site_Type, Exe_franc1_Name, Exe_franc2_Name, Exe_franc3_Name";
@@ -40,6 +41,7 @@ namespace kd.Models
         public string flat_plot_column = "Site_Name, Site_Type, Address, Sanction_Type, Number, Area";
         public string notes_column = "Note_Summary, Note_Details, Date";
         public string executive_franchies_column = "Name, Code, Joining_Date, Executive_Type";
+        public string user_column = "Name, User_Name, Email_Id, Phone, User_Type, Status";
         public string executive_audit_column = "efi_date, efa_date, Exe_franc1_Name, Exe_franc1_Code, Exe_franc1_Phone, Site_Name, Site_Type, Number, Wing, Applicant_Name";
         public string applicant_column = "Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No, Applicant_Address";
         public string co_applicant_column = "Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No, Co_Applicant_Name, Co_Applicant_Pan_No, Co_Applicant_Adhar_No";
@@ -412,7 +414,7 @@ namespace kd.Models
                 return 0;
             }
         }
-
+        
         public int insert_executive(string exetype, string exename, string execode, string exeemail, string exemob, string exeadd, string exejoin, string exebirth, string exestatus, string type = "insert", int id = 0)
         {
             try
@@ -454,6 +456,59 @@ namespace kd.Models
                     cmd.Parameters.AddWithValue("@join", exejoin);
                     cmd.Parameters.AddWithValue("@status", exestatus);
                     cmd.Parameters.AddWithValue("@type", exetype);
+
+                    if (type == "edit")
+                    {
+                        cmd.Parameters.AddWithValue("@id", id);
+                    }
+
+                    cmd.ExecuteNonQuery();
+                    this.CloseConnection();
+                    return 1;
+                }
+                return 0;
+            }
+            catch (MySqlException ex)
+            {
+                return 0;
+            }
+        }
+
+        public int insert_users(string uname, string utype, string username, string upass, string uemail, string uphone, string ustatus, string type = "insert", int id = 0)
+        {
+            try
+            {
+                string query = "";
+                if (type == "edit")
+                {
+                    query = "UPDATE user SET " +
+                        "Name = @name," +
+                        " User_Name = @username," +
+                        " Password = @pass," +
+                        " Email_Id = @email," +
+                        " Phone = @phone," +
+                        " User_Type = @type," +                        
+                        " Status = @status where id=@id";
+                }
+                else
+                {
+                    query = "INSERT INTO user (Name, User_Name, Password, Email_Id, Phone, User_Type, Date, Status) " +
+                    "VALUES(@name, @username, @pass, @email, @phone, @type, NOW(), @status)";
+                }
+
+                string password_string = upass + cipher_text;
+                string phash = getHash(password_string);
+
+                if (this.OpenConnection() == true)
+                {                    
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@name", uname);
+                    cmd.Parameters.AddWithValue("@username", username);
+                    cmd.Parameters.AddWithValue("@pass", phash);
+                    cmd.Parameters.AddWithValue("@phone", uphone);
+                    cmd.Parameters.AddWithValue("@email", uemail);
+                    cmd.Parameters.AddWithValue("@type", utype);
+                    cmd.Parameters.AddWithValue("@status", Int32.Parse(ustatus));
 
                     if (type == "edit")
                     {
@@ -2404,6 +2459,44 @@ namespace kd.Models
             }
         }
 
+        public List<string>[] user_show(int offset, int limit, string search = "")
+        {
+            try
+            {
+                clear_list_show();
+                string query = "";
+                if (search == "")
+                {
+                    query = "SELECT * FROM user ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                }
+                else
+                {
+                    query = "SELECT * FROM user where CONCAT(" + user_column + ") LIKE '%" + search + "%' ORDER BY ID DESC LIMIT @limit OFFSET @offset";
+                }
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@offset", offset);
+                    cmd.Parameters.AddWithValue("@limit", limit);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    get_list_show(dataReader);
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return list_show;
+                }
+                else
+                {
+                    return list_show;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return list_show;
+            }
+        }
+
         public List<string>[] executive_incentive_show(int offset, int limit, string search = "")
         {
             try
@@ -2976,11 +3069,11 @@ namespace kd.Models
         /**
          * Show Daily finance name for page load
          */
-        public List<string>[] finance_name()
+        public List<string>[] finance_name(string appid, string siteid, string flatid)
         {
             try
             {
-                string query = "select ID, Finance_Name from finance_details ORDER BY ID DESC";
+                string query = "select ID, Finance_Name from finance_details where Booking_Id = (select ID from bookings where Applicant_Id = " + appid + " and Site_Id = " + siteid + " and Flat = " + flatid + ") ORDER BY ID DESC";
 
                 list_finance_name_show[0] = new List<string>();
                 list_finance_name_show[1] = new List<string>();
@@ -3487,6 +3580,43 @@ namespace kd.Models
             }
         }
 
+        public List<string> get_showcase_from_financeID(int id)
+        {
+            try
+            {                
+                string query = "select Booking_Id from finance_details where ID = " + id;
+                List<string> list_edit = new List<string>();
+                List<string> list_edit1 = new List<string>();
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    int count = dataReader.FieldCount;
+                    while (dataReader.Read())
+                    {
+                        for (int i = 0; i < count; i++)
+                        {
+                            list_edit1.Add(dataReader.GetValue(i).ToString());
+                        }
+                    }
+                    dataReader.Close();
+                    this.CloseConnection();
+                    list_edit = get_showcase_from_bookingID(Int32.Parse(list_edit1[0]));
+                    return list_edit;
+                }
+                else
+                {
+                    return list_edit;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return new List<string>();
+            }
+        }
+
         /*Password Hashing*/
         private static string getHash(string text)
         {
@@ -3505,7 +3635,7 @@ namespace kd.Models
         {
             try
             {
-                var pass = password + "4804";
+                var pass = password + cipher_text;
                 var hash = getHash(pass);
                 MySqlDataReader rdr;
                 string query = "select User_Type from user where User_Name = @name and Password = @password";

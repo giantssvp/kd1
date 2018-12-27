@@ -26,6 +26,7 @@ namespace kd.Controllers
         public string flat_plot_column = "Site_Name, Site_Type, Address, Sanction_Type, Number, Area";
         public string notes_column = "Note_Summary, Note_Details, Date";
         public string executive_franchies_column = "Name, Code, Joining_Date, Executive_Type";
+        public string user_column = "Name, User_Name, Email_Id, Phone, User_Type, Status";
         public string executive_audit_column = "efi_date, efa_date, Exe_franc1_Name, Exe_franc1_Code, Exe_franc1_Phone, Site_Name, Site_Type, Number, Wing, Applicant_Name";
         public string applicant_column = "Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No, Applicant_Address";
         public string co_applicant_column = "Applicant_Name, Applicant_Pan_No, Applicant_Adhar_No, Co_Applicant_Name, Co_Applicant_Pan_No, Co_Applicant_Adhar_No";
@@ -234,6 +235,23 @@ namespace kd.Controllers
             ViewBag.pageSize = Int32.Parse(ps);
             ViewBag.search = search;
             
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult Users(string ps = "10", string filter = "", string search = "")
+        {
+            ViewBag.total = 0;
+            HttpContext.Session.Add("offset", 0);
+            List<string>[] list = new List<string>[14];
+
+            list = obj.user_show(Int32.Parse(HttpContext.Session["offset"].ToString()), Int32.Parse(ps), search: search);
+
+            ViewBag.list = list;
+            ViewBag.total = list[0].Count();
+            ViewBag.pageSize = Int32.Parse(ps);
+            ViewBag.search = search;
+
             return View();
         }
 
@@ -524,6 +542,13 @@ namespace kd.Controllers
                             pass = 1;
                         }
                     }
+                    else if (page == "Users")
+                    {
+                        if (obj.Delete_Record("user", id) == 0)
+                        {
+                            pass = 1;
+                        }
+                    }
                     else if (page == "Customer")
                     {
                         if (obj.Delete_Record("applicant", id) == 0)
@@ -661,6 +686,10 @@ namespace kd.Controllers
                     {
                         edit_list = obj.get_edit_record("executive_franchies", id);
                     }
+                    else if (page == "Users")
+                    {
+                        edit_list = obj.get_edit_record("user", id);
+                    }
                     else if (page == "Customer")
                     {
                         edit_list = obj.get_edit_record("applicant", id);
@@ -672,6 +701,11 @@ namespace kd.Controllers
                     else if (page == "FileStatus")
                     {
                         edit_list = obj.get_edit_record("file_details", id);
+                        List<string> edit_list1 = new List<string>();
+                        edit_list1 = obj.get_showcase_from_financeID(Int32.Parse(edit_list[8]));
+                        edit_list.Insert(7, edit_list1[0]);
+                        edit_list.Insert(8, edit_list1[1]);
+                        edit_list.Insert(9, edit_list1[2]);
                     }
                     else if (page == "Finance")
                     {
@@ -794,6 +828,10 @@ namespace kd.Controllers
                 {                                        
                     list = obj.executive_show(0, page_size, search: search);
                 }
+                else if (page == "Users")
+                {
+                    list = obj.user_show(0, page_size, search: search);
+                }
                 else if(page == "Customer")
                 {
                     list = obj.customer_show(0, page_size, search: search);
@@ -905,6 +943,10 @@ namespace kd.Controllers
                 else if (page == "Executive")
                 {
                     list = obj.executive_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
+                }
+                else if (page == "Users")
+                {
+                    list = obj.user_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
                 else if (page == "Customer")
                 {
@@ -1089,6 +1131,19 @@ namespace kd.Controllers
                     else
                     {
                         query = "executive_franchies where CONCAT(" + executive_franchies_column + ") LIKE '%" + search + "%'";
+                    }
+                    cnt = obj.get_count(query);
+                }
+                else if (page == "Users")
+                {
+                    string query = "";
+                    if (search == "")
+                    {
+                        query = "user";
+                    }
+                    else
+                    {
+                        query = "user where CONCAT(" + user_column + ") LIKE '%" + search + "%'";
                     }
                     cnt = obj.get_count(query);
                 }
@@ -1292,6 +1347,10 @@ namespace kd.Controllers
                 {
                     list = obj.executive_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
+                else if (page == "Users")
+                {
+                    list = obj.user_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
+                }
                 else if (page == "Customer")
                 {
                     list = obj.customer_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
@@ -1475,6 +1534,19 @@ namespace kd.Controllers
                     else
                     {
                         query = "executive_franchies where CONCAT(" + executive_franchies_column + ") LIKE '%" + search + "%'";
+                    }
+                    cnt = obj.get_count(query);
+                }
+                else if (page == "Users")
+                {
+                    string query = "";
+                    if (search == "")
+                    {
+                        query = "user";
+                    }
+                    else
+                    {
+                        query = "user where CONCAT(" + user_column + ") LIKE '%" + search + "%'";
                     }
                     cnt = obj.get_count(query);
                 }
@@ -1683,6 +1755,10 @@ namespace kd.Controllers
                 else if (page == "Executive")
                 {
                     list = obj.executive_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
+                }
+                else if (page == "Users")
+                {
+                    list = obj.user_show(Int32.Parse(HttpContext.Session["offset"].ToString()), page_size, search: search);
                 }
                 else if (page == "Customer")
                 {
@@ -2020,6 +2096,44 @@ namespace kd.Controllers
                 TempData["AlertMessage"] = "There is exception while saving the details please do it again.";
                 System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
                 return RedirectToAction("Executive", "Home");
+            }
+        }
+
+        public ActionResult add_users(string uname, string utype, string username, string upass, string uemail, string uphone, string ustatus, string submit_btn, string edit_id = "0")
+        {
+            try
+            {
+
+                if (submit_btn == "Save" && isUserAuthenticated())
+                {
+                    if (obj.insert_users(uname, utype, username, upass, uemail, uphone, ustatus) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details saved successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                    }
+                }
+                else if (submit_btn == "Update" && isUserAuthenticated())
+                {
+                    int id = Int32.Parse(edit_id);
+                    if (obj.insert_users(uname, utype, username, upass, uemail, uphone, ustatus, "edit", id) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details updated successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while updating the details please do it again.";
+                    }
+                }
+                return RedirectToAction("Users", "Home");
+            }
+            catch (Exception ex)
+            {
+                TempData["AlertMessage"] = "There is exception while saving the details please do it again.";
+                System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
+                return RedirectToAction("Users", "Home");
             }
         }
 
@@ -2593,10 +2707,10 @@ namespace kd.Controllers
          * Drop Down list for applicant name on page load
          */
         [HttpGet]
-        public ActionResult get_finance(string data)
+        public ActionResult get_finance(string appid, string siteid, string flatid)
         {
             List<string>[] sites = new List<string>[2];
-            sites = obj.finance_name();
+            sites = obj.finance_name(appid, siteid, flatid);
             var result = new
             {
                 id = sites[0],

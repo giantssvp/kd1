@@ -395,6 +395,7 @@
     <Content Include="Views\Home\CostSheetReportPDF.cshtml" />
     <Content Include="Views\Home\ExecutiveIncentives.cshtml" />
     <Content Include="Views\Home\Notes.cshtml" />
+    <Content Include="Views\Home\Users.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
