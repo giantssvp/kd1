@@ -67,9 +67,9 @@
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Joining Date</label></td>
-                                    <td><input type="date" name="exejoin" value="" required @(new { value = (edit ? Convert.ToDateTime(elist[7]).ToString("yyyy-MM-dd") : DateTime.Today.ToString("yyyy-MM-dd")) } )></td>
+                                    <td><input type="date" name="exejoin" required @(new { value = (edit ? Convert.ToDateTime(elist[7]).ToString("yyyy-MM-dd") : DateTime.Today.ToString("yyyy-MM-dd")) } )></td>
                                     <td><label class="control-label">Birth Date</label></td>
-                                    <td><input type="date" name="exebirth" value="" id="required" @(edit ? new { value = (elist[6] != "" ? Convert.ToDateTime(elist[6]).ToString("yyyy-MM-dd") : null) } : null)></td>                                    
+                                    <td><input type="date" name="exebirth" id="required" @(edit ? new { value = (elist[6] != "" ? Convert.ToDateTime(elist[6]).ToString("yyyy-MM-dd") : null) } : null)></td>                                    
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Status</label></td>
