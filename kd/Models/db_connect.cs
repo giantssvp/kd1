@@ -24,7 +24,7 @@ namespace kd.Models
         public List<string>[] list_wing_name_show = new List<string>[2];
         public List<string>[] list_booking_details_show = new List<string>[7];        
         public List<string>[] list_flat_no_show = new List<string>[3];
-        public List<string>[] list_sitewise_booking_show = new List<string>[21];
+        public List<string>[] list_sitewise_booking_show = new List<string>[20];
         public List<DailyFollowup> list_enquiry_followup_show = new List<DailyFollowup>();
         public List<string>[] masterlist = new List<string>[75];
         public List<string>[] masterlist1 = new List<string>[75];
@@ -1617,11 +1617,11 @@ namespace kd.Models
         /* Show sitewise bookingd of flats and plot */
         public List<string>[] Sitewise_bookings(
                                     DateTime startDate, DateTime endDate,
-                                    string siteName, string siteType)
+                                    string siteName)
         {
             try
             {
-                //list_enquiry_followup_show = new List<DailyFollowup>();
+                //clear_list_show();
                 string query = ""; 
                 DateTime todayDate = DateTime.Now;
                 DateTime defaultDate = Convert.ToDateTime("1967-01-01");
@@ -1638,23 +1638,25 @@ namespace kd.Models
                                "( Booking_Date between '" + startDate + "' and '" + endDate + "')"
                                + " and Site_Id =  " + siteName;
                 
-                for (int i = 0; i < 21; i++)
+                for (int i = 0; i < 20; i++)
                 {
                     list_sitewise_booking_show[i] = new List<string>();
                 }
-
+                
                 if (this.OpenConnection() == true)
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     MySqlDataReader dataReader = cmd.ExecuteReader();
 
+                    //get_list_show(dataReader);
+                    
                     while (dataReader.Read())
                     {
-                        for (int i = 0; i < 21; i++)
+                        for (int i = 0; i < 20; i++)
                         {
                             list_sitewise_booking_show[i].Add(dataReader[i] + "");
                         }
-                    }
+                    } 
                     dataReader.Close();
                     this.CloseConnection();
                     return list_sitewise_booking_show;

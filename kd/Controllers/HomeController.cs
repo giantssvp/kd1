@@ -2951,12 +2951,12 @@ namespace kd.Controllers
 
         [Authorize]
         public ActionResult SiteReportPDF(DateTime startDate, DateTime endDate,
-                                       string siteName, string siteType)
+                                       string siteName)
         {
             ViewBag.total = 0;
-            List<string>[] list = new List<string>[17];
+            List<string>[] list = new List<string>[20];
             list = obj.Sitewise_bookings(
-                   startDate, endDate, siteName, siteType
+                   startDate, endDate, siteName
                    );
 
             ViewBag.list = list;

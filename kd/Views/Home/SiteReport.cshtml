@@ -30,23 +30,28 @@
                                 <tr class="odd gradeX">
 
                                     <td><label class="control-label">Start Date</label></td>
-                                    <td><input type="date" name="startDate" value="1967-01-01" id="required"></td>
+                                    <td><input type="date" name="startDate" id="required"  @(new { value = DateTime.Today.ToString("yyyy-MM-dd") } )></td>
                                     <td><label class="control-label">End Date</label></td>
-                                    <td><input type="date" name="endDate" value="1967-01-01" id="required"></td>
+                                    <td><input type="date" name="endDate" id="required" @(new { value = DateTime.Today.ToString("yyyy-MM-dd") } )></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Site Name</label></td>
                                     <td>
-                                        <select name="siteName" id="siteName">    </select>
+                                        <select name="siteName" id="siteName" style="max-width:65%;">    </select>
                                     </td>
-                                    <td><label class="control-label">Site Type</label></td>
+                                    
                                     <td>
+                                        <!--<label class="control-label">Site Type</label>--></td>
+
+                                    <td>
+                                        <!--
                                         <select name="siteType" id="siteType">
                                             <option value="Flat" selected>Flat</option>
                                             <option value="Plot">Plot</option>
                                         </select>
-                                    </td>
-                                </tr>
+                                        --></td>
+    
+</tr>
                                 <tr class="odd gradeX">
                                     
                                     <td><input type="submit" value="Generate Report" class="btn btn-success" /></td>
