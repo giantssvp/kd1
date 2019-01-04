@@ -58,6 +58,18 @@ namespace kd.Controllers
             return View();
         }
 
+        [Authorize]
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult ResetPassword()
+        {
+            return View();
+        }
+
         [HttpGet]
         public ActionResult Login()
         {
@@ -2671,6 +2683,49 @@ namespace kd.Controllers
                 TempData["AlertMessage"] = "There is exception while saving the details please do it again.";
                 System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
                 return RedirectToAction("BuilderCostSheet", "Home");
+            }
+        }
+
+        public ActionResult change_password(string page, string uname, string newpass, string confirmnewpass, string oldpass="")
+        {
+            try
+            {
+                if (isUserAuthenticated())
+                {
+                    if (page == "ChangePassword")
+                    {
+                        if (obj.Login(uname, oldpass) == "false")
+                        {
+                            TempData["AlertMessage"] = "Invalid username or Password.";
+                            return RedirectToAction(page, "Home");
+                        }
+                    }
+                    if(newpass != confirmnewpass)
+                    {
+                        TempData["AlertMessage"] = "New password and confirm password did not match.";
+                        return RedirectToAction(page, "Home");
+                    }
+                    if (oldpass == newpass)
+                    {
+                        TempData["AlertMessage"] = "New password can not be same as old password.";
+                        return RedirectToAction(page, "Home");
+                    }
+                    if (obj.update_password(uname, newpass) == 1)
+                    {
+                        TempData["AlertMessage"] = "All the details saved successfully.";
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = "There is some issue while saving the details please do it again.";
+                    }
+                }                
+                return RedirectToAction(page, "Home");
+            }
+            catch (Exception ex)
+            {
+                TempData["AlertMessage"] = "There is exception while saving the details please do it again.";
+                System.Web.HttpContext.Current.Response.Write("<script>alert('There is some issue while saving the details, please try again, Thanks.')</script>");
+                return RedirectToAction(page, "Home");
             }
         }
 

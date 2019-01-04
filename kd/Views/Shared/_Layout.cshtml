@@ -25,6 +25,13 @@
                 <ul class="dropdown-menu">
                     <li><a href='@Url.Action("Profile", "Home")'><i class="icon-user"></i> My Profile</a></li>
                     <li class="divider"></li>
+                    <li><a href='@Url.Action("ChangePassword", "Home")'><i class="icon-user"></i> Change Password</a></li>
+                    <li class="divider"></li>
+                    @if (this.Session["role"].ToString() == "admin")
+                    {
+                        <li><a href='@Url.Action("ResetPassword", "Home")'><i class="icon-user"></i> Reset Password</a></li>
+                        <li class="divider"></li>
+                    }
                     <li><a href='@Url.Action("Logout", "Home")'><i class="icon-key"></i>Logout</a></li>
                 </ul>
             </li>

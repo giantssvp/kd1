@@ -396,6 +396,8 @@
     <Content Include="Views\Home\ExecutiveIncentives.cshtml" />
     <Content Include="Views\Home\Notes.cshtml" />
     <Content Include="Views\Home\Users.cshtml" />
+    <Content Include="Views\Home\ChangePassword.cshtml" />
+    <Content Include="Views\Home\ResetPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

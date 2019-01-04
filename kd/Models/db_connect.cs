@@ -484,7 +484,6 @@ namespace kd.Models
                     query = "UPDATE user SET " +
                         "Name = @name," +
                         " User_Name = @username," +
-                        " Password = @pass," +
                         " Email_Id = @email," +
                         " Phone = @phone," +
                         " User_Type = @type," +                        
@@ -515,6 +514,37 @@ namespace kd.Models
                         cmd.Parameters.AddWithValue("@id", id);
                     }
 
+                    cmd.ExecuteNonQuery();
+                    this.CloseConnection();
+                    return 1;
+                }
+                return 0;
+            }
+            catch (MySqlException ex)
+            {
+                return 0;
+            }
+        }
+
+        public int update_password(string username, string upass)
+        {
+            try
+            {
+                string query = "";
+                
+                    query = "UPDATE user SET " +
+                        " Password  = @pass" +
+                        " where User_Name = @username";
+                
+                string password_string = upass + cipher_text;
+                string phash = getHash(password_string);
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@username", username);                    
+                    cmd.Parameters.AddWithValue("@pass", phash);
+                    
                     cmd.ExecuteNonQuery();
                     this.CloseConnection();
                     return 1;
