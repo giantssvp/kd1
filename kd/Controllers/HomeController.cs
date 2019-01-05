@@ -2737,6 +2737,8 @@ namespace kd.Controllers
         {
             List<string>[] sites = new List<string>[7];
             sites = obj.sites_show(site_type);
+            sites[0].Insert(0, "");
+            sites[1].Insert(0, "");
             var result = new { id = sites[0],
                 name = sites[1]};
             return Json(result, JsonRequestBehavior.AllowGet);

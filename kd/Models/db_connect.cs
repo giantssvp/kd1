@@ -1959,12 +1959,12 @@ namespace kd.Models
                 
                 if (siteName != null && siteName != "")
                 {
-                    //query = query + " and (Site_Id = '" + siteName + "')";
+                    query = query + " and (Site_Id = '" + siteName + "')";
                 }
 
                 if (filesta != null && filesta != "")
                 {
-                    //query = query + " and (File_Status = '" + filesta + "')";
+                    query = query + " and (File_Status = '" + filesta + "')";
                 }
 
                 if (this.OpenConnection() == true)

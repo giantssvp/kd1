@@ -1,9 +1,8 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "FinanceReportPDF";
     Layout = null;
-}
 
+}
 @{
 
     var results = ViewBag.list;
@@ -25,7 +24,7 @@
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
 
 <div id="content-header">
-    <div id="breadcrumb"> <a href='@Url.Action("Index", "Home")' title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href='@Url.Action("DailyReportPDF", "Home")'>Daily Report</a></div>
+    <div id="breadcrumb"> <a href='@Url.Action("Index", "Home")' title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href='@Url.Action("FinanceReport", "Home")'>Finance Report</a></div>
 </div>
 <div class="container-fluid">
     <div class="row-fluid">
@@ -41,7 +40,7 @@
                             <table cellpadding="2" cellspacing="1" border="1" width="100%">
                                 <thead>
                                     <tr>
-                                        <th colspan="12" align="center" valign="middle"> <p style="font-weight:bold;font-size:large;text-align:center">Finance Report</p></th>
+                                        <th colspan="12" align="center" valign="middle"> <p style="font-weight:bold;font-size:large;text-align:center">Finance Report </p></th>
                                     </tr>
                                     <tr>
                                         <th>Customer Name</th>
@@ -54,60 +53,57 @@
                                         <th>Finance Name</th>
                                         <th>Executive Name</th>
                                         <th>Executive No</th>
-                                        <th>Loan Fees</th>
+                                        <th>File Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @for (var i = 0; i < cnt; i++)
                                     {
                                     <tr>
-                                        <td>@results[51][i]</td>
-                                        <td>@results[53][i]</td>
-                                        <td>@results[35][i]</td>
-                                        <td>@results[43][i]</td>
+                                        <td>@results[52][i]</td>
+                                        <td>@results[54][i]</td>
+                                        <td>@results[36][i]</td>
+                                        <td>@results[27][i]</td>
                                         <td>@results[24][i]</td>
                                         <td>@results[9][i]</td>
                                         <td>@results[10][i]</td>
                                         <td>@results[2][i]</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>@results[3][i]</td>
+                                        <td>@results[4][i]</td>
+                                        <td>@results[7][i]</td>
                                     </tr>
                                     }
                                 </tbody>
                             </table>
 
-                            <input type="hidden" id="GridHtml" />
-                            <input type="submit" value="Generate Pdf" id="btnSubmit" class="btn btn-success" />
+                            <input type="hidden" name="GridHtml" />
+                            <input type="submit" id="btnSubmit" value="Generate pdf" class="btn btn-success" />
 
                         </div>
                     </form>
-                    </>
                 </div>
             </div>
         </div>
     </div>
 </div>
-    <script src="~/Scripts/jquery.min.js"></script>
-    <script src="~/Scripts/jquery.ui.custom.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <script src="~/Scripts/matrix.popover.js"></script>
-    <script src="~/Scripts/jquery.uniform.js"></script>
-    <script src="~/Scripts/select2.min.js"></script>
-    <script src="~/Scripts/jquery.dataTables.min.js"></script>
-    <script src="~/Scripts/matrix.js"></script>
-    <script src="~/Scripts/matrix.tables.js"></script>
-    <script src="~/Scripts/jquery.validate.js"></script>
-    <script src="~/Scripts/matrix.form_validation.js"></script>
 
 
-
-    <script type="text/javascript">
+<script src="~/Scripts/jquery.min.js"></script>
+<script src="~/Scripts/jquery.ui.custom.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/matrix.popover.js"></script>
+<script src="~/Scripts/jquery.uniform.js"></script>
+<script src="~/Scripts/select2.min.js"></script>
+<script src="~/Scripts/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/matrix.js"></script>
+<script src="~/Scripts/matrix.tables.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/matrix.form_validation.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
     $(function () {
         $("#btnSubmit").click(function () {
-            alert("Hii");
             $("input[name='GridHtml']").val($("#Grid").html());
         });
     });
-    </script>
-    
+</script>
