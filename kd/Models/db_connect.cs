@@ -2068,7 +2068,7 @@ namespace kd.Models
 
                 if (siteName != null && siteName != "")
                 {
-                    //query = query + " and (Site_Id = '" + siteName + "')";
+                    query = query + " and (Site_Id = '" + siteName + "')";
                 }
 
                 if (this.OpenConnection() == true)

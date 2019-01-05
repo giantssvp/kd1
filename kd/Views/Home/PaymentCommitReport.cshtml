@@ -30,9 +30,9 @@
                                 <tr class="odd gradeX">
 
                                     <td><label class="control-label">Start Date</label></td>
-                                    <td><input type="date" name="startDate" value="1967-01-01" id="required"></td>
+                                    <td><input type="date" name="startDate" id="required" @(new { value = DateTime.Today.ToString("yyyy-MM-dd") } )></td>
                                     <td><label class="control-label">End Date</label></td>
-                                    <td><input type="date" name="endDate" value="1967-01-01" id="required"></td>
+                                    <td><input type="date" name="endDate" id="required" @(new { value = DateTime.Today.ToString("yyyy-MM-dd") } )></td>
                                 </tr>
                                 <tr>
                                     <td><input type="submit" value="Generate Report" class="btn btn-success" /></td>

@@ -1,8 +1,8 @@
 ﻿@{
     ViewBag.Title = "PaymentCommitReportPDF";
     Layout = null;
-}
 
+}
 @{
 
     var results = ViewBag.list;
@@ -24,7 +24,7 @@
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
 
 <div id="content-header">
-    <div id="breadcrumb"> <a href='@Url.Action("Index", "Home")' title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href='@Url.Action("DailyReportPDF", "Home")'>Payment Commitment Report</a></div>
+    <div id="breadcrumb"> <a href='@Url.Action("Index", "Home")' title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href='@Url.Action("PaymentCommitReport", "Home")'>Payment Commitment Report</a></div>
 </div>
 <div class="container-fluid">
     <div class="row-fluid">
@@ -40,7 +40,7 @@
                             <table cellpadding="2" cellspacing="1" border="1" width="100%">
                                 <thead>
                                     <tr>
-                                        <th colspan="12" align="center" valign="middle"> <p style="font-weight:bold;font-size:large;text-align:center">Payment Commit Report</p></th>
+                                        <th colspan="12" align="center" valign="middle"> <p style="font-weight:bold;font-size:large;text-align:center">Payment Commitment Report</p></th>
                                     </tr>
                                     <tr>
                                         <th>Booking Date</th>
@@ -70,23 +70,24 @@
                                         <td>@results[11][i]</td>
                                         <td>@results[4][i]</td>
                                         <td>@results[1][i]</td>
-                                        <td>@results[12][i]</td>
-                                     </tr>
+                                        <td>@results[5][i]</td>
+                                    </tr>
                                     }
                                 </tbody>
                             </table>
 
-                            <input type="hidden" id="GridHtml" />
-                            <input type="submit" value="Generate Pdf" id="btnSubmit" class="btn btn-success" />
+                            <input type="hidden" name="GridHtml" />
+                            <input type="submit" id="btnSubmit" value="Generate pdf" class="btn btn-success" />
 
                         </div>
                     </form>
-                    </>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
 <script src="~/Scripts/jquery.min.js"></script>
 <script src="~/Scripts/jquery.ui.custom.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>
@@ -98,15 +99,11 @@
 <script src="~/Scripts/matrix.tables.js"></script>
 <script src="~/Scripts/jquery.validate.js"></script>
 <script src="~/Scripts/matrix.form_validation.js"></script>
-
-
-
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script type="text/javascript">
     $(function () {
         $("#btnSubmit").click(function () {
-            alert("Hii");
             $("input[name='GridHtml']").val($("#Grid").html());
         });
     });
 </script>
-
