@@ -10,16 +10,22 @@
     var results2 = ViewBag.list2;
     var results3 = ViewBag.list3;
     var results4 = ViewBag.list4;
+    var results5 = ViewBag.list5;
+    var results6 = ViewBag.list6;
     int? cnt = new int?();
     int? cnt1 = new int?();
     int? cnt2 = new int?();
     int? cnt3 = new int?();
     int? cnt4 = new int?();
+    int? cnt5 = new int?();
+    int? cnt6 = new int?();
     cnt = ViewBag.total;
     cnt1 = ViewBag.total1;
     cnt2 = ViewBag.total2;
     cnt3 = ViewBag.total3;
     cnt4 = ViewBag.total4;
+    cnt5 = ViewBag.total5;
+    cnt6 = ViewBag.total6;
     if (cnt == null)
     {
         cnt = 0;
@@ -39,6 +45,14 @@
     if (cnt4 == null)
     {
         cnt4 = 0;
+    }
+    if (cnt5 == null)
+    {
+        cnt5 = 0;
+    }
+    if (cnt6 == null)
+    {
+        cnt6 = 0;
     }
 }
 
@@ -65,19 +79,33 @@
                 <div>
                     <form method="post" action="@Url.Action("Generate_pdf", "Home")" name="basic_validate" id="basic_validate" novalidate="novalidate">
                         <div id="Grid">
-                            <table cellpadding="2" cellspacing="1" border="1" width="100%">
+                            <table cellpadding="1" cellspacing="1" border="1" width="100%">
                                 <thead>
                                     <tr>
                                         <th colspan="8" align="center" valign="middle"> <p style="font-weight:bold;font-size:large;text-align:center">Master Report </p></th>
+                                        
                                     </tr>
                                     <tr>
-                                        <th colspan="4" align="left" valign="middle">
-                                            Site Name:  @if (cnt > 0)
-                                            {@results[29][0]}
+                                        <th colspan="8" align="center" valign="middle">
+                                            <p style="font-weight:bold;font-size:large;text-align:center">
+                                                Site Name:  @if (cnt > 0)
+                                                {@results[23][0]}  Site Add:@if (cnt > 0)
+                                                {@results[27][0]}
+                                            </p>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2" align="left" valign="middle">
+                                            Booking Date:  @if (cnt > 0)
+                                            {@Convert.ToDateTime(results[5][0]).ToString("dd-MM-yyyy")}
                                         </th>
                                         <th colspan="2" align="left" valign="middle">
-                                            Booking Date: @if (cnt > 0)
+                                            Exec/Fran Name: @if (cnt > 0)
                                             {@results[5][0]}
+                                        </th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            Incentive:@if (cnt > 0)
+                                            {@results[1][0]}
                                         </th>
                                         <th colspan="2" align="left" valign="middle">
                                             Referenc By:@if (cnt > 0)
@@ -85,116 +113,58 @@
                                         </th>
                                     </tr>
                                     <tr>
-                                        <th colspan="4" align="left" valign="middle">
-                                            Site Add:@if (cnt > 0)
+                                        <th colspan="2" align="left" valign="middle">
+                                            Flat Status:@if (cnt > 0)
+                                            {@results[36][0]}
+                                        </th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            Flat NO:@if (cnt > 0)
+                                            {@results[31][0]}
+                                        </th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            Floor:@if (cnt > 0)
+                                            {@results[32][0]}                        
+                                        </th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            Area:@if (cnt > 0)
                                             {@results[33][0]}
-                                        </th>
-                                        <th colspan="2" align="left" valign="middle">
-                                            Booking NO:@if (cnt > 0)
-                                            {@results[6][0]}
-                                        </th>
-                                        <th colspan="2" align="left" valign="middle">
-                                            Follup Date:@if (cnt > 0)
-                                            {@Convert.ToDateTime(results[8][0]).ToString("dd-MM-yyyy")}
                                         </th>
                                     </tr>
                                     <tr>
-                                        <th colspan="4" align="left" valign="middle">
-                                            Executive Name:@if (cnt1 > 0)
-                                            {@results1[13][0]}
+                                        <th colspan="2" align="left" valign="middle">
+                                            Type:@if (cnt1 > 0)
+                                            {@results1[34][0]}
                                         </th>
                                         <th colspan="2" align="left" valign="middle">
-                                            Incentive:@if (cnt1 > 0)
+                                            Wing:@if (cnt1 > 0)
+                                            {@results1[35][0]}
+                                        </th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            Package:@if (cnt1 > 0)
+                                            {@results1[4][0]}
+                                        </th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            Received Amt:@if (cnt1 > 0)
+                                            {@results1[11][0]}
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2" align="left" valign="middle">
+                                            Remaining Amt:@if (cnt1 > 0)
                                             {@results1[11][0]}
                                         </th>
                                         <th colspan="2" align="left" valign="middle">
-                                            Incentive Amt:@if (cnt1 > 0)
-                                            {@results1[6][0]}
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="4" align="left" valign="middle">
-                                            Franchis Name:@if (cnt1 > 0)
-                                            {@results1[10][0]}
-                                        </th>
-                                        <th colspan="2" align="left" valign="middle">Flat Status:</th>
-                                        <th colspan="2" align="left" valign="middle">
-                                            Cancel By:@if (cnt > 0)
-                                            {@results[7][0]}
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="4" align="left" valign="middle">Applicant Details:</th>
-                                        <th colspan="2" align="left" valign="middle">
-                                            Flat:@if (cnt > 0)
-                                            {@results[2][0]}
-                                        </th>
-                                        <th colspan="2" align="left" valign="middle">Floor:</th>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="4" align="left" valign="middle">
-                                            Name:@if (cnt > 0)
-                                            {@results[13][0]}
-                                        </th>
-                                        <th colspan="2" align="left" valign="middle">Area:</th>
-                                        <th colspan="2" align="left" valign="middle">Type:</th>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="4" align="left" valign="middle">
-                                            Address:@if (cnt > 0)
-                                            {@results[17][0]}
-                                        </th>
-                                        <th colspan="2" align="left" valign="middle">
-                                            Package:@if (cnt > 0)
-                                            {@results[4][0]}
-                                        </th>
-                                        <th colspan="2" align="left" valign="middle">
-                                            Wing:@if (cnt > 0)
-                                            {@results[17][0]}
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="2" align="left" valign="middle">
-                                            Mobile No:@if (cnt > 0)
-                                            {@results[16][0]}
-                                        </th>
-                                        <th colspan="2" align="left" valign="middle">
-                                            DOB:@if (cnt > 0)
-                                            {@Convert.ToDateTime(results[21][0]).ToString("dd-MM-yyyy")}
-                                        </th>
-                                        <th colspan="2" align="left" valign="middle">
-                                            Total Received:@if (cnt > 0)
-                                            {@results[11][0]}
-                                        </th>
-                                        <th colspan="2" align="left" valign="middle">
-                                            Remaining Amount:@if (cnt > 0)
-                                            {@results[17][0]}
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="2" align="left" valign="middle">
-                                            PAN NO:@if (cnt > 0)
-                                            {@results[18][0]}
-                                        </th>
-                                        <th colspan="2" align="left" valign="middle">
-                                            AADHAR No:@if (cnt > 0)
-                                            {@results[19][0]}
-                                        </th>
-                                        <th colspan="2" align="left" valign="middle">
                                             Reserved Parking:@if (cnt > 0)
+                                            {@results[8][0]}
+                                        </th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            Internal Charges:@if (cnt > 0)
                                             {@results[9][0]}
                                         </th>
-                                        <th colspan="2" align="left" valign="middle">Internal Charges:@if (cnt > 0) {@results[10][0]}</th>
+                                        <th colspan="2" align="left" valign="middle">
+                                        Master File charges</th>
                                     </tr>
                                     <tr>
-                                        <th colspan="2" align="left" valign="middle">
-                                            EMAIL:@if (cnt > 0)
-                                            {@results[15][0]}
-                                        </th>
-                                        <th colspan="2" align="left" valign="middle">
-                                            Occupation:@if (cnt > 0)
-                                            {@results[20][0]}
-                                        </th>
                                         <th colspan="2" align="left" valign="middle">
                                             Agreement Done:@if (cnt > 0)
                                             {@results[39][0]}
@@ -202,12 +172,6 @@
                                         <th colspan="2" align="left" valign="middle">
                                             Agreement Date:@if (cnt > 0)
                                             {@Convert.ToDateTime(results[38][0]).ToString("dd-MM-yyyy")}
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="4" align="left" valign="middle">
-                                            CO Applicant Name:@if (cnt > 0)
-                                            {@results[17][0]}
                                         </th>
                                         <th colspan="2" align="left" valign="middle">
                                             Agreement No:@if (cnt > 0)
@@ -220,30 +184,12 @@
                                     </tr>
                                     <tr>
                                         <th colspan="2" align="left" valign="middle">
-                                            CO App PAN:@if (cnt > 0)
-                                            {@results[24][0]}
-                                        </th>
-                                        <th colspan="2" align="left" valign="middle">
-                                            CO App AADHAR:@if (cnt > 0)
-                                            {@results[25][0]}
-                                        </th>
-                                        <th colspan="2" align="left" valign="middle">
-                                            Agreement Cost:@if (cnt > 0)
-                                            {@results[44][0]}
+                                            GST Amount:@if (cnt > 0)
+                                            {@results[43][0]}
                                         </th>
                                         <th colspan="2" align="left" valign="middle">
                                             Adjust Amt:@if (cnt > 0)
                                             {@results[41][0]}
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="2" align="left" valign="middle">
-                                            CO Occupation:@if (cnt > 0)
-                                            {@results[26][0]}
-                                        </th>
-                                        <th colspan="2" align="left" valign="middle">
-                                            DOB:@if (cnt > 0)
-                                            {@results[27][0]}
                                         </th>
                                         <th colspan="2" align="left" valign="middle">
                                             Notary Amt:@if (cnt > 0)
@@ -255,86 +201,149 @@
                                         </th>
                                     </tr>
                                     <tr>
+                                        <th colspan="8" align="center" valign="middle">Applicant Details</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="1" align="left" valign="middle">Name:</th>
+                                        <th colspan="1" align="left" valign="middle">Address:</th>
+                                        <th colspan="1" align="left" valign="middle">Mobile No:</th>
+                                        <th colspan="1" align="left" valign="middle">DOB:</th>
+                                        <th colspan="1" align="left" valign="middle">PAN No:</th>
+                                        <th colspan="1" align="left" valign="middle">AADHAR No:</th>
+                                        <th colspan="1" align="left" valign="middle">Email:</th>
+                                        <th colspan="1" align="left" valign="middle">Occupation:</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="1" align="left" valign="middle">
+                                            @if (cnt > 0)
+                                            {@results[13][0]}
+                                        </th>
+                                        <th colspan="1" align="left" valign="middle">
+                                            @if (cnt > 0)
+                                            {@results[17][0]}
+                                        </th>
+                                        <th colspan="1" align="left" valign="middle">
+                                            @if (cnt > 0)
+                                            {@results[16][0]}
+                                        </th>
+                                        <th colspan="1" align="left" valign="middle">
+                                            @if (cnt > 0)
+                                            {
+                                                @Convert.ToDateTime(results[21][0]).ToString("dd-MM-yyyy")}
+                                        </th>
+                                        <th colspan="1" align="left" valign="middle">
+                                            @if (cnt > 0)
+                                            {@results[18][0]}
+                                        </th>
+                                        <th colspan="1" align="left" valign="middle">
+                                            @if (cnt > 0)
+                                            {@results[19][0]}
+                                        </th>
+                                        <th colspan="1" align="left" valign="middle">
+                                            @if (cnt > 0)
+                                            {@results[15][0]}
+                                        </th>
+                                        <th colspan="1" align="left" valign="middle">
+                                            @if (cnt > 0)
+                                            {@results[20][0]}
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="8" align="center" valign="middle">Co-Applicant Details</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2" align="left" valign="middle">Name:</th>
+                                        <th colspan="2" align="left" valign="middle">DOB:</th>
+                                        <th colspan="2" align="left" valign="middle">PAN No:</th>
+                                        <th colspan="1" align="left" valign="middle">AADHAR No:</th>
+                                        <th colspan="1" align="left" valign="middle">Occupation:</th>
+                                    </tr>
+                                    @for (var i = 0; i < cnt2; i++)
+                                    {
+                                    <tr>
+                                        <th colspan="2" align="left" valign="middle">
+                                            @results5[1][0]
+                                        </th>
+                                        <th colspan="2" align="left" valign="middle">@Convert.ToDateTime(results5[2][0]).ToString("dd-MM-yyyy")</th>
+                                        <th colspan="2" align="left" valign="middle">@results5[3][0]</th>
+                                        <th colspan="1" align="left" valign="middle">@results5[4][0]</th>
+                                        <th colspan="1" align="left" valign="middle">@results5[5][0]</th>
+                                    </tr>
+                                    }
+                                    <tr>
+                                        <th colspan="8" align="center" valign="middle">Finance Details</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2" align="left" valign="middle">
+                                            Finance:@if (cnt4 > 0)
+                                            {@results4[0][0]}
+                                        </th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            File handover Date:@if (cnt4 > 0)
+                                            {@Convert.ToDateTime(results4[9][0]).ToString("dd-MM-yyyy")}
+                                        </th>
+                                    
+                                        <th colspan="2" align="left" valign="middle">
+                                            Finance Executive Name:@if (cnt4 > 0)
+                                            {@results4[1][0]}
+                                        </th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            Finance Exe Mob No:@if (cnt4 > 0)
+                                            {@results4[10][0]}
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2" align="left" valign="middle">
+                                            File Status:@if (cnt4 > 0)
+                                            {@results4[3][0]}
+                                        </th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            Sanction Date:@if (cnt4 > 0)
+                                            {@results4[11][0]}
+                                        </th>
+                                    
+                                        <th colspan="2" align="left" valign="middle">
+                                            Required Loan Amt:@if (cnt4 > 0)
+                                            {@results4[4][0]}
+                                        </th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            Disbursement Amt:@if (cnt4 > 0)
+                                            {@results4[12][0]}
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2" align="left" valign="middle">
+                                            Sanction Loan Amt:@if (cnt4 > 0)
+                                            {@results4[5][0]}
+                                        </th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            Received DD Amount:@if (cnt4 > 0)
+                                            {@results4[13][0]}
+                                        </th>
+                                    
+                                        <th colspan="2" align="left" valign="middle">
+                                            Actual Loan Amt:@if (cnt4 > 0)
+                                            {@results4[6][0]}
+                                        </th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            Remaining DD Amt:@if (cnt4 > 0)
+                                            {@results4[14][0]}
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2" align="left" valign="middle">
+                                            Rate Of Intereset:@if (cnt4 > 0)
+                                            {@results4[8][0]}
+                                        </th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            EMI Amount:@if (cnt4 > 0)
+                                            {@results4[15][0]}
+                                        </th>
+                                        <th colspan="2" align="left" valign="middle">
+                                            EMI Months:@if (cnt4 > 0)
+                                            {@results[16][0]}
+                                        </th>
                                         <th colspan="2" align="left" valign="middle"></th>
-                                        <th colspan="2" align="left" valign="middle">Master File charges</th>
-
-                                    </tr>
-                                    <tr>
-                                        <th colspan="8" align="left" valign="middle">Finance Details</th>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="4" align="left" valign="middle">
-                                            Finance:@if (cnt > 0)
-                                            {@results[45][0]}
-                                        </th>
-                                        <th colspan="4" align="left" valign="middle">
-                                            File handover Date:@if (cnt > 0)
-                                            {@results[50][0]}
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="4" align="left" valign="middle">
-                                            Finance Executive Name:@if (cnt > 0)
-                                            {@results[47][0]}
-                                        </th>
-                                        <th colspan="4" align="left" valign="middle">
-                                            Finance Exe Mob No:@if (cnt > 0)
-                                            {@results[48][0]}
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="4" align="left" valign="middle">
-                                            File Status:@if (cnt > 0)
-                                            {@results[51][0]}
-                                        </th>
-                                        <th colspan="4" align="left" valign="middle">
-                                            Sanction Date:@if (cnt > 0)
-                                            {@results[56][0]}
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="4" align="left" valign="middle">
-                                            Required Loan Amt:@if (cnt > 0)
-                                            {@results[52][0]}
-                                        </th>
-                                        <th colspan="4" align="left" valign="middle">
-                                            Disbursement Amt:@if (cnt > 0)
-                                            {@results[55][0]}
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="4" align="left" valign="middle">
-                                            Sanction Loan Amt:@if (cnt > 0)
-                                            {@results[54][0]}
-                                        </th>
-                                        <th colspan="4" align="left" valign="middle">
-                                            Received DD Amount:@if (cnt > 0)
-                                            {@results[57][0]}
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="4" align="left" valign="middle">
-                                            Actual Loan Amt:@if (cnt > 0)
-                                            {@results[56][0]}
-                                        </th>
-                                        <th colspan="4" align="left" valign="middle">
-                                            Remaining DD Amt:@if (cnt > 0)
-                                            {@results[58][0]}
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="4" align="left" valign="middle">
-                                            Rate Of Intereset:@if (cnt > 0)
-                                            {@results[59][0]}
-                                        </th>
-                                        <th colspan="2" align="left" valign="middle">
-                                            EMI Amount:@if (cnt > 0)
-                                            {@results[60][0]}
-                                        </th>
-                                        <th colspan="2" align="left" valign="middle">
-                                            EMI Months:@if (cnt > 0)
-                                            {@results[61][0]}
-                                        </th>
                                     </tr>
                                     <tr>
                                         <th colspan="8" align="center" valign="middle">Payment Commitment</th>
@@ -347,8 +356,6 @@
                                     @for (var i = 0; i < cnt2; i++)
                                     {
                                         <tr>
-
-                                            {
                                             <th colspan="4" align="left" valign="middle">@Convert.ToDateTime(results2[1][0]).ToString("dd-MM-yyyy")</th>
                                             <th colspan="2" align="left" valign="middle">@results2[2][0]</th>
                                             <th colspan="2" align="left" valign="middle">@results2[4][0]</th>
@@ -381,31 +388,31 @@
                                             <th colspan="1" align="left" valign="middle">@results3[7][0]</th>
                                         </tr>
                                     }
-                                        <tr>
-                                            <th colspan="8" align="center" valign="middle">File Process:</th>
-                                        <tr>
-                                            <th colspan="1" align="left" valign="middle">Date</th>
-                                            <th colspan="1" align="left" valign="middle">Service Charge</th>
-                                            <th colspan="1" align="left" valign="middle">Loan Fees Amt</th>
-                                            <th colspan="1" align="left" valign="middle">Cheque/Cash</th>
-                                            <th colspan="1" align="left" valign="middle">Cheque Date</th>
-                                            <th colspan="1" align="left" valign="middle">Bank Name</th>
-                                            <th colspan="1" align="left" valign="middle">Loan Fees</th>
-                                            <th colspan="1" align="left" valign="middle">Status</th>
-                                        </tr>
-                                    </thead>
+                                    <tr>
+                                        <th colspan="8" align="center" valign="middle">File Process:</th>
+                                    <tr>
+                                        <th colspan="1" align="left" valign="middle">Finance Name</th>
+                                        <th colspan="1" align="left" valign="middle">Service Charge</th>
+                                        <th colspan="1" align="left" valign="middle">Loan Fees Amt</th>
+                                        <th colspan="1" align="left" valign="middle">Cheque/Cash</th>
+                                        <th colspan="1" align="left" valign="middle">Cheque Date</th>
+                                        <th colspan="1" align="left" valign="middle">Bank Name</th>
+                                        <th colspan="1" align="left" valign="middle">Loan Fees</th>
+                                        <th colspan="1" align="left" valign="middle">Status</th>
+                                    </tr>
+                                </thead>
                                 <tbody>
-                                    @for (var i = 0; i < cnt4; i++)
+                                    @for (var i = 0; i < cnt6; i++)
                                     {
                                         <tr>
-                                            <td>@Convert.ToDateTime(results4[9][0]).ToString("dd-MM-yyyy")</td>
-                                            <td>@results4[1][0]</td>
-                                            <td>@results4[2][0]</td>
-                                            <td>@results4[3][0]</td>
-                                            <td>@Convert.ToDateTime(results4[4][0]).ToString("dd-MM-yyyy")</td>
-                                            <td>@results4[5][0]</td>
-                                            <td>@results4[6][0]</td>
-                                            <td>@results4[7][0]</td>
+                                            <td>>@results6[11][0]</td>
+                                            <td>@results6[1][0]</td>
+                                            <td>@results6[1][0]</td>
+                                            <td>@results6[2][0]</td>
+                                            <td>@Convert.ToDateTime(results6[4][0]).ToString("dd-MM-yyyy")</td>
+                                            <td>@results6[5][0]</td>
+                                            <td>@results6[6][0]</td>
+                                            <td>@results6[7][0]</td>
                                         </tr>
                                     }
                                     </tbody>

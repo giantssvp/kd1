@@ -22,7 +22,8 @@ namespace kd.Models
         public List<string>[] list_customer_booking_show = new List<string>[2];
         public List<string>[] list_daily_customer_name_show = new List<string>[2];
         public List<string>[] list_wing_name_show = new List<string>[2];
-        public List<string>[] list_booking_details_show = new List<string>[7];        
+        public List<string>[] list_booking_details_show = new List<string>[7];
+        public List<string>[] list_co_applicant_details_show = new List<string>[6];
         public List<string>[] list_flat_no_show = new List<string>[3];
         public List<string>[] list_sitewise_booking_show = new List<string>[20];
         public List<DailyFollowup> list_enquiry_followup_show = new List<DailyFollowup>();
@@ -2329,7 +2330,7 @@ namespace kd.Models
         /*
         * Get Master report
         **/
-        public List<string>[] master_report4(string financeID)
+        public List<string>[] master_report4(int applid, int siteName, int flatno)
         {
             //List<string>[] list = new List<string>[75];
             try
@@ -2339,14 +2340,19 @@ namespace kd.Models
                 {
                     masterlist4[i] = new List<string>();
                 }
-                string query = "SELECT * FROM v_file_details where Finance_Id = @financeid";
+                string query = "usp_Get_FinanceDetails";
 
                 if (this.OpenConnection() == true)
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@financeid", financeID);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@Applicant_Id", applid);
+                    cmd.Parameters.AddWithValue("@Site_Id", siteName);
+                    cmd.Parameters.AddWithValue("@Flat_No", flatno);
+
                     MySqlDataReader dataReader = cmd.ExecuteReader();
-                    
+
                     for (int i = 0; i < dataReader.FieldCount; i++)
                     {
                         masterlist4[i] = new List<string>();
@@ -2375,6 +2381,38 @@ namespace kd.Models
             catch (MySqlException ex)
             {
                 return masterlist4;
+            }
+        }
+
+        /*
+         * Get master report5 for File Process report
+         * */
+        public List<string>[] master_report5(int applid, int siteName, int flatno)
+        {
+            try
+            {
+                clear_list_show();
+                string query = "";
+
+                query = "select * from v_file_details where (Applicant_Id = '" + applid + "') and (Site_Id = '" + siteName + "') and (Flat = '" + flatno + "')"; 
+                    
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+                    get_list_show(dataReader);
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return list_show;
+                }
+                else
+                {
+                    return list_show;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return list_show;
             }
         }
 
@@ -3258,6 +3296,51 @@ namespace kd.Models
             catch (MySqlException ex)
             {
                 return list_booking_details_show;
+            }
+        }
+
+        /**
+         * Show co applicant details on page load
+         */
+        public List<string>[] co_applicant_details(int applicant_id)
+        {
+            try
+            {
+                string query = "SELECT * FROM v_co_applicant where Applicant_Id = '" + applicant_id + "' ORDER BY Applicant_Id DESC";
+
+                list_co_applicant_details_show[0] = new List<string>();
+                list_co_applicant_details_show[1] = new List<string>();
+                list_co_applicant_details_show[2] = new List<string>();
+                list_co_applicant_details_show[3] = new List<string>();
+                list_co_applicant_details_show[4] = new List<string>();
+                list_co_applicant_details_show[5] = new List<string>();
+
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    while (dataReader.Read())
+                    {
+                        list_co_applicant_details_show[0].Add(dataReader["ID"] + "");
+                        list_co_applicant_details_show[1].Add(dataReader["Co_Applicant_Name"] + "");
+                        list_co_applicant_details_show[2].Add(dataReader["Co_Applicant_DOB"] + "");
+                        list_co_applicant_details_show[3].Add(dataReader["Co_Applicant_Pan_No"] + "");
+                        list_co_applicant_details_show[4].Add(dataReader["Co_Applicant_Adhar_No"] + "");
+                        list_co_applicant_details_show[5].Add(dataReader["Co_Applicant_Occupation"] + "");
+                    }
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return list_co_applicant_details_show;
+                }
+                else
+                {
+                    return list_co_applicant_details_show;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return list_co_applicant_details_show;
             }
         }
 

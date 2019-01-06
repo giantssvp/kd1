@@ -3111,12 +3111,16 @@ namespace kd.Controllers
             ViewBag.total2 = 0;
             ViewBag.total3 = 0;
             ViewBag.total4 = 0;
-
+            ViewBag.total5 = 0;
+            ViewBag.total6 = 0;
+            
             List<string>[] list = new List<string>[75];
             List<string>[] list1 = new List<string>[75];
             List<string>[] list2 = new List<string>[75];
             List<string>[] list3 = new List<string>[75];
             List<string>[] list4 = new List<string>[75];
+            List<string>[] list5 = new List<string>[6];
+            List<string>[] list6 = new List<string>[71];
 
             list = obj.master_report(
                    bapplicant, bsite, bflats);
@@ -3138,22 +3142,23 @@ namespace kd.Controllers
             ViewBag.list3 = list3;
             ViewBag.total3 = list3[0].Count();
 
-            if (list[0].Count != 0)
-            {
-                string fid = list[64][0];
-                if (fid != null && fid != "")
-                {
-                    list4 = obj.master_report4(fid);
-                }
-                ViewBag.list4 = list4;
-                ViewBag.total4 = list4[0].Count();
-            }
-            else {
-                ViewBag.list4 = list4;
-                ViewBag.total4 = 0;
-            }
+            list4 = obj.master_report4(
+                      bapplicant, bsite, bflats);
+            ViewBag.list4 = list4;
+            ViewBag.total4 = list4[0].Count();
+
+            list5 = obj.co_applicant_details(
+                      bapplicant);
+            ViewBag.list5 = list5;
+            ViewBag.total5 = list5[0].Count();
 
             
+            list6 = obj.master_report5(
+                    bapplicant, bsite, bflats);
+
+            ViewBag.list6 = list6;
+            ViewBag.total6 = list6[0].Count();
+
             return View();
         }
 
