@@ -30,9 +30,9 @@
                                 <tr class="odd gradeX">
 
                                     <td><label class="control-label">Start Date</label></td>
-                                    <td><input type="date" name="enqStartDate" id="enqStartDate" value="1967-01-01"></td>
+                                    <td><input type="date" name="enqStartDate" id="enqStartDate" @(new { value = DateTime.Today.ToString("yyyy-MM-dd") } )></td>
                                     <td><label class="control-label">End Date</label></td>
-                                    <td><input type="date" name="enqEndDate" id="enqEndDate" value="1967-01-01"></td>
+                                    <td><input type="date" name="enqEndDate" id="enqEndDate" @(new { value = DateTime.Today.ToString("yyyy-MM-dd") } )></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Customer Name</label></td>
@@ -47,7 +47,8 @@
                                     <td><label class="control-label">Requirement</label></td>
                                     <td>
                                         <select name="enqRequirement" id="required">
-                                            <option value="1RK" selected="selected">1RK</option>
+                                            <option value="None" selected="selected">None</option>
+                                            <option value="1RK">1RK</option>
                                             <option value="1BHK">1BHK</option>
                                             <option value="2BHK">2BHK</option>
                                             <option value="3BHK">3BHK</option>
@@ -59,7 +60,8 @@
                                     <td><label class="control-label">Occupation</label></td>
                                     <td>
                                         <select name="enqOccu" id="required">
-                                            <option value="Salaried" selected="selected">Salaried</option>
+                                            <option value="None" selected="selected">None</option>
+                                            <option value="Salaried">Salaried</option>
                                             <option value="Business">Business</option>
                                             <option value="Pensioner">Pensioner</option>
                                             <option value="Other">Other</option>
@@ -70,6 +72,7 @@
                                     <td><label class="control-label">Visit</label></td>
                                     <td>
                                         <select name="enqVisit" id="required">
+                                            <option value="None" selected="selected">None</option>
                                             <option value="Visited">Visited</option>
                                             <option value="Enquiry">Enquiry</option>
                                             <option value="Other">Other</option>
@@ -78,7 +81,8 @@
                                     <td><label class="control-label">Current Status</label></td>
                                     <td>
                                         <select name="enqCurrentStatus">
-                                            <option value="Interested" selected="selected">Interested</option>
+                                            <option value="None" selected="selected">None</option>
+                                            <option value="Interested">Interested</option>
                                             <option value="NotInterested">Not Interested</option>
                                             <option value="InProcess">In Process</option>
                                             <option value="Booked">Booked</option>

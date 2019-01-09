@@ -2968,7 +2968,7 @@ namespace kd.Controllers
             using (MemoryStream stream = new System.IO.MemoryStream())
             {
                 StringReader sr = new StringReader(GridHtml);
-                Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 100f, 0f);
+                Document pdfDoc = new Document(PageSize.A4, 0f, 0f, 10f, 0f);
                 PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
                 pdfDoc.Open();
                 XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
@@ -3113,7 +3113,8 @@ namespace kd.Controllers
             ViewBag.total4 = 0;
             ViewBag.total5 = 0;
             ViewBag.total6 = 0;
-            
+            ViewBag.total7 = 0;
+
             List<string>[] list = new List<string>[75];
             List<string>[] list1 = new List<string>[75];
             List<string>[] list2 = new List<string>[75];
@@ -3121,6 +3122,7 @@ namespace kd.Controllers
             List<string>[] list4 = new List<string>[75];
             List<string>[] list5 = new List<string>[6];
             List<string>[] list6 = new List<string>[71];
+            List<string>[] list7 = new List<string>[23];
 
             list = obj.master_report(
                    bapplicant, bsite, bflats);
@@ -3158,6 +3160,12 @@ namespace kd.Controllers
 
             ViewBag.list6 = list6;
             ViewBag.total6 = list6[0].Count();
+
+            list7 = obj.master_report6(
+                    bapplicant, bsite, bflats);
+
+            ViewBag.list7 = list7;
+            ViewBag.total7 = list7[0].Count();
 
             return View();
         }

@@ -32,7 +32,7 @@ namespace kd.Models
         public List<string>[] masterlist2 = new List<string>[75];
         public List<string>[] masterlist3 = new List<string>[75];
         public List<string>[] masterlist4 = new List<string>[75];
-
+        public List<string>[] masterlist5 = new List<string>[71];
         public string cipher_text = "4804";
         //Column names for search in table
         public string daily_customer_column = "Customer_Name, Current_Status, Sanction_Type, Enquiry_Date";
@@ -1471,10 +1471,10 @@ namespace kd.Models
                     while (dataReader.Read())
                     {
                         DailyVM DailyVMObj = new DailyVM();
-                        DailyVMObj.ID = (int)dataReader["ID"];
+                        DailyVMObj.ID = (UInt32)dataReader["ID"];
                         DailyVMObj.Customer_Name = dataReader["Customer_Name"].ToString();
-                        DailyVMObj.Daily_Customer_ID = (int)dataReader["Daily_Customer_ID"];
-                        DailyVMObj.Site_ID = (int)dataReader["Site_ID"];
+                        DailyVMObj.Daily_Customer_ID = (UInt32)dataReader["Daily_Customer_ID"];
+                        DailyVMObj.Site_ID = (UInt32)dataReader["Site_ID"];
                         if (dataReader["Wing"] != DBNull.Value)
                         {
                             DailyVMObj.Wing = dataReader["Wing"].ToString();
@@ -1485,15 +1485,15 @@ namespace kd.Models
                         }
                         if (dataReader["Executive1_ID"] != DBNull.Value)
                         {
-                            DailyVMObj.Executive1_ID = (int)dataReader["Executive1_ID"];
+                            DailyVMObj.Executive1_ID = (UInt32)dataReader["Executive1_ID"];
                         }
                         if (dataReader["Executive2_ID"] != DBNull.Value)
                         {
-                            DailyVMObj.Executive2_ID = (int)dataReader["Executive2_ID"];
+                            DailyVMObj.Executive2_ID = (UInt32)dataReader["Executive2_ID"];
                         }
                         if (dataReader["Executive3_ID"] != DBNull.Value)
                         {
-                            DailyVMObj.Executive3_ID = (int)dataReader["Executive3_ID"];
+                            DailyVMObj.Executive3_ID = (UInt32)dataReader["Executive3_ID"];
                         }
                         if (dataReader["Date"] != DBNull.Value)
                         {
@@ -1502,7 +1502,7 @@ namespace kd.Models
                         DailyVMObj.Site_Name = dataReader["Site_Name"].ToString();
                         if (dataReader["Flat_No"] != DBNull.Value)
                         {
-                            DailyVMObj.Flat_No = (int)dataReader["Flat_No"];
+                            DailyVMObj.Flat_No = (UInt32)dataReader["Flat_No"];
                         }
                         DailyVMObj.Executive1_Name = dataReader["Executive1_Name"].ToString();
                         DailyVMObj.Executive2_Name = dataReader["Executive2_Name"].ToString();
@@ -1558,11 +1558,11 @@ namespace kd.Models
                     //query = query + " and (Site_ID = '" + enqSite + "')";
                 }
 
-                if (enqRequirement != null && enqRequirement != "") {
+                if (enqRequirement != null && enqRequirement != "" && enqRequirement != "None") {
                     query = query + " and (Requirement LIKE '%" + enqRequirement + "%')";
                 }
 
-                if (enqVisit != null && enqVisit != "") {
+                if (enqVisit != null && enqVisit != "" && enqVisit != "None") {
                     query = query + " and (Visit = '" + enqVisit + "')";
                 }
 
@@ -1572,7 +1572,7 @@ namespace kd.Models
                 if (enqDown > 0.0) {
                     query = query + " and (Down_Payment = '" + enqDown + "')";
                 }
-                if (enqCurrentStatus != null && enqCurrentStatus != "") {
+                if (enqCurrentStatus != null && enqCurrentStatus != "" && enqCurrentStatus != "None") {
                     query = query + " and (Current_Status = '" + enqCurrentStatus + "')";
                 }
                 if (enqMob != null && enqMob != "") {
@@ -1589,7 +1589,7 @@ namespace kd.Models
                     while (dataReader.Read())
                     {
                         DailyFollowup DailyFollowupobj = new DailyFollowup();
-                        DailyFollowupobj.ID = (int)dataReader["ID"];
+                        DailyFollowupobj.ID = (UInt32)dataReader["ID"];
                         DailyFollowupobj.Customer_Name  = dataReader["Customer_Name"].ToString();
                         DailyFollowupobj.Address  = dataReader["Address"].ToString();
                         DailyFollowupobj.Mobile_No = dataReader["Mobile_No"].ToString();
@@ -1597,7 +1597,7 @@ namespace kd.Models
                         DailyFollowupobj.Email_ID = dataReader["Email_ID"].ToString();
                         DailyFollowupobj.Requirement = dataReader["Requirement"].ToString();
                         DailyFollowupobj.Occupation = dataReader["Occupation"].ToString();
-                        DailyFollowupobj.Income = (int)dataReader["Income"];
+                        DailyFollowupobj.Income = (UInt32)dataReader["Income"];
                         DailyFollowupobj.Budget = (double)dataReader["Budget"];
                         DailyFollowupobj.Down_Payment = (double)dataReader["Down_Payment"];
                         DailyFollowupobj.Visit = dataReader["Visit"].ToString();
@@ -1617,18 +1617,18 @@ namespace kd.Models
                         {
                             DailyFollowupobj.Next_folloup_Date = Convert.ToDateTime(dataReader["Next_followup_Date"]);
                         }
-                        DailyFollowupobj.folloup_Details = dataReader["folloup_Details"].ToString();
+                        DailyFollowupobj.folloup_Details = dataReader["Followup_Details"].ToString();
                         if (dataReader["Executive1_ID"] != DBNull.Value)
                         {
-                            DailyFollowupobj.Executive1_ID = (int)dataReader["Executive1_ID"];
+                            DailyFollowupobj.Executive1_ID = (UInt32)dataReader["Executive1_ID"];
                         }
                         if (dataReader["Executive2_ID"] != DBNull.Value)
                         {
-                            DailyFollowupobj.Executive2_ID = (int)dataReader["Executive2_ID"];
+                            DailyFollowupobj.Executive2_ID = (UInt32)dataReader["Executive2_ID"];
                         }
                         if (dataReader["Executive3_ID"] != DBNull.Value)
                         {
-                            DailyFollowupobj.Executive3_ID = (int)dataReader["Executive3_ID"];
+                            DailyFollowupobj.Executive3_ID = (UInt32)dataReader["Executive3_ID"];
                         }
 
                         list_enquiry_followup_show.Add(DailyFollowupobj);
@@ -2391,11 +2391,60 @@ namespace kd.Models
         {
             try
             {
+                //clear_list_show();
+                string query = "";
+
+                for (int i = 0; i < 71; i++)
+                {
+                    masterlist5[i] = new List<string>();
+                }
+                query = "select * from v_file_details where (Applicant_Id = '" + applid + "') and (Site_Id = '" + siteName + "') and (Flat = '" + flatno + "')"; 
+                    
+                if (this.OpenConnection() == true)
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+                    //get_list_show(dataReader);
+                    for (int i = 0; i < dataReader.FieldCount; i++)
+                    {
+                        masterlist5[i] = new List<string>();
+                    }
+
+                    //get_list_show(dataReader);
+                    while (dataReader.Read())
+                    {
+                        for (int i = 0; i < dataReader.FieldCount; i++)
+                        {
+                            masterlist5[i].Add(dataReader[i] + "");
+                        }
+                    }
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return masterlist5;
+                }
+                else
+                {
+                    return masterlist5;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return masterlist5;
+            }
+        }
+
+        /*
+        * Get master report6 for File executive incentive details
+        * */
+        public List<string>[] master_report6(int applid, int siteName, int flatno)
+        {
+            try
+            {
                 clear_list_show();
                 string query = "";
 
-                query = "select * from v_file_details where (Applicant_Id = '" + applid + "') and (Site_Id = '" + siteName + "') and (Flat = '" + flatno + "')"; 
-                    
+                query = "select * from v_exec_fran where (Applicant_Id = '" + applid + "') and (Site_Id = '" + siteName + "') and (Flat = '" + flatno + "')";
+
                 if (this.OpenConnection() == true)
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);

@@ -46,7 +46,7 @@
                                     <td><label class="control-label">Agreement No</label></td>
                                     <td><input type="text" name="ano" value="" required @(edit ? new { value = elist[3] } : null)></td>
                                     <td><label class="control-label">Agreement Date</label></td>
-                                    <td> <input type="date" name="adate" value="" required @(edit ? new { value = @Convert.ToDateTime(elist[2]).ToString("yyyy-MM-dd") } : null)></td>
+                                    <td> <input type="date" name="adate" value="" required @(new { value = (edit ? Convert.ToDateTime(elist[2]).ToString("yyyy-MM-dd") : DateTime.Today.ToString("yyyy-MM-dd")) } )></td>
 
                                 </tr>
                                 <tr class="odd gradeX">

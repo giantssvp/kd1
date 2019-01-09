@@ -60,7 +60,7 @@
                                     <td><label class="control-label">Co - Occupation</label></td>
                                     <td><input type="text" name="coapploccu" value="" id="required" @(edit ? new { value = elist[4].Replace(" ", "\u00A0") } : null)></td>
                                     <td><label class="control-label">Co - Birth Date</label></td>
-                                    <td><input type="date" name="coapplbirth" value="" required @(edit ? new { value = @Convert.ToDateTime(elist[5]).ToString("yyyy-MM-dd") } : null)></td>
+                                    <td><input type="date" name="coapplbirth" value="" required @(new { value = (edit ? Convert.ToDateTime(elist[5]).ToString("yyyy-MM-dd") : DateTime.Today.ToString("yyyy-MM-dd")) } )></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     @if (edit)

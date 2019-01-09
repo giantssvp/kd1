@@ -103,7 +103,7 @@
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Follow Up Date</label></td>
-                                    <td> <input type="date" name="bfollowup" value="" required @(edit ? new { value = @Convert.ToDateTime(elist[13]).ToString("yyyy-MM-dd") } : null)></td>
+                                    <td> <input type="date" name="bfollowup" value="" required @(new { value = (edit ? Convert.ToDateTime(elist[13]).ToString("yyyy-MM-dd") : DateTime.Today.ToString("yyyy-MM-dd")) } )></td>
                                     @if (edit)
                                     {
                                         <td><input type="submit" name="submit_btn" value="Update" class="btn btn-success" /></td>

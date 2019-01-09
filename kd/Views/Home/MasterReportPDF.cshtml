@@ -12,6 +12,7 @@
     var results4 = ViewBag.list4;
     var results5 = ViewBag.list5;
     var results6 = ViewBag.list6;
+    var results7 = ViewBag.list7;
     int? cnt = new int?();
     int? cnt1 = new int?();
     int? cnt2 = new int?();
@@ -19,6 +20,7 @@
     int? cnt4 = new int?();
     int? cnt5 = new int?();
     int? cnt6 = new int?();
+    int? cnt7 = new int?();
     cnt = ViewBag.total;
     cnt1 = ViewBag.total1;
     cnt2 = ViewBag.total2;
@@ -26,6 +28,7 @@
     cnt4 = ViewBag.total4;
     cnt5 = ViewBag.total5;
     cnt6 = ViewBag.total6;
+    cnt7 = ViewBag.total7;
     if (cnt == null)
     {
         cnt = 0;
@@ -53,6 +56,10 @@
     if (cnt6 == null)
     {
         cnt6 = 0;
+    }
+    if (cnt7 == null)
+    {
+        cnt7 = 0;
     }
 }
 
@@ -100,12 +107,12 @@
                                             {@Convert.ToDateTime(results[5][0]).ToString("dd-MM-yyyy")}
                                         </th>
                                         <th colspan="2" align="left" valign="middle">
-                                            Exec/Fran Name: @if (cnt > 0)
-                                            {@results[5][0]}
+                                            Exec/Fran Name: @if (cnt7 > 0)
+                                            {@results7[6][0]}
                                         </th>
                                         <th colspan="2" align="left" valign="middle">
-                                            Incentive:@if (cnt > 0)
-                                            {@results[1][0]}
+                                            Incentive:@if (cnt7 > 0)
+                                            {@results7[3][0]}
                                         </th>
                                         <th colspan="2" align="left" valign="middle">
                                             Referenc By:@if (cnt > 0)
@@ -356,9 +363,9 @@
                                     @for (var i = 0; i < cnt2; i++)
                                     {
                                         <tr>
-                                            <th colspan="4" align="left" valign="middle">@Convert.ToDateTime(results2[1][0]).ToString("dd-MM-yyyy")</th>
-                                            <th colspan="2" align="left" valign="middle">@results2[2][0]</th>
-                                            <th colspan="2" align="left" valign="middle">@results2[4][0]</th>
+                                            <td colspan="4" align="left" valign="middle">@Convert.ToDateTime(results2[1][0]).ToString("dd-MM-yyyy")</td>
+                                            <td colspan="2" align="left" valign="middle">@results2[2][0]</td>
+                                            <td colspan="2" align="left" valign="middle">@results2[4][0]</td>
 
 
                                         </tr>
@@ -378,14 +385,14 @@
                                     @for (var i = 0; i < cnt3; i++)
                                     {
                                         <tr>
-                                            <th colspan="1" align="left" valign="middle">@Convert.ToDateTime(results3[0][0]).ToString("dd-MM-yyyy")</th>
-                                            <th colspan="1" align="left" valign="middle">@results3[1][0]</th>
-                                            <th colspan="1" align="left" valign="middle">@results3[2][0]</th>
-                                            <th colspan="1" align="left" valign="middle">@Convert.ToDateTime(results3[3][0]).ToString("dd-MM-yyyy")</th>
-                                            <th colspan="1" align="left" valign="middle">@results3[4][0]</th>
-                                            <th colspan="1" align="left" valign="middle">@results3[5][0]</th>
-                                            <th colspan="1" align="left" valign="middle">@results3[6][0]</th>
-                                            <th colspan="1" align="left" valign="middle">@results3[7][0]</th>
+                                            <td colspan="1" align="left" valign="middle">@Convert.ToDateTime(results3[0][0]).ToString("dd-MM-yyyy")</td>
+                                            <td colspan="1" align="left" valign="middle">@results3[1][0]</td>
+                                            <td colspan="1" align="left" valign="middle">@results3[2][0]</td>
+                                            <td colspan="1" align="left" valign="middle">@Convert.ToDateTime(results3[3][0]).ToString("dd-MM-yyyy")</td>
+                                            <td colspan="1" align="left" valign="middle">@results3[4][0]</td>
+                                            <td colspan="1" align="left" valign="middle">@results3[5][0]</td>
+                                            <td colspan="1" align="left" valign="middle">@results3[6][0]</td>
+                                            <td colspan="1" align="left" valign="middle">@results3[7][0]</td>
                                         </tr>
                                     }
                                     <tr>
@@ -405,10 +412,10 @@
                                     @for (var i = 0; i < cnt6; i++)
                                     {
                                         <tr>
-                                            <td>>@results6[11][0]</td>
-                                            <td>@results6[1][0]</td>
+                                            <td>@results6[11][0]</td>
                                             <td>@results6[1][0]</td>
                                             <td>@results6[2][0]</td>
+                                            <td>@results6[3][0]</td>
                                             <td>@Convert.ToDateTime(results6[4][0]).ToString("dd-MM-yyyy")</td>
                                             <td>@results6[5][0]</td>
                                             <td>@results6[6][0]</td>

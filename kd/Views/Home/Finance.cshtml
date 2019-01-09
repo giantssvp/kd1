@@ -67,7 +67,7 @@
                                     <td><label class="control-label">Finance Executive Email Id</label></td>
                                     <td> <input type="email" name="finexeemail" value="" id="required" @(edit ? new { value = elist[5] } : null)></td>
                                     <td><label class="control-label">File Handover Date</label></td>
-                                    <td><input type="date" name="filehanddate" value="" id="filehanddate" required @(edit ? new { value = @Convert.ToDateTime(elist[6]).ToString("yyyy-MM-dd") } : null)></td>
+                                    <td><input type="date" name="filehanddate" value="" id="filehanddate" required @(new { value = (edit ? Convert.ToDateTime(elist[6]).ToString("yyyy-MM-dd") : DateTime.Today.ToString("yyyy-MM-dd")) } )></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">File Status</label></td>
@@ -81,7 +81,7 @@
                                         </select>
                                     </td>
                                     <td><label class="control-label">File Sanction Date</label></td>
-                                    <td> <input type="date" name="filesanctdate" value="" id="filesanctdate" required @(edit ? new { value = @Convert.ToDateTime(elist[11]).ToString("yyyy-MM-dd") } : null)></td>
+                                    <td> <input type="date" name="filesanctdate" value="" id="filesanctdate" required @(new { value = (edit ? Convert.ToDateTime(elist[11]).ToString("yyyy-MM-dd") : DateTime.Today.ToString("yyyy-MM-dd")) } )></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Required Loan Amount</label></td>

@@ -60,7 +60,7 @@
                                     <td><input type="text" name="chid" value="" required @(edit ? new { value = elist[3].Replace(" ", "\u00A0") } : null)></td>
 
                                     <td><label class="control-label">Cheque Date</label></td>
-                                    <td><input type="date" name="chdate" value="" required @(edit ? new { value = @Convert.ToDateTime(elist[4]).ToString("yyyy-MM-dd") } : null)></td>
+                                    <td><input type="date" name="chdate" value="" required @(new { value = (edit ? Convert.ToDateTime(elist[4]).ToString("yyyy-MM-dd") : DateTime.Today.ToString("yyyy-MM-dd")) } )></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Bank Name</label></td>
