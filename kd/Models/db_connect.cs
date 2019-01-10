@@ -1441,7 +1441,7 @@ namespace kd.Models
         }
 
         /* Show Queries */
-        public List<DailyVM> Daily_enquiry_sitevisit_report()
+        public List<DailyVM> Daily_enquiry_sitevisit_report(UInt32 CustomerID)
         {
             List<DailyVM> list_followup_show1 = new List<DailyVM>();
 
@@ -1460,7 +1460,7 @@ namespace kd.Models
                 //cmd.Parameters.AddWithValue("@downPayment", enqDown);
 
                 //cmd.CommandType = CommandType.StoredProcedure;
-                string query = "select * from daily_sitevisit_view";
+                string query = "select * from daily_sitevisit_view where Daily_Customer_ID = " + CustomerID;
 
                 if (this.OpenConnection() == true)
                 {
@@ -1471,10 +1471,14 @@ namespace kd.Models
                     while (dataReader.Read())
                     {
                         DailyVM DailyVMObj = new DailyVM();
-                        DailyVMObj.ID = (UInt32)dataReader["ID"];
+                       // if(DailyVMObj.ID == null)
+                      //  DailyVMObj.ID = (UInt32)dataReader["ID"];
                         DailyVMObj.Customer_Name = dataReader["Customer_Name"].ToString();
                         DailyVMObj.Daily_Customer_ID = (UInt32)dataReader["Daily_Customer_ID"];
-                        DailyVMObj.Site_ID = (UInt32)dataReader["Site_ID"];
+                        if (dataReader["Site_ID"] != DBNull.Value)
+                        {
+                            DailyVMObj.Site_ID = (UInt32)dataReader["Site_ID"];
+                        }
                         if (dataReader["Wing"] != DBNull.Value)
                         {
                             DailyVMObj.Wing = dataReader["Wing"].ToString();

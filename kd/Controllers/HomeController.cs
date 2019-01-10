@@ -2914,7 +2914,7 @@ namespace kd.Controllers
 
             foreach (DailyFollowup DailyFollowupobj in list)
             {
-                list1 = obj.Daily_enquiry_sitevisit_report();
+                list1 = obj.Daily_enquiry_sitevisit_report(DailyFollowupobj.ID);
 
                 Enquiry _Enquiry = new Enquiry();
                 _Enquiry._DailyFollowup = DailyFollowupobj;
@@ -2948,7 +2948,7 @@ namespace kd.Controllers
 
             foreach (DailyFollowup DailyFollowupobj in list)
             {
-                list1 = obj.Daily_enquiry_sitevisit_report();
+                list1 = obj.Daily_enquiry_sitevisit_report(DailyFollowupobj.ID);
 
                 Enquiry _Enquiry = new Enquiry();
                 _Enquiry._DailyFollowup = DailyFollowupobj;
@@ -2973,7 +2973,7 @@ namespace kd.Controllers
                 pdfDoc.Open();
                 XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
                 pdfDoc.Close();
-                return File(stream.ToArray(), "application/pdf", "Grid.pdf");
+                return File(stream.ToArray(), "application/pdf", "Angel_Report.pdf");
             }
         }
 
