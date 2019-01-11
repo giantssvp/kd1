@@ -49,19 +49,19 @@
                             <tbody>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Customer Name</label></td>
-                                    <td><input type="text" name="enqname" value="" required @(edit ? new { value = (elist[1] == "" ? elist : elist[1].Replace(" ", "\u00A0")) } : null)></td>
+                                    <td><input type="text" name="enqname" required @(edit ? new { value = (elist[1] == "" ? elist : elist[1].Replace(" ", "\u00A0")) } : null)></td>
                                     <td><label class="control-label">Address</label></td>
-                                    <td> <input type="text" name="enqaddress" value="" required @(edit ? new { value = elist[2].Replace(" ", "\u00A0") } : null)> </td>
+                                    <td> <input type="text" name="enqaddress" required @(edit ? new { value = elist[2].Replace(" ", "\u00A0") } : null)> </td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Mobile No(Whatsapp)</label></td>
-                                    <td><input type="number" name="enqmob" value="" required @(edit ? new { value = elist[3] } : null)></td>
+                                    <td><input type="number" name="enqmob" required @(edit ? new { value = elist[3] } : null)></td>
                                     <td><label class="control-label">Alternate Mobile</label></td>
-                                    <td><input type="number" name="enqaltmob" value="" id="required" @(edit ? new { value = elist[4] } : null)></td>
+                                    <td><input type="number" name="enqaltmob" id="required" @(edit ? new { value = elist[4] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Email Id</label></td>
-                                    <td><input type="email" name="enqemail" value="" id="required" @(edit ? new { value = elist[5] } : null)></td>
+                                    <td><input type="email" name="enqemail" id="required" @(edit ? new { value = elist[5] } : null)></td>
                                     <td><label class="control-label">Requirement</label></td>
                                     <td>
                                         <select multiple name="enqrequirement" id="required" style="max-width:65%;">
@@ -85,13 +85,13 @@
                                         </select>
                                     </td>
                                     <td><label class="control-label">Income</label></td>
-                                    <td><input type="number" name="enqincome" value="" id="required" @(edit ? new { value = elist[8] } : null)></td>
+                                    <td><input type="number" name="enqincome" id="required" @(edit ? new { value = elist[8] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Budget</label></td>
-                                    <td><input type="number" name="enqbudget" value="" id="required" @(edit ? new { value = elist[9] } : null)></td>
+                                    <td><input type="number" name="enqbudget" id="required" @(edit ? new { value = elist[9] } : null)></td>
                                     <td><label class="control-label">Down Payment</label></td>
-                                    <td><input type="number" name="enqdown" value="" id="required" @(edit ? new { value = elist[10] } : null)></td>
+                                    <td><input type="number" name="enqdown" id="required" @(edit ? new { value = elist[10] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Current Status</label></td>
@@ -122,7 +122,7 @@
                                         </select>
                                     </td>
                                     <td><label class="control-label">Source Details</label></td>
-                                    <td><input type="text" name="enqsourcedetails" value="" id="required" @(edit ? new { value = elist[14].Replace(" ", "\u00A0") } : null)></td>
+                                    <td><input type="text" name="enqsourcedetails" id="required" @(edit ? new { value = elist[14].Replace(" ", "\u00A0") } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Sanction Type</label></td>
@@ -164,7 +164,6 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
                                     <th>Customer Name</th>
                                     <th>Address</th>
                                     <th>Whatsup No</th>
@@ -184,7 +183,6 @@
                                 @for (var i = 0; i < cnt; i++)
                                 {
                                     <tr class="gradeX">
-                                        <td>@results[0][i]</td>
                                         <td>@results[1][i]</td>
                                         <td>@results[2][i]</td>
                                         <td>@results[3][i]</td>

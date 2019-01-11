@@ -40,7 +40,6 @@
                             <tr>
                                 @if (page == "followup")
                                 {
-                                    <th>ID</th>
                                     <th>Daily Customer Name</th>
                                     <th>Mobile</th>
                                     <th>Email</th>
@@ -53,7 +52,6 @@
                                 }
                                 else if (page == "paycommit")
                                 {
-                                    <th>ID</th>
                                     <th>Commit Type</th>
                                     <th>Amount</th>
                                     <th>Commitment Date</th>
@@ -66,7 +64,6 @@
                                 }
                                 else
                                 {
-                                    <th>ID</th>
                                     <th>Payment Mode</th>
                                     <th>Amount</th>
                                     <th>Cheque ID</th>
@@ -88,7 +85,6 @@
                             <tr class="gradeX">
                                 @if (page == "followup")
                                 {
-                                    <td>@results[0][i]</td>
                                     <td>@results[9][i]</td>
                                     <td>@results[11][i]</td>
                                     <td>@results[13][i]</td>
@@ -101,7 +97,6 @@
                                 }
                                 else if (page == "paycommit")
                                 {
-                                    <td>@results[0][i]</td>
                                     <td>@results[1][i]</td>
                                     <td>@results[2][i]</td>
                                     <td>@results[4][i]</td>
@@ -114,7 +109,6 @@
                                 }
                                 else
                                 {
-                                    <td>@results[0][i]</td>
                                     <td>@results[3][i]</td>
                                     <td>@results[1][i]</td>
                                     <td>@results[4][i]</td>

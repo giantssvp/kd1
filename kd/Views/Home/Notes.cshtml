@@ -44,7 +44,7 @@
                             <tbody>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Notes Summary</label></td>
-                                    <td><input type="text" value="" name="notesummary" id="notedesc" @(edit ? new { value = elist[1] } : null)></td>
+                                    <td><input type="text" name="notesummary" id="notedesc" @(edit ? new { value = elist[1] } : null)></td>
 
                                     <td><label class="control-label">Note Description</label></td>
                                     <td> <textarea name="notedesc">@(edit ? elist[2] : null)</textarea></td>
@@ -81,7 +81,6 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
                                     <th>Note Summary</th>
                                     <th>Note Description</th>
                                     <th>Date</th>
@@ -95,7 +94,6 @@
                                 @for (var i = 0; i < cnt; i++)
                                 {
                                     <tr class="gradeX">
-                                        <td>@results[0][i]</td>
                                         <td>@results[1][i]</td>
                                         <td>@results[2][i]</td>
                                         <td>@Convert.ToDateTime(results[3][i]).ToString("dd-MM-yyyy")</td>

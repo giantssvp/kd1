@@ -56,13 +56,13 @@
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Site Address</label></td>
-                                    <td> <input type="text" name="siteaddress" id="required" value="" @(edit ? new { value = elist[5].Replace(" ", "\u00A0") } : null)></td>
+                                    <td> <input type="text" name="siteaddress" id="required" @(edit ? new { value = elist[5].Replace(" ", "\u00A0") } : null)></td>
                                     <td><label class="control-label">Phone No</label></td>
                                     <td><input type="number" name="sitephone" id="required"  @(edit ? new { value = elist[4] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Email ID</label></td>
-                                    <td><input type="email" name="siteemail" id="required" value="" @(edit ? new { Value = elist[3] } : null)>
+                                    <td><input type="email" name="siteemail" id="required" @(edit ? new { Value = elist[3] } : null)>
                                     </td>
                                     <td><label class="control-label">Sanction Type</label></td>
                                     <td>
@@ -75,7 +75,7 @@
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Status</label></td>
-                                    <td> <input type="text" name="sitestatus" id="required" value="" @(edit ? new { value = elist[7].Replace(" ", "\u00A0") } : null)></td>
+                                    <td> <input type="text" name="sitestatus" id="required" @(edit ? new { value = elist[7].Replace(" ", "\u00A0") } : null)></td>
                                     @if (edit)
                                     {
                                         <td><input type="submit" name="submit_btn" value="Update" class="btn btn-success" /></td>
@@ -106,7 +106,6 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
                                     <th>Site Name</th>
                                     <th>Site Type</th>
                                     <th>Email ID</th>
@@ -124,7 +123,6 @@
                                 @for (var i = 0; i < cnt; i++)
                                 {
                                 <tr class="gradeX">
-                                    <td>@results[0][i]</td>
                                     <td>@results[1][i]</td>
                                     <td>@results[2][i]</td>
                                     <td>@results[3][i]</td>

@@ -44,28 +44,28 @@
                             <tbody>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Agreement No</label></td>
-                                    <td><input type="text" name="ano" value="" required @(edit ? new { value = elist[3] } : null)></td>
+                                    <td><input type="text" name="ano" required @(edit ? new { value = elist[3] } : null)></td>
                                     <td><label class="control-label">Agreement Date</label></td>
-                                    <td> <input type="date" name="adate" value="" required @(new { value = (edit ? Convert.ToDateTime(elist[2]).ToString("yyyy-MM-dd") : DateTime.Today.ToString("yyyy-MM-dd")) } )></td>
+                                    <td> <input type="date" name="adate" required @(new { value = (edit ? Convert.ToDateTime(elist[2]).ToString("yyyy-MM-dd") : DateTime.Today.ToString("yyyy-MM-dd")) } )></td>
 
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Agreement Amount</label></td>
-                                    <td><input type="number" name="aamount" value="" required @(edit ? new { value = elist[1] } : null)></td>
+                                    <td><input type="number" name="aamount" required @(edit ? new { value = elist[1] } : null)></td>
                                     <td><label class="control-label">Notary Amount</label></td>
-                                    <td><input type="number" name="anotary" value="" id="required" @(edit ? new { value = elist[6] } : null)></td>
+                                    <td><input type="number" name="anotary" id="required" @(edit ? new { value = elist[6] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Adjustment Amount</label></td>
-                                    <td> <input type="number" name="aadjustment" value="" id="required" @(edit ? new { value = elist[10] } : null)></td>
+                                    <td> <input type="number" name="aadjustment" id="required" @(edit ? new { value = elist[10] } : null)></td>
                                     <td><label class="control-label">Extra Amount</label></td>
-                                    <td><input type="number" name="aextra" value="" id="required" @(edit ? new { value = elist[11] } : null)></td>
+                                    <td><input type="number" name="aextra" id="required" @(edit ? new { value = elist[11] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">GST Amount</label></td>
-                                    <td><input type="number" name="gst" value="" id="required" @(edit ? new { value = elist[12] } : null)></td>
+                                    <td><input type="number" name="gst" id="required" @(edit ? new { value = elist[12] } : null)></td>
                                     <td><label class="control-label">Agreement Status</label></td>
-                                    <td><input type="text" name="astatus" value="" id="required" @(edit ? new { value = elist[4].Replace(" ", "\u00A0") } : null)></td>
+                                    <td><input type="text" name="astatus" id="required" @(edit ? new { value = elist[4].Replace(" ", "\u00A0") } : null)></td>
                                 </tr>
                                 @Html.Partial("booking_fk")
                                 <tr class="odd gradeX">
@@ -98,7 +98,6 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
                                     <th>Agreement No</th>
                                     <th>Agreement Amount</th>
                                     <th>Agreement Date</th>
@@ -116,7 +115,6 @@
                                 @for (var i = 0; i < cnt; i++)
                                 {
                                 <tr class="gradeX">
-                                    <td>@results[0][i]</td>
                                     <td>@results[3][i]</td>
                                     <td>@results[1][i]</td>
                                     <td>@Convert.ToDateTime(results[2][i]).ToString("dd-MM-yyyy")</td>

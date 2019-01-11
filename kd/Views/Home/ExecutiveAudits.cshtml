@@ -49,12 +49,12 @@
                                         <select name="ename" id="ename" style="max-width:65%;">  </select>
                                     </td>
                                     <td><label class="control-label">Total Incentive</label></td>
-                                    <td><input type="number" name="incentive" value="" id="required" @(edit ? new { value = elist[4] } : null)></td>
+                                    <td><input type="number" name="incentive" id="required" @(edit ? new { value = elist[4] } : null)></td>
                                 </tr>                                
                                 @Html.Partial("booking_fk")
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Total Share</label></td>
-                                    <td> <input type="text" name="share" value="" id="required" @(edit ? new { value = elist[5].Replace(" ", "\u00A0") } : null)></td>
+                                    <td> <input type="text" name="share" id="required" @(edit ? new { value = elist[5].Replace(" ", "\u00A0") } : null)></td>
 
                                     @if (edit)
                                     {

@@ -54,20 +54,20 @@
                                         </select>
                                     </td>
                                     <td><label class="control-label">Finance Name</label></td>
-                                    <td> <input type="text" name="finname" value="" required @(edit ? new { value = elist[2].Replace(" ", "\u00A0") } : null)></td>
+                                    <td> <input type="text" name="finname" required @(edit ? new { value = elist[2].Replace(" ", "\u00A0") } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Finance Executive</label></td>
-                                    <td><input type="text" name="finexe" value="" id="required" @(edit ? new { value = elist[3].Replace(" ", "\u00A0") } : null)></td>
+                                    <td><input type="text" name="finexe" id="required" @(edit ? new { value = elist[3].Replace(" ", "\u00A0") } : null)></td>
 
                                     <td><label class="control-label">Finance Executive Mobile No</label></td>
-                                    <td><input type="number" name="finexemob" value="" id="required" @(edit ? new { value = elist[4] } : null)></td>
+                                    <td><input type="number" name="finexemob" id="required" @(edit ? new { value = elist[4] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Finance Executive Email Id</label></td>
-                                    <td> <input type="email" name="finexeemail" value="" id="required" @(edit ? new { value = elist[5] } : null)></td>
+                                    <td> <input type="email" name="finexeemail" id="required" @(edit ? new { value = elist[5] } : null)></td>
                                     <td><label class="control-label">File Handover Date</label></td>
-                                    <td><input type="date" name="filehanddate" value="" id="filehanddate" required @(new { value = (edit ? Convert.ToDateTime(elist[6]).ToString("yyyy-MM-dd") : DateTime.Today.ToString("yyyy-MM-dd")) } )></td>
+                                    <td><input type="date" name="filehanddate" id="filehanddate" required @(new { value = (edit ? Convert.ToDateTime(elist[6]).ToString("yyyy-MM-dd") : DateTime.Today.ToString("yyyy-MM-dd")) } )></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">File Status</label></td>
@@ -81,37 +81,37 @@
                                         </select>
                                     </td>
                                     <td><label class="control-label">File Sanction Date</label></td>
-                                    <td> <input type="date" name="filesanctdate" value="" id="filesanctdate" required @(new { value = (edit ? Convert.ToDateTime(elist[11]).ToString("yyyy-MM-dd") : DateTime.Today.ToString("yyyy-MM-dd")) } )></td>
+                                    <td> <input type="date" name="filesanctdate" id="filesanctdate" required @(new { value = (edit ? Convert.ToDateTime(elist[11]).ToString("yyyy-MM-dd") : DateTime.Today.ToString("yyyy-MM-dd")) } )></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Required Loan Amount</label></td>
-                                    <td><input type="number" name="reqloanamt" value="" id="reqloanamt" @(edit ? new { value = elist[12] } : null) onkeyup="diff();"></td>
+                                    <td><input type="number" name="reqloanamt" id="reqloanamt" @(edit ? new { value = elist[12] } : null) onkeyup="diff();"></td>
                                     <td><label class="control-label">Sanction Loan Amount</label></td>
-                                    <td><input type="number" name="sanctloanamt" value="" id="required" @(edit ? new { value = elist[13] } : null)></td>
+                                    <td><input type="number" name="sanctloanamt" id="required" @(edit ? new { value = elist[13] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Actual Loan Amount</label></td>
-                                    <td><input type="number" name="actloanamt" value="" id="actloanamt" @(edit ? new { value = elist[15] } : null) onkeyup="diff();"></td>
+                                    <td><input type="number" name="actloanamt" id="actloanamt" @(edit ? new { value = elist[15] } : null) onkeyup="diff();"></td>
                                     <td><label class="control-label">Received DD Amount</label></td>
-                                    <td><input type="number" name="recddamt" value="" id="recddamt" @(edit ? new { value = elist[17] } : null) onkeyup="diff();"></td>
+                                    <td><input type="number" name="recddamt" id="recddamt" @(edit ? new { value = elist[17] } : null) onkeyup="diff();"></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Diff Loan Amount</label></td>
-                                    <td><input type="number" readonly name="diffloanamt" value="" id="diffloanamt" @(edit ? new { value = elist[16] } : null)></td>
+                                    <td><input type="number" readonly name="diffloanamt" id="diffloanamt" @(edit ? new { value = elist[16] } : null)></td>
                                     <td><label class="control-label">Remaining DD Amount</label></td>
-                                    <td> <input type="number" readonly name="remddamt" value="" id="remddamt" @(edit ? new { value = elist[18] } : null)></td>                                    
+                                    <td> <input type="number" readonly name="remddamt" id="remddamt" @(edit ? new { value = elist[18] } : null)></td>                                    
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">File Rejected Finance</label></td>
-                                    <td> <input type="text" name="finstat" value="" id="required" @(edit ? new { value = elist[22].Replace(" ", "\u00A0") } : null)></td>
+                                    <td> <input type="text" name="finstat" id="required" @(edit ? new { value = elist[22].Replace(" ", "\u00A0") } : null)></td>
                                     <td><label class="control-label">Rate Of Interest</label></td>
-                                    <td><input type="text" name="rateofinter" value="" id="required" @(edit ? new { value = elist[19].Replace(" ", "\u00A0") } : null)></td>
+                                    <td><input type="text" name="rateofinter" id="required" @(edit ? new { value = elist[19].Replace(" ", "\u00A0") } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">EMI Amount</label></td>
-                                    <td><input type="number" name="emiamt" value="" id="required" @(edit ? new { value = elist[20] } : null)></td>
+                                    <td><input type="number" name="emiamt" id="required" @(edit ? new { value = elist[20] } : null)></td>
                                     <td><label class="control-label">EMI Total Months</label></td>
-                                    <td> <input type="number" name="emimonths" value="" id="required" @(edit ? new { value = elist[21] } : null)></td>
+                                    <td> <input type="number" name="emimonths" id="required" @(edit ? new { value = elist[21] } : null)></td>
                                 </tr>
                                 @Html.Partial("booking_fk")
                                 <tr class="odd gradeX">                                    
@@ -144,7 +144,6 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
                                     <th>Finance Type</th>
                                     <th>Finance Name</th>
                                     <th>Finance Executive Name</th>
@@ -162,7 +161,6 @@
                                 @for (var i = 0; i < cnt; i++)
                                 {
                                     <tr class="gradeX">
-                                        <td>@results[0][i]</td>
                                         <td>@results[1][i]</td>
                                         <td>@results[2][i]</td>
                                         <td>@results[3][i]</td>

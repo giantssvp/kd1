@@ -51,19 +51,19 @@
                                         </select>
                                     </td>
                                     <td><label class="control-label">Name</label></td>
-                                    <td><input type="text" name="exename" value="" required @(edit ? new { value = elist[1].Replace(" ", "\u00A0") } : null)></td>
+                                    <td><input type="text" name="exename" required @(edit ? new { value = elist[1].Replace(" ", "\u00A0") } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Code</label></td>
-                                    <td> <input type="text" name="execode" value="" id="required" @(edit ? new { value = elist[2].Replace(" ", "\u00A0") } : null)></td>
+                                    <td> <input type="text" name="execode" id="required" @(edit ? new { value = elist[2].Replace(" ", "\u00A0") } : null)></td>
                                     <td><label class="control-label">Email ID</label></td>
-                                    <td><input type="email" name="exeemail" value="" id="required" @(edit ? new { value = elist[3] } : null)></td>
+                                    <td><input type="email" name="exeemail" id="required" @(edit ? new { value = elist[3] } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Mobile No</label></td>
-                                    <td><input type="number" name="exemob" value="" required @(edit ? new { value = elist[4] } : null)></td>
+                                    <td><input type="number" name="exemob" required @(edit ? new { value = elist[4] } : null)></td>
                                     <td><label class="control-label">Address</label></td>
-                                    <td> <input type="text" name="exeadd" value="" id="required" @(edit ? new { value = elist[5].Replace(" ", "\u00A0") } : null)></td>
+                                    <td> <input type="text" name="exeadd" id="required" @(edit ? new { value = elist[5].Replace(" ", "\u00A0") } : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Joining Date</label></td>
@@ -73,7 +73,7 @@
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Status</label></td>
-                                    <td> <textarea name="exestatus"value="" @(edit ? elist[9] : null)> </textarea></td>
+                                    <td> <textarea name="exestatus" @(edit ? elist[9] : null)> </textarea></td>
                                     @if (edit)
                                     {
                                         <td><input type="submit" name="submit_btn" value="Update" class="btn btn-success" /></td>
@@ -103,7 +103,6 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
                                     <th>Name</th>
                                     <th>Code</th>
                                     <th>Mobile</th>
@@ -122,7 +121,6 @@
                                 @for (var i = 0; i < cnt; i++)
                                 {
                                 <tr class="gradeX">
-                                    <td>@results[0][i]</td>
                                     <td>@results[1][i]</td>
                                     <td>@results[2][i]</td>
                                     <td>@results[4][i]</td>

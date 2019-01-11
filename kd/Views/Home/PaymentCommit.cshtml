@@ -57,21 +57,21 @@
                                         </select>
                                     </td>
                                     <td><label class="control-label">Amount</label></td>
-                                    <td> <input type="number" name="camount" value="" required @(edit ? new { value = elist[2] } : null)></td>
+                                    <td> <input type="number" name="camount" required @(edit ? new { value = elist[2] } : null)></td>
                                 </tr>
                                 @Html.Partial("booking_fk")
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Commitment Date</label></td>
-                                    <td><input type="date" name="cdate" value="" required @(new { value = (edit ? Convert.ToDateTime(elist[3]).ToString("yyyy-MM-dd") : DateTime.Today.ToString("yyyy-MM-dd")) } )></td>
+                                    <td><input type="date" name="cdate" required @(new { value = (edit ? Convert.ToDateTime(elist[3]).ToString("yyyy-MM-dd") : DateTime.Today.ToString("yyyy-MM-dd")) } )></td>
                                     <td><label class="control-label">Remark</label></td>
-                                    <td> <textarea class="cremark" name="cremark" value=""@(edit ? elist[5] : null)></textarea></td>
+                                    <td> <textarea class="cremark" name="cremark" @(edit ? elist[5] : null)></textarea></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     @if (edit)
                                     {
                                         <td><input type="submit" name="submit_btn" value="Update" class="btn btn-success" /></td>
                                         <td colspan="3"> <input type="submit" name="submit_btn" value="Cancel" class="btn btn-danger" /> </td>
-                                        <td> <input type="hidden" name="edit_id" value="" value=@elist[0] /> </td>
+                                        <td> <input type="hidden" name="edit_id" value=@elist[0] /> </td>
                                     }
                                     else
                                     {
@@ -96,7 +96,6 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
                                     <th>Commit Type</th>
                                     <th>Amount</th>
                                     <th>Commitment Date</th>
@@ -114,7 +113,6 @@
                                 @for (var i = 0; i < cnt; i++)
                                 {
                                 <tr class="gradeX">
-                                    <td>@results[0][i]</td>
                                     <td>@results[1][i]</td>
                                     <td>@results[2][i]</td>
                                     <td>@Convert.ToDateTime(results[4][i]).ToString("dd-MM-yyyy")</td>
