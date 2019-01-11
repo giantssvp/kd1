@@ -15,6 +15,7 @@ namespace kd.Models
         private MySqlConnection connection;        
         public List<string>[] list_show = new List<string>[75];
 
+        public List<string>[] list_received_show = new List<string>[3];
         public List<string>[] list_alarms_show = new List<string>[75];
         public List<string>[] list_executive_show_name = new List<string>[2];
         public List<string>[] list_customer_show_name = new List<string>[2];
@@ -967,6 +968,7 @@ namespace kd.Models
             try
             {
                 string que = "(select ID from bookings where Applicant_Id=" + bapplicant + " and Flat=" + bflats + " and Site_Id=" + bsite + ")";
+                
                 string query = "";
                 if (type == "edit")
                 {
@@ -980,13 +982,57 @@ namespace kd.Models
                         " Builder_Pay = @bldpay," +
                         " Bank_Pay = @bnkpay," +
                         " Status = @sts," +
-                        " Booking_Id = " + que + " where id=@id";
+                        " Booking_Id = " + que + " where id=@id;";
+
+                    string que1 = "select ID, Amount, Builder_Pay from payment_details where ID = " + id;
+
+                    if (this.OpenConnection() == true)
+                    {
+                        list_received_show[0] = new List<string>();
+                        list_received_show[1] = new List<string>();
+                        list_received_show[2] = new List<string>();
+
+                        MySqlCommand cmd1 = new MySqlCommand(que1, connection);
+                        MySqlDataReader dataReader = cmd1.ExecuteReader();
+
+                        while (dataReader.Read())
+                        {
+                            list_received_show[0].Add(dataReader["ID"] + "");
+                            list_received_show[1].Add(dataReader["Amount"] + "");
+                            list_received_show[2].Add(dataReader["Builder_Pay"] + "");
+                        }
+
+                        dataReader.Close();
+                        this.CloseConnection();
+                    }
+
+                    if (list_received_show[2][0] == "paid")
+                    {
+                        query += "update bookings set Received_Amount = Received_Amount + " + pamt + " - " + list_received_show[1][0] + " , Total_Builder_Received = Total_Builder_Received - " + list_received_show[1][0] + "  where id IN (select * from " + que + " as t)";
+                    }
+                    else
+                    {
+                        query += "update bookings set Received_Amount = Received_Amount + " + pamt + " - " + list_received_show[1][0] + " where id IN (select * from " + que + " as t)";
+                    }
+
+                    if (bldpay == "paid")
+                    {
+                        query += ";update bookings set Total_Builder_Received = Total_Builder_Received + " + pamt + " where id IN (select * from " + que + " as t1)";
+                    }
                 }
                 else
                 {
+                    //Below query is to update the bookings table received amount
                     query = "INSERT INTO payment_details (Amount, Date, Payment_Mode, Cheque_Id, Cheque_Date, Bank_Name, " +
                     "Payment_Type, Builder_Pay, Bank_Pay, Status, Booking_Id) " +
-                    "VALUES(@pamt, NOW(), @pmode, @chkid, @chkdate, @bname, @ptype, @bldpay, @bnkpay, @sts, "+ que + ")";
+                    "VALUES(@pamt, NOW(), @pmode, @chkid, @chkdate, @bname, @ptype, @bldpay, @bnkpay, @sts, " + que + ");";
+
+                    query += "update bookings set Received_Amount = Received_Amount + " + pamt + " where id IN (select * from " + que + " as t)";
+
+                    if (bldpay == "paid")
+                    {
+                        query += ";update bookings set Total_Builder_Received = Total_Builder_Received + " + pamt + " where id IN (select * from " + que + " as t1)";
+                    }
                 }
 
                 if (this.OpenConnection() == true)

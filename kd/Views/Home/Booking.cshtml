@@ -134,11 +134,11 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Booking No</th>
                                     <th>Applicant Name</th>
                                     <th>Site</th>
                                     <th>Flat/Plot Number</th>
-                                    <th>Amount</th>
+                                    <th>Received Amount</th>
+                                    <th>Builder Received Amount</th>
                                     @if (this.Session["role"].ToString() == "admin")
                                     {
                                         <th>Action</th>
@@ -148,21 +148,21 @@
                             <tbody>
                                 @for (var i = 0; i < cnt; i++)
                                 {
-                                    <tr class="gradeX">
-                                        <td>@results[0][i]</td>
-                                        <td>@results[1][i]</td>
-                                        <td>@results[31][i]</td>
-                                        <td>@results[15][i]</td>
-                                        <td>@results[27][i]@results[23][i]</td>
-                                        <td>@results[4][i]</td>
-                                        @if (this.Session["role"].ToString() == "admin")
-                                        {
-                                            <td align="center">
-                                                <button onclick="fun_edit(this);" value="@results[0][i]" class="btn btn-primary">Edit</button>
-                                                <button onclick="fun_del(this);" value="@results[0][i]" class="btn btn-danger">Delete</button>
-                                            </td>
-                                        }
-                                    </tr>
+                                <tr class="gradeX">
+                                    <td>@results[0][i]</td>
+                                    <td>@results[31][i]</td>
+                                    <td>@results[15][i]</td>
+                                    <td>@results[27][i]@results[23][i]</td>
+                                    <td>@results[4][i]</td>
+                                    <td>@results[5][i]</td>
+                                    @if (this.Session["role"].ToString() == "admin")
+                                    {
+                                        <td align="center">
+                                            <button onclick="fun_edit(this);" value="@results[0][i]" class="btn btn-primary">Edit</button>
+                                            <button onclick="fun_del(this);" value="@results[0][i]" class="btn btn-danger">Delete</button>
+                                        </td>
+                                    }
+                                </tr>
                                 }
                             </tbody>
                         </table>
