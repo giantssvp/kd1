@@ -845,7 +845,7 @@ namespace kd.Models
             }
         }
 
-        public int insert_booking(string breferred, string bapplicant, string btamount, string bramount, string bblder,
+        public int insert_booking(string breferred, string bapplicant, string btamount,
             string bsite, string bwing, string bflats, string bcharges, string other, string bparking, string bcancel,
             string bfollowup, string bstatus, string bremark, string type = "insert", int id = 0)
         {
@@ -858,8 +858,6 @@ namespace kd.Models
                         " Referenceby = @bref," +
                         " Applicant_Id = @bappl," +
                         " Total_Flat_Amount = @btamt," +
-                        " Received_Amount = @bramt," +
-                        " Total_Builder_Received = @bbldr," +
                         " Site_Id = @bsite," +
                         " Wing = @bwing," +
                         " Flat = @bflat," +
@@ -874,9 +872,9 @@ namespace kd.Models
                 else
                 {
                     query = "INSERT INTO bookings (Referenceby, Applicant_Id, Total_Flat_Amount, " +
-                        "Received_Amount, Total_Builder_Received, Site_Id, Wing, Flat, Internal_Charges, Other, Reserved_Parking, " +
+                        "Site_Id, Wing, Flat, Internal_Charges, Other, Reserved_Parking, " +
                         "Flat_Cancled_By, Follow_Up_Date, Remark, Status, Date) " +
-                    "VALUES(@bref, @bappl, @btamt, @bramt, @bbldr, @bsite, @bwing, @bflat, @bchrg, @other, @bpark, @bcan," +
+                    "VALUES(@bref, @bappl, @btamt, @bsite, @bwing, @bflat, @bchrg, @other, @bpark, @bcan," +
                     " @bflp, @bremark, @bsts, NOW())";
                 }
 
@@ -885,9 +883,7 @@ namespace kd.Models
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@bref", breferred);
                     cmd.Parameters.AddWithValue("@bappl", bapplicant);
-                    cmd.Parameters.AddWithValue("@btamt", btamount);
-                    cmd.Parameters.AddWithValue("@bramt", bramount);
-                    cmd.Parameters.AddWithValue("@bbldr", bblder);
+                    cmd.Parameters.AddWithValue("@btamt", btamount);                    
                     cmd.Parameters.AddWithValue("@bsite", bsite);
                     cmd.Parameters.AddWithValue("@bwing", bwing);
                     cmd.Parameters.AddWithValue("@bflat", bflats);

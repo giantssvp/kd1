@@ -2265,7 +2265,7 @@ namespace kd.Controllers
             }
         }
 
-        public ActionResult add_booking(string breferred, string bapplicant, string btamount, string bramount, string bblder,
+        public ActionResult add_booking(string breferred, string bapplicant, string btamount,
             string bsite, string bwing, string bflats, string bcharges, string other, string bparking, string bcancel,
             string bfollowup, string bstatus, string bremark, string submit_btn, string edit_id = "0")
         {
@@ -2273,7 +2273,7 @@ namespace kd.Controllers
             {
                 if (submit_btn == "Save" && isUserAuthenticated())
                 {
-                    if (obj.insert_booking(breferred, bapplicant, btamount, bramount, bblder, bsite, bwing, bflats, 
+                    if (obj.insert_booking(breferred, bapplicant, btamount, bsite, bwing, bflats, 
                         bcharges, other, bparking, bcancel, bfollowup, bstatus, bremark) == 1)
                     {
                         TempData["AlertMessage"] = "All the details saved successfully.";
@@ -2286,7 +2286,7 @@ namespace kd.Controllers
                 else if (submit_btn == "Update" && isUserAuthenticated())
                 {
                     int id = Int32.Parse(edit_id);
-                    if (obj.insert_booking(breferred, bapplicant, btamount, bramount, bblder, bsite, bwing, bflats, 
+                    if (obj.insert_booking(breferred, bapplicant, btamount, bsite, bwing, bflats, 
                         bcharges, other, bparking, bcancel, bfollowup, bstatus, bremark, "edit", id) == 1)
                     {
                         TempData["AlertMessage"] = "All the details updated successfully.";
