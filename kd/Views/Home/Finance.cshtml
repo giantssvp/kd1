@@ -54,11 +54,11 @@
                                         </select>
                                     </td>
                                     <td><label class="control-label">Finance Name</label></td>
-                                    <td> <input type="text" name="finname" required @(edit ? new { value = elist[2].Replace(" ", "\u00A0") } : null)></td>
+                                    <td> <input type="text" name="finname" required @(edit ? (elist[2] != "" ? new { value = elist[2].Replace(" ", "\u00A0") } : null) : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Finance Executive</label></td>
-                                    <td><input type="text" name="finexe" id="required" @(edit ? new { value = elist[3].Replace(" ", "\u00A0") } : null)></td>
+                                    <td><input type="text" name="finexe" id="required" @(edit ? (elist[3] != "" ? new { value = elist[3].Replace(" ", "\u00A0") } : null) : null)></td>
 
                                     <td><label class="control-label">Finance Executive Mobile No</label></td>
                                     <td><input type="number" name="finexemob" id="required" @(edit ? new { value = elist[4] } : null)></td>
@@ -103,9 +103,9 @@
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">File Rejected Finance</label></td>
-                                    <td> <input type="text" name="finstat" id="required" @(edit ? new { value = elist[22].Replace(" ", "\u00A0") } : null)></td>
+                                    <td> <input type="text" name="finstat" id="required" @(edit ? (elist[22] != "" ? new { value = elist[22].Replace(" ", "\u00A0") } : null) : null)></td>
                                     <td><label class="control-label">Rate Of Interest</label></td>
-                                    <td><input type="text" name="rateofinter" id="required" @(edit ? new { value = elist[19].Replace(" ", "\u00A0") } : null)></td>
+                                    <td><input type="text" name="rateofinter" id="required" @(edit ? (elist[19] != "" ? new { value = elist[19].Replace(" ", "\u00A0") } : null) : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">EMI Amount</label></td>

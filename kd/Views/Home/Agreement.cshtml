@@ -44,7 +44,7 @@
                             <tbody>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Agreement No</label></td>
-                                    <td><input type="text" name="ano" required @(edit ? new { value = elist[3] } : null)></td>
+                                    <td><input type="text" name="ano" required @(edit ? (elist[3] != "" ? new { value = elist[3].Replace(" ", "\u00A0") } : null) : null)></td>
                                     <td><label class="control-label">Agreement Date</label></td>
                                     <td> <input type="date" name="adate" required @(new { value = (edit ? Convert.ToDateTime(elist[2]).ToString("yyyy-MM-dd") : DateTime.Today.ToString("yyyy-MM-dd")) } )></td>
 
@@ -65,7 +65,7 @@
                                     <td><label class="control-label">GST Amount</label></td>
                                     <td><input type="number" name="gst" id="required" @(edit ? new { value = elist[12] } : null)></td>
                                     <td><label class="control-label">Agreement Status</label></td>
-                                    <td><input type="text" name="astatus" id="required" @(edit ? new { value = elist[4].Replace(" ", "\u00A0") } : null)></td>
+                                    <td><input type="text" name="astatus" id="required" @(edit ? (elist[4] != "" ? new { value = elist[4].Replace(" ", "\u00A0") } : null) : null)></td>
                                 </tr>
                                 @Html.Partial("booking_fk")
                                 <tr class="odd gradeX">

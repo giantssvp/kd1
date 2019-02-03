@@ -47,7 +47,7 @@
                                     <td><label class="control-label">Amount</label></td>
                                     <td><input type="number" name="pamt" required @(edit ? new { value = elist[1] } : null)></td>
                                     <td><label class="control-label">Status</label></td>
-                                    <td><input type="text" name="sts" id="required" @(edit ? new { value = elist[13].Replace(" ", "\u00A0") } : null)></td>
+                                    <td><input type="text" name="sts" id="required" @(edit ? (elist[13] != "" ? new { value = elist[13].Replace(" ", "\u00A0") } : null) : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Payment Mode</label></td>
@@ -61,13 +61,13 @@
                                         </select>
                                     </td>
                                     <td><label class="control-label">Cheque ID</label></td>
-                                    <td><input type="text" name="chkid" required @(edit ? new { value = elist[4].Replace(" ", "\u00A0") } : null)></td>
+                                    <td><input type="text" name="chkid" required @(edit ? (elist[4] != "" ? new { value = elist[4].Replace(" ", "\u00A0") } : null) : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Cheque Date</label></td>
                                     <td> <input type="date" name="chkdate" required @(new { value = (edit ? Convert.ToDateTime(elist[5]).ToString("yyyy-MM-dd") : DateTime.Today.ToString("yyyy-MM-dd")) } )></td>
                                     <td><label class="control-label">Bank Name</label></td>
-                                    <td><input type="text" name="bname" id="required" @(edit ? new { value = elist[6].Replace(" ", "\u00A0") } : null)></td>
+                                    <td><input type="text" name="bname" id="required" @(edit ? (elist[6] != "" ? new { value = elist[6].Replace(" ", "\u00A0") } : null) : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Payment Type</label></td>

@@ -53,13 +53,13 @@
                                         <select name="site" id="site" style="max-width:70%;">    </select>
                                     </td>
                                     <td><label class="control-label">Type</label></td>
-                                    <td> <input type="text" name="type" id="required" @(edit ? new { value = elist[2].Replace(" ", "\u00A0") } : null)></td>
+                                    <td> <input type="text" name="type" id="required" @(edit ? (elist[2] != "" ? new { value = elist[2].Replace(" ", "\u00A0") } : null) : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Area</label></td>
-                                    <td><input type="text" name="area" required @(edit ? new { value = elist[16].Replace(" ", "\u00A0") } : null)></td>
+                                    <td><input type="text" name="area" required @(edit ? (elist[16] != "" ? new { value = elist[16].Replace(" ", "\u00A0") } : null) : null)></td>
                                     <td><label class="control-label">RR Rate</label></td>
-                                    <td><input type="text" name="rr_rate" id="required" @(edit ? new { value = elist[1].Replace(" ", "\u00A0") } : null)></td>
+                                    <td><input type="text" name="rr_rate" id="required" @(edit ? (elist[1] != "" ? new { value = elist[1].Replace(" ", "\u00A0") } : null) : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Basic Rate</label></td>

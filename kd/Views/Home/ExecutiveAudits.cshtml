@@ -54,7 +54,7 @@
                                 @Html.Partial("booking_fk")
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Total Share</label></td>
-                                    <td> <input type="text" name="share" id="required" @(edit ? new { value = elist[5].Replace(" ", "\u00A0") } : null)></td>
+                                    <td> <input type="text" name="share" id="required" @(edit ? (elist[5] != "" ? new { value = elist[5].Replace(" ", "\u00A0") } : null) : null)></td>
 
                                     @if (edit)
                                     {

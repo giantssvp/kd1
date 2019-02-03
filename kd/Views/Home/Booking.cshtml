@@ -48,7 +48,7 @@
                                         <select name="bapplicant" id="bapplicant" style="max-width:65%;">    </select>
                                     </td>
                                     <td><label class="control-label">Referred By</label></td>
-                                    <td> <input type="text" name="breferred" id="required" @(edit ? new { value = elist[1].Replace(" ", "\u00A0") } : null)></td>
+                                    <td> <input type="text" name="breferred" id="required" @(edit ? (elist[1] != "" ? new { value = elist[1].Replace(" ", "\u00A0") } : null) : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Total Flat Amount</label></td>
@@ -74,7 +74,7 @@
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Remarks</label></td>
-                                    <td><input type="text" name="bremark" id="required" @(edit ? new { value = elist[14].Replace(" ", "\u00A0") } : null)></td>
+                                    <td><input type="text" name="bremark" id="required" @(edit ? (elist[14] != "" ? new { value = elist[14].Replace(" ", "\u00A0") } : null) : null)></td>
                                     <td><label class="control-label">Status</label></td>
                                     <td>
                                         <select name="bstatus" id="bstatus" style="max-width:65%;">
@@ -93,7 +93,7 @@
                                         </select>
                                     </td>
                                     <td><label class="control-label">Flat Cancelled By</label></td>
-                                    <td> <input type="text" name="bcancel" id="required" @(edit ? new { value = elist[12].Replace(" ", "\u00A0") } : null)></td>
+                                    <td> <input type="text" name="bcancel" id="required" @(edit ? (elist[12] != "" ? new { value = elist[12].Replace(" ", "\u00A0") } : null) : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Follow Up Date</label></td>

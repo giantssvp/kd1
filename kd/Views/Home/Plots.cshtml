@@ -63,7 +63,7 @@
                                     <td><label class="control-label">Plot Area</label></td>
                                     <td><input type="number" name="plotarea" id="required" @(edit ? new { value = elist[3] } : null)></td>
                                     <td><label class="control-label">Plot Status</label></td>
-                                    <td><input type="text" name="plotstatus" id="required" @(edit ? new { value = elist[4].Replace(" ", "\u00A0") } : null)></td>
+                                    <td><input type="text" name="plotstatus" id="required" @(edit ? (elist[4] != "" ? new { value = elist[4].Replace(" ", "\u00A0") } : null) : null)></td>
                                 </tr>
                                 <tr class="odd gradeX">
                                     @if (edit)

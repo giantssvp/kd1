@@ -45,7 +45,7 @@
                             <tbody>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Site Name</label></td>
-                                    <td><input type="text" name="sitename" required @(edit ? new { value = elist[1].Replace(" ", "\u00A0") } : null)></td>
+                                    <td><input type="text" name="sitename" required @(edit ? (elist[1] != "" ? new { value = elist[1].Replace(" ", "\u00A0") } : null) : null)></td>
                                     <td><label class="control-label">Site Type</label></td>
                                     <td>
                                         <select name="sitetype" id="required">
@@ -56,7 +56,7 @@
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Site Address</label></td>
-                                    <td> <input type="text" name="siteaddress" id="required" @(edit ? new { value = elist[5].Replace(" ", "\u00A0") } : null)></td>
+                                    <td> <input type="text" name="siteaddress" id="required" @(edit ? (elist[5] != "" ? new { value = elist[5].Replace(" ", "\u00A0") } : null) : null)></td>
                                     <td><label class="control-label">Phone No</label></td>
                                     <td><input type="number" name="sitephone" id="required"  @(edit ? new { value = elist[4] } : null)></td>
                                 </tr>
@@ -75,7 +75,7 @@
                                 </tr>
                                 <tr class="odd gradeX">
                                     <td><label class="control-label">Status</label></td>
-                                    <td> <input type="text" name="sitestatus" id="required" @(edit ? new { value = elist[7].Replace(" ", "\u00A0") } : null)></td>
+                                    <td> <input type="text" name="sitestatus" id="required" @(edit ? (elist[7] != "" ? new { value = elist[7].Replace(" ", "\u00A0") } : null) : null)></td>
                                     @if (edit)
                                     {
                                         <td><input type="submit" name="submit_btn" value="Update" class="btn btn-success" /></td>
